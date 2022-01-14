@@ -65,6 +65,12 @@
 <br>
 <br>
 
+### git flow
+---
+![gitflow](https://user-images.githubusercontent.com/66542103/149511597-52d228f6-0e3f-4752-8cbe-2a270e7fdaee.png)
+<br>
+<br>
+
 ### Centum 💻
 ---
 ##### Front-End
