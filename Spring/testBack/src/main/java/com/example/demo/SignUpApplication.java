@@ -8,7 +8,7 @@ import com.example.demo.dto.UserInfoDto;
 
 
 @SpringBootApplication
-public class LoginApplication {
+public class SignUpApplication {
 	private UserInfoMapper uMapper;
 	
 	// 테스트를 위한 유저 세팅
@@ -19,6 +19,18 @@ public class LoginApplication {
 		testUser.setPw("testPassword");
 		testUser.setUserLevel(0);
 		testUser.setNickName("testNickName");
+	}
+	
+	public boolean UserSignUp(String id, String nickName, String pw) {
+		
+		UserInfoDto user = new UserInfoDto();
+		
+		user.setId(id);
+		user.setNickName(nickName);
+		user.setUserLevel(0);
+		user.setPw(pw);
+		
+		return true;
 	}
 
 }

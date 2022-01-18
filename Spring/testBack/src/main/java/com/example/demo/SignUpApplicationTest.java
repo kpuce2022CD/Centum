@@ -24,7 +24,7 @@ public class SignUpApplicationTest {
  		testUser.setPw("testPassword");
  		testUser.setUserLevel(0);
  		testUser.setNickName("testNick");
- 		System.out.println(testUser.toString());
+
  		uMapper.insertUser(testUser);
  		
  		System.out.println(uMapper.selectOneUser("testUser"));
