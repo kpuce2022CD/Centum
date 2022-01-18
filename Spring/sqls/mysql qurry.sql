@@ -1,5 +1,7 @@
 create database boxfolio default character set utf8;
 
+show databases;
+
 use boxfolio;
 
 show tables;

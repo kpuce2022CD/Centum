@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 
-<mapper namespace="com.example.demo.dao.UserMapper">
+<mapper namespace="com.example.demo.dao.UserInfoMapper">
     <insert id="insertUser" parameterType="userInfoDto">
         INSERT INTO userInfo VALUES (#{id}, #{nickName}, #{userLevel}, #{pw})
     </insert>
