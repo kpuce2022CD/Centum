@@ -110,11 +110,11 @@ header {
   padding-bottom: 40px;
 }
 
-.login_inner {
+.login_wrap {
   border: 1px solid #c6c6c6;
   border-radius: 6px;
   box-shadow: 0 5px 8px 0 rgb(68 68 68 / 4%);
-  padding: 24px;
+  padding: 60px;
 }
 
 .login_header {
@@ -152,6 +152,11 @@ header {
   margin-top: 20px;
 }
 
+.auto-login-area label {
+  padding-top: 10px;
+  color: #c6c6c6;
+}
+
 .login_btn {
   display: block;
   width: 100%;
@@ -178,23 +183,12 @@ header {
   color: red;
 }
 
-.signup-area {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.find-area {
+  text-align: center;
 }
 
-.signup_btn {
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
-  color: #A6A6A6;
-  font-size: 12px;
-  margin-top: 20px;
-}
-
-.signup_btn:hover {
-  color: white;
+.find-area li {
+  color: #c6c6c6;
 }
 
 @keyframes font-color {
