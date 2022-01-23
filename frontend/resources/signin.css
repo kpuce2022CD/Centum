@@ -148,6 +148,7 @@ header {
 
 .input_row input {
   border: none;
+  width: 270px;
 }
 
 .login-area {
@@ -189,11 +190,17 @@ header {
 }
 
 .find-area {
-  text-align: center;
+  padding-bottom: 30px;
 }
 
 .find-area li {
   color: #c6c6c6;
+  float: left;
+  padding: 8px;
+}
+
+.find-area a:hover {
+  animation: font-color 0.2s linear both;
 }
 
 @keyframes font-color {
