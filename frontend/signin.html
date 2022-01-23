@@ -62,44 +62,46 @@
     <section class="main">
       <div class="wrap">
         <div class="main_container">
-          <div class="login_wrap">
-            <div class="login_header">
-              <h2>로그인</h2>
-            </div>
-            <!-- id -->
-            <div class="input_row" id="id-area">
-              <div class="id-icon">
-                <i class="far fa-user"></i>
+          <form action="#" method="post">
+            <div class="login_wrap">
+              <div class="login_header">
+                <h2>로그인</h2>
               </div>
-              <input type="text" name="id" id="input_id" placeholder="아이디" title="ID">
-            </div>
-            <!-- passwd -->
-            <div class="input_row" id="pw-area">
-              <div class="pw-icon">
-                <i class="fas fa-unlock-alt"></i>
+              <!-- id -->
+              <div class="input_row" id="id-area">
+                <div class="id-icon">
+                  <i class="far fa-user"></i>
+                </div>
+                <input type="text" name="id" id="input_id" placeholder="아이디" title="ID">
               </div>
-              <input type="password" name="passwd" id="input_pw" placeholder="비밀번호" title="PASSWORD">
+              <!-- passwd -->
+              <div class="input_row" id="pw-area">
+                <div class="pw-icon">
+                  <i class="fas fa-unlock-alt"></i>
+                </div>
+                <input type="password" name="passwd" id="input_pw" placeholder="비밀번호" title="PASSWORD">
+              </div>
+              <!-- login 유지 -->
+              <div class="auto-login-area">
+                <label><input type="checkbox">로그인 상태 유지</label>
+              </div>
+              <!-- error message -->
+              <div class="error-msg-area">
+              </div>
+              <!-- login button -->
+              <div class="login-area">
+                <a class="login_btn" href="#">
+                  <span class="btn_text">로그인</span>
+                </a>
+              </div>
+              <!-- find -->
+              <ul class="find-area">
+                <li><a href="#">아이디 찾기</a></li>
+                <li><a href="#">비밀번호 찾기</a></li>
+                <li><a href="#">회원가입</a></li>
+              </ul>
             </div>
-            <!-- login 유지 -->
-            <div class="auto-login-area">
-              <label><input type="checkbox">로그인 상태 유지</label>
-            </div>
-            <!-- error message -->
-            <div class="error-msg-area">
-            </div>
-            <!-- login button -->
-            <div class="login-area">
-              <a class="login_btn" href="#">
-                <span class="btn_text">로그인</span>
-              </a>
-            </div>
-            <!-- find -->
-            <ul class="find-area">
-              <li><a href="#">아이디 찾기</a></li>
-              <li><a href="#">비밀번호 찾기</a></li>
-              <li><a href="#">회원가입</a></li>
-            </ul>
-          </div>
+          </form>
         </div>
       </div>
     </section>

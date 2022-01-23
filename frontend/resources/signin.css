@@ -114,20 +114,22 @@ header {
   border: 1px solid #c6c6c6;
   border-radius: 6px;
   box-shadow: 0 5px 8px 0 rgb(68 68 68 / 4%);
-  padding: 60px;
+  padding: 40px 60px;
 }
 
 .login_header {
   color: #dadada;
+  width: 300px;
   text-align: center;
-  margin-bottom: 35px;
+  font-size: large;
+  margin-bottom: 40px;
   border-bottom: solid 1px #dadada;
 }
 
 .input_row {
   display: flex;
   align-items: center;
-  padding: 10px 11px 10px 12px;
+  padding: 12px;
   border: 1px solid #dadada;
 }
 
@@ -152,13 +154,17 @@ header {
   margin-top: 20px;
 }
 
-.auto-login-area label {
+.auto-login-area {
   padding-top: 10px;
-  color: #c6c6c6;
+}
+
+.auto-login-area label {
+  color: #dadada;
 }
 
 .login_btn {
   display: block;
+  text-align: center;
   width: 100%;
   padding: 9px 0 10px;
   cursor: pointer;
@@ -172,8 +178,7 @@ header {
 }
 
 .login_btn .btn_text {
-  font-size: 18px;
-  font-weight: 700;
+  font-weight: bold;
   line-height: 20px;
   color: #fff;
 }
