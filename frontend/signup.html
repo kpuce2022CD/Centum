@@ -71,7 +71,7 @@
               <div class="id-area">
                 <h3 class="join-title">아이디</h3>
                 <span class="id-box">
-                  <input type="text" id="id" name="id" title="ID" maxlength="20">
+                  <input type="text" id="id" name="id" title="ID" maxlength="20" required>
                   <span>
                     <button class="id_overlap_btn">중복 검사</button>
                   </span>
@@ -84,7 +84,7 @@
               <div class="pw-area">
                 <h3 class="join-title">비밀번호</h3>
                 <div class="join-box">
-                  <input type="password" id="passwd" name="password" title="PW" maxlength="20">
+                  <input type="password" id="passwd" name="password" title="PW" maxlength="20" required>
                 </div>
                 <span class="error-msg" style="display: none;" aria-live="assertive">
                   필수 정보입니다.
@@ -94,13 +94,91 @@
               <div class="check-pw-area">
                 <h3 class="join-title">비밀번호 재확인</h3>
                 <div class="join-box">
-                  <input type="password" id="passwd_check" name="password_check" title="PW_CHECK" maxlength="20">
+                  <input type="password" id="passwd_check" name="password_check" title="PW_CHECK" maxlength="20" required>
                 </div>
                 <span class="error-msg" style="display: none;" aria-live="assertive">
                   필수 정보입니다.
                 </span>
               </div>
-              <!--  -->
+              <!-- name -->
+              <div class="name-area">
+                <h3 class="join-title">이름</h3>
+                <div class="join-box">
+                  <input type="text" id="name" name="name" title="NAME" maxlength="20" required>
+                </div>
+                <span class="error-msg" style="display: none;" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
+              </div>
+              <!-- nickname -->
+              <div class="nickname-area">
+                <h3 class="join-title">닉네임</h3>
+                <div class="join-box">
+                  <input type="text" id="nickname" name="nickname" title="NICKNAME" required>
+                </div>
+                <span class="error-msg" style="display: none;" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
+              </div>
+              <!-- tel -->
+              <div class="tel-area">
+                <h3 class="join-title">전화번호</h3>
+                <div class="join-box">
+                  <input type="number" id="tel" name="tel" title="TEL" required>
+                </div>
+                <span class="error-msg" style="display: none;" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
+              </div>
+              <!-- email -->
+              <div class="email-area">
+                <h3 class="join-title">이메일</h3>
+                <div class="join-box">
+                  <input type="email" id="email" name="email" title="EMAIL" required>
+                </div>
+                <span class="error-msg" style="display: none;" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
+              </div>
+              <!-- interest -->
+              <div class="interest-area">
+                <h3 class="join-title">관심 분야</h3>
+                  <select class="join-box" id="interest" name="interest" required>
+                    <option value="" selected>관심 분야</option>
+                    <option value="frontend">웹/프론트엔드</option>
+                    <option value="backend">웹/백엔드</option>
+                    <option value="android">앱/안드로이드</option>
+                    <option value="ios">앱/IOS</option>
+                    <option value="embeded">하드/임베디드</option>
+                    <option value="IoT">하드/IOT</option>
+                    <option value="AI">AI</option>
+                    <option value="security">보안</option>
+                  </select>
+                  <span class="error-msg" style="display: none;" aria-live="assertive">
+                    필수 정보입니다.
+                  </span>
+              </div>
+              <!-- birthday -->
+              
+              <!-- sex -->
+              <div class="sex-area">
+                <h3 class="join-title">성별</h3>
+                  <select class="join-box" id="sex" name="sex" required>
+                    <option value="" selected>성별</option>
+                    <option value="man">남자</option>
+                    <option value="woman">여자</option>
+                  </select>
+                  <span class="error-msg" style="display: none;" aria-live="assertive">
+                    필수 정보입니다.
+                  </span>
+              </div>
+              <!-- github -->
+              <div class="github-area">
+                <h3 class="join-title">github 아이디</h3>
+                <div class="join-box">
+                  <input type="text" id="github" name="github" title="GITHUB">
+                </div>
+              </div>
             </div>
           </form>
         </div>
