@@ -28,6 +28,11 @@ input {
   width: 100%;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
 a:link {
     text-decoration: none;
 }
@@ -122,7 +127,7 @@ header {
 
 .signup_header {
   color: #000;
-  width: 300px;
+  width: 400px;
   text-align: center;
   font-size: large;
   margin-bottom: 40px;
@@ -167,6 +172,21 @@ header {
 
 .name-area {
   margin-top: 23px;
+}
+
+.bir-wrap {
+  display: table;
+  width: 100%;
+}
+
+.bir_yy, .bir_mm, .bir_dd {
+  display: table-cell;
+  table-layout: fixed;
+  width: 147px;
+  vertical-align: middle;
+  border: solid 1px #dadada;
+  padding: 10px 14px 10px 14px;
+  box-sizing: border-box;
 }
 
 @keyframes font-color {

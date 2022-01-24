@@ -143,34 +143,50 @@
               <!-- interest -->
               <div class="interest-area">
                 <h3 class="join-title">관심 분야</h3>
-                  <select class="join-box" id="interest" name="interest" required>
-                    <option value="" selected>관심 분야</option>
-                    <option value="frontend">웹/프론트엔드</option>
-                    <option value="backend">웹/백엔드</option>
-                    <option value="android">앱/안드로이드</option>
-                    <option value="ios">앱/IOS</option>
-                    <option value="embeded">하드/임베디드</option>
-                    <option value="IoT">하드/IOT</option>
-                    <option value="AI">AI</option>
-                    <option value="security">보안</option>
-                  </select>
-                  <span class="error-msg" style="display: none;" aria-live="assertive">
-                    필수 정보입니다.
-                  </span>
+                <select class="join-box" id="interest" name="interest" required>
+                  <option value="" selected>관심 분야</option>
+                  <option value="frontend">웹/프론트엔드</option>
+                  <option value="backend">웹/백엔드</option>
+                  <option value="android">앱/안드로이드</option>
+                  <option value="ios">앱/IOS</option>
+                  <option value="embeded">하드/임베디드</option>
+                  <option value="IoT">하드/IOT</option>
+                  <option value="AI">AI</option>
+                  <option value="security">보안</option>
+                </select>
+                <span class="error-msg" style="display: none;" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
               </div>
               <!-- birthday -->
-              
+              <div class="birthday-area">
+                <h3 class="join-title">생년월일</h3>
+                <div class="bir-wrap">
+                  <div class="bir_yy">
+                    <input type="text" id="yy" placeholder="년" maxlength="4" required>
+                  </div>
+                  <div class="bir_mm">
+                    <input type="text" id="mm" placeholder="월" maxlength="2" required>
+                  </div>
+                  <div class="bir_dd">
+                    <input type="text" id="dd" placeholder="일" maxlength="2" required>
+                  </div>
+                </div>
+                <span class="error-msg" style="display: none;" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
+              </div>
               <!-- sex -->
               <div class="sex-area">
                 <h3 class="join-title">성별</h3>
-                  <select class="join-box" id="sex" name="sex" required>
-                    <option value="" selected>성별</option>
-                    <option value="man">남자</option>
-                    <option value="woman">여자</option>
-                  </select>
-                  <span class="error-msg" style="display: none;" aria-live="assertive">
-                    필수 정보입니다.
-                  </span>
+                <select class="join-box" id="sex" name="sex" required>
+                  <option value="" selected>성별</option>
+                  <option value="man">남자</option>
+                  <option value="woman">여자</option>
+                </select>
+                <span class="error-msg" style="display: none;" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
               </div>
               <!-- github -->
               <div class="github-area">
