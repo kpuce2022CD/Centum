@@ -10,7 +10,6 @@ html {
 body {
   height: 100%;
   margin: 0 auto;
-  color: #353535;
   font-family: "맑은 고딕", "굴림";
 }
 
@@ -52,8 +51,7 @@ a:hover {
 header {
   width: 100%;
   height: 120px;
-  background-color: #353535;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #000;
 }
 
 .header-container {
@@ -64,7 +62,7 @@ header {
 }
 
 .logo a {
-  color: #fff;
+  color: #000;
   font-size: 32px;
   font-weight: bold;
   margin: 0 20px;
@@ -75,7 +73,7 @@ header {
 }
 
 .nav a {
-  color: #fff;
+  color: #000;
   padding: 20px 40px;
 }
 
@@ -84,8 +82,8 @@ header {
 }
 
 .start-btn {
-  color: #fff;
-  border: 1px solid #fff;
+  color: #000;
+  border: 1px solid #000;
   border-radius: 5px;
   padding: 15px 35px;
 }
@@ -98,7 +96,6 @@ header {
 .main {
   width: 100%;
   height: 100vh;
-  background-color: #353535;
 }
 
 .main_container {
@@ -111,44 +108,47 @@ header {
 }
 
 .login_wrap {
-  border: 1px solid #c6c6c6;
+  border: 1px solid #000;
   border-radius: 6px;
   box-shadow: 0 5px 8px 0 rgb(68 68 68 / 4%);
   padding: 40px 60px;
 }
 
 .login_header {
-  color: #dadada;
+  color: #000;
   width: 300px;
   text-align: center;
   font-size: large;
   margin-bottom: 40px;
-  border-bottom: solid 1px #dadada;
+  border-bottom: solid 1px #000;
 }
 
 .input_row {
   display: flex;
   align-items: center;
   padding: 12px;
-  border: 1px solid #dadada;
+  border: 1px solid #000;
 }
 
-.input_row:first-child {
+
+#id-area {
   border-radius: 6px 6px 0 0;
 }
 
-.input_row:last-child {
+#pw-area {
   border-radius: 0 0 6px 6px;
   margin-top: -1px;
 }
 
 .id_icon, .pw_icon {
   margin-left: 5px;
+  margin-right: 5px;
 }
 
 .input_row input {
   border: none;
-  width: 270px;
+  width: 260px;
+  margin-left: 5px;
 }
 
 .login-area {
@@ -160,7 +160,7 @@ header {
 }
 
 .auto-login-area label {
-  color: #dadada;
+  color: #bbb;
 }
 
 .login_btn {
@@ -169,7 +169,7 @@ header {
   width: 100%;
   padding: 9px 0 10px;
   cursor: pointer;
-  border: 1px solid #fff;
+  border: 1px solid #000;
   border-radius: 5px;
   background-color: transparent;
 }
@@ -181,7 +181,7 @@ header {
 .login_btn .btn_text {
   font-weight: bold;
   line-height: 20px;
-  color: #fff;
+  color: #000;
 }
 
 .error-msg-area {
@@ -194,7 +194,7 @@ header {
 }
 
 .find-area li {
-  color: #c6c6c6;
+  color: #bbb;
   float: left;
   padding: 8px;
 }

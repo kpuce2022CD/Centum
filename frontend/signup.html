@@ -22,7 +22,7 @@
 <!--    <link rel="short icon" type="image/x-icon" href="resources/social-care.png">-->
 
     <!--CSS-->
-    <link rel="stylesheet" href="resources/signin.css">
+    <link rel="stylesheet" href="resources/signup.css">
     <!--fontawesome-->
     <script src="https://kit.fontawesome.com/494ceb3960.js" crossorigin="anonymous"></script>
 </head>
@@ -62,7 +62,47 @@
     <section class="main">
       <div class="wrap">
         <div class="main_container">
-          
+          <form action="#" method="post">
+            <div class="signup_wrap">
+              <div class="signup_header">
+                <h2>회원가입</h2>
+              </div>
+              <!-- id -->
+              <div class="id-area">
+                <h3 class="join-title">아이디</h3>
+                <span class="id-box">
+                  <input type="text" id="id" name="id" title="ID" maxlength="20">
+                  <span>
+                    <button class="id_overlap_btn">중복 검사</button>
+                  </span>
+                </span>
+                <span class="error-msg" style="display: none;" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
+              </div>
+              <!-- password -->
+              <div class="pw-area">
+                <h3 class="join-title">비밀번호</h3>
+                <div class="join-box">
+                  <input type="password" id="passwd" name="password" title="PW" maxlength="20">
+                </div>
+                <span class="error-msg" style="display: none;" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
+              </div>
+              <!-- check password -->
+              <div class="check-pw-area">
+                <h3 class="join-title">비밀번호 재확인</h3>
+                <div class="join-box">
+                  <input type="password" id="passwd_check" name="password_check" title="PW_CHECK" maxlength="20">
+                </div>
+                <span class="error-msg" style="display: none;" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
+              </div>
+              <!--  -->
+            </div>
+          </form>
         </div>
       </div>
     </section>
