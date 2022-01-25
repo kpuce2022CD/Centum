@@ -140,16 +140,6 @@ header {
   font-weight: 700;
 }
 
-.id-box {
-  display: block;
-  position: relative;
-  height: 51px;
-  width: 100%;
-  border: solid 1px #dadada;
-  padding: 10px 110px 10px 14px;
-  box-sizing: border-box;
-}
-
 .id_overlap_btn {
   position: absolute;
   top: 14px;
@@ -164,6 +154,13 @@ header {
   border: solid 1px #dadada;
   padding: 10px 14px 10px 14px;
   box-sizing: border-box;
+}
+
+.error-msg {
+  display: none;
+  color: red;
+  font-size: 12px;
+  margin-top: 9px;
 }
 
 .pw-area {
@@ -185,8 +182,43 @@ header {
   width: 147px;
   vertical-align: middle;
   border: solid 1px #dadada;
-  padding: 10px 14px 10px 14px;
+  padding: 11px 14px;
   box-sizing: border-box;
+}
+
+.github-area .choice {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.choice {
+  color: #8e8e8e;
+  padding-left: 3px;
+}
+
+.signup-area {
+  margin-top: 20px;
+}
+
+.signup_btn {
+  display: block;
+  text-align: center;
+  width: 100%;
+  padding: 9px 0 10px;
+  cursor: pointer;
+  border: 1px solid #000;
+  border-radius: 5px;
+  background-color: transparent;
+}
+
+.signup_btn:hover {
+  animation: btn-color 0.2s linear both;
+}
+
+.signup_btn .btn_text {
+  font-weight: bold;
+  line-height: 20px;
+  color: #000;
 }
 
 @keyframes font-color {
