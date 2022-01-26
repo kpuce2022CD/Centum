@@ -200,25 +200,22 @@ header {
   margin-top: 20px;
 }
 
-.signup_btn {
-  display: block;
-  text-align: center;
-  width: 100%;
-  padding: 9px 0 10px;
-  cursor: pointer;
-  border: 1px solid #000;
-  border-radius: 5px;
-  background-color: transparent;
+#signup-btn {
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 9px 0 10px;
+    cursor: pointer;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: transparent;
+    font-weight: bold;
+    line-height: 20px;
+    color: #000;
 }
 
-.signup_btn:hover {
+#signup-btn:hover {
   animation: btn-color 0.2s linear both;
-}
-
-.signup_btn .btn_text {
-  font-weight: bold;
-  line-height: 20px;
-  color: #000;
 }
 
 @keyframes font-color {

@@ -14,7 +14,7 @@ public class UserController {
 
     @PostMapping("/signup")
     public String signup() {
-        return "/home/home";
+        return "/user/signup_result";
     }
 
     @GetMapping("/login")
@@ -24,6 +24,6 @@ public class UserController {
 
     @PostMapping("/login")
     public String login() {
-        return "/home/home";
+        return "redirect:/";
     }
 }
