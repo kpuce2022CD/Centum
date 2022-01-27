@@ -40,6 +40,10 @@ a:hover {
 }
 
 /* wrap */
+#root-wrap {
+  background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+}
+
 .wrap {
   width: 100%;
   height: 100%;
@@ -52,6 +56,7 @@ header {
   width: 100%;
   height: 120px;
   border-bottom: 1px solid #000;
+  background-color: transparent;
 }
 
 .header-container {
@@ -95,11 +100,13 @@ header {
 /* section */
 .main {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 120px);
+  background-color: transparent;
 }
 
 .main_container {
   display: flex;
+  height: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -108,9 +115,10 @@ header {
 }
 
 .login_wrap {
-  border: 1px solid #000;
+  border: 0px solid #000;
   border-radius: 6px;
-  box-shadow: 0 5px 8px 0 rgb(68 68 68 / 4%);
+  background-color: #fff;
+  box-shadow: 0 5px 8px 0 rgb(68 68 68 4%);
   padding: 40px 60px;
 }
 
@@ -149,6 +157,9 @@ header {
   border: none;
   width: 260px;
   margin-left: 5px;
+  background-color: transparent;
+  font-size: 16px;
+  padding: 5px 0;
 }
 
 .login-area {
@@ -190,12 +201,13 @@ header {
 }
 
 .find-area {
+  display: flex;
+  justify-content: space-around;
   padding-bottom: 30px;
 }
 
 .find-area li {
   color: #bbb;
-  float: left;
   padding: 8px;
 }
 

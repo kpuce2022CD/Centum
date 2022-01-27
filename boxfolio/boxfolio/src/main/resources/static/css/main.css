@@ -100,7 +100,8 @@ header {
 .main {
     width: 100%;
     height: 100vh;
-    background-color: #353535;
+    background: linear-gradient(to left, #91EAE4, #86A8E7, #7F7FD5);
+
 }
 
 .main-container {
@@ -149,14 +150,13 @@ header {
 
 @keyframes font-color {
     100% {
-        color: #FC3526;
+        color: #91EAE4;
     }
 }
 
 @keyframes btn-color {
     100% {
-        color: #000;
-        background-color: #F2593D;
-        border-color: #F2593D;
+        color: #7F7FD5;
+        background-color: #fff;
     }
 }
