@@ -35,13 +35,5 @@ gender.addEventListener("focusout", function() {
 
 // 콜백 함수
 function checkId() {
-  var idPattern = /[a-zA-Z0-9_-]{5,20}/;
-
-  if(id.value === "") {
-      error[0].innerHTML = "필수 정보입니다.";
-      error[0].style.display = "block";
-  } else if(!idPattern.test(id.value)) {
-      error[0].innerHTML = "5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.";
-      error[0].style.display = "block";
-  }
+  
 }
