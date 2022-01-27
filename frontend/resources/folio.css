@@ -1,0 +1,387 @@
+@charset "UTF-8";
+HTML CSS JSResult Skip Results Iframe
+EDIT ON
+/* 공통 */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0 auto;
+    color: #353535;
+    background-color: #353535;
+    font-family: "맑은 고딕", "굴림";
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+a {
+    all: unset;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button{
+    all: unset;
+}
+button:hover{
+    cursor: pointer;
+}
+
+/* wrap */
+.wrap {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* header */
+header {
+    width: 100%;
+    height: 120px;
+    background-color: transparent;
+    border-bottom: 1px solid #fff;
+    /*position: fixed;*/
+}
+
+.header-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo a {
+    color: #fff;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0 20px;
+}
+
+.nav {
+    display: flex;
+}
+
+.nav a {
+    color: #fff;
+    padding: 20px 40px;
+}
+
+.nav a:hover {
+    animation: font-color 0.2s linear both;
+}
+
+.start-btn {
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 15px 35px;
+}
+
+.start-btn:hover {
+    animation: btn-color 0.2s linear both;
+}
+
+/* section */
+
+.folio, .make{
+    float: left;
+}
+
+.folio {
+    width: 20%;
+    height: calc(100vh - 120px);
+    border-right: 1px solid #fff;
+}
+
+.folio-container {
+    height: 35%;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 30px;
+
+}
+
+.folio-container a {
+    font-size: 30px;
+    font-weight: lighter;
+    margin: 20px;
+}
+
+.folio-container a:hover {
+    animation: font-color linear both;
+}
+
+
+.make {
+    width: calc(80% - 1px);
+    height: calc(100vh - 120px);
+}
+
+.set{
+    color: #fff;
+    display: flex;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+.set-pub{
+    margin-top: 15px;
+    border: 1px solid rgb(255, 255, 255);
+    padding: 10px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    background-color: rgb(63, 63, 63);
+}
+.set-pub:hover{
+    cursor: pointer;
+}
+
+.set-pri{
+    margin-top: 15px;
+    border: 1px solid rgb(255, 255, 255);
+    padding: 10px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background-color: rgb(63, 63, 63);
+}
+.set-pri:hover{
+    cursor: pointer;
+}
+
+.make-op{
+    display: flex;
+}
+
+.mk-btn {
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 900px;
+}
+.mk-btn:hover {
+    animation: btn-color 0.2s linear both;
+}
+.video-btn {
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 10px;
+}
+.video-btn:hover {
+    animation: btn-color 0.2s linear both;
+}
+.cor-btn {
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 10px;
+}
+.cor-btn:hover {
+    animation: btn-color 0.2s linear both;
+}
+.del-btn {
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 10px;
+}
+.del-btn:hover {
+    animation: btn-color 0.2s linear both;
+}
+
+
+.fo{
+    width: 80%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tri-left {
+    float: left;
+    width: 0;
+    height: 0;
+    border-top: 70px solid transparent;
+    border-right: 50px solid rgb(104, 104, 104);
+    border-bottom: 70px solid transparent;
+    margin-top: 200px;
+  }
+.tri-left:hover{
+    border-right: 50px solid rgb(44, 44, 44);
+    cursor: pointer;
+}
+
+.rec{
+    float: left;
+    width : 1000px;
+    height : 500px;
+    background-color: rgb(211, 211, 211);
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tri-right {
+    float: left;
+    width: 0;
+    height: 0;
+    border-top: 70px solid transparent;
+    border-left: 50px solid rgb(104, 104, 104);
+    border-bottom: 70px solid transparent;
+    margin-top: 200px;
+  }
+.tri-right:hover{
+    border-left: 50px solid rgb(44, 44, 44);
+    cursor: pointer;
+}
+
+.image-ch{
+    float: left;
+    width : 1000px;
+    height : 500px;
+    border: 1px solid black;
+    background-color: rgb(211, 211, 211);
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+    display: none;
+}
+.container {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+
+}
+
+.image-upload {
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 400px;
+}
+
+.fileContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width : 1000px;
+    height : 500px;
+    margin: 0 auto;
+}
+
+.img {
+    position: absolute;
+}
+
+.info{
+    clear: both;
+    display: flex;
+    margin-left: 275px;
+}
+.info-in{
+    margin-top: 20px;
+}
+.end{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.video-ch{
+    float: left;
+    width : 1000px;
+    height : 500px;
+    border: 1px solid black;
+    background-color: rgb(211, 211, 211);
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+    display: none;
+}
+.hide{
+    float: left;
+    display: flex;
+    justify-content: center;
+    height: 30px;
+    margin-top: 235px;
+    margin-left: 125px;
+}
+.hz{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 1000px;
+    height: 500px;
+    margin: 0 auto;
+}
+
+/* */
+.analysis-btn {
+    border: 1px solid #fff;
+    border-radius: 5px;
+    margin: 40px 20px 0;
+    padding: 20px;
+}
+
+.analysis-btn:hover {
+    animation: btn-color 0.2s linear both;
+}
+
+
+@keyframes font-color {
+    100% {
+        color: #FC3526;
+    }
+}
+
+@keyframes btn-color {
+    100% {
+        color: #000;
+        background-color: #F2593D;
+        border-color: #F2593D;
+    }
+}
