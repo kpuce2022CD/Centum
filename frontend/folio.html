@@ -73,22 +73,19 @@
                 <button id="image-se" onclick="image_up()">사진 추가</button>
             </div>
             <div class="video-btn">
-                <button id="video-se" onclick="video_up()">영상 추가</button>
+                <button id="video-se" onclick="video_up()">유튜브 영상 추가</button>
             </div>
-            <div class="cor-btn">
-                <button id="reset" onclick="reset()">수정</button>
+            <div class="videoF-btn">
+                <button id="videoF-se" onclick="videoF_up()">영상 파일 추가</button>
+            </div>
+            <div class="inf-btn">
+                <button id="info-se" onclick="info_up()">설명 추가</button>
             </div>
             <div class="del-btn">
                 <button href="#">삭제</button>
             </div>
         </div>
-        <div class="fo">
-            <div class="tri-left"></div>
-            <div class="rec" id="rec">
-                <div style="text-align:center">
-                    내용을 추가하세요
-                </div>
-            </div>
+        <div class="fo" id="fo">
             <div class="image-ch" id="image-ch">
                 <div class="container">
                     <div class="image-upload" id="image-upload">
@@ -104,12 +101,22 @@
                 <iframe id="hz" class="hz" width="560" height="315" src="">
                 </iframe>
                 <input id="hide" class="hide" size="100" type="url" onchange="video_in(value)" value="유튜브 src를 입력하세요">
-              </div>
-            <div class="tri-right"></div>
-            <div class="info">
-                <label class="info-in"><input type="test" size="80" value="설명을 입력하세요"></label>
-                <input class="end" type="submit" value="완료">
             </div>
+            <div class="videoFile" id="videoFile">
+                <div class="video-upload" id="video-upload">
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="file" id="chooseVideoFile" name="chooseVideoFile" accept="video.mp4" onchange="loadVideoFile(this)">
+                    </form>
+                </div>
+                <video id="videoFi" class="videoFi" autoplay controls loop muted preload="none" width="1000">
+                    <source src="" type="video/mp4">
+                    브라우저가 동영상 업로드를 지원하지 않습니다
+                </video>
+            </div>
+            <div id="info" class="info">
+                <label class="info-in"><input type="text" size="150" value="설명을 입력하세요"></label>
+            </div>
+            
         </div>
         
     </section>
