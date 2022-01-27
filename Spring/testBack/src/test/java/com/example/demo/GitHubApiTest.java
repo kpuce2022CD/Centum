@@ -5,8 +5,10 @@ import org.kohsuke.github.GHUser;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 import org.kohsuke.github.PagedIterable;
+import org.kohsuke.github.GHContent;
 import org.kohsuke.github.GHGistFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +30,44 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class GitHubApiTest {
 	
 	
+	public void downloadDirectory(GHContent content, String path) {
+		PagedIterable<GHContent> temp;
+		if (content.isDirectory()) {
+			try {
+				temp = content.listDirectoryContent();
+				for (GHContent i : temp) {
+	            	if (i.getName().equals(".gitignore")) {
+	            		continue;
+	            	}
+	            	if (i.getName().equals("README.md")) {
+	            		continue;
+	            	}
+	            	if (i.getName().equals("LICENSE")) {
+	            		continue;
+	            	}
+	            	
+	            	downloadDirectory(i, path + "/" + i.getName());
+	            	
+	            }
+			} catch (IOException e) {
+				System.out.print("download directory error\n");
+			}
+		}
+		else if (content.isFile()) {
+			downloadFile(content);
+			System.out.print("download success: " + content.getPath() + "\n");
+			return;
+		}
+	}
+	
+	public void downloadFile(GHContent content) {	}
+	
+	public void downladWithURL(String URL) {
+		
+		File file = new File(URL);
+		byte b[] = new byte[(int)file.length()];
+	}
+	
 	@Test
 	public void gittest() {
 		GitHub github = null;
@@ -36,10 +76,14 @@ public class GitHubApiTest {
 	    
 
 	    
-	    final String personalToken = "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";
+	    final String personalToken = "personal token";
 		final String repoName = "KPUCE2021SP/HaneulBori";
 	    final Logger LOG = Logger.getGlobal();
 	    PagedIterable<GHRepository> temp;
+	    
+	    List<GHContent> tempFile;
+	    
+	    String dURL;
 	    
 		try {
             github = new GitHubBuilder().withOAuthToken(personalToken).build();
@@ -60,6 +104,15 @@ public class GitHubApiTest {
 		try {
 			repo = github.getRepository(repoName);
 			LOG.info("repo access success" + " " + repo.getName());
+			
+			tempFile = repo.getDirectoryContent("");
+			
+			for (GHContent i : tempFile) {
+            	//downloadDirectory(i, i.getName());
+            	dURL = i.getDownloadUrl();
+            	
+            	
+            }
 			
 			LOG.info(repo.getLanguage());
 			
