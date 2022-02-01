@@ -68,54 +68,15 @@
             <button class="set-pub">public</button>
             <button class="set-pri">private</button>
         </div>
-        <div class="make-op">
-            <div class="mk-btn">
-                <button id="image-se" onclick="image_up()">사진 추가</button>
-            </div>
-            <div class="video-btn">
-                <button id="video-se" onclick="video_up()">유튜브 영상 추가</button>
-            </div>
-            <div class="videoF-btn">
-                <button id="videoF-se" onclick="videoF_up()">영상 파일 추가</button>
-            </div>
-            <div class="inf-btn">
-                <button id="info-se" onclick="info_up()">설명 추가</button>
-            </div>
-            <div class="del-btn">
-                <button href="#">삭제</button>
-            </div>
+        <div class="op">
+            <a href="folio_make.html" class="make-btn">
+                작성
+            </a>
+            <button class="del-btn">
+                삭제
+            </button>
         </div>
         <div class="fo" id="fo">
-            <div class="image-ch" id="image-ch">
-                <div class="container">
-                    <div class="image-upload" id="image-upload">
-                        <form method="post" enctype="multipart/form-data">
-                            <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)">
-                            <p id="fileName"></p>
-                        </form>
-                    </div>
-                    <div class="image-show" id="image-show"></div>
-                </div>
-            </div>
-            <div class="video-ch" id="video-ch">
-                <iframe id="hz" class="hz" width="560" height="315" src="">
-                </iframe>
-                <input id="hide" class="hide" size="100" type="url" onchange="video_in(value)" value="유튜브 src를 입력하세요">
-            </div>
-            <div class="videoFile" id="videoFile">
-                <div class="video-upload" id="video-upload">
-                    <form method="post" enctype="multipart/form-data">
-                        <input type="file" id="chooseVideoFile" name="chooseVideoFile" accept="video.mp4" onchange="loadVideoFile(this)">
-                    </form>
-                </div>
-                <video id="videoFi" class="videoFi" autoplay controls loop muted preload="none" width="1000">
-                    <source src="" type="video/mp4">
-                    브라우저가 동영상 업로드를 지원하지 않습니다
-                </video>
-            </div>
-            <div id="info" class="info">
-                <label class="info-in"><input type="text" size="150" value="설명을 입력하세요"></label>
-            </div>
             
         </div>
         
