@@ -30,7 +30,7 @@ public class MemberController {
                          @RequestParam String month,
                          @RequestParam String day) throws ParseException {
         memberService.signup(member, year, month, day);
-        return "/member/signup_result";
+        return "redirect:/signup_result";
     }
 
     @GetMapping("/login")
@@ -41,5 +41,10 @@ public class MemberController {
     @PostMapping("/login")
     public String login() {
         return "redirect:/";
+    }
+
+    @GetMapping("/signup_result")
+    public String signupResult(Model model) {
+        return "/member/signup_result";
     }
 }

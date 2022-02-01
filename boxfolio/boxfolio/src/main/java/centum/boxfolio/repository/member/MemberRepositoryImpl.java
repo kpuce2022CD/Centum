@@ -24,6 +24,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     @Override
     public Member save(Member member, String year, String month, String day) throws ParseException {
         setBirth(member, year, month, day);
+        member.setProgressField("");
         memberRelatedMapping(member);
         em.persist(member);
         return member;

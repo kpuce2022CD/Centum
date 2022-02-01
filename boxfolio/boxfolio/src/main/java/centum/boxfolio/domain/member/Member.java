@@ -30,9 +30,4 @@ public class Member {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_ability_id")
     private MemberAbility memberAbility;
-
-    @PostConstruct
-    private void init() {
-        this.progressField = "";
-    }
 }
