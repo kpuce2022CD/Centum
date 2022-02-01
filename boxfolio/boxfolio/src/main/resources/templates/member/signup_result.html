@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Web Service Programming Homework</title>
@@ -22,7 +22,9 @@
     <!--    <link rel="short icon" type="image/x-icon" href="resources/social-care.png">-->
 
     <!--CSS-->
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/member/signup_result.css" th:href="@{/css/member/signup_result.css}"/>
     <!--fontawesome-->
     <script src="https://kit.fontawesome.com/494ceb3960.js" crossorigin="anonymous"></script>
 </head>
@@ -59,13 +61,21 @@
     <section class="main">
         <div class="wrap">
             <div class="main-container">
-                <h1>
-                    BOXFOLIO
-                </h1>
-                <span>가입이 완료되었습니다!</span>
-                <a href="login" class="analysis-btn">
-                    분석 받아보기
-                </a>
+                <div class="complete-view-area">
+                    <div class="complete-img">
+                        <img src="/image/check.png" alt="check-img"/>
+                    </div>
+                    <div class="descript">
+                        <h1>BOXFOLIO 가입을 환영합니다!</h1>
+                        <div class="detail-descript">
+                            <span>회원가입이 완료되었습니다. <span id="member-name">[name]</span>님의 아이디는 <span id="member-id">[id]</span>입니다.</span>
+                        </div>
+                    </div>
+                    <div class="access-area">
+                        <a id="home-btn" href="/">홈으로 가기</a>
+                        <a id="login-btn" href="/login">로그인</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

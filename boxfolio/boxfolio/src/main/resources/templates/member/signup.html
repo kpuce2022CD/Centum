@@ -2,210 +2,212 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-    <title>Boxfolio</title>
-    <meta name="description" content="포트폴리오 관리 웹 페이지">
-    <meta name="keywords" content="web, service, portfolio, boxfolio, project">
-    <meta name="author" content="Centum">
-    <meta name="viewport" content="width=device-width, member-scalable=no, initial-scale=1.0, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Boxfolio</title>
+  <meta name="description" content="포트폴리오 관리 웹 페이지">
+  <meta name="keywords" content="web, service, portfolio, boxfolio, project">
+  <meta name="author" content="Centum">
+  <meta name="viewport" content="width=device-width, member-scalable=no, initial-scale=1.0, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <!--Open Graph-->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="포트폴리오 관리 웹 페이지">
-    <meta property="og:description" content="포트폴리오를 분석하고 관리해줍니다">
-    <!-- <meta property="og:image" content="resources/-"> -->
-    <!-- <meta property="og:url" content="https://www.kpu.ac.kr"> -->
+  <!--Open Graph-->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="포트폴리오 관리 웹 페이지">
+  <meta property="og:description" content="포트폴리오를 분석하고 관리해줍니다">
+  <!-- <meta property="og:image" content="resources/-"> -->
+  <!-- <meta property="og:url" content="https://www.kpu.ac.kr"> -->
 
-    <!--fabicon-->
-<!--    <link rel="icon" href="resources/social-care.png">-->
-<!--    <link rel="apple-touch-icon" href="resources/social-care.png">-->
-<!--    <link rel="short icon" type="image/x-icon" href="resources/social-care.png">-->
+  <!--fabicon-->
+  <!--    <link rel="icon" href="resources/social-care.png">-->
+  <!--    <link rel="apple-touch-icon" href="resources/social-care.png">-->
+  <!--    <link rel="short icon" type="image/x-icon" href="resources/social-care.png">-->
 
-    <!--CSS-->
-    <link rel="stylesheet" href="/css/member/signup.css">
-    <!--fontawesome-->
-    <script src="https://kit.fontawesome.com/494ceb3960.js" crossorigin="anonymous"></script>
-    <script src="./js/signupValidation.js"></script>
+  <!--CSS-->
+  <link rel="stylesheet" type="text/css" href="/css/reset.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+  <link rel="stylesheet" href="/css/member/signup.css" th:href="@{/css/member/signup.css}"/>
+  <!--fontawesome-->
+  <script src="https://kit.fontawesome.com/494ceb3960.js" crossorigin="anonymous"></script>
+  <script src="./js/signupValidation.js"></script>
 </head>
 <body>
-  <div id="root-wrap">
-    <!-- header -->
-    <header>
-      <div class="wrap">
-          <div class="header-container">
-              <div class="logo">
-                  <!-- <img src="#" alt="logo_image"> -->
-                  <a href="/">BOXFOLIO</a>
-              </div>
-              <ul class="nav">
-                  <li>
-                      <a href="#">포트폴리오</a>
-                  </li>
-                  <li>
-                      <a href="#">분석&관리</a>
-                  </li>
-                  <li>
-                      <a href="#">커뮤니티</a>
-                  </li>
-                  <li>
-                      <a href="#">1:1문의</a>
-                  </li>
-              </ul>
-              <div class="member-area">
-                  <a href="#" class="start-btn">
-                      시작하기
-                  </a>
-              </div>
-          </div>
-      </div>
-    </header>
-    <!-- main section -->
-    <section class="main">
-      <div class="wrap">
-        <div class="main_container">
-          <form action="/signup" method="post" th:object="${member}">
-            <div class="signup_wrap">
-              <div class="signup_header">
-                <h2>회원가입</h2>
-              </div>
-              <!-- id -->
-              <div class="id-area">
-                <h3 class="join-title">아이디</h3>
-                <span class="join-box">
-                  <input type="text" id="id" th:field="*{id}" title="ID" maxlength="20">
-                </span>
-                <span class="error-msg">
-                  필수 정보입니다.
-                </span>
-              </div>
-              <!-- password -->
-              <div class="pw-area">
-                <h3 class="join-title">비밀번호</h3>
-                <div class="join-box">
-                  <input type="password" id="passwd" th:field="*{passwd}" title="PASSWORD" maxlength="20">
-                </div>
-                <span class="error-msg" aria-live="assertive">
-                  필수 정보입니다.
-                </span>
-              </div>
-              <!-- check password -->
-              <div class="check-pw-area">
-                <h3 class="join-title">비밀번호 재확인</h3>
-                <div class="join-box">
-                  <input type="password" id="passwd_check" name="passwd_check" title="PASSWORD_CHECK" maxlength="20">
-                </div>
-                <span class="error-msg" aria-live="assertive">
-                  필수 정보입니다.
-                </span>
-              </div>
-              <!-- name -->
-              <div class="name-area">
-                <h3 class="join-title">이름</h3>
-                <div class="join-box">
-                  <input type="text" id="username" th:field="*{realName}" title="NAME" maxlength="20">
-                </div>
-                <span class="error-msg" aria-live="assertive">
-                  필수 정보입니다.
-                </span>
-              </div>
-              <!-- nickname -->
-              <div class="nickname-area">
-                <h3 class="join-title">닉네임</h3>
-                <div class="join-box">
-                  <input type="text" id="nickname" th:field="*{nickname}" title="NICKNAME">
-                </div>
-                <span class="error-msg" aria-live="assertive">
-                  필수 정보입니다.
-                </span>
-              </div>
-              <!-- tel -->
-              <div class="tel-area">
-                <h3 class="join-title">전화번호</h3>
-                <div class="join-box">
-                  <input type="number" id="mobile" th:field="*{phone}" title="MOBILE">
-                </div>
-                <span class="error-msg" aria-live="assertive">
-                  필수 정보입니다.
-                </span>
-              </div>
-              <!-- email -->
-              <div class="email-area">
-                <h3 class="join-title">이메일</h3>
-                <div class="join-box">
-                  <input type="email" id="email" th:field="*{email}" title="EMAIL">
-                </div>
-                <span class="error-msg" aria-live="assertive">
-                  필수 정보입니다.
-                </span>
-              </div>
-              <!-- interest -->
-              <div class="interest-area">
-                <h3 class="join-title">관심 분야</h3>
-                <select class="join-box" id="interest" th:field="*{interestField}">
-                  <option value="" selected>관심 분야</option>
-                  <option value="frontend">웹/프론트엔드</option>
-                  <option value="backend">웹/백엔드</option>
-                  <option value="android">앱/안드로이드</option>
-                  <option value="ios">앱/IOS</option>
-                  <option value="embedded">하드/임베디드</option>
-                  <option value="iot">하드/IOT</option>
-                  <option value="ai">AI</option>
-                  <option value="security">보안</option>
-                </select>
-                <span class="error-msg" aria-live="assertive">
-                  필수 정보입니다.
-                </span>
-              </div>
-              <!-- birthday -->
-              <div class="birthday-area">
-                <h3 class="join-title">생년월일</h3>
-                <div class="bir-wrap">
-                  <div class="bir_yy">
-                    <input type="text" id="yy" name="year" placeholder="년" maxlength="4">
-                  </div>
-                  <div class="bir_mm">
-                    <input type="text" id="mm" name="month" placeholder="월" maxlength="2">
-                  </div>
-                  <div class="bir_dd">
-                    <input type="text" id="dd" name="day" placeholder="일" maxlength="2">
-                  </div>
-                </div>
-                <span class="error-msg" aria-live="assertive">
-                  필수 정보입니다.
-                </span>
-              </div>
-              <!-- gender -->
-              <div class="gender-area">
-                <h3 class="join-title">성별</h3>
-                <select class="join-box" id="gender" th:field="*{sex}">
-                  <option value="0" selected>성별</option>
-                  <option value="1">남자</option>
-                  <option value="2">여자</option>
-                </select>
-                <span class="error-msg">
-                  필수 정보입니다.
-                </span>
-              </div>
-              <!-- github -->
-              <div class="github-area">
-                <h3 class="join-title">github 아이디<span class="choice">(선택)</span></h3>
-                <div class="join-box">
-                  <input type="text" id="github" th:field="*{githubId}" title="GITHUB">
-                </div>
-              </div>
-              <!-- signup btn -->
-              <div class="signup-area">
-                <input type="submit" id="signup-btn" value="가입하기">
-              </div>
-            </div>
-          </form>
+<div id="root-wrap">
+  <!-- header -->
+  <header>
+    <div class="wrap">
+      <div class="header-container">
+        <div class="logo">
+          <!-- <img src="#" alt="logo-image"> -->
+          <a href="/">BOXFOLIO</a>
+        </div>
+        <ul class="nav">
+          <li>
+            <a href="#">포트폴리오</a>
+          </li>
+          <li>
+            <a href="#">분석&관리</a>
+          </li>
+          <li>
+            <a href="#">커뮤니티</a>
+          </li>
+          <li>
+            <a href="#">1:1문의</a>
+          </li>
+        </ul>
+        <div class="member-area">
+          <a href="#" class="start-btn">
+            시작하기
+          </a>
         </div>
       </div>
-    </section>
-    <!-- footer -->
-    <footer>
+    </div>
+  </header>
+  <!-- main section -->
+  <section class="main">
+    <div class="wrap">
+      <div class="main-container">
+        <form action="/signup" method="post" th:object="${member}">
+          <div class="signup-wrap">
+            <div class="signup-header">
+              <h2>회원가입</h2>
+            </div>
+            <!-- id -->
+            <div class="id-area">
+              <h3 class="join-title">아이디</h3>
+              <span class="join-box">
+                  <input type="text" id="id" th:field="*{id}" title="ID" maxlength="20">
+                </span>
+              <span class="error-msg">
+                  필수 정보입니다.
+                </span>
+            </div>
+            <!-- password -->
+            <div class="pw-area">
+              <h3 class="join-title">비밀번호</h3>
+              <div class="join-box">
+                <input type="password" id="passwd" th:field="*{passwd}" title="PASSWORD" maxlength="20">
+              </div>
+              <span class="error-msg" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
+            </div>
+            <!-- check password -->
+            <div class="check-pw-area">
+              <h3 class="join-title">비밀번호 재확인</h3>
+              <div class="join-box">
+                <input type="password" id="passwd-check" name="passwd-check" title="PASSWORD-CHECK" maxlength="20">
+              </div>
+              <span class="error-msg" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
+            </div>
+            <!-- name -->
+            <div class="name-area">
+              <h3 class="join-title">이름</h3>
+              <div class="join-box">
+                <input type="text" id="username" th:field="*{realName}" title="NAME" maxlength="20">
+              </div>
+              <span class="error-msg" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
+            </div>
+            <!-- nickname -->
+            <div class="nickname-area">
+              <h3 class="join-title">닉네임</h3>
+              <div class="join-box">
+                <input type="text" id="nickname" th:field="*{nickname}" title="NICKNAME">
+              </div>
+              <span class="error-msg" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
+            </div>
+            <!-- tel -->
+            <div class="tel-area">
+              <h3 class="join-title">전화번호</h3>
+              <div class="join-box">
+                <input type="number" id="mobile" th:field="*{phone}" title="MOBILE">
+              </div>
+              <span class="error-msg" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
+            </div>
+            <!-- email -->
+            <div class="email-area">
+              <h3 class="join-title">이메일</h3>
+              <div class="join-box">
+                <input type="email" id="email" th:field="*{email}" title="EMAIL">
+              </div>
+              <span class="error-msg" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
+            </div>
+            <!-- interest -->
+            <div class="interest-area">
+              <h3 class="join-title">관심 분야</h3>
+              <select class="join-box" id="interest" th:field="*{interestField}">
+                <option value="" selected>관심 분야</option>
+                <option value="frontend">웹/프론트엔드</option>
+                <option value="backend">웹/백엔드</option>
+                <option value="android">앱/안드로이드</option>
+                <option value="ios">앱/IOS</option>
+                <option value="embedded">하드/임베디드</option>
+                <option value="iot">하드/IOT</option>
+                <option value="ai">AI</option>
+                <option value="security">보안</option>
+              </select>
+              <span class="error-msg" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
+            </div>
+            <!-- birthday -->
+            <div class="birthday-area">
+              <h3 class="join-title">생년월일</h3>
+              <div class="bir-wrap">
+                <div class="bir-yy">
+                  <input type="text" id="yy" name="year" placeholder="년" maxlength="4">
+                </div>
+                <div class="bir-mm">
+                  <input type="text" id="mm" name="month" placeholder="월" maxlength="2">
+                </div>
+                <div class="bir-dd">
+                  <input type="text" id="dd" name="day" placeholder="일" maxlength="2">
+                </div>
+              </div>
+              <span class="error-msg" aria-live="assertive">
+                  필수 정보입니다.
+                </span>
+            </div>
+            <!-- gender -->
+            <div class="gender-area">
+              <h3 class="join-title">성별</h3>
+              <select class="join-box" id="gender" th:field="*{sex}" >
+                <option value="0" selected>성별</option>
+                <option value="1">남자</option>
+                <option value="2">여자</option>
+              </select>
+              <span class="error-msg">
+                  필수 정보입니다.
+                </span>
+            </div>
+            <!-- github -->
+            <div class="github-area">
+              <h3 class="join-title">github 아이디<span class="choice">(선택)</span></h3>
+              <div class="join-box">
+                <input type="text" id="github" th:field="*{githubId}" title="GITHUB">
+              </div>
+            </div>
+            <!-- signup btn -->
+            <div class="signup-area">
+              <input type="submit" id="signup-btn" value="가입하기">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <!-- footer -->
+  <footer>
 
-    </footer>
-  </div>
+  </footer>
+</div>
 </body>
 </html>
