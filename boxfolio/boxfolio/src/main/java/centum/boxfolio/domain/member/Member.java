@@ -1,15 +1,19 @@
 package centum.boxfolio.domain.member;
 
+import centum.boxfolio.domain.board.*;
+import centum.boxfolio.domain.portfolio.Portfolio;
+import centum.boxfolio.domain.portfolio.PortfolioStar;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter @Setter
-@NoArgsConstructor
 @Entity
 public class Member {
 
@@ -30,4 +34,25 @@ public class Member {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_ability_id")
     private MemberAbility memberAbility;
+
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+    private Portfolio portfolio;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<PortfolioStar> portfolioStars = new ArrayList<PortfolioStar>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Board> boards = new ArrayList<Board>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<BoardStar> boardStars = new ArrayList<BoardStar>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<BoardScrap> boardScraps = new ArrayList<BoardScrap>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<BoardComment> boardComments = new ArrayList<BoardComment>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<BoardReply> boardReplies = new ArrayList<BoardReply>();
 }
