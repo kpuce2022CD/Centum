@@ -1,6 +1,6 @@
-package centum.boxfolio.domain.board;
+package centum.boxfolio.entity.member;
 
-import centum.boxfolio.domain.member.Member;
+import centum.boxfolio.entity.skill.Skill;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Getter @Setter
 @Entity
-public class BoardScrap {
+public class MemberSkill {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
@@ -17,6 +17,6 @@ public class BoardScrap {
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "board_id")
-    private Board board;
+    @JoinColumn(name = "skill_id")
+    private Skill skill;
 }

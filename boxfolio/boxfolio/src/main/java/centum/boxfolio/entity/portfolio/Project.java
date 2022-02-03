@@ -1,4 +1,4 @@
-package centum.boxfolio.domain.portfolio;
+package centum.boxfolio.entity.portfolio;
 
 import lombok.Getter;
 import lombok.Setter;

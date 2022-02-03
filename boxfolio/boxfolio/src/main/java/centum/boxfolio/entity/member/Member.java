@@ -1,13 +1,11 @@
-package centum.boxfolio.domain.member;
+package centum.boxfolio.entity.member;
 
-import centum.boxfolio.domain.board.*;
-import centum.boxfolio.domain.portfolio.Portfolio;
-import centum.boxfolio.domain.portfolio.PortfolioStar;
+import centum.boxfolio.entity.board.*;
+import centum.boxfolio.entity.portfolio.Portfolio;
+import centum.boxfolio.entity.portfolio.PortfolioStar;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;

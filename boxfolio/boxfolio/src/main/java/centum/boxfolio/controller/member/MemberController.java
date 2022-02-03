@@ -1,6 +1,6 @@
 package centum.boxfolio.controller.member;
 
-import centum.boxfolio.domain.member.Member;
+import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,6 @@
-package centum.boxfolio.domain.portfolio;
+package centum.boxfolio.entity.portfolio;
 
-import centum.boxfolio.domain.skill.Skill;
+import centum.boxfolio.entity.skill.Skill;
 import lombok.Getter;
 import lombok.Setter;
 

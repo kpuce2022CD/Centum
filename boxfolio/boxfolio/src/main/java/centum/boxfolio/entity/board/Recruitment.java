@@ -1,4 +1,4 @@
-package centum.boxfolio.domain.board;
+package centum.boxfolio.entity.board;
 
 import lombok.Getter;
 import lombok.Setter;
