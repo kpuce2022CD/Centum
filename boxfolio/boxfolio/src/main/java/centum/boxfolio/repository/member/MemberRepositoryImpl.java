@@ -1,13 +1,12 @@
 package centum.boxfolio.repository.member;
 
-import centum.boxfolio.domain.member.Member;
-import centum.boxfolio.domain.member.MemberAbility;
+import centum.boxfolio.entity.member.Member;
+import centum.boxfolio.entity.member.MemberAbility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

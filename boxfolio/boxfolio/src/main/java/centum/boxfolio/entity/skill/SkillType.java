@@ -1,4 +1,4 @@
-package centum.boxfolio.domain.skill;
+package centum.boxfolio.entity.skill;
 
 import lombok.Getter;
 import lombok.Setter;

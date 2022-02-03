@@ -1,6 +1,6 @@
 package centum.boxfolio.repository.member;
 
-import centum.boxfolio.domain.member.Member;
+import centum.boxfolio.entity.member.Member;
 
 import java.text.ParseException;
 import java.util.List;

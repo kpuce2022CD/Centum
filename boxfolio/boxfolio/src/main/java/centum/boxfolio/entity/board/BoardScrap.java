@@ -1,6 +1,6 @@
-package centum.boxfolio.domain.board;
+package centum.boxfolio.entity.board;
 
-import centum.boxfolio.domain.member.Member;
+import centum.boxfolio.entity.member.Member;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Getter @Setter
 @Entity
-public class BoardStar {
+public class BoardScrap {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 

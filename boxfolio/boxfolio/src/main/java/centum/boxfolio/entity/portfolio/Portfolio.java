@@ -1,6 +1,6 @@
-package centum.boxfolio.domain.portfolio;
+package centum.boxfolio.entity.portfolio;
 
-import centum.boxfolio.domain.member.Member;
+import centum.boxfolio.entity.member.Member;
 import lombok.Getter;
 import lombok.Setter;
 
