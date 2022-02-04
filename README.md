@@ -67,7 +67,7 @@
 
 ### git flow
 ---
-![gitflow](https://user-images.githubusercontent.com/66542103/149511597-52d228f6-0e3f-4752-8cbe-2a270e7fdaee.png)
+![git-flow](https://user-images.githubusercontent.com/66542103/152498154-3d01affc-3647-420d-8179-eb8b674ce68e.png)
 <br>
 <br>
 
