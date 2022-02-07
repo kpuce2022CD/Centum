@@ -65,7 +65,7 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!-- for Git Hub Api-->
+		<!-- for Github Api-->
 		<dependency>
 			<groupId>org.kohsuke</groupId>
 			<artifactId>github-api</artifactId>
