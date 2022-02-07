@@ -22,12 +22,12 @@
   <!--    <link rel="short icon" type="image/x-icon" href="resources/social-care.png">-->
 
   <!--CSS-->
-  <link rel="stylesheet" type="text/css" href="/boxfolio/boxfolio/src/main/resources/static/css/reset.css"/>
-  <link rel="stylesheet" type="text/css" href="/boxfolio/boxfolio/src/main/resources/static/css/common.css"/>
+  <link rel="stylesheet" type="text/css" href="/boxfolio/boxfolio/src/main/resources/static/css/reset.css" th:href="@{/css/reset.css}"/>
+  <link rel="stylesheet" type="text/css" href="/boxfolio/boxfolio/src/main/resources/static/css/common.css" th:href="@{/css/common.css}"/>
   <link rel="stylesheet" href="/boxfolio/boxfolio/src/main/resources/static/css/member/signup.css" th:href="@{/css/member/signup.css}"/>
   <!--fontawesome-->
   <script src="https://kit.fontawesome.com/494ceb3960.js" crossorigin="anonymous"></script>
-  <script defer src="/boxfolio/boxfolio/src/main/resources/static/js/member/signup.js"></script>
+  <script defer src="/boxfolio/boxfolio/src/main/resources/static/js/member/signup.js" th:src="@{/js/member/signup.js}"></script>
 </head>
 <body>
 <div id="root-wrap">
@@ -180,9 +180,9 @@
             <div class="gender-area">
               <h3 class="join-title">성별</h3>
               <select class="join-box" id="gender" th:field="*{sex}" >
-                <option value="none" selected>성별</option>
-                <option value="male">남자</option>
-                <option value="female">여자</option>
+                <option value="0" selected>성별</option>
+                <option value="1">남자</option>
+                <option value="2">여자</option>
               </select>
               <span class="error-msg">
                   필수 정보입니다.
