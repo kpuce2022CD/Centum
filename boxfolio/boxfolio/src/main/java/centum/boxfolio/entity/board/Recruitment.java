@@ -16,4 +16,5 @@ public class Recruitment extends Board {
     private char autoMatchingStatus;
     private char deadlineStatus;
     private long memberTally;
+    private long memberTotal;
 }

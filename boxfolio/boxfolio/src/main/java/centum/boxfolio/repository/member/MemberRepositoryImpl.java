@@ -7,9 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,10 +18,8 @@ public class MemberRepositoryImpl implements MemberRepository {
     private final EntityManager em;
 
     @Override
-    public Member save(Member member, String year, String month, String day) throws ParseException {
-        setBirth(member, year, month, day);
-        member.setProgressField("");
-        memberRelatedMapping(member);
+    public Member save(Member member) {
+        mappingMemberRelation(member);
         em.persist(member);
         return member;
     }
@@ -40,13 +35,7 @@ public class MemberRepositoryImpl implements MemberRepository {
         return em.createQuery("select m from Member m", Member.class).getResultList();
     }
 
-    private void setBirth(Member member, String year, String month, String day) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = format.parse(year + "-" + month + "-" + day);
-        member.setBirth(date);
-    }
-
-    private void memberRelatedMapping(Member member) {
+    private void mappingMemberRelation(Member member) {
         MemberAbility memberAbility = new MemberAbility();
         memberAbility.setMember(member);
         member.setMemberAbility(memberAbility);
