@@ -1,4 +1,4 @@
-package centum.boxfolio.service.member.gitapi;
+package centum.boxfolio.service.gitapi;
 
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHUser;
@@ -43,7 +43,7 @@ public class GitApiImpl implements GitApi {
                 try {
                     List<GHContent> tempFile = i.getDirectoryContent("");
                     for (GHContent j : tempFile){
-                        GitApi.downloadDirectory(j, j.getName(), "");
+                        downloadDirectory(j, j.getName(), "");
                     }
                 } catch (IOException e){
                     LOG.info("git download error at " + i.getName() + ": " + e);
@@ -67,7 +67,7 @@ public class GitApiImpl implements GitApi {
                 try {
                     List<GHContent> tempFile = i.getDirectoryContent("");
                     for (GHContent j : tempFile){
-                        GitApi.downloadDirectory(j, j.getName(), "");
+                        downloadDirectory(j, j.getName(), "");
                     }
                 } catch (IOException e){
                     LOG.info("git download error at " + i.getName() + ": " + e);

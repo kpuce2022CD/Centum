@@ -19,7 +19,7 @@ public class Portfolio {
     private String title;
     private String contents;
     private Date updatedDate;
-    private String visibility;
+    private boolean visibility;
     private long starTally;
 
     @OneToOne
