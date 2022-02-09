@@ -25,11 +25,9 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public String signup(@ModelAttribute Member member,
-                         @RequestParam String year,
-                         @RequestParam String month,
-                         @RequestParam String day) throws ParseException {
-        memberService.signup(member, year, month, day);
+    public String signup(@ModelAttribute MemberSaveForm form) {
+        Member member = new Member(form);
+        memberService.signup(member);
         return "redirect:/signup_result";
     }
 

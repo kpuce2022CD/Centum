@@ -1,4 +1,4 @@
-package centum.boxfolio.service.member.gitapi;
+package centum.boxfolio.service.gitapi;
 
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHUser;

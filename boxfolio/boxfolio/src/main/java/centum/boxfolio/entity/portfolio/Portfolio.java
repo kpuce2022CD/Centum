@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter @Setter
@@ -18,7 +18,7 @@ public class Portfolio {
 
     private String title;
     private String contents;
-    private Date updatedDate;
+    private LocalDateTime updatedDate;
     private String visibility;
     private long starTally;
 
