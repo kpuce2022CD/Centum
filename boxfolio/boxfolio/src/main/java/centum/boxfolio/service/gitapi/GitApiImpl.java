@@ -43,7 +43,7 @@ public class GitApiImpl implements GitApi {
                 try {
                     List<GHContent> tempFile = i.getDirectoryContent("");
                     for (GHContent j : tempFile){
-                        downloadDirectory(j, j.getName(), "");
+                        GitApi.downloadDirectory(j, j.getName(), "");
                     }
                 } catch (IOException e){
                     LOG.info("git download error at " + i.getName() + ": " + e);
@@ -67,7 +67,7 @@ public class GitApiImpl implements GitApi {
                 try {
                     List<GHContent> tempFile = i.getDirectoryContent("");
                     for (GHContent j : tempFile){
-                        downloadDirectory(j, j.getName(), "");
+                        GitApi.downloadDirectory(j, j.getName(), "");
                     }
                 } catch (IOException e){
                     LOG.info("git download error at " + i.getName() + ": " + e);

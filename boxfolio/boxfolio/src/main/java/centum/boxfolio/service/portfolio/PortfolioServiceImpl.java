@@ -32,7 +32,6 @@ public class PortfolioServiceImpl implements PortfolioService{
         portfolio.setContents(context);
         portfolio.setVisibility(visibility);
         portfolio.setUpdatedDate(today);
-
         portfolioRepository.save(portfolio);
     }
 
