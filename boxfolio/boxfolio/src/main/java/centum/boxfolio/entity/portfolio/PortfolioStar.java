@@ -14,9 +14,9 @@ public class PortfolioStar {
 
     @ManyToOne
     @JoinColumn(name = "portfolio_id")
-    private Portfolio portfolio;
+    private long portfolioId;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
-    private Member member;
+    private String memberId;
 }
