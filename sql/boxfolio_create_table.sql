@@ -102,6 +102,7 @@ CREATE TABLE IF NOT EXISTS recruitment(
     auto_matching_status CHAR(1) NOT NULL,
     deadline_status CHAR(1) NOT NULL,
     member_tally INT UNSIGNED NOT NULL,
+    member_total INT UNSIGNED NOT NULL,
     FOREIGN KEY (board_id) REFERENCES board(id)
 );
 

@@ -5,6 +5,6 @@ import centum.boxfolio.entity.member.Member;
 import java.text.ParseException;
 
 public interface MemberService {
-    String signup(Member member, String year, String month, String day) throws ParseException;
+    String signup(Member member);
     void login(String id, String pw);
 }

@@ -74,9 +74,9 @@
 ### Centum 💻
 ---
 ##### Front-End
-- 이승철 (tmdcjf1047@naver.com)
-- 이혜원 (904lhw@kpu.ac.kr)
+- [이승철](https://github.com/kourindou) (tmdcjf1047@naver.com)
+- [이혜원](https://github.com/hhh-one) (904lhw@kpu.ac.kr)
 
 ##### Back-End
-- 서원호 (btac3310@gmail.com)
-- 김형환 (joey3798@naver.com)
+- [서원호](https://github.com/rt3310) (btac3310@gmail.com)
+- [김형환](https://github.com/hedwig3798) (joey3798@naver.com)
