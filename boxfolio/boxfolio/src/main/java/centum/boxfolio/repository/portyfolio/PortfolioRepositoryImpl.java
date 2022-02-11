@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -21,7 +21,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
     @Override
     public Portfolio save(Portfolio portfolio) {
-        Date today = new Date();
+        LocalDateTime today = LocalDateTime.now();
 
         portfolio.setUpdatedDate(today);
         em.persist(portfolio);

@@ -4,9 +4,12 @@ import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.repository.portyfolio.PortfolioRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Locale;
 
 
 @Service
@@ -27,7 +30,7 @@ public class PortfolioServiceImpl implements PortfolioService{
 
     @Override
     public void change(Portfolio portfolio, String title, String context, boolean visibility) {
-        Date today = new Date();
+        LocalDateTime today = LocalDateTime.now();
         portfolio.setTitle(title);
         portfolio.setContents(context);
         portfolio.setVisibility(visibility);
