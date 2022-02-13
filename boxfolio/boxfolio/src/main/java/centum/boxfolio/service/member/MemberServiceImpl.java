@@ -1,5 +1,6 @@
 package centum.boxfolio.service.member;
 
+import centum.boxfolio.controller.member.MemberSaveForm;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +15,8 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
 
     @Override
-    public String signup(Member member) {
-        memberRepository.save(member);
-        return member.getId();
+    public Member signup(MemberSaveForm form) {
+        return memberRepository.save(form.toMember());
     }
 
 /*    private void validateDuplicationMember(Member member) {
@@ -27,7 +27,9 @@ public class MemberServiceImpl implements MemberService {
     }*/
 
     @Override
-    public void login(String id, String pw) {
-
+    public Member login(String loginId, String passwd) {
+        return memberRepository.findByLoginId(loginId)
+                .filter(m -> m.getPasswd().equals(passwd))
+                .orElse(null);
     }
 }

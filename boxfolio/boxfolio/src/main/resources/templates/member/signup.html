@@ -65,7 +65,7 @@
   <section class="main">
     <div class="wrap">
       <div class="main-container">
-        <form action="/signup" method="post" th:object="${member}">
+        <form action="/signup" method="post" th:object="${memberSaveForm}">
           <div class="signup-wrap">
             <div class="signup-header">
               <h2>회원가입</h2>
@@ -74,7 +74,7 @@
             <div class="id-area">
               <h3 class="join-title">아이디</h3>
               <span class="join-box">
-                  <input type="text" id="id" th:field="*{id}" title="ID" maxlength="20">
+                  <input type="text" id="id" th:field="*{loginId}" title="ID" maxlength="20">
                 </span>
               <span class="error-msg" >
                   필수 정보입니다.
@@ -163,13 +163,13 @@
               <h3 class="join-title">생년월일</h3>
               <div class="birth-wrap">
                 <div class="birth-year">
-                  <input type="text" id="year" name="year" placeholder="년" maxlength="4">
+                  <input type="text" id="year" th:field="*{year}" placeholder="년" maxlength="4">
                 </div>
                 <div class="birth-month">
-                  <input type="text" id="month" name="month" placeholder="월" maxlength="2">
+                  <input type="text" id="month" th:field="*{month}" placeholder="월" maxlength="2">
                 </div>
                 <div class="birth-day">
-                  <input type="text" id="day" name="day" placeholder="일" maxlength="2">
+                  <input type="text" id="day" th:field="*{day}" placeholder="일" maxlength="2">
                 </div>
               </div>
               <span class="error-msg" aria-live="assertive">

@@ -25,9 +25,16 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public Optional<Member> findById(String id) {
+    public Optional<Member> findById(Long id) {
         Member member = em.find(Member.class, id);
         return Optional.ofNullable(member);
+    }
+
+    @Override
+    public Optional<Member> findByLoginId(String loginId) {
+        return findAll().stream()
+                .filter(m -> m.getLoginId().equals(loginId))
+                .findAny();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package centum.boxfolio.controller.member;
 
+import centum.boxfolio.entity.member.Member;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,12 +10,13 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Getter @Setter
 public class MemberSaveForm {
 
     @NotBlank
-    private String id;
+    private String loginId;
     @NotBlank
     private String passwd;
     @NotBlank
@@ -32,4 +34,8 @@ public class MemberSaveForm {
     private String interestField;
     private String progressField;
 
+    public Member toMember() {
+        LocalDate birth = LocalDate.parse(year + month + day, DateTimeFormatter.BASIC_ISO_DATE);
+        return new Member(loginId, passwd, realName, nickname, phone, email, birth, sex, githubId, interestField);
+    }
 }

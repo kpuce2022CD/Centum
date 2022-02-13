@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS member_ability(
 );
 
 CREATE TABLE IF NOT EXISTS member(
-	id VARCHAR(20) PRIMARY KEY,
+	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    login_id VARCHAR(20) NOT NULL,
     passwd VARCHAR(30) NOT NULL,
     real_name VARCHAR(20) NOT NULL,
     nickname VARCHAR(10) NOT NULL,
@@ -31,7 +32,7 @@ CREATE TABLE IF NOT EXISTS portfolio(
     updated_date DATETIME NOT NULL,
     visibility VARCHAR(10) NOT NULL,
     star_tally INT UNSIGNED NOT NULL DEFAULT 0,
-    member_id VARCHAR(20) NOT NULL,
+    member_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (member_id) REFERENCES member(id)
 );
 
@@ -74,7 +75,7 @@ CREATE TABLE IF NOT EXISTS project_skill(
 
 CREATE TABLE IF NOT EXISTS member_skill(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    member_id VARCHAR(20) NOT NULL,
+    member_id INT UNSIGNED NOT NULL,
     skill_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (member_id) REFERENCES member(id),
     FOREIGN KEY (skill_id) REFERENCES skill(id)
@@ -93,7 +94,7 @@ CREATE TABLE IF NOT EXISTS board(
     view_tally INT UNSIGNED NOT NULL,
     visibility VARCHAR(10) NOT NULL,
     board_type VARCHAR(20) NOT NULL,
-    member_id VARCHAR(20) NOT NULL,
+    member_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (member_id) REFERENCES member(id)
 );
 
@@ -108,7 +109,7 @@ CREATE TABLE IF NOT EXISTS recruitment(
 
 CREATE TABLE IF NOT EXISTS board_star(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    member_id VARCHAR(20) NOT NULL,
+    member_id INT UNSIGNED NOT NULL,
     board_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (member_id) REFERENCES member(id),
     FOREIGN KEY (board_id) REFERENCES board(id)
@@ -116,7 +117,7 @@ CREATE TABLE IF NOT EXISTS board_star(
 
 CREATE TABLE IF NOT EXISTS board_scrap(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    member_id VARCHAR(20) NOT NULL,
+    member_id INT UNSIGNED NOT NULL,
     board_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (member_id) REFERENCES member(id),
     FOREIGN KEY (board_id) REFERENCES board(id)
@@ -127,7 +128,7 @@ CREATE TABLE IF NOT EXISTS board_comment(
     contents TEXT NOT NULL,
     created_date DATETIME NOT NULL,
     reply_tally INT UNSIGNED NOT NULL,
-    member_id VARCHAR(20) NOT NULL,
+    member_id INT UNSIGNED NOT NULL,
     board_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (member_id) REFERENCES member(id),
     FOREIGN KEY (board_id) REFERENCES board(id)
@@ -137,7 +138,7 @@ CREATE TABLE IF NOT EXISTS board_reply(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     contents TEXT NOT NULL,
     created_date DATETIME NOT NULL,
-    member_id VARCHAR(20) NOT NULL,
+    member_id INT UNSIGNED NOT NULL,
     board_comment_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (member_id) REFERENCES member(id),
     FOREIGN KEY (board_comment_id) REFERENCES board_comment(id)

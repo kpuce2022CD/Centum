@@ -7,6 +7,7 @@ import centum.boxfolio.entity.portfolio.PortfolioStar;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,14 +20,14 @@ import java.util.List;
 @Entity
 public class Member {
 
-    @Id
-    private String id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String loginId;
     private String passwd;
     private String realName;
     private String nickname;
     private String phone;
     private String email;
-    @Temporal(TemporalType.DATE)
     private LocalDate birth;
     private int sex;
     private String githubId;
@@ -58,17 +59,20 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<BoardReply> boardReplies = new ArrayList<BoardReply>();
 
-    public Member(MemberSaveForm form) {
-        this.id = form.getId();
-        this.passwd = form.getPasswd();
-        this.realName = form.getRealName();
-        this.nickname = form.getNickname();
-        this.phone = form.getPhone();
-        this.email = form.getEmail();
-        this.birth = LocalDate.parse(form.getYear() + form.getMonth() + form.getDay(), DateTimeFormatter.BASIC_ISO_DATE);
-        this.sex = form.getSex();
-        this.githubId = form.getGithubId();
-        this.interestField = form.getInterestField();
+    public Member(String loginId, String passwd, String realName, String nickname, String phone,
+                  String email, LocalDate birth, int sex, String githubId,
+                  String interestField) {
+        this.loginId = loginId;
+        this.passwd = passwd;
+        this.realName = realName;
+        this.nickname = nickname;
+        this.phone = phone;
+        this.email = email;
+        this.birth = birth;
+        this.sex = sex;
+        this.githubId = githubId;
+        this.interestField = interestField;
         this.progressField = "";
+        this.memberAbility = new MemberAbility();
     }
 }

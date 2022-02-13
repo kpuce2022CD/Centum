@@ -1,14 +1,15 @@
 package centum.boxfolio.controller.member;
 
 import centum.boxfolio.entity.member.Member;
+import centum.boxfolio.repository.member.MemberRepository;
 import centum.boxfolio.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.ParseException;
 
@@ -20,14 +21,15 @@ public class MemberController {
 
     @GetMapping("/signup")
     public String signupPage(Model model) {
-        model.addAttribute("member", new Member());
+        model.addAttribute("memberSaveForm", new MemberSaveForm());
         return "/member/signup";
     }
 
     @PostMapping("/signup")
-    public String signup(@ModelAttribute MemberSaveForm form) {
-        Member member = new Member(form);
-        memberService.signup(member);
+    public String signup(@Validated @ModelAttribute MemberSaveForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        Member savedMember = memberService.signup(form);
+        redirectAttributes.addFlashAttribute("memberId", savedMember.getLoginId());
+        redirectAttributes.addFlashAttribute("memberRealName", savedMember.getRealName());
         return "redirect:/signup_result";
     }
 
