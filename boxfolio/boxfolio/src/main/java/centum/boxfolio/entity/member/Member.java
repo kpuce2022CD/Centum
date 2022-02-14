@@ -26,7 +26,7 @@ public class Member {
     private String nickname;
     private String phone;
     private String email;
-    @Temporal(TemporalType.DATE)
+
     private LocalDate birth;
     private int sex;
     private String githubId;

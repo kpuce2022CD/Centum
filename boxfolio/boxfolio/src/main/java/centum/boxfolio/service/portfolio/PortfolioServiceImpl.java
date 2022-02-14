@@ -4,12 +4,11 @@ import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.repository.portyfolio.PortfolioRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.jni.Local;
+
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Locale;
+
 
 
 @Service
@@ -19,8 +18,8 @@ public class PortfolioServiceImpl implements PortfolioService{
     private final PortfolioRepository portfolioRepository;
 
     @Override
-    public void upload(Portfolio portfolio) {
-        portfolioRepository.save(portfolio);
+    public void upload(Portfolio portfolio, Member member) {
+        portfolioRepository.save(portfolio, member);
     }
 
     @Override
@@ -35,18 +34,22 @@ public class PortfolioServiceImpl implements PortfolioService{
         portfolio.setContents(context);
         portfolio.setVisibility(visibility);
         portfolio.setUpdatedDate(today);
-        portfolioRepository.save(portfolio);
+        portfolioRepository.save(portfolio, portfolio.getMember());
     }
 
     @Override
     public void upStar(Portfolio portfolio, Member member) {
-        portfolio.setStarTally(portfolio.getStarTally() + 1);
-        portfolioRepository.upStar(portfolio, member);
+        portfolioRepository.changeStar(portfolio, member, true);
     }
 
     @Override
     public void downStar(Portfolio portfolio, Member member) {
-        portfolio.setStarTally(portfolio.getStarTally() - 1);
-        portfolioRepository.downStar(portfolio, member);
+        if (portfolio.getStarTally() == 0){
+            return;
+        } else {
+            portfolioRepository.changeStar(portfolio, member, false);
+        }
+
+
     }
 }

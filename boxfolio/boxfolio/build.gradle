@@ -24,10 +24,15 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation group: 'org.kohsuke', name: 'github-api', version: '1.301'
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'mysql:mysql-connector-java'
+    implementation 'org.projectlombok:lombok:1.18.20'
+    compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
+	annotationProcessor('org.projectlombok:lombok')
+	testAnnotationProcessor('org.projectlombok:lombok')
 
 }
 
