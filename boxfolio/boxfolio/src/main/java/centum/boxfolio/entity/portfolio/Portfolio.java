@@ -18,8 +18,10 @@ public class Portfolio {
 
     private String title;
     private String contents;
+
     private LocalDateTime updatedDate;
     private String visibility;
+
     private long starTally;
 
     @OneToOne
