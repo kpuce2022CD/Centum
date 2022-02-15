@@ -1,0 +1,109 @@
+header {
+    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
+}
+
+.notice-title-container {
+    background-color: #ddd;
+    border-radius: 8px;
+    margin: 20px 10px;
+    padding: 20px 30px;
+}
+
+.edit-head-container {
+    margin: 20px 10px;
+}
+
+#category {
+    border: 1px solid #ebecef;
+    border-radius: 3px;
+    padding: 15px 30px;
+}
+
+.edit-container {
+    margin: 20px 10px;
+}
+
+#edit-title {
+    border: 1px solid #ebecef;
+    font-size: 20px;
+    line-height: 5px;
+    margin: 10px 0;
+    outline: none;
+    overflow: hidden;
+    padding: 20px 10px;
+    resize: none;
+    width: 100%;
+}
+
+.edit-tool {
+    background-color: rgb(250, 250, 250);
+    border: 1px solid #ebecef;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.edit-tool button, #tool-image {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 5px;
+}
+
+.edit-tool button:hover, #tool-image:hover{
+    color: #86A8E7;
+}
+
+#tool-image label {
+    cursor: pointer;
+}
+
+#input-image {
+    display: none;
+}
+
+.edit-tool select {
+    background-color: transparent;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin: 0 5px;
+    padding: 10px 5px;
+}
+
+#editor {
+    background-color: #fff;
+    border: 1px solid #ebecef;
+    border-radius: 3px;
+    height: 500px;
+    outline: none;
+    padding: 16px 24px;
+    overflow: scroll;
+    text-align: justify;
+}
+
+#editor img {
+    max-width: 100%;
+}
+
+.access-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 10px;
+}
+
+.access-container button {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    margin: 0 10px;
+    padding: 10px 30px;
+}
+
+#save-edit {
+    background-color: #ddd;
+}
+
+#cancel-edit {
+    background-color: #555;
+}
