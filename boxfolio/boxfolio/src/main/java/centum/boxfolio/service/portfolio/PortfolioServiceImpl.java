@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-
+import java.util.List;
 
 
 @Service
@@ -51,5 +51,15 @@ public class PortfolioServiceImpl implements PortfolioService{
         }
 
 
+    }
+
+    @Override
+    public List<Portfolio> searchWithTitle(String title) {
+        return portfolioRepository.findByTitle(title);
+    }
+
+    @Override
+    public Portfolio searchWithMember(Member member) {
+        return portfolioRepository.findByMember(member);
     }
 }

@@ -31,18 +31,42 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         return portfolio;
     }
 
+    // 탐색 관련
     @Override
     public List<Portfolio> getHighestPortfolioList(int count) {
-        return em.createQuery(
-                "select * " +
-                        "from Portfolio " +
-                        "ordered by star_tally DESC " +
-                        "limit" + count + ";", Portfolio.class).getResultList();
+
+        String jpql = "SELECT p FROM Portfolio AS p ORDER BY p.starTally DESC";
+
+        TypedQuery<Portfolio> query = em.createQuery(jpql, Portfolio.class);
+        query.setMaxResults(count);
+
+        return query.getResultList();
     }
 
     @Override
-    public Portfolio getById(long id) {
+    public Portfolio findById(long id) {
         return em.find(Portfolio.class, id);
+    }
+
+    @Override
+    public List<Portfolio> findByTitle(String title) {
+        String jpql = "SELECT p FROM Portfolio AS p WHERE p.title IN :title";
+
+        TypedQuery<Portfolio> query = em.createQuery(jpql, Portfolio.class);
+
+        query.setParameter("title", title);
+        return query.getResultList();
+    }
+
+    @Override
+    public Portfolio findByMember(Member member) {
+        String jpql = "SELECT p FROM Portfolio AS p WHERE p.member = :member";
+
+
+        TypedQuery<Portfolio> query = em.createQuery(jpql, Portfolio.class);
+        query.setParameter("member", member);
+
+        return query.getSingleResult();
     }
 
     @Override
@@ -58,8 +82,6 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         } else {
             deleteRelationPortfolioStar(portfolio, member);
         }
-
-
     }
 
 

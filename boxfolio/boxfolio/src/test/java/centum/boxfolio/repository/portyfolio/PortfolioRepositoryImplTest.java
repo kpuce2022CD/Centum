@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @SpringBootTest
 class PortfolioRepositoryImplTest {
@@ -25,7 +27,12 @@ class PortfolioRepositoryImplTest {
 
     @Test
     void test () {
-        portfolioService.downStar(portfolioRepository.getById(1), memberRepository.findById("testmember").get());
+
+        List<Portfolio> temp = null;
+
+        System.out.println(portfolioService.searchWithMember(memberRepository.findById("testmember0").get()).getId());
+
+
     }
 
 }
