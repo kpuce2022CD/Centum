@@ -50,11 +50,7 @@ h1 {
     padding: 20px 80px;
 }
 
-#member-name {
-    font-weight: bold;
-}
-
-#member-id {
+#member-id #member-name{
     color: #55f;
     font-weight: bold;
 }

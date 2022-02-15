@@ -85,16 +85,13 @@
   border: 1px solid #000;
   border-radius: 5px;
   background-color: transparent;
+  font-weight: bold;
+  line-height: 20px;
+  color: #000;
 }
 
 .login-btn:hover {
   animation: btn-color 0.2s linear both;
-}
-
-.login-btn .btn-text {
-  font-weight: bold;
-  line-height: 20px;
-  color: #000;
 }
 
 .error-msg-area {

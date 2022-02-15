@@ -1,10 +1,11 @@
 package centum.boxfolio.service.member;
 
+import centum.boxfolio.controller.member.MemberSaveForm;
 import centum.boxfolio.entity.member.Member;
 
 import java.text.ParseException;
 
 public interface MemberService {
-    String signup(Member member);
-    void login(String id, String pw);
+    Member signup(MemberSaveForm form);
+    Member login(String loginId, String passwd);
 }
