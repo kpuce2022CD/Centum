@@ -61,7 +61,7 @@ public class Member {
 
     public Member(String loginId, String passwd, String realName, String nickname, String phone,
                   String email, LocalDate birth, int sex, String githubId,
-                  String interestField) {
+                  String interestField, MemberAbility memberAbility) {
         this.loginId = loginId;
         this.passwd = passwd;
         this.realName = realName;
@@ -73,6 +73,7 @@ public class Member {
         this.githubId = githubId;
         this.interestField = interestField;
         this.progressField = "";
-        this.memberAbility = new MemberAbility();
+        memberAbility.setMember(this);
+        this.memberAbility = memberAbility;
     }
 }

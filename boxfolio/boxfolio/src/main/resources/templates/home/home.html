@@ -26,10 +26,10 @@
     <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
     <link rel="stylesheet" type="text/css" href="../../css/home/home.css" th:href="@{/css/home/home.css}"/>
     <!--fontawesome-->
-    <script src="https://kit.fontawesome.com/494ceb3960.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<header>
+<header th:replace="template/header :: common_header">
     <div class="wrap">
         <div class="header-container">
             <div class="logo">
@@ -62,8 +62,8 @@
         <h1>
             BOXFOLIO
         </h1>
-        <span>자신만의 포트폴리오를 만들고 분석해보세요!</span>
-        <a href="/login" th:href="@{/login}" class="analysis-btn">
+        <span th:text="#{home.banner.description}">자신만의 포트폴리오를 만들고 분석해보세요!</span>
+        <a href="/login" th:href="@{/login}" class="analysis-btn" th:text="#{home.banner.button.start}">
             분석 받아보기
         </a>
     </div>
@@ -71,25 +71,25 @@
 <section class="main">
     <div class="wrap">
         <div class="main-container">
-            <h2 class="main-head">
+            <h2 class="main-head" th:text="#{home.main.head}">
                 서비스 소개
             </h2>
             <div class="icon-area">
                 <a href="#" id="analysis-icon">
                     <img src="../../image/connection.png" th:src="@{/image/connection.png}" alt="analysis-icon" />
-                    <p>프로젝트 분석</p>
+                    <p th:text="#{home.main.button.analysis}">프로젝트 분석</p>
                 </a>
                 <a href="#" id="portfolio-icon">
                     <img src="../../image/briefcase.png" th:src="@{/image/briefcase.png}" alt="portfolio-icon" />
-                    <p>포트폴리오 관리</p>
+                    <p th:text="#{home.main.button.portfolio}">포트폴리오 관리</p>
                 </a>
                 <a href="#" id="community-icon">
                     <img src="../../image/community.png" th:src="@{/image/community.png}" alt="community-icon" />
-                    <p>팀원 매칭</p>
+                    <p th:text="#{home.main.button.community}">팀원 매칭</p>
                 </a>
                 <a href="#" id="question-icon">
                     <img src="../../image/question-and-answer.png" th:src="@{/image/question-and-answer.png}" alt="question-icon" />
-                    <p>1:1 문의</p>
+                    <p th:text="#{home.main.button.question}">1:1 문의</p>
                 </a>
             </div>
         </div>
@@ -101,8 +101,8 @@
 <section class="descript second">
 
 </section>
-<footer>
-
+<footer th:replace="template/footer :: common_footer">
 </footer>
+<script src="../../js/common.js" th:src="@{/js/common.js}"></script>
 </body>
 </html>

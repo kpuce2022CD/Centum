@@ -22,15 +22,15 @@
     <!--    <link rel="short icon" type="image/x-icon" href="resources/social-care.png">-->
 
     <!--CSS-->
-    <link rel="stylesheet" type="text/css" href="/boxfolio/boxfolio/src/main/resources/static/css/reset.css" th:href="@{/css/reset.css}"/>
-    <link rel="stylesheet" type="text/css" href="/boxfolio/boxfolio/src/main/resources/static/css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" type="text/css" href="/boxfolio/boxfolio/src/main/resources/static/css/member/signup_result.css" th:href="@{/css/member/signup_result.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../css/member/signup_result.css" th:href="@{/css/member/signup_result.css}"/>
     <!--fontawesome-->
-    <script src="https://kit.fontawesome.com/494ceb3960.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="root-wrap">
-    <header>
+    <header th:replace="template/header :: common_header">
         <div class="wrap">
             <div class="header-container">
                 <div class="logo">
@@ -79,9 +79,9 @@
             </div>
         </div>
     </section>
-    <footer>
-
+    <footer th:replace="template/footer :: common_footer">
     </footer>
 </div>
+<script src="../../js/common.js" th:src="@{/js/common.js}"></script>
 </body>
 </html>
