@@ -72,6 +72,24 @@
             <div class="edit-container">
                 <textarea name="edit-title" id="edit-title" cols="30" placeholder="제목을 입력해 주세요."></textarea>
                 <div class="edit-tool">
+                    <select id="tool-fontsize">
+                        <option value="">폰트 사이즈</option>
+                        <option value="1">10px</option>
+                        <option value="2">13px</option>
+                        <option value="3">16px</option>
+                        <option value="4">18px</option>
+                        <option value="5">24px</option>
+                        <option value="6">32px</option>
+                        <option value="7">48px</option>
+                    </select>
+                    <select id="tool-font">
+                        <option value="">폰트</option>
+                        <option value="Black Han Sans">Black Han Sans</option>
+                        <option value="Noto Sans KR">Noto Sans KR</option>
+                        <option value="Nanum Gothic">Nanum Gothic</option>
+                        <option value="Nanum Myeongjo">Nanum Myeongjo</option>
+                        <option value="Nanum Pen Script">Nanum Pen Script</option>
+                    </select>
                     <button id="tool-bold">
                         <i class="fas fa-bold"></i>
                     </button>
@@ -114,26 +132,40 @@
                     <button id="tool-redo">
                         <i class="fas fa-redo"></i>
                     </button>
-                    <select id="tool-fontsize">
-                        <option value="">폰트 사이즈</option>
-                        <option value="1">10px</option>
-                        <option value="2">13px</option>
-                        <option value="3">16px</option>
-                        <option value="4">18px</option>
-                        <option value="5">24px</option>
-                        <option value="6">32px</option>
-                        <option value="7">48px</option>
-                    </select>
-                    <select id="tool-font">
-                        <option value="">폰트</option>
-                        <option value="Black Han Sans">Black Han Sans</option>
-                        <option value="Noto Sans KR">Noto Sans KR</option>
-                        <option value="Nanum Gothic">Nanum Gothic</option>
-                        <option value="Nanum Myeongjo">Nanum Myeongjo</option>
-                        <option value="Nanum Pen Script">Nanum Pen Script</option>
-                    </select>
                 </div>
                 <div id="editor" contenteditable="true">
+                </div>
+            </div>
+            <div class="allow-container">
+                <div class="visibility">
+                    <h4>공개 여부</h4>
+                    <input type="radio" name="" value="public">공개
+                    <input type="radio" name="" value="private">비공개
+                </div>
+                <div class="allow">
+                    <div class="comment-container">
+                        <h4>댓글 허용</h4>
+                        <label class="switch-button"> 
+                            <input type="checkbox"/> 
+                            <span class="onoff-switch"></span> 
+                        </label>
+                    </div>
+                    <div class="scrap-container">
+                        <h4>스크랩 허용</h4>
+                        <label class="switch-button"> 
+                            <input type="checkbox"/> 
+                            <span class="onoff-switch"></span> 
+                        </label>
+                    </div>
+                </div>
+                <div class="member-total">
+                    <h4>모집 인원수</h4>
+                    <input type="radio" name="" value="1">1
+                    <input type="radio" name="" value="2">2
+                    <input type="radio" name="" value="3">3
+                    <input type="radio" name="" value="4">4
+                    <input type="radio" name="" value="5">5
+                    <input type="radio" name="" value="6">6
                 </div>
             </div>
             <div class="access-container">
