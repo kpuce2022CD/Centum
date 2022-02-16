@@ -47,6 +47,11 @@ header {
     animation: font-color 0.2s linear both;
 }
 
+.member-area {
+    display: flex;
+    justify-content: center;
+}
+
 .start-btn {
     color: #fff;
     border: 1px solid #fff;
@@ -56,6 +61,41 @@ header {
 
 .start-btn:hover {
     animation: btn-color 0.2s linear both;
+}
+
+#profile-btn {
+    width: 32px;
+    height: 32px;
+}
+
+#profile-btn:hover {
+    cursor: pointer;
+}
+
+#member-access {
+    top: 85px;
+    right: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    position: absolute;
+    width: 150px;
+    height: auto;
+}
+
+.access-list {
+    margin: 10px;
+}
+
+.access-list li {
+    margin: 5px 0;
+}
+
+.access-list a:hover {
+    color: #86A8E7;
+}
+
+.ac-closed {
+    display: none;
 }
 
 @keyframes font-color {
