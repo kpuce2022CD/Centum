@@ -3,6 +3,7 @@ package centum.boxfolio.entity.portfolio;
 import centum.boxfolio.entity.member.Member;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.internal.metadata.aggregated.PotentiallyContainerCascadingMetaData;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -36,4 +37,18 @@ public class Portfolio {
 
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
     private List<PortfolioScrap> portfolioScraps = new ArrayList<>();
+
+    public Portfolio(String title, String contents, boolean visibility, Member member,
+                     List<Project> projects, List<PortfolioStar> portfolioStars,List<PortfolioScrap> portfolioScraps){
+        this.title = title;
+        this.contents = contents;
+        this.visibility = visibility;
+        this.member = member;
+        this.projects = projects;
+        this.portfolioStars = portfolioStars;
+        this.portfolioScraps = portfolioScraps;
+
+        this.starTally = 0;
+        this.updatedDate = LocalDateTime.now();
+    }
 }
