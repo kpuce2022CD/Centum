@@ -4,9 +4,11 @@ import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.repository.portyfolio.PortfolioRepository;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service
@@ -16,8 +18,8 @@ public class PortfolioServiceImpl implements PortfolioService{
     private final PortfolioRepository portfolioRepository;
 
     @Override
-    public void upload(Portfolio portfolio) {
-        portfolioRepository.save(portfolio);
+    public void upload(Portfolio portfolio, Member member) {
+        portfolioRepository.save(portfolio, member);
     }
 
     @Override
@@ -27,23 +29,37 @@ public class PortfolioServiceImpl implements PortfolioService{
 
     @Override
     public void change(Portfolio portfolio, String title, String context, boolean visibility) {
-        Date today = new Date();
+        LocalDateTime today = LocalDateTime.now();
         portfolio.setTitle(title);
         portfolio.setContents(context);
         portfolio.setVisibility(visibility);
         portfolio.setUpdatedDate(today);
-        portfolioRepository.save(portfolio);
+        portfolioRepository.save(portfolio, portfolio.getMember());
     }
 
     @Override
     public void upStar(Portfolio portfolio, Member member) {
-        portfolio.setStarTally(portfolio.getStarTally() + 1);
-        portfolioRepository.upStar(portfolio, member);
+        portfolioRepository.changeStar(portfolio, member, true);
     }
 
     @Override
     public void downStar(Portfolio portfolio, Member member) {
-        portfolio.setStarTally(portfolio.getStarTally() - 1);
-        portfolioRepository.downStar(portfolio, member);
+        if (portfolio.getStarTally() == 0){
+            return;
+        } else {
+            portfolioRepository.changeStar(portfolio, member, false);
+        }
+
+
+    }
+
+    @Override
+    public List<Portfolio> searchWithTitle(String title) {
+        return portfolioRepository.findByTitle(title);
+    }
+
+    @Override
+    public Portfolio searchWithMember(Member member) {
+        return portfolioRepository.findByMember(member);
     }
 }

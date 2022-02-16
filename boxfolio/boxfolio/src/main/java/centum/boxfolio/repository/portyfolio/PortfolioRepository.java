@@ -8,10 +8,11 @@ import java.util.List;
 
 
 public interface PortfolioRepository {
-    Portfolio save (Portfolio portfolio);
+    Portfolio save (Portfolio portfolio, Member member);
     List<Portfolio> getHighestPortfolioList(int count);
-    Portfolio getById(int id);
+    Portfolio findById(long id);
+    List<Portfolio> findByTitle(String title);
+    Portfolio findByMember(Member member);
     void delete (Portfolio portfolio);
-    void upStar(Portfolio portfolio, Member member);
-    void downStar(Portfolio portfolio, Member member);
+    void changeStar (Portfolio portfolio, Member member, boolean upDown);
 }
