@@ -5,7 +5,7 @@ header {
 .notice-title-container {
     background-color: #C8DEFF;
     border-radius: 8px;
-    margin: 20px 10px;
+    margin: 20px 0;
     padding: 20px 30px;
 }
 
@@ -20,7 +20,7 @@ header {
 }
 
 .edit-container {
-    margin: 20px 10px;
+    margin: 20px 0;
 }
 
 #edit-title {
@@ -71,7 +71,7 @@ header {
 }
 
 #editor {
-    background-color: #fff;
+    background-color: #fefefe;
     border: 1px solid #ebecef;
     border-radius: 3px;
     height: 500px;
@@ -81,21 +81,35 @@ header {
     text-align: justify;
 }
 
+#editor::-webkit-scrollbar {
+    display: none;
+}
+
 #editor img {
     max-width: 100%;
 }
 
 .allow-container {
     background-color: #f2f7ff;
-    padding: 5px 15px;
+    padding: 25px 20px;
     border-radius: 10px;
+}
+
+.visibility {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.visibility h4 {
+    padding-right: 10px;
 }
 
 .switch-button { 
     position: relative; 
     display: inline-block; 
-    width: 55px; 
-    height: 30px; 
+    width: 42px; 
+    height: 25px; 
 } 
 
 .switch-button input { 
@@ -121,8 +135,8 @@ header {
 .onoff-switch:before { 
     position: absolute; 
     content: ""; 
-    height: 22px; 
-    width: 22px; 
+    height: 16px; 
+    width: 16px; 
     left: 4px; 
     bottom: 4px; 
     background-color: #fff; 
@@ -137,9 +151,34 @@ header {
 } 
 
 .switch-button input:checked + .onoff-switch:before { 
-    -webkit-transform: translateX(26px); 
-    -ms-transform: translateX(26px); 
-    transform: translateX(26px); 
+    -webkit-transform: translateX(18px); 
+    -ms-transform: translateX(18px); 
+    transform: translateX(18px); 
+}
+
+.allow {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.comment-container, .scrap-container {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.comment-container h4:nth-child(n), .scrap-container h4:nth-child(n) {
+    margin-right: 8px;
+}
+
+.member-total {
+    display: flex;
+    align-items: center;
+}
+
+.member-total h4 {
+    padding-right: 10px;
 }
 
 .access-container {
