@@ -1,8 +1,6 @@
-package centum.boxfolio.repository.portyfolio;
+package centum.boxfolio.repository.portfolio;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PortfolioRepositoryImplTest {
 

@@ -1,0 +1,129 @@
+header {
+    min-width: 1280px;
+    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
+}
+
+.access-container {
+    align-items: flex-end;
+    display: flex;
+    height: 200px;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+#portfolio-search-form {
+    align-items: center;
+    display: flex;
+}
+
+#portfolio-query {
+    background-color: #fed;
+    border: 0.5px solid #f93;
+    border-radius: 8px;
+    height: 35px;
+    font-size: 16px;
+    padding: 5px;
+    width: 300px;
+}
+
+#portfolio-search-btn {
+    background-color: transparent;
+    border: 0;
+    color: #f93;
+    font-size: 22px;
+    height: 28px;
+    margin: 0 10px;
+    outline: 0;
+    padding: 0;
+    width: 28px;
+}
+
+.to-myportfolio {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.to-myportfolio:hover {
+    color: #f93;
+    cursor: pointer;
+    transition: transform 0.5s;
+    transform: translateX(2px);
+}
+
+/* portfolio card */
+.portfolio-container {
+    padding-bottom: 30px;
+}
+
+.portfolio-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0;
+}
+
+.portfolio-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 10px 10px 10px -5px rgba(25, 42, 70, 0.2);
+    height: 180px;
+    margin: 0 10px;
+    width: 240px;
+}
+
+.portfolio-card:hover {
+    transition: transform 0.5s;
+    transform: translateY(-2px);
+}
+
+.portfolio-info {
+    padding: 5px 10px;
+}
+
+.portfolio-head {
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    padding: 5px 0;
+}
+
+.portfolio-title {
+    color: #777;
+    border-bottom: 1px solid #ddd;
+    padding: 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.interested {
+    color: #ffc74f;
+    font-size: 12px;
+    padding: 10px 0;
+}
+
+.portfolio-created {
+    font-size: 12px;
+}
+
+.portfolio-icons {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin: 10px 0;
+}
+
+.portfolio-icons li {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.portfolio-star:hover {
+    color: #fff555;
+}
+
+.portfolio-scrap:hover {
+    color: #00aeff;
+}

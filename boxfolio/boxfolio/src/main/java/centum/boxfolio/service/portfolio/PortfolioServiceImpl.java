@@ -2,7 +2,7 @@ package centum.boxfolio.service.portfolio;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
-import centum.boxfolio.repository.portyfolio.PortfolioRepository;
+import centum.boxfolio.repository.portfolio.PortfolioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

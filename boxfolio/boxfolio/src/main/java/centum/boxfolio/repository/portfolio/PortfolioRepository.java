@@ -1,4 +1,4 @@
-package centum.boxfolio.repository.portyfolio;
+package centum.boxfolio.repository.portfolio;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;

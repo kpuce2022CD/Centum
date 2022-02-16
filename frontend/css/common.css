@@ -24,7 +24,6 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: relative;
 }
 
 .logo a {
@@ -66,7 +65,6 @@ header {
 #profile-btn {
     width: 32px;
     height: 32px;
-    margin: 0 20px;
 }
 
 #profile-btn:hover {

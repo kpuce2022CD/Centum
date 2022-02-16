@@ -71,7 +71,7 @@ public class MemberController {
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember.getLoginId());
 
-        return "redirect:/";
+        return "redirect:" + redirectURL;
     }
 
     @GetMapping("/logout")
