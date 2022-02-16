@@ -34,11 +34,11 @@ public class Board {
     private Member member;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    private List<BoardStar> boardStars = new ArrayList<BoardStar>();
+    private List<BoardStar> boardStars = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    private List<BoardScrap> boardScraps = new ArrayList<BoardScrap>();
+    private List<BoardScrap> boardScraps = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    private List<BoardComment> boardComments = new ArrayList<BoardComment>();
+    private List<BoardComment> boardComments = new ArrayList<>();
 }

@@ -3,6 +3,7 @@ package centum.boxfolio.repository.portyfolio;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.repository.member.MemberRepositoryImpl;
+import centum.boxfolio.repository.portfolio.PortfolioRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Repository;
 class TestDataP {
 
     @Autowired
-    PortfolioRepositoryImpl portfolioRepository;
+    PortfolioRepository portfolioRepository;
 
     @Autowired
     MemberRepositoryImpl memberRepository;
@@ -26,15 +27,15 @@ class TestDataP {
     void insert(){
         for (int i = 0; i < 10; i ++){
             Portfolio portfolio = new Portfolio();
-            Member member = memberRepository.findById("testmember" + i).get();
+//            Member member = memberRepository.findById("testmember" + i).get();
             portfolio.setVisibility(true);
             portfolio.setTitle("test title + i");
             portfolio.setStarTally(0);
             portfolio.setPortfolioStars(null);
             portfolio.setContents("test content" + i);
-            portfolio.setMember(member);
+//            portfolio.setMember(member);
 
-            portfolioRepository.save(portfolio, member);
+//            portfolioRepository.save(portfolio, member);
         }
     }
 

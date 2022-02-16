@@ -29,8 +29,11 @@ public class Portfolio {
     private Member member;
 
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
-    private List<Project> projects = new ArrayList<Project>();
+    private List<Project> projects = new ArrayList<>();
 
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
-    private List<PortfolioStar> portfolioStars = new ArrayList<PortfolioStar>();
+    private List<PortfolioStar> portfolioStars = new ArrayList<>();
+
+    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
+    private List<PortfolioScrap> portfolioScraps = new ArrayList<>();
 }

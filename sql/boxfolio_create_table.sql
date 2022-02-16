@@ -30,12 +30,28 @@ CREATE TABLE IF NOT EXISTS portfolio(
     title VARCHAR(255) NOT NULL,
     contents MEDIUMTEXT NOT NULL,
     updated_date DATETIME NOT NULL,
-    visibility boolean NOT NULL,
+    visibility VARCHAR(10) NOT NULL,
     star_tally INT UNSIGNED NOT NULL DEFAULT 0,
+    scrap_tally INT UNSIGNED NOT NULL DEFAULT 0,
     member_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (member_id) REFERENCES member(id)
 );
 
+CREATE TABLE IF NOT EXISTS portfolio_star(
+	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	portfolio_id INT UNSIGNED NOT NULL,
+    member_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (portfolio_id) REFERENCES portfolio(id),
+    FOREIGN KEY (member_id) REFERENCES member(id)
+);
+
+CREATE TABLE IF NOT EXISTS portfolio_scrap(
+	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	portfolio_id INT UNSIGNED NOT NULL,
+    member_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (portfolio_id) REFERENCES portfolio(id),
+    FOREIGN KEY (member_id) REFERENCES member(id)
+);
 
 CREATE TABLE IF NOT EXISTS project(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,

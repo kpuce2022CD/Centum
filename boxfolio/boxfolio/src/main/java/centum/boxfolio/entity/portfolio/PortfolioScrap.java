@@ -1,26 +1,22 @@
 package centum.boxfolio.entity.portfolio;
 
+import centum.boxfolio.entity.member.Member;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter @Setter
 @Entity
-public class Project {
+public class PortfolioScrap {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    private String repositoryAddr;
-    private LocalDateTime updatedDate;
 
     @ManyToOne
     @JoinColumn(name = "portfolio_id")
     private Portfolio portfolio;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private List<ProjectSkill> projectSkills = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 }

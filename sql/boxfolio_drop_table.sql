@@ -10,6 +10,8 @@ DROP TABLE skill;
 DROP TABLE skill_type;
 DROP TABLE project_analysis;
 DROP TABLE project;
+DROP TABLE portfolio_star;
+DROP TABLE portfolio_scrap;
 DROP TABLE portfolio;
 DROP TABLE member;
 DROP TABLE member_ability;

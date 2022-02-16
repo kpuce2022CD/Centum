@@ -3,6 +3,7 @@ package centum.boxfolio.entity.member;
 import centum.boxfolio.controller.member.MemberSaveForm;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.portfolio.Portfolio;
+import centum.boxfolio.entity.portfolio.PortfolioScrap;
 import centum.boxfolio.entity.portfolio.PortfolioStar;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,22 +43,25 @@ public class Member {
     private Portfolio portfolio;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<PortfolioStar> portfolioStars = new ArrayList<PortfolioStar>();
+    private List<PortfolioStar> portfolioStars = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Board> boards = new ArrayList<Board>();
+    private List<PortfolioScrap> portfolioScraps = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<BoardStar> boardStars = new ArrayList<BoardStar>();
+    private List<Board> boards = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<BoardScrap> boardScraps = new ArrayList<BoardScrap>();
+    private List<BoardStar> boardStars = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<BoardComment> boardComments = new ArrayList<BoardComment>();
+    private List<BoardScrap> boardScraps = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<BoardReply> boardReplies = new ArrayList<BoardReply>();
+    private List<BoardComment> boardComments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<BoardReply> boardReplies = new ArrayList<>();
 
     public Member(String loginId, String passwd, String realName, String nickname, String phone,
                   String email, LocalDate birth, int sex, String githubId,

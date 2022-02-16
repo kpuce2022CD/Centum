@@ -28,5 +28,5 @@ public class BoardComment {
     private Member member;
 
     @OneToMany(mappedBy = "boardComment", cascade = CascadeType.ALL)
-    private List<BoardReply> boardReplies = new ArrayList<BoardReply>();
+    private List<BoardReply> boardReplies = new ArrayList<>();
 }
