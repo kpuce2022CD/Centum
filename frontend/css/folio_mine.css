@@ -157,7 +157,6 @@ header {
     padding: 10px;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
-    background-color: rgb(63, 63, 63);
 }
 .set-pub:hover{
     cursor: pointer;
@@ -169,7 +168,6 @@ header {
     padding: 10px;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
-    background-color: rgb(63, 63, 63);
 }
 .set-pri:hover{
     cursor: pointer;
@@ -202,15 +200,24 @@ header {
 
 
 .fo{
-    width: 80%;
-    height: 50vh;
+    width: 70%;
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
     background-color: beige;
 }
-
-
+.date_1{
+    float: left;
+    color: #fff;
+    margin-left: 1100px;
+    font: bold
+}
+.date_2{
+    float: left;
+    color: #fff;
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
 /* */
 .analysis-btn {
     border: 1px solid #fff;

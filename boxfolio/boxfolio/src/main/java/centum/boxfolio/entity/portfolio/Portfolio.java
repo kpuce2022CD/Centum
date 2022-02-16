@@ -20,7 +20,7 @@ public class Portfolio {
     private String contents;
 
     private LocalDateTime updatedDate;
-    private String visibility;
+    private boolean visibility;
 
     private long starTally;
 

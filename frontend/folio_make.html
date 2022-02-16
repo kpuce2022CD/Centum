@@ -19,7 +19,7 @@
     <script src="js/folio_make.js"></script>
 </head>
 
-<body>
+<body onload="start()">
 <div id="root-wrap">
     <header>
         <div class="wrap">
@@ -109,8 +109,8 @@
     </section>
     <section class="add">
         <div class="set">
-            <button class="set-pub">public</button>
-            <button class="set-pri">private</button>
+            <button class="set-pub" onclick="set_pub()">public</button>
+            <button class="set-pri" onclick="set_pri()">private</button>
         </div>
         <div class="make-op">
             <div class="mk-btn">

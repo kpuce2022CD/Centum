@@ -30,11 +30,12 @@ CREATE TABLE IF NOT EXISTS portfolio(
     title VARCHAR(255) NOT NULL,
     contents MEDIUMTEXT NOT NULL,
     updated_date DATETIME NOT NULL,
-    visibility VARCHAR(10) NOT NULL,
+    visibility boolean NOT NULL,
     star_tally INT UNSIGNED NOT NULL DEFAULT 0,
     member_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (member_id) REFERENCES member(id)
 );
+
 
 CREATE TABLE IF NOT EXISTS project(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
