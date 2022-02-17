@@ -3,7 +3,7 @@
 #root-wrap {
     min-width: 1280px;
     min-height: 100vh;
-    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
+    /*background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);*/
 }
 
 .wrap {
@@ -16,7 +16,6 @@ header {
     width: 100%;
     height: 120px;
     background-color: transparent;
-    border-bottom: 1px solid #fff;
 }
 
 .header-container {
@@ -27,7 +26,7 @@ header {
     position: relative;
 }
 
-.logo a {
+#logo {
     color: #fff;
     font-size: 32px;
     font-weight: bold;
@@ -48,6 +47,7 @@ header {
 }
 
 .member-area {
+    background: url("../image/member.png");
     display: flex;
     justify-content: center;
 }
@@ -66,7 +66,6 @@ header {
 #profile-btn {
     width: 32px;
     height: 32px;
-    margin: 0 20px;
 }
 
 #profile-btn:hover {
@@ -95,7 +94,11 @@ header {
     color: #86A8E7;
 }
 
-.ac-closed {
+details summary {
+    list-style: none;
+}
+
+details summary::-webkit-details-marker {
     display: none;
 }
 

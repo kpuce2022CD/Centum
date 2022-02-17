@@ -34,7 +34,7 @@
     <header th:replace="template/header :: common_header">
         <div class="wrap">
             <div class="header-container">
-                <div class="logo">
+                <div class="logo-area">
                     <!-- <img src="#" alt="logo-image"> -->
                     <a href="/" th:href="@{/}">BOXFOLIO</a>
                 </div>
@@ -64,7 +64,7 @@
     <section class="main">
         <div class="wrap">
             <div class="main-container">
-                <form action="/login" th:action="@{/login}" method="post" th:object="${memberLoginForm}">
+                <form action="/login" th:action method="post" th:object="${memberLoginForm}">
                     <div class="login-wrap">
                         <div class="login-header">
                             <h2>로그인</h2>

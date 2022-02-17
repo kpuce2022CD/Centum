@@ -38,12 +38,12 @@ header {
     width: 28px;
 }
 
-.to-myportfolio {
+.to-my-portfolio {
     font-size: 18px;
     font-weight: bold;
 }
 
-.to-myportfolio:hover {
+.to-my-portfolio:hover {
     color: #f93;
     cursor: pointer;
     transition: transform 0.5s;

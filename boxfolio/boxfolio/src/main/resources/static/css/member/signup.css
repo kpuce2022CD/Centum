@@ -3,6 +3,11 @@ input {
     width: 100%;
 }
 
+header {
+    border-bottom: 1px solid #fff;
+    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
+}
+
 /* section */
 .main {
     width: 100%;
@@ -20,18 +25,19 @@ input {
 }
 
 .signup-wrap {
-    border: 1px solid #fff;
+    background-color: #c8deff;
+    /*border: 1px solid #000;*/
     border-radius: 6px;
-    box-shadow: 0 5px 8px 0 rgba(68 68 68 4%);
+    box-shadow: 0 5px 8px 0 rgba(68 68 68 .4);
     padding: 40px 60px;
 }
 
 .signup-wrap h3, h2 {
-    color: #fff;
+    color: #000;
 }
 
 .signup-wrap input, select {
-    background-color: transparent;
+    background-color: #fff;
     height: 100%;
     font-size: 16px;
     padding: 10px 14px 10px 14px;
@@ -45,7 +51,7 @@ input {
     font-size: large;
     padding-bottom: 10px;
     margin-bottom: 30px;
-    border-bottom: solid 1px #fff;
+    border-bottom: 1px solid #89b;
 }
 
 .join-title {
@@ -65,7 +71,7 @@ input {
     position: relative;
     height: 50px;
     width: 100%;
-    border: solid 1px #dadada;
+    border: solid 1px #89b;
     box-sizing: border-box;
 }
 
@@ -94,9 +100,8 @@ input {
     table-layout: fixed;
     width: 147px;
     vertical-align: middle;
-    border: solid 1px #dadada;
-    padding: 11px 14px;
-    box-sizing: border-box;
+    border: solid 1px #89b;
+    margin-left: -1px;
 }
 
 .github-area .choice {
@@ -105,7 +110,7 @@ input {
 }
 
 .choice {
-    color: #8e8e8e;
+    color: #000;
     padding-left: 3px;
 }
 
@@ -114,17 +119,16 @@ input {
 }
 
 #signup-btn {
+    background-color: #89b;
     display: block;
     text-align: center;
     width: 100%;
     padding: 9px 0 10px;
     cursor: pointer;
-    border: 1px solid #fff;
     border-radius: 5px;
-    background-color: transparent;
     font-weight: bold;
     line-height: 20px;
-    color: #fff;
+    color: #000;
 }
 
 #signup-btn:hover {

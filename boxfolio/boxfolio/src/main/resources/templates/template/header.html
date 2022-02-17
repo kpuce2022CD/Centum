@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <body>
-<header th:fragment="common_header">
+<header th:fragment="common_header" th:id="header">
     <div class="wrap">
         <div class="header-container">
-            <div class="logo">
-                <a href="/" th:href="@{/}" th:text="#{title.main}">BOXFOLIO</a>
+            <div class="logo-area">
+                <a id="logo" href="/" th:href="@{/}" th:text="#{title.main}">BOXFOLIO</a>
             </div>
             <ul class="nav">
                 <li>
@@ -26,36 +26,36 @@
                     시작하기
                 </a>
             </div>
-            <div class="member-area" th:if="${!session.isEmpty()}">
-                <img src="/image/member.png" th:src="@{/image/member.png}" alt="member-icon" id="profile-btn"/>
-            </div>
-            <button id="member-access" class="ac-closed">
-                <ul class="access-list">
-                    <li>
-                        <a href="#">내 프로필</a>
-                    </li>
-                    <hr>
-                    <li>
-                        <a href="#">내 포트폴리오</a>
-                    </li>
-                    <li>
-                        <a href="#">내 프로젝트</a>
-                    </li>
-                    <li>
-                        <a href="#">내 스크랩</a>
-                    </li>
-                    <li>
-                        <a href="#">내 팀 프로젝트</a>
-                    </li>
-                    <li>
-                        <a href="#">환경설정</a>
-                    </li>
-                    <hr>
-                    <li>
-                        <a href="/logout" th:href="@{/logout}" th:text="#{button.logout}">로그아웃 <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
-                    </li>
-                </ul>
-            </button>
+            <details class="member-area" th:if="${!session.isEmpty()}">
+                <summary><img src="/image/member.png" th:src="@{/image/member.png}" alt="member-icon" id="profile-btn"/></summary>
+                <div id="member-access">
+                    <ul class="access-list">
+                        <li>
+                            <a href="#">내 프로필</a>
+                        </li>
+                        <hr>
+                        <li>
+                            <a href="#">내 포트폴리오</a>
+                        </li>
+                        <li>
+                            <a href="#">내 프로젝트</a>
+                        </li>
+                        <li>
+                            <a href="#">내 스크랩</a>
+                        </li>
+                        <li>
+                            <a href="#">내 팀 프로젝트</a>
+                        </li>
+                        <li>
+                            <a href="#">환경설정</a>
+                        </li>
+                        <hr>
+                        <li>
+                            <a href="/logout" th:href="@{/logout}" th:text="#{button.logout}">로그아웃 <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </details>
         </div>
     </div>
 </header>
