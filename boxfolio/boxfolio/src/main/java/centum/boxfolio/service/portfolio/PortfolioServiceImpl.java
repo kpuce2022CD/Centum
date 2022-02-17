@@ -1,5 +1,6 @@
 package centum.boxfolio.service.portfolio;
 
+import centum.boxfolio.controller.portfolio.PortfolioSaveForm;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.repository.portfolio.PortfolioRepository;
@@ -18,8 +19,12 @@ public class PortfolioServiceImpl implements PortfolioService{
     private final PortfolioRepository portfolioRepository;
 
     @Override
-    public void upload(Portfolio portfolio, Member member) {
-        portfolioRepository.save(portfolio, member);
+    public Portfolio upload(PortfolioSaveForm form) {
+        Portfolio portfolio = form.toPortfolio();
+
+        validateDuplicationPortfolio(portfolio);
+
+        return portfolioRepository.save(portfolio);
     }
 
     @Override
@@ -34,7 +39,7 @@ public class PortfolioServiceImpl implements PortfolioService{
         portfolio.setContents(context);
         portfolio.setVisibility(visibility);
         portfolio.setUpdatedDate(today);
-        portfolioRepository.save(portfolio, portfolio.getMember());
+        portfolioRepository.save(portfolio);
     }
 
     @Override
@@ -61,5 +66,10 @@ public class PortfolioServiceImpl implements PortfolioService{
     @Override
     public Portfolio searchWithMember(Member member) {
         return portfolioRepository.findByMember(member);
+    }
+
+    private void validateDuplicationPortfolio(Portfolio portfolio){
+
+
     }
 }

@@ -22,9 +22,8 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     private final EntityManager em;
 
     @Override
-    public Portfolio save(Portfolio portfolio, Member member) {
+    public Portfolio save(Portfolio portfolio) {
         LocalDateTime today = LocalDateTime.now();
-        portfolio.setMember(member);
 
         portfolio.setUpdatedDate(today);
         em.persist(portfolio);

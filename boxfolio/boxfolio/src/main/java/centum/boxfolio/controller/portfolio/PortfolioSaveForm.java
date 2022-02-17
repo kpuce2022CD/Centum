@@ -26,7 +26,6 @@ public class PortfolioSaveForm {
     private Member member;
 
     public Portfolio toPortfolio(){
-
         return new Portfolio(title, contents, visibility, member, null, null, null);
     }
 
