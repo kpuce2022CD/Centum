@@ -53,6 +53,7 @@ header {
 }
 
 .start-btn {
+    background-color: transparent;
     color: #fff;
     border: 1px solid #fff;
     border-radius: 5px;
@@ -113,5 +114,11 @@ details summary::-webkit-details-marker {
         color: #000;
         background-color: #F2593D;
         border-color: #F2593D;
+    }
+}
+
+@keyframes rotate-element{
+	100% {
+    	transform: rotate(360deg);
     }
 }

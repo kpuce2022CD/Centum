@@ -8,11 +8,63 @@ header {
     background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
 }
 
-/* section */
+.signup-progress {
+    height: 240px;
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 180px;
+}
+
+.progress-area {
+    background-color: #eee;
+    width: 900px;
+    height: 100px;
+}
+
+.progress-list {
+    color: #666;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.progress-list li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    height: 100%;
+    border: 1px solid #fff;
+}
+
+.pg-member {
+    background-color: #78a;
+    color: #fff;
+}
+
+.progress-title-container {
+    height: 60px;
+    border-bottom: 1px solid #000;
+}
+
+.progress-title {
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
 .main {
     width: 100%;
     height: auto;
-    min-height: calc(100vh - 120px);
+    min-height: calc(100vh - 360px);
+    padding: 80px 0;
 }
 
 .main-container {
@@ -20,8 +72,6 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
 }
 
 .signup-wrap {
@@ -51,7 +101,7 @@ header {
     font-size: large;
     padding-bottom: 10px;
     margin-bottom: 30px;
-    border-bottom: 1px solid #89b;
+    border-bottom: 1px solid #78a;
 }
 
 .join-title {
@@ -69,10 +119,9 @@ header {
 .join-box {
     display: block;
     position: relative;
+    border: solid 1px #78a;
     height: 50px;
     width: 100%;
-    border: solid 1px #89b;
-    box-sizing: border-box;
 }
 
 .error-msg {
@@ -100,7 +149,7 @@ header {
     table-layout: fixed;
     width: 147px;
     vertical-align: middle;
-    border: solid 1px #89b;
+    border: solid 1px #78a;
     margin-left: -1px;
 }
 
@@ -119,7 +168,7 @@ header {
 }
 
 #signup-btn {
-    background-color: #89b;
+    background-color: #78a;
     display: block;
     text-align: center;
     width: 100%;
@@ -129,6 +178,10 @@ header {
     font-weight: bold;
     line-height: 20px;
     color: #000;
+}
+
+.closed {
+    display: none !important;
 }
 
 #signup-btn:hover {

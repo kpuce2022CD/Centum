@@ -34,6 +34,7 @@ public class Member {
     private String githubId;
     private String interestField;
     private String progressField;
+    private int emailVerified;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_ability_id")
@@ -77,6 +78,7 @@ public class Member {
         this.githubId = githubId;
         this.interestField = interestField;
         this.progressField = "";
+        this.emailVerified = 0;
         memberAbility.setMember(this);
         this.memberAbility = memberAbility;
     }

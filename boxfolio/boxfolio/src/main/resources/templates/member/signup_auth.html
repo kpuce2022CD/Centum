@@ -24,7 +24,7 @@
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" th:href="@{/css/reset.css}"/>
     <link rel="stylesheet" type="text/css" href="../../static/css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../static/css/member/signup_result.css" th:href="@{/css/member/signup_result.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/member/signup_auth.css" th:href="@{/css/member/signup_auth.css}"/>
     <!--fontawesome-->
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
 </head>
@@ -80,7 +80,7 @@
             </div>
             <div class="progress-title-container">
                 <div class="progress-title">
-                    <span>3. 가입완료</span>
+                    <span>3. 이메일 인증</span>
                 </div>
             </div>
         </div>
@@ -88,19 +88,17 @@
     <section class="main">
         <div class="wrap">
             <div class="main-container">
-                <div class="complete-view-area">
-                    <div class="complete-img">
-                        <img src="../../static/image/check.png" th:src="@{/image/check.png}" alt="check-img"/>
-                    </div>
+                <div class="auth-view-area">
                     <div class="descript">
-                        <h1>BOXFOLIO 가입을 환영합니다!</h1>
-                        <div class="detail-descript">
-                            <span>회원가입이 완료되었습니다. <span id="member-name" th:text="${memberRealName}"></span>님의 아이디는 <span id="member-id" th:text="${memberId}"></span>입니다.</span>
-                        </div>
+                        <img src="../../static/image/email.png" alt="email.png" id="email-icon" th:src="@{/image/email.png}">
+                        <h2>
+                            <span id="member-email" th:text="${memberEmail}">[email]</span>로 링크가 전송되었습니다.
+                        </h2>
+                        <p>메일을 확인하여 가입을 완료해주세요</p>
                     </div>
-                    <div class="access-area">
-                        <a id="home-btn" href="/" th:href="@{/}">홈으로 가기</a>
-                        <a id="login-btn" href="login.html" th:href="@{/login}">로그인</a>
+                    <div class="button-area">
+                        <button id="prev-btn" onclick="location.href='signup.html'" th:onclick="|location.href='@{/signup}'|">뒤로</button>
+                        <button id="next-btn" onclick="location.href='home.html'" th:onclick="|location.href='@{/}'|">나중에 인증</button>
                     </div>
                 </div>
             </div>

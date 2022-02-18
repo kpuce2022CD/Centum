@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS member(
     github_id VARCHAR(20) NOT NULL DEFAULT "",
     interest_field VARCHAR(20) NOT NULL,
     progress_field VARCHAR(20) NOT NULL DEFAULT "",
+    email_verified TINYINT NOT NULL DEFAULT 0,
     member_ability_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (member_ability_id) REFERENCES member_ability(id)
 );
@@ -159,4 +160,14 @@ CREATE TABLE IF NOT EXISTS board_reply(
     board_comment_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (member_id) REFERENCES member(id),
     FOREIGN KEY (board_comment_id) REFERENCES board_comment(id)
+);
+
+CREATE TABLE IF NOT EXISTS confirmation_token(
+	id VARCHAR(40) PRIMARY KEY,
+    expiration_date DATETIME NOT NULL,
+    expired TINYINT NOT NULL,
+    created_date DATETIME NOT NULL,
+    last_modified_date DATETIME NOT NULL,
+    member_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (member_id) REFERENCES member(id)
 );

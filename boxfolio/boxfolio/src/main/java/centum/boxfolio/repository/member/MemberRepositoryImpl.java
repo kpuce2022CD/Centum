@@ -42,4 +42,9 @@ public class MemberRepositoryImpl implements MemberRepository {
     public List<Member> findAll() {
         return em.createQuery("select m from Member m", Member.class).getResultList();
     }
+
+    @Override
+    public void verifyEmail(Member member) {
+        member.setEmailVerified(1);
+    }
 }

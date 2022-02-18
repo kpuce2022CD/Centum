@@ -34,6 +34,7 @@ public class MemberSaveForm {
     private String githubId;
     private String interestField;
     private String progressField;
+    private String authCode;
 
     public Member toMember() {
         LocalDate birth = LocalDate.parse(String.format("%d%02d%02d", year, month, day), DateTimeFormatter.BASIC_ISO_DATE);

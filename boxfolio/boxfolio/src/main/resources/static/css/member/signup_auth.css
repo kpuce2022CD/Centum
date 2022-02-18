@@ -44,7 +44,7 @@ header {
     border: 1px solid #fff;
 }
 
-.pg-complete {
+.pg-auth {
     background-color: #78a;
     color: #fff;
 }
@@ -74,20 +74,15 @@ header {
     justify-content: center;
 }
 
-.complete-view-area {
+.auth-view-area {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.complete-img img {
-    width: 300px;
-}
-
-h1 {
-    color: #000;
-    font-size: 32px;
-    margin: 20px 0;
+#email-icon {
+    width: 100px;
+    margin: 10px 0;
 }
 
 .descript {
@@ -98,23 +93,28 @@ h1 {
     margin: 40px 0;
 }
 
-.detail-descript {
-    border: 1px solid #78a;
-    color: #000;
-    padding: 20px 80px;
+#member-email {
+    color: #78a;
 }
 
-#member-id #member-name{
-    color: #55f;
-    font-weight: bold;
-}
-
-.access-area a {
-    background-color: #78a;
-    border-radius: 5px;
-    color: #000;
+.button-area button {
+    width: 100px;
+    height: 40px;
     margin: 0 5px;
-    padding: 10px 30px;
+}
+
+#prev-btn:hover {
+    animation: btn-color 0.2s linear both;
+    cursor: pointer;
+}
+
+#next-btn {
+    background-color: #78a;
+}
+
+#next-btn:enabled:hover {
+    animation: btn-color 0.2s linear both;
+    cursor: pointer;
 }
 
 .access-area a:hover {

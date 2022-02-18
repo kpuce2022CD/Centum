@@ -2,6 +2,7 @@ package centum.boxfolio.controller.member;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.repository.member.MemberRepository;
+import centum.boxfolio.service.member.EmailService;
 import centum.boxfolio.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,33 +20,9 @@ import java.text.ParseException;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-public class MemberController {
+public class LoginController {
 
     private final MemberService memberService;
-
-    @GetMapping("/signup")
-    public String signupPage(Model model) {
-        model.addAttribute("memberSaveForm", new MemberSaveForm());
-        return "/member/signup";
-    }
-
-    @PostMapping("/signup")
-    public String signup(@Validated @ModelAttribute MemberSaveForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "/member/signup";
-        }
-
-        try {
-            Member savedMember = memberService.signup(form);
-            redirectAttributes.addFlashAttribute("memberId", savedMember.getLoginId());
-            redirectAttributes.addFlashAttribute("memberRealName", savedMember.getRealName());
-        } catch (IllegalStateException e) {
-            bindingResult.reject("saveFail", e.getMessage());
-            return "member/signup";
-        }
-
-        return "redirect:/signup_result";
-    }
 
     @GetMapping("/login")
     public String loginPage(Model model) {
@@ -68,6 +45,11 @@ public class MemberController {
             return "/member/login";
         }
 
+        if (loginMember.getEmailVerified() == 0) {
+            bindingResult.reject("loginFail", "가입 대기 중인 회원입니다.");
+            return "/member/login";
+        }
+
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember.getLoginId());
 
@@ -84,8 +66,5 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @GetMapping("/signup_result")
-    public String signupResult(Model model) {
-        return "/member/signup_result";
-    }
+
 }
