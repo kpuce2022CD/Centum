@@ -11,4 +11,5 @@ public interface ConfirmationTokenRepository extends JpaRepository<ConfirmationT
     Optional<ConfirmationToken> findById(String confirmationTokenId);
     Optional<ConfirmationToken> findByIdAndExpirationDateAfterAndExpired(String confirmationTokenId, LocalDateTime now, boolean expired);
     Optional<ConfirmationToken> findByIdAndExpirationDateBeforeAndExpired(String confirmationTokenId, LocalDateTime now, boolean expired);
+    void deleteById(String confirmationTokenId);
 }

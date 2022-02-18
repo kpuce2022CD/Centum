@@ -28,11 +28,14 @@ public class SignupController {
     }
 
     @GetMapping("/result")
-    public String signupResult(@RequestParam String token) {
-        if (!memberService.confirmToken(token)) {
+    public String signupResult(@RequestParam String token, Model model) {
+        Member member = memberService.confirmToken(token);
+        if (member == null) {
             return "member/signup_expired";
         }
 
+        model.addAttribute("memberRealName", member.getRealName());
+        model.addAttribute("memberId", member.getLoginId());
         return "/member/signup_result";
     }
 
@@ -58,7 +61,6 @@ public class SignupController {
             confirmationTokenService.createEmailConfirmationToken(savedMember.getId(), savedMember.getEmail());
             redirectAttributes.addFlashAttribute("memberEmail", savedMember.getEmail());
         } catch (IllegalStateException e) {
-            e.printStackTrace();
             bindingResult.reject("saveFail", e.getMessage());
             return "member/signup";
         }

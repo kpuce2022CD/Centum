@@ -37,18 +37,18 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean confirmToken(String tokenId) {
+    public Member confirmToken(String tokenId) {
         Optional<ConfirmationToken> availableToken = confirmationTokenService.findAvailableToken(tokenId);
         if (availableToken.isEmpty()) {
             confirmationTokenService.findNonAvailableTokenAndExpire(tokenId);
-            return false;
+            return null;
         }
         Optional<Member> member = memberRepository.findById(availableToken.get().getMemberId());
         if(member.isEmpty()) {
-            return false;
+            return null;
         }
         memberRepository.verifyEmail(member.get());
-        availableToken.get().useToken();
-        return true;
+        confirmationTokenService.findNonAvailableTokenAndExpire(tokenId);
+        return member.get();
     }
 }

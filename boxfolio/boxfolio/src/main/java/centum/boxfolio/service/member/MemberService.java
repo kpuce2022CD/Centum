@@ -10,5 +10,5 @@ import java.text.ParseException;
 public interface MemberService {
     Member signup(MemberSaveForm form);
     Member login(String loginId, String passwd);
-    boolean confirmToken(String tokenId);
+    Member confirmToken(String tokenId);
 }
