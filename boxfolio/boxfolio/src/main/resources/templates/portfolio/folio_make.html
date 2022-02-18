@@ -53,105 +53,101 @@
         </div>
     </header>
 
-    <section class="main">
-        <div class="wrap">
-            <div class="main-container">
-                <form th:action="/portfolios/make" method="post" th:object="${portfolioSaveForm}" id="send">
-                    <div class="make">
-                        <div class="fo" id="fo">
-                            <div class="image-ch" id="image-ch">
-                                <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
-                                <div class="im">
-                                    <div class="container">
-                                        <div class="image-upload" id="image-upload">
-                                            <div>
-                                                <input type="file" id="chooseFile" class="chooseFile" th:field="*{src}" accept="image/*" onchange="loadFile(this)">
-                                                <p id="fileName"></p>
-                                            </div>
-                                        </div>
-                                        <img class="image-show" id="image-show" src=""></img>
-                                    </div>
+    <form action="/portfolios/make" method="post" th:object="${portfolioSaveForm}" id="send">
+        <div class="make">
+            <div class="fo" id="fo">
+                <div class="image-ch" id="image-ch">
+                    <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
+                    <div class="im">
+                        <div class="container">
+                            <div class="image-upload" id="image-upload">
+                                <div>
+                                    <input type="file" id="chooseFile" class="chooseFile" th:field="*{src}" accept="image/*" onchange="loadFile(this)">
+                                    <input type="text" id="whatImage" class="what" th:field="*{what}" value="image">
+                                    <p id="fileName"></p>
                                 </div>
-                                <button class="del" onclick="dele(this)">삭제</button>
                             </div>
-
-                            <div class="video-ch" id="video-ch">
-                                <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
-                                <div class="vi">
-                                    <iframe id="hz" class="hz" width="560" height="315" src="">
-                                    </iframe>
-                                    <input id="hide" class="hide" th:field="*{src}" size="100" type="url" onchange="video_in(value, this)" value="유튜브 src를 입력하세요">
-                                </div>
-                                <button class="del" onclick="dele(this)">삭제</button>
-                            </div>
-
-                            <div class="videoFile" id="videoFile">
-                                <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
-                                <div class="viF">
-                                    <div class="video-upload" id="video-upload">
-                                        <div>
-                                            <input type="file" th:field="*{src}" id="chooseVideoFile" name="chooseVideoFile" accept="video.mp4" onchange="loadVideoFile(this)">
-                                        </div>
-                                    </div>
-                                    <video id="videoFi" class="videoFi" autoplay controls loop muted preload="none" width="1000">
-                                        <source src="" type="video/mp4">
-                                        브라우저가 동영상 업로드를 지원하지 않습니다
-                                    </video>
-                                </div>
-                                <button class="del" onclick="dele(this)">삭제</button>
-                            </div>
-
-                            <div id="info" class="info">
-                                <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
-                                <label class="info-in">
-                                    <input type="text" th:field="*{src}" size="138" onchange="info_in(this, value)" value="설명을 입력하세요">
-                                </label>
-                                <button class="del" onclick="dlel(this)">삭제</button>
-                            </div>
-
-                            <div id="git" class="git">
-                                <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
-                                <label class="git-in">
-                                    <input type="text" th:field="*{src}" size="138" onchange="git_in(this, value)" value="깃허브 아이디를 입력하세요">
-                                </label>
-                                <button class="del" onclick="dele(this)">삭제</button>
-                            </div>
+                            <img class="image-show" id="image-show" src=""></img>
                         </div>
                     </div>
-                    <div class="add">
-                        <div class="set">
-                            <button class="set-pub" onclick="set_pub()">public</button>
-                            <button class="set-pri" onclick="set_pri()">private</button>
-                        </div>
-                        <div class="make-op">
-                            <div class="mk-btn">
-                                <button id="image-se" onclick="image_up()">사진 추가</button>
-                            </div>
-                            <div class="video-btn">
-                                <button id="video-se" onclick="video_up()">유튜브 영상 추가</button>
-                            </div>
-                            <div class="videoF-btn">
-                                <button id="videoF-se" onclick="videoF_up()">영상 파일 추가</button>
-                            </div>
-                            <div class="inf-btn">
-                                <button id="info-se" onclick="info_up()">설명 추가</button>
-                            </div>
-                            <div class="git-btn">
-                                <button id="git-up" onclick="git_up()">git 아이디 입력</button>
-                            </div>
-                            <div class="done">
-                                <input type="submit" class="end" id="end" onclick="document.getElementById('send').submit()">
-                            </div>
-                        </div>
+                    <button class="del" onclick="dele(this)">삭제</button>
+                </div>
+
+                <div class="video-ch" id="video-ch">
+                    <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
+                    <div class="vi">
+                        <iframe id="hz" class="hz" width="560" height="315" src="">
+                        </iframe>
+                        <input id="hide" class="hide" th:field="*{src}" size="100" type="url" onchange="video_in(value, this)" value="유튜브 src를 입력하세요">
+                        <input type="text" id="whatVideo" class="what" th:field="*{what}" value="youtube">
                     </div>
-                </form>
+                    <button class="del" onclick="dele(this)">삭제</button>
+                </div>
+
+                <div class="videoFile" id="videoFile">
+                    <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
+                    <div class="viF">
+                        <div class="video-upload" id="video-upload">
+                            <div>
+                                <input type="file" th:field="*{src}" id="chooseVideoFile" name="chooseVideoFile" accept="video.mp4" onchange="loadVideoFile(this)">
+                                <input type="text" id="what" class="what" th:field="*{what}" value="video">
+                            </div>
+                        </div>
+                        <video id="videoFi" class="videoFi" autoplay controls loop muted preload="none" width="1000">
+                            <source src="" type="video/mp4">
+                            브라우저가 동영상 업로드를 지원하지 않습니다
+                        </video>
+                    </div>
+                    <button class="del" onclick="dele(this)">삭제</button>
+                </div>
+
+                <div id="info" class="info">
+                    <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
+                    <label class="info-in">
+                        <input type="text" th:field="*{src}" size="138" onchange="info_in(this, value)" value="설명을 입력하세요">
+                        <input type="text" id="whatInfo" class="what" th:field="*{what}" value="info">
+                    </label>
+                    <button class="del" onclick="dlel(this)">삭제</button>
+                </div>
+
+                <div id="git" class="git">
+                    <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
+                    <label class="git-in">
+                        <input type="text" th:field="*{src}" size="138" onchange="git_in(this, value)" value="깃허브 아이디를 입력하세요">
+                        <input type="text" id="whatGit" class="what" th:field="*{what}" value="git">
+                    </label>
+                    <button class="del" onclick="dele(this)">삭제</button>
+                </div>
             </div>
         </div>
-    </section>
-
+        <div class="add">
+            <div class="set">
+                <input type="text" class="whatVisibility" th:field="*{visbiltiy}" id="view_setting" value="public">
+                <button class="set-pub" onclick="set_pub()">public</button>
+                <button class="set-pri" onclick="set_pri()">private</button>
+            </div>
+            <div class="make-op">
+                <div class="mk-btn">
+                    <button id="image-se" onclick="image_up()">사진 추가</button>
+                </div>
+                <div class="video-btn">
+                    <button id="video-se" onclick="video_up()">유튜브 영상 추가</button>
+                </div>
+                <div class="videoF-btn">
+                    <button id="videoF-se" onclick="videoF_up()">영상 파일 추가</button>
+                </div>
+                <div class="inf-btn">
+                    <button id="info-se" onclick="info_up()">설명 추가</button>
+                </div>
+                <div class="git-btn">
+                    <button id="git-up" onclick="git_up()">git 아이디 입력</button>
+                </div>
+                <div class="done" onclick="document.getElementById('send').submit()">
+                    <input type="submit" class="end" id="end">
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
-    <footer th:replace="template/footer :: common_footer">
-    </footer>
-
 </body>
 </html>

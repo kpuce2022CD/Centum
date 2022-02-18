@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
@@ -29,7 +30,7 @@ public class PortfolioController {
     }
 
     @PostMapping
-    public String uploadPortfolio(@Validated @ModelAttribute
+    public String uploadPortfolio(@Valid @ModelAttribute
                                               PortfolioSaveForm form,
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
@@ -47,7 +48,7 @@ public class PortfolioController {
     }
 
     @PostMapping("/make")
-    public String updatePortfolio(@Validated @ModelAttribute PortfolioSaveForm form,
+    public String updatePortfolio(@Valid PortfolioSaveForm form,
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
             if (bindingResult.hasErrors()){

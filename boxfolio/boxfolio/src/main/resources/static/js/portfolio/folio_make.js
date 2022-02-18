@@ -14,19 +14,10 @@ function loadFile(input) {
     up=input.parentNode.parentNode;
     num=up.parentNode.parentNode.parentNode.style.order;
 
-    newImage = document.createElement("img");
-    newImage.setAttribute("class", 'img');
-    newImage.setAttribute("id", 'img');
+    newImage = up.nextElementSibling;
 
-    newImage.src = URL.createObjectURL(file);   
+    newImage.src = URL.createObjectURL(file);
     make_src[num]=newImage.src;
-
-    newImage.style.width = "100%";
-    newImage.style.height = "100%";
-    newImage.style.objectFit = "contain";
-
-    var container = up.nextElementSibling;
-    container.appendChild(newImage);
     up.style.visibility = 'hidden';
 };
 
@@ -35,14 +26,14 @@ function loadVideoFile(input) {
     var up;
     var file;
     var num;
-    
+
     me=input.parentNode.parentNode;
     up=me.nextElementSibling;
     num=me.parentNode.parentNode.style.order;
     file=input.files[0];
     up.src=URL.createObjectURL(file);
     make_src[num]=up.src;
-    
+
     me.style.display='none';
     up.style.display='flex';
 };
@@ -71,7 +62,7 @@ function video_up(){
 }
 function video_upf(input){
     var video_upload;
-    
+
     video_upload=document.getElementById("video-ch");
     make[number]=video_upload.cloneNode(true);
     make[number].firstElementChild.value=number;
@@ -113,7 +104,7 @@ function image_upf(input){
     newImage.setAttribute("class", 'img');
     newImage.setAttribute("id", 'img');
 
-    newImage.src = input;   
+    newImage.src = input;
 
     newImage.style.width = "100%";
     newImage.style.height = "100%";
@@ -151,7 +142,7 @@ function info_upf(input){
     make[number].firstElementChild.value=number;
     make[number].style.display="flex";
     fo.append(make[number]);
-    
+
     make[number].firstElementChild.nextElementSibling.firstElementChild.value=input;
 
     make[number].style.order=number;
@@ -181,7 +172,7 @@ function git_upf(input){
     make[number].firstElementChild.value=number;
     make[number].style.display="flex";
     fo.append(make[number]);
-    
+
     make[number].firstElementChild.nextElementSibling.firstElementChild.value=(input);
 
     make[number].style.order=number;
@@ -200,6 +191,7 @@ function videoF_up(){
     make_what[number]='video';
     number++;
 }
+
 function videoF_upf(input){
     var videoF_upload;
     var me;
@@ -210,11 +202,11 @@ function videoF_upf(input){
     make[number].firstElementChild.value = number;
     make[number].style.display="flex";
     fo.append(make[number]);
-    
+
     me=make[number].firstElementChild.nextElementSibling.firstElementChild;
     up=me.nextElementSibling;
     up.src=input;
-    
+
     me.style.display='none';
     up.style.display='flex';
 
@@ -268,6 +260,7 @@ function dele(input){
 }
 
 function start(){
+    make_src=make_f2;
     for(var i = 0; i<make_f1.length; i++){
         if (make_f1[number]=='youtube'){
             video_upf(make_f2[number]);
@@ -288,12 +281,17 @@ function start(){
 }
 
 function set_pub(){
+    var view = document.getElementById('view_setting');
+    view.value='public';
     mode='public';
 }
 function set_pri(){
+    var view = document.getElementById('view_setting');
+    view.value='private';
     mode='private';
 }
 
+/*
 function sendPost(url) {
     var form = document.createElement('form');
     form.setAttribute('method', 'post');
@@ -311,4 +309,4 @@ function sendPost(url) {
     }
     document.body.appendChild(form);
     form.submit();
-}
+}*/
