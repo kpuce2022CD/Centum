@@ -1,5 +1,7 @@
 var mode='public'; //공개 설정. 디폴트는 public
 var make=[]; //제작중인 단
+var make_src=[];
+var make_what=[];
 var number=0; //단 개수
 var make_f1=[]; //원래 제작해 놓은 포트폴리오 정보(종류), youtube=유투브 영상, video=영상 파일, image=사진 파일, info=설명, git=깃허브 아이디
 var make_f2=[]; //원래 제작해 놓은 포트폴리오 정보(src, 텍스트)
@@ -8,13 +10,16 @@ function loadFile(input) {
     var file = input.files[0];
     var newImage;
     var up;
+    var num;
     up=input.parentNode.parentNode;
+    num=up.parentNode.parentNode.parentNode.style.order;
 
     newImage = document.createElement("img");
     newImage.setAttribute("class", 'img');
     newImage.setAttribute("id", 'img');
 
     newImage.src = URL.createObjectURL(file);   
+    make_src[num]=newImage.src;
 
     newImage.style.width = "100%";
     newImage.style.height = "100%";
@@ -29,11 +34,14 @@ function loadVideoFile(input) {
     var me;
     var up;
     var file;
+    var num;
     
     me=input.parentNode.parentNode;
     up=me.nextElementSibling;
+    num=me.parentNode.parentNode.style.order;
     file=input.files[0];
     up.src=URL.createObjectURL(file);
+    make_src[num]=up.src;
     
     me.style.display='none';
     up.style.display='flex';
@@ -41,8 +49,12 @@ function loadVideoFile(input) {
 
 function video_in(input, me){
     var up;
+    var num;
+
     up=me.previousElementSibling;
+    num=me.parentNode.parentNode.style.order;
     up.src=input;
+    make_src[num]=input;
     up.style.display="flex";
     me.style.display="none";
 }
@@ -54,6 +66,7 @@ function video_up(){
     make[number].style.display="flex";
     fo.append(make[number]);
     make[number].style.order=number;
+    make_what[number]='youtube';
     number++;
 }
 function video_upf(input){
@@ -68,6 +81,7 @@ function video_upf(input){
     make[number].firstElementChild.nextElementSibling.firstElementChild.style.display='flex';
     fo.append(make[number]);
     make[number].style.order=number;
+    make_what[number]='youtube';
     number++;
 }
 
@@ -79,6 +93,7 @@ function image_up(){
     make[number].style.display="flex";
     fo.append(make[number]);
     make[number].style.order=number;
+    make_what[number]='image';
     number++;
 }
 function image_upf(input){
@@ -109,9 +124,14 @@ function image_upf(input){
     up.style.visibility = 'hidden';
 
     make[number].style.order=number;
+    make_what[number]='image';
     number++;
 }
 
+function info_in(me, input){
+    var num=me.parentNode.parentNode.style.order;
+    make_src[num]=input;
+}
 function info_up(){
     var info_upload;
     info_upload=document.getElementById("info");
@@ -120,6 +140,8 @@ function info_up(){
     make[number].style.display="flex";
     fo.append(make[number]);
     make[number].style.order=number;
+    make_what[number]='info';
+    make_src[number]='설명'
     number++;
 }
 function info_upf(input){
@@ -133,9 +155,14 @@ function info_upf(input){
     make[number].firstElementChild.nextElementSibling.firstElementChild.value=input;
 
     make[number].style.order=number;
+    make_what[number]='info';
     number++;
 }
 
+function git_in(me, input){
+    var num=me.parentNode.parentNode.style.order;
+    make_src[num]=input;
+}
 function git_up(){
     var git_upload;
     git_upload=document.getElementById("git");
@@ -144,6 +171,7 @@ function git_up(){
     make[number].style.display="flex";
     fo.append(make[number]);
     make[number].style.order=number;
+    make_what[number]='git';
     number++;
 }
 function git_upf(input){
@@ -157,6 +185,7 @@ function git_upf(input){
     make[number].firstElementChild.nextElementSibling.firstElementChild.value=(input);
 
     make[number].style.order=number;
+    make_what[number]='git';
     number++;
 }
 
@@ -168,6 +197,7 @@ function videoF_up(){
     make[number].style.display="flex";
     fo.append(make[number]);
     make[number].style.order=number;
+    make_what[number]='video';
     number++;
 }
 function videoF_upf(input){
@@ -189,6 +219,7 @@ function videoF_upf(input){
     up.style.display='flex';
 
     make[number].style.order=number;
+    make_what[number]='video';
     number++;
 }
 
@@ -203,12 +234,25 @@ function change(me, input){
     var now;
     var now_num;
     var cha_num;
+    var now_what;
+    var now_src;
+
     now=me.parentNode;
     now_num=now.style.order;
     cha_num=input;
+
     now=make[now_num];
     make.splice(now_num,1);
     make.splice(cha_num, 0, now);
+
+    now_what=make_what[now_num];
+    make_what.splice(now_num,1);
+    make_what.splice(cha_num, 0, now_what);
+
+    now_src=make_src[now_num];
+    make_src.splice(now_num,1);
+    make_src.splice(cha_num, 0, now_src);
+
     reset();
 }
 
@@ -248,4 +292,23 @@ function set_pub(){
 }
 function set_pri(){
     mode='private';
+}
+
+function sendPost(url) {
+    var form = document.createElement('form');
+    form.setAttribute('method', 'post');
+    form.setAttribute('target', '_blank');
+    form.setAttribute('action', url);
+    form.setAttribute('mode', mode);
+    document.characterSet = "UTF-8";
+    for (var key in make) {
+        var hiddenField = document.createElement('input');
+        hiddenField.setAttribute('type', 'hidden');
+        hiddenField.setAttribute('index', key);
+        hiddenField.setAttribute('what', make_what[key])
+        hiddenField.setAttribute('src', make_src[key]);
+        form.appendChild(hiddenField);
+    }
+    document.body.appendChild(form);
+    form.submit();
 }

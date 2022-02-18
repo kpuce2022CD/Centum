@@ -96,13 +96,13 @@
 
             <div id="info" class="info">
                 <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
-                <label class="info-in"><input type="text" size="138" value="설명을 입력하세요"></label>
-                <button class="del" onclick="dele(this)">삭제</button>
+                <label class="info-in"><input type="text" size="138" onchange="info_in(this, value)" value="설명을 입력하세요"></label>
+                <button class="del" onclick="dlel(this)">삭제</button>
             </div>
 
             <div id="git" class="git">
                 <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
-                <label class="git-in"><input type="text" size="138" value="깃허브 아이디를 입력하세요"></label>
+                <label class="git-in"><input type="text" size="138" onchange="git_in(this, value)" value="깃허브 아이디를 입력하세요"></label>
                 <button class="del" onclick="dele(this)">삭제</button>
             </div>
         </div>
@@ -129,7 +129,7 @@
                 <button id="git-up" onclick="git_up()">git 아이디 입력</button>
             </div>
             <div class="done">
-                <submit class="end">작성 완료</submit>
+                <input type="submit" class="end" id="end" onclick="sendPost('localhost')"></input>
             </div>
         </div>
     </section>

@@ -218,6 +218,9 @@ header {
 .git-btn:hover {
     animation: btn-color 0.2s linear both;
 }
+.end{
+    all:unset;
+}
 .done {
     color: #fff;
     border: 1px solid #fff;
