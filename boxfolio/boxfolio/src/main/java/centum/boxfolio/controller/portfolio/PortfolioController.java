@@ -25,7 +25,7 @@ public class PortfolioController {
 
     @GetMapping
     public String portfolioPage(Model model) {
-        return "portfolio/portfolios";
+        return "/portfolio/folio_pub";
     }
 
     @PostMapping
@@ -34,7 +34,7 @@ public class PortfolioController {
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()){
-            return "";
+            return "redirect:/folio_pub";
         }
 
         try{
@@ -46,36 +46,42 @@ public class PortfolioController {
         return "redirect:/";
     }
 
-    @PostMapping
-    public String updatePortfolio(@Validated @ModelAttribute
-                                          PortfolioSaveForm form,
+    @PostMapping("/make")
+    public String updatePortfolio(@Validated @ModelAttribute PortfolioSaveForm form,
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
             if (bindingResult.hasErrors()){
-                return "";
+                return "redirect:/";
         }
 
             try{
+                log.info(form.toString());
                 Portfolio savedPortfolio = portfolioService.upload(form);
             } catch (IllegalStateException e){
                 bindingResult.reject("upload portfolio failed", e.getMessage());
             }
+            log.info("post success");
 
-            return "redirect:/";
+            return "/portfolio/folio_pub";
         }
 
-    @GetMapping
+    @GetMapping("/make")
+    public String updatePortfolio(){
+        return "/portfolio/folio_make";
+    }
+
+    @GetMapping("/temp2")
     public String searchPortfolioWithTitle(@RequestParam String title, Model model){
         List<Portfolio> portfolio = portfolioService.searchWithTitle(title);
         model.addAttribute(portfolio);
-        return "";
+        return "redirect:/";
     }
 
-    @GetMapping
+    @GetMapping("/temp3")
     public String searchPortfolioWithMember(@RequestParam Member member, Model model) {
         Portfolio portfolio = portfolioService.searchWithMember(member);
         model.addAttribute(portfolio);
-        return "";
+        return "redirect:/";
     }
 
 
