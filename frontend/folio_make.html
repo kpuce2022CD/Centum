@@ -77,6 +77,9 @@
     <form action="/portfolio" method="post" th:object="${portfolioForm}" id="send">
         <div class="make">
             <div class="fo" id="fo">
+                <label id="title" class="title">제목 : 
+                    <input type="text" th:field="*{title}" class="title_in" value="제목을 입력하세요" size="100">
+                </label>
                 <div class="image-ch" id="image-ch">
                     <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
                     <div class="im">

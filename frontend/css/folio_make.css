@@ -119,10 +119,15 @@ header {
     display: flex;
     width: 70%;
 }
-
+.title{
+    color: #fff;
+    font:  bold;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
 .add{
     margin-left: 70%;
-    
+
     width: 25%;
     height: 500px;
     border: 1px solid white;
