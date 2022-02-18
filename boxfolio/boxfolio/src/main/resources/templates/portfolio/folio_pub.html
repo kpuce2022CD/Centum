@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Service Programming Homework</title>
+    <meta name="description" content="포트폴리오 관리 웹 페이지">
+    <meta name="keywords" content="web, service, portfolio, boxfolio, project">
+    <meta name="author" content="Centum">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--Open Graph-->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="포트폴리오 관리 웹 페이지">
+    <meta property="og:description" content="포트폴리오를 분석하고 관리해줍니다">
+
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" href="../../css/portfolio/folio_public.css" th:href="@{css/portfolio/folio_public.css}">
+    <script src="../../static/js/portfolio/folio_public.js"></script>
+</head>
+
+<body onload="start()">
+<div id="root-wrap">
+    <header>
+        <div class="wrap">
+            <div class="header-container">
+                <div class="logo">
+                    <a href="/" th:href="@{/}">BOXFOLIO</a>
+                </div>
+                <ul class="nav">
+                    <li>
+                        <a href="#">포트폴리오</a>
+                    </li>
+                    <li>
+                        <a href="#">분석&관리</a>
+                    </li>
+                    <li>
+                        <a href="#">커뮤니티</a>
+                    </li>
+                    <li>
+                        <a href="#">1:1문의</a>
+                    </li>
+                </ul>
+                <div class="user-area">
+                    <a href="#" class="start-btn">
+                        시작하기
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="folio">
+        <div class="wrap">
+            <div class="folio-container">
+                <a href="/portfolios/make">
+                    포트폴리오 작성
+                </a>
+                <a href="/portfolios">
+                    포트폴리오 목록
+                </a>
+        
+            </div>
+        </div>
+    </section>
+    
+    <section class="public" id="public">
+        <section class="best" id="best">
+            <div class="title">최다 추천 포트폴리오 리스트</div>
+            <div class="best_index" id="best_index">
+                <a class="index" id="index">
+                    <p class="maker">제작자 : OOO</p>
+                    <p class="count">추천 수 : 100</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="normal" id="normal">
+            <div class="normal_index" id="normal_index">
+
+            </div>
+            <button class="back" id="back" onclick="back_folio()">이전</button>
+            <button class="next" id="next" onclick="next_folio()">다음</button>
+        </section>
+        
+    </section>
+
+
+    <footer>
+
+    </footer>
+</div>
+</body>
+</html>

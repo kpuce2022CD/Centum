@@ -23,9 +23,9 @@
     <!--    <link rel="short icon" type="image/x-icon" href="resources/social-care.png">-->
 
     <!--CSS-->
-    <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}" />
-    <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}" />
-    <link rel="stylesheet" type="text/css" href="../../css/portfolios.css" th:href="@{/css/portfolio/portfolios.css}" />
+    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" th:href="@{/css/reset.css}" />
+    <link rel="stylesheet" type="text/css" href="../../static/css/common.css" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" type="text/css" href="../../static/css/portfolio/portfolios.css" th:href="@{/css/portfolio/portfolios.css}" />
     <!--fontawesome-->
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
 </head>
@@ -52,7 +52,7 @@
                 </li>
             </ul>
             <div class="member-area">
-                <a href="/login" class="start-btn" th:href="@{/login}">
+                <a href="../member/login.html" class="start-btn" th:href="@{/login}">
                     시작하기
                 </a>
             </div>
@@ -116,7 +116,7 @@
 </section>
 <footer th:replace="template/footer :: common_footer">
 </footer>
-<script src="../../js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
 </body>
 
 </html>
