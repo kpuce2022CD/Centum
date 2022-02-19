@@ -115,7 +115,7 @@
                 </div>
             </div>
             <!---------------------------------------------------------------------------------------------------------------------------->
-            <form action="/portfolios/make" method="post" th:object="${centum.boxfolio.controller.portfolio.PortfolioSaveForm}">
+            <form action="/portfolios/make" method="post" th:object="${portfolioSaveForm}">
                 <input type="text" size="10" th:field="*{title}" value="제목">
                 <input type="text" size="100" th:field="*{contents}" value="내용">
                 <input type="submit">

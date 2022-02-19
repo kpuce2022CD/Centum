@@ -57,7 +57,7 @@ public class PortfolioController {
     @GetMapping("/make")
     public String updatePortfolio(Model model){
         model.addAttribute("portfolioSaveForm", new PortfolioSaveForm());
-        return "/portfolio/folio_make_test";
+        return "/portfolio/folio_make";
     }
 
     @GetMapping("/temp2")
