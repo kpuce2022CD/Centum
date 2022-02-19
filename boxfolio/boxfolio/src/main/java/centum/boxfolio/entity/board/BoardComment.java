@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter @Setter
@@ -16,7 +16,7 @@ public class BoardComment {
     private long id;
 
     private String contents;
-    private Date createdDate;
+    private LocalDateTime createdDate;
     private long replyTally;
 
     @ManyToOne
@@ -28,5 +28,5 @@ public class BoardComment {
     private Member member;
 
     @OneToMany(mappedBy = "boardComment", cascade = CascadeType.ALL)
-    private List<BoardReply> boardReplies = new ArrayList<BoardReply>();
+    private List<BoardReply> boardReplies = new ArrayList<>();
 }

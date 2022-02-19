@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter @Setter
@@ -19,7 +19,7 @@ public class Board {
 
     private String title;
     private String contents;
-    private Date createdDate;
+    private LocalDateTime createdDate;
     private char commentAllow;
     private char scrapAllow;
     private long starTally;
@@ -34,11 +34,11 @@ public class Board {
     private Member member;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    private List<BoardStar> boardStars = new ArrayList<BoardStar>();
+    private List<BoardStar> boardStars = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    private List<BoardScrap> boardScraps = new ArrayList<BoardScrap>();
+    private List<BoardScrap> boardScraps = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    private List<BoardComment> boardComments = new ArrayList<BoardComment>();
+    private List<BoardComment> boardComments = new ArrayList<>();
 }

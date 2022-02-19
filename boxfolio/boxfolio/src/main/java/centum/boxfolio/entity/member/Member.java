@@ -1,33 +1,40 @@
 package centum.boxfolio.entity.member;
 
+import centum.boxfolio.controller.member.MemberSaveForm;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.portfolio.Portfolio;
+import centum.boxfolio.entity.portfolio.PortfolioScrap;
 import centum.boxfolio.entity.portfolio.PortfolioStar;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter @Setter
+@NoArgsConstructor
 @Entity
 public class Member {
 
-    @Id
-    private String id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String loginId;
     private String passwd;
     private String realName;
     private String nickname;
     private String phone;
     private String email;
-    @Temporal(TemporalType.DATE)
-    private Date birth;
+    private LocalDate birth;
     private int sex;
     private String githubId;
     private String interestField;
     private String progressField;
+    private int emailVerified;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_ability_id")
@@ -37,20 +44,42 @@ public class Member {
     private Portfolio portfolio;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<PortfolioStar> portfolioStars = new ArrayList<PortfolioStar>();
+    private List<PortfolioStar> portfolioStars = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Board> boards = new ArrayList<Board>();
+    private List<PortfolioScrap> portfolioScraps = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<BoardStar> boardStars = new ArrayList<BoardStar>();
+    private List<Board> boards = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<BoardScrap> boardScraps = new ArrayList<BoardScrap>();
+    private List<BoardStar> boardStars = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<BoardComment> boardComments = new ArrayList<BoardComment>();
+    private List<BoardScrap> boardScraps = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<BoardReply> boardReplies = new ArrayList<BoardReply>();
+    private List<BoardComment> boardComments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<BoardReply> boardReplies = new ArrayList<>();
+
+    public Member(String loginId, String passwd, String realName, String nickname, String phone,
+                  String email, LocalDate birth, int sex, String githubId,
+                  String interestField, MemberAbility memberAbility) {
+        this.loginId = loginId;
+        this.passwd = passwd;
+        this.realName = realName;
+        this.nickname = nickname;
+        this.phone = phone;
+        this.email = email;
+        this.birth = birth;
+        this.sex = sex;
+        this.githubId = githubId;
+        this.interestField = interestField;
+        this.progressField = "";
+        this.emailVerified = 0;
+        memberAbility.setMember(this);
+        this.memberAbility = memberAbility;
+    }
 }

@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter @Setter
@@ -18,8 +18,10 @@ public class Portfolio {
 
     private String title;
     private String contents;
-    private Date updatedDate;
-    private String visibility;
+
+    private LocalDateTime updatedDate;
+    private boolean visibility;
+
     private long starTally;
 
     @OneToOne
@@ -27,8 +29,11 @@ public class Portfolio {
     private Member member;
 
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
-    private List<Project> projects = new ArrayList<Project>();
+    private List<Project> projects = new ArrayList<>();
 
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
-    private List<PortfolioStar> portfolioStars = new ArrayList<PortfolioStar>();
+    private List<PortfolioStar> portfolioStars = new ArrayList<>();
+
+    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
+    private List<PortfolioScrap> portfolioScraps = new ArrayList<>();
 }

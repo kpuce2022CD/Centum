@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository {
-    Member save(Member member, String year, String month, String day) throws ParseException;
-    Optional<Member> findById(String id);
+    Member save(Member member);
+    Optional<Member> findById(Long id);
+    Optional<Member> findByLoginId(String loginId);
     List<Member> findAll();
+    void verifyEmail(Member member);
 }

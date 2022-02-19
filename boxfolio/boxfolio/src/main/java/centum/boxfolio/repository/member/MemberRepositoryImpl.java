@@ -3,16 +3,15 @@ package centum.boxfolio.repository.member;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.member.MemberAbility;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 @Transactional
@@ -21,18 +20,22 @@ public class MemberRepositoryImpl implements MemberRepository {
     private final EntityManager em;
 
     @Override
-    public Member save(Member member, String year, String month, String day) throws ParseException {
-        setBirth(member, year, month, day);
-        member.setProgressField("");
-        memberRelatedMapping(member);
+    public Member save(Member member) {
         em.persist(member);
         return member;
     }
 
     @Override
-    public Optional<Member> findById(String id) {
+    public Optional<Member> findById(Long id) {
         Member member = em.find(Member.class, id);
         return Optional.ofNullable(member);
+    }
+
+    @Override
+    public Optional<Member> findByLoginId(String loginId) {
+        return findAll().stream()
+                .filter(m -> m.getLoginId().equals(loginId))
+                .findAny();
     }
 
     @Override
@@ -40,15 +43,8 @@ public class MemberRepositoryImpl implements MemberRepository {
         return em.createQuery("select m from Member m", Member.class).getResultList();
     }
 
-    private void setBirth(Member member, String year, String month, String day) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = format.parse(year + "-" + month + "-" + day);
-        member.setBirth(date);
-    }
-
-    private void memberRelatedMapping(Member member) {
-        MemberAbility memberAbility = new MemberAbility();
-        memberAbility.setMember(member);
-        member.setMemberAbility(memberAbility);
+    @Override
+    public void verifyEmail(Member member) {
+        member.setEmailVerified(1);
     }
 }

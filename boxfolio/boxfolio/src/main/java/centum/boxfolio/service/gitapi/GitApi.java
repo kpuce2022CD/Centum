@@ -1,4 +1,4 @@
-package centum.boxfolio.service.member.gitapi;
+package centum.boxfolio.service.gitapi;
 
 import org.kohsuke.github.GHContent;
 import org.kohsuke.github.PagedIterable;

@@ -1,9 +1,9 @@
 @charset "UTF-8";
 /* wrap */
 #root-wrap {
-    min-width: 1200px;
+    min-width: 1280px;
     min-height: 100vh;
-    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
+    /*background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);*/
 }
 
 .wrap {
@@ -16,7 +16,6 @@ header {
     width: 100%;
     height: 120px;
     background-color: transparent;
-    border-bottom: 1px solid #fff;
 }
 
 .header-container {
@@ -24,9 +23,10 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 }
 
-.logo a {
+#logo {
     color: #fff;
     font-size: 32px;
     font-weight: bold;
@@ -46,7 +46,14 @@ header {
     animation: font-color 0.2s linear both;
 }
 
+.member-area {
+    background: url("../image/member.png");
+    display: flex;
+    justify-content: center;
+}
+
 .start-btn {
+    background-color: transparent;
     color: #fff;
     border: 1px solid #fff;
     border-radius: 5px;
@@ -55,6 +62,45 @@ header {
 
 .start-btn:hover {
     animation: btn-color 0.2s linear both;
+}
+
+#profile-btn {
+    width: 32px;
+    height: 32px;
+}
+
+#profile-btn:hover {
+    cursor: pointer;
+}
+
+#member-access {
+    top: 85px;
+    right: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    position: absolute;
+    width: 150px;
+    height: auto;
+}
+
+.access-list {
+    margin: 10px;
+}
+
+.access-list li {
+    margin: 5px 0;
+}
+
+.access-list a:hover {
+    color: #86A8E7;
+}
+
+details summary {
+    list-style: none;
+}
+
+details summary::-webkit-details-marker {
+    display: none;
 }
 
 @keyframes font-color {
@@ -68,5 +114,11 @@ header {
         color: #000;
         background-color: #F2593D;
         border-color: #F2593D;
+    }
+}
+
+@keyframes rotate-element{
+	100% {
+    	transform: rotate(360deg);
     }
 }
