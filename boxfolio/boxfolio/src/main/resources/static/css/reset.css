@@ -59,6 +59,10 @@ button, input {
     border:0;
 }
 
+button {
+    cursor: pointer;
+}
+
 html input[type=button], input[type=email], input[type=password], input[type=reset],
 input[type=search], input[type=search], input[type=tel], input[type=text],
 input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {

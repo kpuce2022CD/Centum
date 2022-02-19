@@ -1,0 +1,206 @@
+header {
+    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
+}
+
+.notice-title-container {
+    background-color: #C8DEFF;
+    border-radius: 8px;
+    margin: 20px 0;
+    padding: 20px 30px;
+}
+
+.edit-head-container {
+    margin-bottom: 5px;
+}
+
+#category {
+    border: 1px solid #ebecef;
+    border-radius: 3px;
+    padding: 15px 30px;
+    font-size: 18px;
+}
+
+#edit-title {
+    border: 1px solid #ebecef;
+    font-size: 20px;
+    line-height: 5px;
+    margin: 10px 0;
+    outline: none;
+    overflow: hidden;
+    padding: 20px 10px;
+    resize: none;
+    width: 100%;
+}
+
+.edit-tool {
+    background-color: rgb(250, 250, 250);
+    border: 1px solid #ebecef;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.edit-tool button, #tool-image {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 5px;
+}
+
+.edit-tool button:hover, #tool-image:hover{
+    color: #86A8E7;
+}
+
+#tool-image label {
+    cursor: pointer;
+}
+
+#input-image {
+    display: none;
+}
+
+.edit-tool select {
+    background-color: transparent;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin: 0 5px;
+    padding: 10px 5px;
+}
+
+#editor {
+    background-color: #fefefe;
+    border: 1px solid #ebecef;
+    border-radius: 3px;
+    height: 500px;
+    outline: none;
+    padding: 16px 24px;
+    overflow: scroll;
+    text-align: justify;
+    margin-bottom: 10px;
+}
+
+#editor::-webkit-scrollbar {
+    display: none;
+}
+
+#editor img {
+    max-width: 100%;
+}
+
+.allow-container {
+    background-color: #f2f7ff;
+    padding: 25px 20px;
+    border-radius: 10px;
+}
+
+.visibility {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.visibility h4 {
+    padding-right: 10px;
+}
+
+.switch-button { 
+    position: relative; 
+    display: inline-block; 
+    width: 42px; 
+    height: 25px; 
+} 
+
+.switch-button input { 
+    opacity: 0; 
+    width: 0; 
+    height: 0; 
+} 
+
+.onoff-switch { 
+    position: absolute; 
+    cursor: pointer; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    border-radius:20px; 
+    background-color: #ccc; 
+    box-shadow: inset 1px 5px 1px #999; 
+    -webkit-transition: .4s; 
+    transition: .4s; 
+} 
+
+.onoff-switch:before { 
+    position: absolute; 
+    content: ""; 
+    height: 16px; 
+    width: 16px; 
+    left: 4px; 
+    bottom: 4px; 
+    background-color: #fff; 
+    -webkit-transition: .5s; 
+    transition: .4s; 
+    border-radius:20px; 
+} 
+
+.switch-button input:checked + .onoff-switch { 
+    background-color: #C8DEFF; 
+    box-shadow: inset 1px 5px 1px #89b; 
+} 
+
+.switch-button input:checked + .onoff-switch:before { 
+    -webkit-transform: translateX(18px); 
+    -ms-transform: translateX(18px); 
+    transform: translateX(18px); 
+}
+
+.allow {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.comment-container, .scrap-container {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.comment-container h4:nth-child(n), .scrap-container h4:nth-child(n) {
+    margin-right: 8px;
+}
+
+.member-total {
+    display: flex;
+    align-items: center;
+}
+
+.member-total h4 {
+    padding-right: 10px;
+}
+
+.access-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 10px;
+}
+
+.access-container button {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    margin: 0 10px;
+    padding: 10px 30px;
+}
+
+#save-edit {
+    background-color: #C8DEFF;
+    color: #555;
+    font-weight: bold;
+}
+
+#cancel-edit {
+    background-color: #555;
+    font-weight: bold;
+}
