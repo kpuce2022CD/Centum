@@ -68,7 +68,7 @@ public class PortfolioController {
 
     @GetMapping("/make")
     public String updatePortfolio(){
-        return "/portfolio/folio_make";
+        return "/portfolio/folio_make_test";
     }
 
     @GetMapping("/temp2")
