@@ -3,6 +3,7 @@ package centum.boxfolio.service.portfolio;
 import centum.boxfolio.controller.portfolio.PortfolioSaveForm;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
+import centum.boxfolio.repository.member.MemberRepositoryImpl;
 import centum.boxfolio.repository.portfolio.PortfolioRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -17,9 +18,10 @@ import java.util.List;
 public class PortfolioServiceImpl implements PortfolioService{
 
     private final PortfolioRepository portfolioRepository;
-
+    private final MemberRepositoryImpl memberRepository;
     @Override
-    public Portfolio upload(PortfolioSaveForm form) {
+    public Portfolio upload(PortfolioSaveForm form, String memberId) {
+        form.setMember(memberRepository.findByLoginId(memberId).get());
         Portfolio portfolio = form.toPortfolio();
 
         validateDuplicationPortfolio(portfolio);

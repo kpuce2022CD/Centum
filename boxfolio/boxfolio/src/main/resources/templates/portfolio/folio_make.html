@@ -137,7 +137,7 @@
                     <button id="git-up" onclick="git_up()">git 아이디 입력</button>
                 </div>
                 <form action="/portfolios/make" method="post" th:object="${portfolioSaveForm}" id="send">
-                    <input type="hidden" id="json_submit" class="what" value="">
+                    <input type="hidden" id="json_submit" class="what" value="" th:filed="${contents}">
                     <button class="done" onclick="send_data()">
                         제출
                     </button>

@@ -13,6 +13,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -29,35 +32,20 @@ public class PortfolioController {
         return "/portfolio/folio_pub";
     }
 
-    @PostMapping
-    public String uploadPortfolio(@Valid @ModelAttribute
-                                              PortfolioSaveForm form,
-                                  BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()){
-            return "redirect:/folio_pub";
-        }
-
-        try{
-            Portfolio savedPortfolio = portfolioService.upload(form);
-        } catch (IllegalStateException e){
-            bindingResult.reject("upload portfolio failed", e.getMessage());
-        }
-
-        return "redirect:/";
-    }
-
     @PostMapping("/make")
     public String updatePortfolio(@Valid PortfolioSaveForm form,
                                   BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes) {
+                                  RedirectAttributes redirectAttributes,
+                                  HttpServletRequest request) {
             if (bindingResult.hasErrors()){
                 return "redirect:/";
         }
 
             try{
+                HttpSession session = request.getSession();
+                String memberId = (String) session.getAttribute("loginMember");
                 log.info(form.toString());
-                Portfolio savedPortfolio = portfolioService.upload(form);
+                Portfolio savedPortfolio = portfolioService.upload(form, memberId);
             } catch (IllegalStateException e){
                 bindingResult.reject("upload portfolio failed", e.getMessage());
             }
@@ -67,8 +55,9 @@ public class PortfolioController {
         }
 
     @GetMapping("/make")
-    public String updatePortfolio(){
-        return "/portfolio/folio_make_test";
+    public String updatePortfolio(Model model){
+        model.addAttribute("portfolioSaveForm", new PortfolioSaveForm());
+        return "/portfolio/folio_make";
     }
 
     @GetMapping("/temp2")
