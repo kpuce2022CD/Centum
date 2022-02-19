@@ -215,7 +215,7 @@ function isStyle(style) {
 const saveEdit = document.getElementById('save-edit');
 
 saveEdit.addEventListener('click', function() {
-    const urlToSendForBoard = "http://localhost:8080/wonho_free/EditServlet?cmd=uploadBoard";
+    const urlToSendForBoard = ".";
 
     const title = document.getElementById('edit-title');
     var content = document.getElementById('editor');

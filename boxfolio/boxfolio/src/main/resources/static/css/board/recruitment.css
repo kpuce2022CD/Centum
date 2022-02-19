@@ -10,17 +10,14 @@ header {
 }
 
 .edit-head-container {
-    margin: 20px 10px;
+    margin-bottom: 5px;
 }
 
 #category {
     border: 1px solid #ebecef;
     border-radius: 3px;
     padding: 15px 30px;
-}
-
-.edit-container {
-    margin: 20px 0;
+    font-size: 18px;
 }
 
 #edit-title {
@@ -79,6 +76,7 @@ header {
     padding: 16px 24px;
     overflow: scroll;
     text-align: justify;
+    margin-bottom: 10px;
 }
 
 #editor::-webkit-scrollbar {
