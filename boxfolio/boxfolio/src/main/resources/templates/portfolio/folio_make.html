@@ -114,6 +114,13 @@
                     <button class="del" onclick="dele(this)">삭제</button>
                 </div>
             </div>
+            <!---------------------------------------------------------------------------------------------------------------------------->
+            <form action="/portfolios/make" method="post" th:object="${centum.boxfolio.controller.portfolio.PortfolioSaveForm}">
+                <input type="text" size="10" th:field="*{title}" value="제목">
+                <input type="text" size="100" th:field="*{contents}" value="내용">
+                <input type="submit">
+            </form>
+            <!----------------------------------------------------------------------------------------------------------------------------->
         </div>
         <div class="add">
             <div class="set">
@@ -137,8 +144,8 @@
                     <button id="git-up" onclick="git_up()">git 아이디 입력</button>
                 </div>
                 <form action="/portfolios/make" method="post" th:object="${portfolioSaveForm}" id="send">
-                    <input type="hidden" id="json_submit" class="what" value="" th:filed="${contents}">
-                    <button class="done" onclick="send_data()">
+                    <input type="hidden" id="json_submit" class="what" value="">
+                    <button type="submit" class="done" onclick="send_data()">
                         제출
                     </button>
                 </form>
