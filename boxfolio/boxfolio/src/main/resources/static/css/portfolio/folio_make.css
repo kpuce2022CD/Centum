@@ -1,7 +1,7 @@
 @charset "UTF-8";
 HTML CSS JSResult Skip Results Iframe
 EDIT ON
-    /* 공통 */
+/* 공통 */
 * {
     box-sizing: border-box;
 }
@@ -119,6 +119,12 @@ header {
     display: flex;
     width: 70%;
 }
+.title{
+    color: #fff;
+    font:  bold;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
 
 .add{
     margin-left: 70%;
@@ -163,7 +169,7 @@ header {
 }
 
 .mk-btn {
-
+    
     color: #fff;
     border: 1px solid #fff;
     border-radius: 5px;
@@ -223,9 +229,7 @@ header {
 .git-btn:hover {
     animation: btn-color 0.2s linear both;
 }
-.end{
-    all:unset;
-}
+
 .done {
     color: #fff;
     border: 1px solid #fff;
@@ -239,7 +243,6 @@ header {
     animation: btn-color 0.2s linear both;
     cursor: pointer;
 }
-
 
 .fo{
     display: flex;

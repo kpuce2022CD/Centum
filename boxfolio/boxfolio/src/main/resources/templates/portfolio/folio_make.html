@@ -53,7 +53,7 @@
         </div>
     </header>
 
-    <form action="/portfolios/make" method="post" th:object="${portfolioSaveForm}" id="send">
+    <div>
         <div class="make">
             <div class="fo" id="fo">
                 <div class="image-ch" id="image-ch">
@@ -62,8 +62,7 @@
                         <div class="container">
                             <div class="image-upload" id="image-upload">
                                 <div>
-                                    <input type="file" id="chooseFile" class="chooseFile" th:field="*{src}" accept="image/*" onchange="loadFile(this)">
-                                    <input type="text" id="whatImage" class="what" th:field="*{what}" value="image">
+                                    <input type="file" id="chooseFile" class="chooseFile" accept="image/*" onchange="loadFile(this)">
                                     <p id="fileName"></p>
                                 </div>
                             </div>
@@ -78,8 +77,7 @@
                     <div class="vi">
                         <iframe id="hz" class="hz" width="560" height="315" src="">
                         </iframe>
-                        <input id="hide" class="hide" th:field="*{src}" size="100" type="url" onchange="video_in(value, this)" value="유튜브 src를 입력하세요">
-                        <input type="text" id="whatVideo" class="what" th:field="*{what}" value="youtube">
+                        <input id="hide" class="hide" size="100" type="url" onchange="video_in(value, this)" value="유튜브 src를 입력하세요">
                     </div>
                     <button class="del" onclick="dele(this)">삭제</button>
                 </div>
@@ -89,8 +87,7 @@
                     <div class="viF">
                         <div class="video-upload" id="video-upload">
                             <div>
-                                <input type="file" th:field="*{src}" id="chooseVideoFile" name="chooseVideoFile" accept="video.mp4" onchange="loadVideoFile(this)">
-                                <input type="text" id="what" class="what" th:field="*{what}" value="video">
+                                <input type="file" id="chooseVideoFile" name="chooseVideoFile" accept="video.mp4" onchange="loadVideoFile(this)">
                             </div>
                         </div>
                         <video id="videoFi" class="videoFi" autoplay controls loop muted preload="none" width="1000">
@@ -104,8 +101,7 @@
                 <div id="info" class="info">
                     <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
                     <label class="info-in">
-                        <input type="text" th:field="*{src}" size="138" onchange="info_in(this, value)" value="설명을 입력하세요">
-                        <input type="text" id="whatInfo" class="what" th:field="*{what}" value="info">
+                        <input type="text" size="138" onchange="info_in(this, value)" value="설명을 입력하세요">
                     </label>
                     <button class="del" onclick="dlel(this)">삭제</button>
                 </div>
@@ -113,8 +109,7 @@
                 <div id="git" class="git">
                     <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
                     <label class="git-in">
-                        <input type="text" th:field="*{src}" size="138" onchange="git_in(this, value)" value="깃허브 아이디를 입력하세요">
-                        <input type="text" id="whatGit" class="what" th:field="*{what}" value="git">
+                        <input type="text" size="138" onchange="git_in(this, value)" value="깃허브 아이디를 입력하세요">
                     </label>
                     <button class="del" onclick="dele(this)">삭제</button>
                 </div>
@@ -122,7 +117,6 @@
         </div>
         <div class="add">
             <div class="set">
-                <input type="text" class="whatVisibility" th:field="*{visbiltiy}" id="view_setting" value="public">
                 <button class="set-pub" onclick="set_pub()">public</button>
                 <button class="set-pri" onclick="set_pri()">private</button>
             </div>
@@ -142,12 +136,15 @@
                 <div class="git-btn">
                     <button id="git-up" onclick="git_up()">git 아이디 입력</button>
                 </div>
-                <div class="done" onclick="document.getElementById('send').submit()">
-                    <input type="submit" class="end" id="end">
-                </div>
+                <form action="/portfolios/make" method="post" th:object="${portfolioSaveForm}" id="send">
+                    <input type="hidden" id="json_submit" class="what" value="">
+                    <button class="done" onclick="send_data()">
+                        제출
+                    </button>
+                </form>
             </div>
         </div>
-    </form>
+    </div>
 </div>
 </body>
 </html>

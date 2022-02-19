@@ -1,10 +1,14 @@
+var json_data;
 var mode='public'; //공개 설정. 디폴트는 public
 var make=[]; //제작중인 단
 var make_src=[];
 var make_what=[];
 var number=0; //단 개수
+var title='제목';
+var id='id';
 var make_f1=[]; //원래 제작해 놓은 포트폴리오 정보(종류), youtube=유투브 영상, video=영상 파일, image=사진 파일, info=설명, git=깃허브 아이디
 var make_f2=[]; //원래 제작해 놓은 포트폴리오 정보(src, 텍스트)
+
 
 function loadFile(input) {
     var file = input.files[0];
@@ -16,7 +20,7 @@ function loadFile(input) {
 
     newImage = up.nextElementSibling;
 
-    newImage.src = URL.createObjectURL(file);
+    newImage.src = URL.createObjectURL(file);   
     make_src[num]=newImage.src;
     up.style.visibility = 'hidden';
 };
@@ -26,14 +30,14 @@ function loadVideoFile(input) {
     var up;
     var file;
     var num;
-
+    
     me=input.parentNode.parentNode;
     up=me.nextElementSibling;
     num=me.parentNode.parentNode.style.order;
     file=input.files[0];
     up.src=URL.createObjectURL(file);
     make_src[num]=up.src;
-
+    
     me.style.display='none';
     up.style.display='flex';
 };
@@ -62,7 +66,7 @@ function video_up(){
 }
 function video_upf(input){
     var video_upload;
-
+    
     video_upload=document.getElementById("video-ch");
     make[number]=video_upload.cloneNode(true);
     make[number].firstElementChild.value=number;
@@ -104,7 +108,7 @@ function image_upf(input){
     newImage.setAttribute("class", 'img');
     newImage.setAttribute("id", 'img');
 
-    newImage.src = input;
+    newImage.src = input;   
 
     newImage.style.width = "100%";
     newImage.style.height = "100%";
@@ -142,7 +146,7 @@ function info_upf(input){
     make[number].firstElementChild.value=number;
     make[number].style.display="flex";
     fo.append(make[number]);
-
+    
     make[number].firstElementChild.nextElementSibling.firstElementChild.value=input;
 
     make[number].style.order=number;
@@ -172,7 +176,7 @@ function git_upf(input){
     make[number].firstElementChild.value=number;
     make[number].style.display="flex";
     fo.append(make[number]);
-
+    
     make[number].firstElementChild.nextElementSibling.firstElementChild.value=(input);
 
     make[number].style.order=number;
@@ -202,11 +206,11 @@ function videoF_upf(input){
     make[number].firstElementChild.value = number;
     make[number].style.display="flex";
     fo.append(make[number]);
-
+    
     me=make[number].firstElementChild.nextElementSibling.firstElementChild;
     up=me.nextElementSibling;
     up.src=input;
-
+    
     me.style.display='none';
     up.style.display='flex';
 
@@ -281,32 +285,34 @@ function start(){
 }
 
 function set_pub(){
-    var view = document.getElementById('view_setting');
-    view.value='public';
     mode='public';
 }
 function set_pri(){
-    var view = document.getElementById('view_setting');
-    view.value='private';
     mode='private';
 }
 
-/*
-function sendPost(url) {
-    var form = document.createElement('form');
-    form.setAttribute('method', 'post');
-    form.setAttribute('target', '_blank');
-    form.setAttribute('action', url);
-    form.setAttribute('mode', mode);
-    document.characterSet = "UTF-8";
-    for (var key in make) {
-        var hiddenField = document.createElement('input');
-        hiddenField.setAttribute('type', 'hidden');
-        hiddenField.setAttribute('index', key);
-        hiddenField.setAttribute('what', make_what[key])
-        hiddenField.setAttribute('src', make_src[key]);
-        form.appendChild(hiddenField);
+function make_json(){
+    var portfolio_data = new Object();
+    var portfolio_index = new Array();
+
+    portfolio_data.title=title; //제목
+    portfolio_data.view=mode; //public/private
+    portfolio_data.id=id; //id
+    for (var i in make){
+        var portfolio_in=new Object();
+        portfolio_in.what=make_what[i]; //종류(영상, 사진 등)
+        portfolio_in.src=make_src[i]; //src
+        portfolio_index.push(portfolio_in);
     }
-    document.body.appendChild(form);
-    form.submit();
-}*/
+    portfolio_data.index=portfolio_index;
+
+    json_data=JSON.stringify(portfolio_data);
+}
+
+function send_data(){
+    make_json();
+    var data=document.getElementById('json_submit');
+    data.value=json_data;
+    console.log(json_data);
+    getElementById('send').submit();
+}
