@@ -210,7 +210,7 @@ header {
     float: left;
     color: #fff;
     margin-left: 1100px;
-    font: bold
+    font-weight: bold;
 }
 .date_2{
     float: left;

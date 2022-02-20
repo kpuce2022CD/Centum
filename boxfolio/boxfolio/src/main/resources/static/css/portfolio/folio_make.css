@@ -130,7 +130,7 @@ header {
     margin-left: 70%;
 
     width: 25%;
-    height: 500px;
+    height: 700px;
     border: 1px solid white;
     position: fixed;
 }
@@ -240,6 +240,21 @@ header {
     margin-bottom: 10px;
 }
 .done:hover {
+    animation: btn-color 0.2s linear both;
+    cursor: pointer;
+}
+
+.sub {
+    all:unset;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 10px;
+    width: 30%;
+    margin-left:  158px;
+    margin-bottom: 10px;
+}
+.sub:hover {
     animation: btn-color 0.2s linear both;
     cursor: pointer;
 }

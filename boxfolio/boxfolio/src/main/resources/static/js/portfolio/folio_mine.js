@@ -3,6 +3,10 @@ var make=[]; //들어가있는 파일의 src나 텍스트
 var make_date='0000_00_00'; //최근 수정 날짜
 var setting='public'; //공개 설정
 
+function saw(input){
+    console.log(input);
+}
+
 function add(){
     for(var i=0; i<mode.length; i++){
         if(mode[i]=='youtube'){ //유튜브 영상

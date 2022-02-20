@@ -101,7 +101,7 @@
             <label class="info-in">
                 <input type="text" size="138" onchange="info_in(this, value)" value="설명을 입력하세요">
             </label>
-            <button class="del" onclick="dlel(this)">삭제</button>
+            <button class="del" onclick="dele(this)">삭제</button>
         </div>
     
         <div id="git" class="git">
@@ -140,10 +140,12 @@
                     <div class="git-btn">
                         <button id="git-up" onclick="git_up()">git 아이디 입력</button>
                     </div>
-                    <button class="done" id="end" onclick="data_in()">완료</button>
-                    <form  action="/portfolios/make" method="post" th:object="${portfolioSaveForm}" id="send">
+                    <div class="done">
+                        <button id="end" onclick="data_in()">완료</button>
+                    </div>
+                    <form  action="/portfolios/make" method="post" th:object="${portfolioSaveForm}" id="send" class="send">
                         <input type="hidden" name="json_submit" id="json_submit" th:field="*{contents}" class="what" value="" >
-                        <input type="submit" id="done" value="제출">
+                        <input type="submit" id="done" class="sub" value="제출">
                     </form>
                 </div>
             </div>
