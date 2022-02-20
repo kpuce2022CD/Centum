@@ -290,7 +290,7 @@ function set_pub(){
 function set_pri(){
     mode='private';
 }
-
+/*
 function make_json(){
     var portfolio_data = new Object();
     var portfolio_index = new Array();
@@ -307,11 +307,10 @@ function make_json(){
     portfolio_data.index=portfolio_index;
 
     json_data=JSON.stringify(portfolio_data);
-}
+}*/
 
 function send_data(){
-    make_json();
     var data=document.getElementById('json_submit');
-    data.value=json_data;
+    data.value=document.getElementById('fo');
     getElementById('send').submit();
 }
