@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -38,6 +39,9 @@ public class PortfolioController {
                                   RedirectAttributes redirectAttributes,
                                   HttpServletRequest request) {
             if (bindingResult.hasErrors()){
+                for (ObjectError e : bindingResult.getAllErrors()){
+                    log.info("error" + e.toString());
+                }
                 return "redirect:/";
         }
 
@@ -57,7 +61,7 @@ public class PortfolioController {
     @GetMapping("/make")
     public String updatePortfolio(Model model){
         model.addAttribute("portfolioSaveForm", new PortfolioSaveForm());
-        return "/portfolio/folio_make";
+        return "/portfolio/folio_make_json";
     }
 
     @GetMapping("/temp2")

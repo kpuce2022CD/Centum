@@ -4,6 +4,7 @@ import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
 import lombok.Getter;
 import lombok.Setter;
+import org.json.simple.JSONObject;
 
 
 import javax.validation.constraints.NotBlank;
@@ -24,7 +25,7 @@ public class PortfolioSaveForm {
     private Member member;
 
     public Portfolio toPortfolio(){
-        return new Portfolio(title, contents, false, member, null, null, null);
+        return new Portfolio("testTitle", contents, false, member, null, null, null);
     }
 
 }
