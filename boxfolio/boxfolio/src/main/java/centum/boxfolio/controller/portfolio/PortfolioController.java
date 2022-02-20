@@ -3,6 +3,8 @@ package centum.boxfolio.controller.portfolio;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
+import centum.boxfolio.repository.member.MemberRepositoryImpl;
+import centum.boxfolio.service.member.MemberService;
 import centum.boxfolio.service.portfolio.PortfolioServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +29,7 @@ import java.util.List;
 public class PortfolioController {
 
     private final PortfolioServiceImpl portfolioService;
+    private final MemberRepositoryImpl memberRepository;
 
     @GetMapping
     public String portfolioPage(Model model) {
@@ -64,19 +67,28 @@ public class PortfolioController {
         return "/portfolio/folio_make_json";
     }
 
-    @GetMapping("/temp2")
+    @GetMapping("/search/title")
     public String searchPortfolioWithTitle(@RequestParam String title, Model model){
         List<Portfolio> portfolio = portfolioService.searchWithTitle(title);
-        model.addAttribute(portfolio);
-        return "redirect:/";
+        model.addAttribute("portfolioList", portfolio);
+        return "/portfolio/folio_other";
     }
 
-    @GetMapping("/temp3")
+    @GetMapping("/search/member")
     public String searchPortfolioWithMember(@RequestParam Member member, Model model) {
         Portfolio portfolio = portfolioService.searchWithMember(member);
-        model.addAttribute(portfolio);
-        return "redirect:/";
+        model.addAttribute("portfolioList", portfolio);
+        return "/portfolio/folio_other";
     }
 
+    @GetMapping("/search/mine")
+    public String searchPortfolioMine(Model model, HttpServletRequest request) {
 
+        HttpSession session = request.getSession();
+        String memberId = (String) session.getAttribute("loginMember");
+
+        Portfolio portfolio = portfolioService.searchWithMember(memberRepository.findByLoginId(memberId).get());
+        model.addAttribute("portfolio", portfolio);
+        return "/portfolio/folio_mine";
+    }
 }

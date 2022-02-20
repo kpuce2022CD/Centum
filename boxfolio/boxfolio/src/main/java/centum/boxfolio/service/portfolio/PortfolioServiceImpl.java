@@ -45,11 +45,16 @@ public class PortfolioServiceImpl implements PortfolioService{
     }
 
     @Override
+    public void starChange(Portfolio portfolio, Member member) {
+
+    }
+
+
     public void upStar(Portfolio portfolio, Member member) {
         portfolioRepository.changeStar(portfolio, member, true);
     }
 
-    @Override
+
     public void downStar(Portfolio portfolio, Member member) {
         if (portfolio.getStarTally() == 0){
             return;

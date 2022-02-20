@@ -11,8 +11,7 @@ public interface PortfolioService {
     Portfolio upload(PortfolioSaveForm form, String memberId);
     void delete(Portfolio portfolio);
     void change(Portfolio portfolio, String title, String context, boolean visibility);
-    void upStar(Portfolio portfolio, Member member);
-    void downStar(Portfolio portfolio, Member member);
+    void starChange(Portfolio portfolio, Member member);
 
     List<Portfolio> searchWithTitle (String title);
     Portfolio searchWithMember (Member member);
