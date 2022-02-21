@@ -45,6 +45,7 @@ header {
     font-size: 20px;
     font-weight: bold;
     margin: 0 5px;
+    vertical-align: middle;
 }
 
 .edit-tool button:hover, #tool-image:hover{
