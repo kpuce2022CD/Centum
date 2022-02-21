@@ -74,13 +74,9 @@ header {
     height: 500px;
     outline: none;
     padding: 16px 24px;
-    overflow: scroll;
+    overflow: auto;
     text-align: justify;
     margin-bottom: 10px;
-}
-
-#editor::-webkit-scrollbar {
-    display: none;
 }
 
 #editor img {
