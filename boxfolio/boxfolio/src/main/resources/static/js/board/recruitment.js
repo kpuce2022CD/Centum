@@ -92,9 +92,6 @@ function loadFile(input) {
     newImage.setAttribute("class", 'image');
 
     newImage.src = URL.createObjectURL(file);
-
-    newImage.style.width = "auto";
-    newImage.style.height = "100%";
     newImage.style.objectFit = "contain";
 
     let container = document.getElementById('editor');
