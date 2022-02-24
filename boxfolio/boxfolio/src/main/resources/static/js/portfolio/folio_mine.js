@@ -3,8 +3,9 @@ var make=[]; //들어가있는 파일의 src나 텍스트
 var make_date='0000_00_00'; //최근 수정 날짜
 var setting='public'; //공개 설정
 
-function saw(input){
-    console.log(input);
+function saw() {
+    var data=document.getElementById('test');
+    console.log(data.value);
 }
 
 function add(){

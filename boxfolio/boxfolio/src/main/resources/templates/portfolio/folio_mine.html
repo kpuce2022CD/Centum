@@ -17,17 +17,11 @@
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
     <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../css/portfolio/folio_mine.css" th:href="@{css/portfolio/folio_mine.css}">
+    <link rel="stylesheet" type="text/css" href="../../css/portfolio/folio_mine.css" th:href="@{/css/portfolio/folio_mine.css}" />
     <script src="../../js/portfolio/folio_mine.js"></script>
-    <script language="JavaScript">
-        function test()
-        {
-            saw("${portfolio.contents}");
-        }
-    </script>
 </head>
 
-<body onload="test()">
+<body>
 <div id="root-wrap">
     <header th:replace="template/header :: common_header">
         <div class="wrap">
@@ -88,7 +82,6 @@
         </div>
         <p id="date_1" class="date_1">최근 수정 날짜 : </p>
         <p id="date_2" class="date_2">0000_00_00</p>
-        
     </section>
 
 
