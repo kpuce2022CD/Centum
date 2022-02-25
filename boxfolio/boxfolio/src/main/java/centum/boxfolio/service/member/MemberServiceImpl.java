@@ -40,7 +40,7 @@ public class MemberServiceImpl implements MemberService {
     public Member confirmToken(String tokenId) {
         Optional<ConfirmationToken> availableToken = confirmationTokenService.findAvailableToken(tokenId);
         if (availableToken.isEmpty()) {
-            confirmationTokenService.findNonAvailableTokenAndExpire(tokenId);
+            confirmationTokenService.findNonAvailableTokenAndDelete(tokenId);
             return null;
         }
         Optional<Member> member = memberRepository.findById(availableToken.get().getMemberId());
@@ -48,7 +48,8 @@ public class MemberServiceImpl implements MemberService {
             return null;
         }
         memberRepository.verifyEmail(member.get());
-        confirmationTokenService.findNonAvailableTokenAndExpire(tokenId);
+        confirmationTokenService.findAvailableTokenAndExpire(tokenId);
+        confirmationTokenService.findNonAvailableTokenAndDelete(tokenId);
         return member.get();
     }
 }

@@ -39,7 +39,13 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService{
     }
 
     @Override
-    public void findNonAvailableTokenAndExpire(String confirmationTokenId) {
+    public void findAvailableTokenAndExpire(String confirmationTokenId) {
+        Optional<ConfirmationToken> confirmationToken = confirmationTokenRepository.findByIdAndExpirationDateAfterAndExpired(confirmationTokenId, LocalDateTime.now(), false);
+        confirmationToken.ifPresent(m -> confirmationTokenRepository.deleteById(confirmationTokenId));
+    }
+
+    @Override
+    public void findNonAvailableTokenAndDelete(String confirmationTokenId) {
         Optional<ConfirmationToken> confirmationToken = confirmationTokenRepository.findByIdAndExpirationDateBeforeAndExpired(confirmationTokenId, LocalDateTime.now(), false);
         confirmationToken.ifPresent(m -> confirmationTokenRepository.deleteById(confirmationTokenId));
     }

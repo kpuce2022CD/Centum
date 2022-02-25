@@ -9,16 +9,51 @@
             </div>
             <ul class="nav">
                 <li>
-                    <a href="#" th:href="@{/portfolios}" th:text="#{title.portfolio}">포트폴리오</a>
+                    <a href="/portfolios" th:href="@{/portfolios}" th:text="#{title.portfolio}">포트폴리오</a>
+                    <ul class="depth">
+                        <li>
+                            <a href="/portfolios" th:href="@{/portfolios}" >목록보기</a>
+                        </li>
+                        <li>
+                            <a href="">작성하기</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="#" th:text="#{title.management}">분석&관리</a>
+                    <ul class="depth">
+                        <li>
+                            <a href="">프로젝트 분석</a>
+                        </li>
+                        <li>
+                            <a href="">분석 결과</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="#" th:text="#{title.community}">커뮤니티</a>
+                    <a href="/board/general" th:href="@{/board/general}" th:text="#{title.community}">커뮤니티</a>
+                    <ul class="depth">
+                        <li>
+                            <a href="/board/general" th:href="@{/board/general}">자유게시판</a>
+                        </li>
+                        <li>
+                            <a href="/board/info" th:href="@{/board/info}">정보게시판</a>
+                        </li>
+                        <li>
+                            <a href="/board/recruitment" th:href="@{/board/recruit}">구인게시판</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="#" th:text="#{title.question}">1:1문의</a>
+                    <a href="#" th:text="#{title.question}">고객지원</a>
+                    <ul class="depth">
+                        <li>
+                            <a href="">FAQ</a>
+                        </li>
+                        <li>
+                            <a href="">1:1문의</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
             <div class="member-area" th:if="${session.isEmpty()}">
