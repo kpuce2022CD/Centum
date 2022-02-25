@@ -40,15 +40,50 @@
                 <ul class="nav">
                     <li>
                         <a href="#" th:href="@{/portfolios}">포트폴리오</a>
+                        <ul class="depth">
+                            <li>
+                                <a href="">목록보기</a>
+                            </li>
+                            <li>
+                                <a href="">작성하기</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#">분석&관리</a>
+                        <ul class="depth">
+                            <li>
+                                <a href="">프로젝트 분석</a>
+                            </li>
+                            <li>
+                                <a href="">분석 결과</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#">커뮤니티</a>
+                        <ul class="depth">
+                            <li>
+                                <a href="">자유게시판</a>
+                            </li>
+                            <li>
+                                <a href="">정보게시판</a>
+                            </li>
+                            <li>
+                                <a href="">구인게시판</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="#">1:1문의</a>
+                        <a href="#">고객지원</a>
+                        <ul class="depth">
+                            <li>
+                                <a href="">FAQ</a>
+                            </li>
+                            <li>
+                                <a href="">1:1문의</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
                 <div class="member-area">
@@ -80,19 +115,19 @@
                 </h2>
                 <div class="icon-area">
                     <a href="#" id="analysis-icon">
-                        <img src="../../image/connection.png" th:src="@{/image/connection.png}" alt="analysis-icon" />
+                        <img src="../../static/image/connection.png" th:src="@{/image/connection.png}" alt="analysis-icon" />
                         <p th:text="#{home.main.button.analysis}">프로젝트 분석</p>
                     </a>
                     <a href="#" id="portfolio-icon">
-                        <img src="../../image/briefcase.png" th:src="@{/image/briefcase.png}" alt="portfolio-icon" />
+                        <img src="../../static/image/briefcase.png" th:src="@{/image/briefcase.png}" alt="portfolio-icon" />
                         <p th:text="#{home.main.button.portfolio}">포트폴리오 관리</p>
                     </a>
                     <a href="#" id="community-icon">
-                        <img src="../../image/community.png" th:src="@{/image/community.png}" alt="community-icon" />
+                        <img src="../../static/image/community.png" th:src="@{/image/community.png}" alt="community-icon" />
                         <p th:text="#{home.main.button.community}">팀원 매칭</p>
                     </a>
                     <a href="#" id="question-icon">
-                        <img src="../../image/question-and-answer.png" th:src="@{/image/question-and-answer.png}" alt="question-icon" />
+                        <img src="../../static/image/question-and-answer.png" th:src="@{/image/question-and-answer.png}" alt="question-icon" />
                         <p th:text="#{home.main.button.question}">1:1 문의</p>
                     </a>
                 </div>

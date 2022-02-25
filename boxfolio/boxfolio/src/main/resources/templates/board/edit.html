@@ -24,11 +24,12 @@
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" th:href="@{/css/reset.css}"/>
     <link rel="stylesheet" type="text/css" href="../../static/css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../static/css/board/recruitment.css" th:href="@{}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/board/edit.css" th:href="@{/css/board/edit.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/input_design.css" th:href="@{/css/input_design.css}"/>
     <!--fontawesome-->
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script></head>
 <body>
-    <header>
+    <header th:replace="template/header :: common_header">
         <div class="wrap">
             <div class="header-container">
                 <div class="logo">
@@ -45,7 +46,7 @@
                         <a href="#">커뮤니티</a>
                     </li>
                     <li>
-                        <a href="#">1:1문의</a>
+                        <a href="#">고객지원</a>
                     </li>
                 </ul>
                 <div class="member-area">
@@ -63,10 +64,9 @@
                 </ul>
             </div>
             <div class="edit-head-container">
-                <select name="category" id="category" required>
-                    <option value="free">자유 게시판</option>
-                    <option value="info">정보 게시판</option>
-                    <option value="anony">구인 게시판</option>
+                <select name="category" id="category" th:value="${boardType}" required>
+                    <option value="free" th:selected="${boardType}=='자유'">자유 게시판</option>
+                    <option value="info" th:selected="${boardType}=='정보'">정보 게시판</option>
                 </select>
             </div>
             <div class="edit-container">
@@ -140,33 +140,20 @@
             <div class="allow-container">
                 <div class="visibility">
                     <h4>공개 여부</h4>
-                    <input type="radio" name="" value="public">공개
-                    <input type="radio" name="" value="private">비공개
+                    <input id="public" type="radio" name="public-radio" value="public">
+                    <label for="public">공개</label>
+                    <input id="private" type="radio" name="public-radio" value="private">
+                    <label for="private">비공개</label>
                 </div>
                 <div class="allow">
-                    <div class="comment-container">
+                    <div class="comment-area">
                         <h4>댓글 허용</h4>
-                        <label class="switch-button"> 
-                            <input type="checkbox"/> 
-                            <span class="onoff-switch"></span> 
-                        </label>
+                        <input type="checkbox" class="switch" name="reply"/>
                     </div>
-                    <div class="scrap-container">
+                    <div class="scrap-area">
                         <h4>스크랩 허용</h4>
-                        <label class="switch-button"> 
-                            <input type="checkbox"/> 
-                            <span class="onoff-switch"></span> 
-                        </label>
+                        <input type="checkbox" class="switch" name="scrap"/>
                     </div>
-                </div>
-                <div class="member-total">
-                    <h4>모집 인원수</h4>
-                    <input type="radio" name="" value="1">1
-                    <input type="radio" name="" value="2">2
-                    <input type="radio" name="" value="3">3
-                    <input type="radio" name="" value="4">4
-                    <input type="radio" name="" value="5">5
-                    <input type="radio" name="" value="6">6
                 </div>
             </div>
             <div class="access-container">
@@ -175,9 +162,10 @@
             </div>
         </div>
     </section>
-    <footer>
+    <footer th:replace="template/footer :: common_footer">
 
     </footer>
 </body>
-<script src="../../static/js/board/recruitment.js"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/board/editor.js" th:src="@{/js/board/editor.js}"></script>
 </html>

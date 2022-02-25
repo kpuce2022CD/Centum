@@ -66,7 +66,7 @@ btnRight.addEventListener('click', function() {
 })
 
 btnImage.addEventListener('click', function() {
-    
+
 });
 
 fontSizeSelector.addEventListener('change', function() {
@@ -207,36 +207,4 @@ function checkStyle() {
 
 function isStyle(style) {
     return document.queryCommandState(style);
-}
-
-const saveEdit = document.getElementById('save-edit');
-
-saveEdit.addEventListener('click', function() {
-    const urlToSendForBoard = ".";
-
-    const title = document.getElementById('edit-title');
-    var content = document.getElementById('editor');
-    const titleText = title.value;
-    const contentText = content.innerHTML;
-
-    const params = {'title':titleText, 'content':contentText};
-    sendPost(urlToSendForBoard, params);
-});
-
-// 데이터 post 전송
-function sendPost(url, params) {
-    var form = document.createElement('form');
-    form.setAttribute('method', 'post');
-    form.setAttribute('action', url);
-    document.characterSet = "utf-8";
-    
-    for (var key in params) {
-        var hiddenField = document.createElement('input');
-        hiddenField.setAttribute('type', 'hidden');
-        hiddenField.setAttribute('name', key);
-        hiddenField.setAttribute('value', params[key]);
-        form.appendChild(hiddenField);
-    }
-    document.body.appendChild(form);
-    form.submit();
 }
