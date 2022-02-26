@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>박스폴리오</title>
+    <meta name="description" content="포트폴리오 관리 웹 페이지" />
+    <meta name="keywords" content="web, service, portfolio, boxfolio, project" />
+    <meta name="author" content="Centum" />
+    <meta name="viewport" content="width=device-width, member-scalable=no, initial-scale=1.0, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!--Open Graph-->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="포트폴리오 관리 웹 페이지" />
+    <meta property="og:description" content="포트폴리오를 분석하고 관리해줍니다" />
+    <!-- <meta property="og:image" content="resources/-"> -->
+    <!-- <meta property="og:url" content="https://www.kpu.ac.kr"> -->
+
+    <!--fabicon-->
+    <!--    <link rel="icon" href="resources/social-care.png">-->
+    <!--    <link rel="apple-touch-icon" href="resources/social-care.png">-->
+    <!--    <link rel="short icon" type="image/x-icon" href="resources/social-care.png">-->
+
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common.css" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/board/post.css" th:href="@{/css/board/post.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/input_design.css" th:href="@{/css/input_design.css}"/>
+    <!--fontawesome-->
+    <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script></head>
+<body>
+    <header th:replace="template/header :: common_header">
+        <div class="wrap">
+            <div class="header-container">
+                <div class="logo">
+                    <a id="logo" href="/" th:href="@{/}">BOXFOLIO</a>
+                </div>
+                <ul class="nav">
+                    <li>
+                        <a href="#">포트폴리오</a>
+                    </li>
+                    <li>
+                        <a href="#">분석&관리</a>
+                    </li>
+                    <li>
+                        <a href="#">커뮤니티</a>
+                    </li>
+                    <li>
+                        <a href="#">고객지원</a>
+                    </li>
+                </ul>
+                <div class="member-area">
+                    <a href="login" class="start-btn">
+                        시작하기
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="main">
+        <div class="wrap">
+            <div class="title-container">
+                <div class="general-info">
+                    <div class="title-area">
+                        <h1 class="title">게시판 제목입니다.</h1>
+                    </div>
+                    <div class="writer-area">
+                        <a href="" id="writer-img">
+                            <img src="../../static/image/member.png" alt="profile-img">
+                        </a>
+                        <a href="" id="writer-nickname">SeoArc</a>
+                    </div>
+                    <div class="post-info-area">
+                        <span id="created-date">2022-01-11 12:02:44</span>
+                        <span id="view-cnt">조회 1</span>
+                        <span id="star-cnt">추천 3</span>
+                        <span id="scrap-cnt">스크랩 2</span>
+                    </div>
+                </div>
+            </div>
+            <div class="contents-container">
+                <div class="contents">123</div>
+            </div>
+            <div class="access-container">
+                <div class="comment-cnt-area">
+                    <i class="far fa-comments"></i>
+                    <span id="comment-cnt">댓글 1</span>
+                </div>
+                <div class="recommend-area">
+                    <button id="star-btn">
+                        <i class="far fa-star"></i>
+                        <span>추천</span>
+                    </button>
+                    <button id="scrap-btn">
+                        <i class="far fa-bookmark"></i>
+                        <span>스크랩</span>
+                    </button>
+                </div>
+            </div>
+            <div class="comment-container">
+                <div class="comment-area">
+                    <a href="" id="commenter-img">
+                        <img src="../../static/image/member.png" alt="member-img">
+                    </a>
+                    <div class="comment-box">
+                        <a href="" id="commenter-nickname">SeoArc</a>
+                        <p class="comment">댓글입니다.</p>
+                        <div class="comment-info">
+                            <span class="comment-created">2022.01.12. 01:23</span>
+                            <button class="reply-btn">답글</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment-write-area">
+                    <textarea name="comment" id="comment-textarea" rows="1" placeholder="댓글을 입력하세요"></textarea>
+                    <div class="comment-access-area">
+                        <div class="file-box">
+                            <button id="image-upload-btn">
+                                <i class="far fa-image"></i>
+                            </button>
+                        </div>
+                        <button id="comment-post-btn">등록</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer th:replace="template/footer :: common_footer">
+
+    </footer>
+</body>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/board/comment.js" th:src="@{/js/board/comment.js}"></script>
+</html>

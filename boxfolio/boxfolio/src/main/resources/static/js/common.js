@@ -1,3 +1,4 @@
+const header = document.getElementsByTagName('header')[0];
 let body = document.getElementsByTagName('body')[0];
 let nav = document.getElementsByClassName('nav')[0];
 let logo = document.getElementById('logo');

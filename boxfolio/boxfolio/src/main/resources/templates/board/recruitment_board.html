@@ -100,18 +100,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="td-idx"></td>
+                        <tr th:each="board, i : ${recruitBoards}">
+                            <td class="td-idx" th:text="${i.count}"></td>
                             <td class="td-title">
-                               <a href="/">
+                               <a href="/" th:href="@{/board/recruit/{boardId}(boardId=${board.id})}" th:text="${board.title}">
                                </a>
-                               <span class="td-reply"></span>
+                               <span class="td-reply" th:text="|[${board.commentTally}]|"></span>
                             </td>
-                            <td class="td-name"><a href="#"></a></td>
-                            <td class="td-date"></td>
-                            <td class="td-view"></td>
-                            <td class="td-like"></td>
-                            <td class="td-scrap"></td>
+                            <td class="td-name" th:text="${board.member.nickname}"><a href="#"></a></td>
+                            <td class="td-date" th:if="${!board.createdDate.toLocalDate().isEqual(#temporals.createToday())}" th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd')}"></td>
+                            <td class="td-date" th:if="${board.createdDate.toLocalDate().isEqual(#temporals.createToday())}" th:text="${#temporals.format(board.createdDate, 'HH:mm')}"></td>
+                            <td class="td-view" th:text="${board.viewTally}"></td>
+                            <td class="td-like" th:text="${board.starTally}"></td>
+                            <td class="td-scrap" th:text="${board.scrapTally}"></td>
                         </tr>
                     </tbody>
                 </table>

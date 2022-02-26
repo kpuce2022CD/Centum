@@ -24,7 +24,7 @@
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" th:href="@{/css/reset.css}"/>
     <link rel="stylesheet" type="text/css" href="../../static/css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../static/css/board/edit.css" th:href="@{/css/board/edit.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/board/edit.css" th:href="@{/css/board/recruitment_edit.css}"/>
     <link rel="stylesheet" type="text/css" href="../../static/css/input_design.css" th:href="@{/css/input_design.css}"/>
     <!--fontawesome-->
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script></head>
@@ -59,107 +59,109 @@
     </header>
     <section class="main">
         <div class="wrap">
-            <div class="notice-title-container">
-                <h2 class="notice-title">게시글 작성</h2>
-                </ul>
-            </div>
-            <div class="edit-head-container">
-                <select name="category" id="category" th:value="${boardType}" required>
-                    <option value="free" th:selected="${boardType}=='자유'">자유 게시판</option>
-                    <option value="info" th:selected="${boardType}=='정보'">정보 게시판</option>
-                </select>
-            </div>
-            <div class="edit-container">
-                <textarea name="edit-title" id="edit-title" cols="30" placeholder="제목을 입력해 주세요."></textarea>
-                <div class="edit-tool">
-                    <select id="tool-fontsize">
-                        <option value="" selected>폰트 사이즈</option>
-                        <option value="1">10px</option>
-                        <option value="2">13px</option>
-                        <option value="3">16px</option>
-                        <option value="4">18px</option>
-                        <option value="5">24px</option>
-                        <option value="6">32px</option>
-                        <option value="7">48px</option>
+            <form id="board-form" action="" th:action th:object="${recruitBoardSaveForm}" method="post">
+                <div class="notice-title-container">
+                    <h2 class="notice-title">게시글 작성</h2>
+                    </ul>
+                </div>
+                <div class="edit-head-container">
+                    <select name="category" id="category" th:value="${boardType}" required>
+                        <option value="free" th:selected="${boardType}=='자유'">자유 게시판</option>
+                        <option value="info" th:selected="${boardType}=='정보'">정보 게시판</option>
                     </select>
-                    <select id="tool-font">
-                        <option value="" selected>폰트</option>
-                        <option value="Black Han Sans">Black Han Sans</option>
-                        <option value="Noto Sans KR">Noto Sans KR</option>
-                        <option value="Nanum Gothic">Nanum Gothic</option>
-                        <option value="Nanum Myeongjo">Nanum Myeongjo</option>
-                        <option value="Nanum Pen Script">Nanum Pen Script</option>
-                        <option value="맑은 고딕">맑은 고딕</option>
-                    </select>
-                    <button id="tool-bold">
-                        <i class="fas fa-bold"></i>
-                    </button>
-                    <button id="tool-italic">
-                        <i class="fas fa-italic"></i>
-                    </button>
-                    <button id="tool-under">
-                        <i class="fas fa-underline"></i>
-                    </button>
-                    <button id="tool-cancel">
-                        <i class="fas fa-strikethrough"></i>
-                    </button>
-                    <button id="tool-orderlist">
-                        <i class="fas fa-list-ol"></i>
-                    </button>
-                    <button id="tool-unorderlist">
-                        <i class="fas fa-list-ul"></i>
-                    </button>
-                    <span id="tool-image">
-                        <label for="input-image">
-                            <i class="far fa-image"></i>
-                        </label>
-                        <input type="file" id="input-image" accept="image/*" onchange="loadFile(this)">
-                    </span>
-                    <button id="tool-full">
-                        <i class="fas fa-align-justify"></i>
-                    </button>
-                    <button id="tool-left">
-                        <i class="fas fa-align-left"></i>
-                    </button>
-                    <button id="tool-center">
-                        <i class="fas fa-align-center"></i>
-                    </button>
-                    <button id="tool-right">
-                        <i class="fas fa-align-right"></i>
-                    </button>
-                    <button id="tool-undo">
-                        <i class="fas fa-undo"></i>
-                    </button>
-                    <button id="tool-redo">
-                        <i class="fas fa-redo"></i>
-                    </button>
                 </div>
-                <div id="editor" contenteditable="true">
-                </div>
-            </div>
-            <div class="allow-container">
-                <div class="visibility">
-                    <h4>공개 여부</h4>
-                    <input id="public" type="radio" name="public-radio" value="public">
-                    <label for="public">공개</label>
-                    <input id="private" type="radio" name="public-radio" value="private">
-                    <label for="private">비공개</label>
-                </div>
-                <div class="allow">
-                    <div class="comment-area">
-                        <h4>댓글 허용</h4>
-                        <input type="checkbox" class="switch" name="reply"/>
+                <div class="edit-container">
+                    <textarea name="edit-title" id="edit-title" cols="30" placeholder="제목을 입력해 주세요." th:field="*{title}"></textarea>
+                    <div class="edit-tool">
+                        <select id="tool-fontsize">
+                            <option value="" selected>폰트 사이즈</option>
+                            <option value="1">10px</option>
+                            <option value="2">13px</option>
+                            <option value="3">16px</option>
+                            <option value="4">18px</option>
+                            <option value="5">24px</option>
+                            <option value="6">32px</option>
+                            <option value="7">48px</option>
+                        </select>
+                        <select id="tool-font">
+                            <option value="" selected>폰트</option>
+                            <option value="Black Han Sans">Black Han Sans</option>
+                            <option value="Noto Sans KR">Noto Sans KR</option>
+                            <option value="Nanum Gothic">Nanum Gothic</option>
+                            <option value="Nanum Myeongjo">Nanum Myeongjo</option>
+                            <option value="Nanum Pen Script">Nanum Pen Script</option>
+                            <option value="맑은 고딕">맑은 고딕</option>
+                        </select>
+                        <button id="tool-bold">
+                            <i class="fas fa-bold"></i>
+                        </button>
+                        <button id="tool-italic">
+                            <i class="fas fa-italic"></i>
+                        </button>
+                        <button id="tool-under">
+                            <i class="fas fa-underline"></i>
+                        </button>
+                        <button id="tool-cancel">
+                            <i class="fas fa-strikethrough"></i>
+                        </button>
+                        <button id="tool-orderlist">
+                            <i class="fas fa-list-ol"></i>
+                        </button>
+                        <button id="tool-unorderlist">
+                            <i class="fas fa-list-ul"></i>
+                        </button>
+                        <span id="tool-image">
+                            <label for="input-image">
+                                <i class="far fa-image"></i>
+                            </label>
+                            <input type="file" id="input-image" accept="image/*" onchange="loadFile(this)">
+                        </span>
+                        <button id="tool-full">
+                            <i class="fas fa-align-justify"></i>
+                        </button>
+                        <button id="tool-left">
+                            <i class="fas fa-align-left"></i>
+                        </button>
+                        <button id="tool-center">
+                            <i class="fas fa-align-center"></i>
+                        </button>
+                        <button id="tool-right">
+                            <i class="fas fa-align-right"></i>
+                        </button>
+                        <button id="tool-undo">
+                            <i class="fas fa-undo"></i>
+                        </button>
+                        <button id="tool-redo">
+                            <i class="fas fa-redo"></i>
+                        </button>
                     </div>
-                    <div class="scrap-area">
-                        <h4>스크랩 허용</h4>
-                        <input type="checkbox" class="switch" name="scrap"/>
+                    <div id="editor" contenteditable="true" th:field="*{contents}">
                     </div>
                 </div>
-            </div>
-            <div class="access-container">
-                <button id="save-edit">저장</button>
-                <button id="cancel-edit">취소</button>
-            </div>
+                <div class="setting-container">
+                    <div class="visibility-area">
+                        <h4>공개 여부</h4>
+                        <input id="public" type="radio" value="public" th:field="*{visibility}">
+                        <label for="public">공개</label>
+                        <input id="private" type="radio" value="private" th:field="*{visibility}">
+                        <label for="private">비공개</label>
+                    </div>
+                    <div class="allow-container">
+                        <div class="comment-area">
+                            <h4>댓글 허용</h4>
+                            <input id="comment-allow" type="checkbox" class="switch" th:field="*{commentAllow}"/>
+                        </div>
+                        <div class="scrap-area">
+                            <h4>스크랩 허용</h4>
+                            <input id="scrap-allow" type="checkbox" class="switch" th:field="*{scrapAllow}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="access-container">
+                    <button id="save-edit">저장</button>
+                    <button id="cancel-edit">취소</button>
+                </div>
+            </form>
         </div>
     </section>
     <footer th:replace="template/footer :: common_footer">

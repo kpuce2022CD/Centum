@@ -90,22 +90,23 @@ header::before {
 }
 
 .member-area {
-    background: url("../image/member.png");
     display: flex;
     justify-content: center;
 }
 
 .start-btn {
-    background-color: transparent;
+    background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);
+    background-size: 200% auto;
+    box-shadow: 0 0 20px #eee;
     color: #fff;
-    border: 1px solid #fff;
+    transition: 0.5s;
     border-radius: 5px;
     padding: 15px 35px;
 }
 
 .start-btn:hover {
-    animation: btn-color 0.2s linear both;
-}
+    background-position: right center; /* change the direction of the change here */
+  }
 
 #profile-btn {
     width: 32px;

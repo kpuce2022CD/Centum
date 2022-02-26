@@ -2,11 +2,13 @@ package centum.boxfolio.entity.board;
 
 import centum.boxfolio.entity.member.Member;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Getter @Setter
+@NoArgsConstructor
 @Entity
 public class BoardScrap {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +21,18 @@ public class BoardScrap {
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
+
+    public BoardScrap(Board board, Member member) {
+        if (this.member != null) {
+            this.member.getBoardScraps().remove(this);
+        }
+        this.member = member;
+        member.getBoardScraps().add(this);
+
+        if (this.board != null) {
+            this.board.getBoardScraps().remove(this);
+        }
+        this.board = board;
+        board.getBoardScraps().add(this);
+    }
 }

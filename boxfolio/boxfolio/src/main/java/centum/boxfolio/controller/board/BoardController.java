@@ -1,6 +1,8 @@
 package centum.boxfolio.controller.board;
 
 import centum.boxfolio.controller.member.SessionConst;
+import centum.boxfolio.entity.board.Board;
+import centum.boxfolio.entity.board.Recruitment;
 import centum.boxfolio.service.board.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +37,37 @@ public class BoardController {
     @GetMapping("/recruit")
     public String recruitmentBoardPage(Model model) {
         model.addAttribute("boardType", BoardTypeConst.RECRUITMENT);
+        model.addAttribute("recruitBoards", boardService.readGeneralBoard());
         return "board/recruitment_board";
+    }
+
+    @GetMapping("/recruit/{boardId}")
+    public String recruitmentBoardPage(@PathVariable long boardId, Model model) {
+        Board post = boardService.readGeneralPost(boardId);
+        model.addAttribute("recruitPost", post);
+        return "board/recruitment_post";
+    }
+
+    @GetMapping("/star/{boardId}")
+    public String pushStar(@PathVariable long boardId, HttpServletRequest request) {
+        String referer = request.getHeader("referer");
+        HttpSession session = request.getSession(false);
+        if (referer != null) {
+            Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
+            boardService.countStar(boardId, memberId);
+        }
+        return "redirect:" + referer;
+    }
+
+    @GetMapping("/scrap/{boardId}")
+    public String pushScrap(@PathVariable long boardId, HttpServletRequest request) {
+        String referer = request.getHeader("referer");
+        HttpSession session = request.getSession(false);
+        if (referer != null) {
+            Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
+            boardService.countScrap(boardId, memberId);
+        }
+        return "redirect:" + referer;
     }
 
     @GetMapping("recruit/edit")
@@ -51,20 +83,9 @@ public class BoardController {
             return "/board/recruitment_edit";
         }
 
-        log.info("{}", recruitBoardSaveForm.getTitle());
-        log.info("{}", recruitBoardSaveForm.getContents());
-        log.info("{}", recruitBoardSaveForm.getDeadlineYear());
-        log.info("{}", recruitBoardSaveForm.getDeadlineMonth());
-        log.info("{}", recruitBoardSaveForm.getDeadlineDay());
-        log.info("{}", recruitBoardSaveForm.getMemberTotal());
-        log.info("{}", recruitBoardSaveForm.getVisibility());
-        log.info("{}", recruitBoardSaveForm.isCommentAllow());
-        log.info("{}", recruitBoardSaveForm.isScrapAllow());
-        log.info("{}", recruitBoardSaveForm.isAutoMatchingStatus());
-
         HttpSession session = request.getSession(false);
         long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        boardService.createRecruitBoard(recruitBoardSaveForm, memberId);
+        boardService.createRecruitPost(recruitBoardSaveForm, memberId);
         return "redirect:/board/recruit";
     }
 

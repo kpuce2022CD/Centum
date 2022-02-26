@@ -1,8 +1,3 @@
-const header = document.getElementsByTagName('header')[0];
-// let logo = document.getElementById('logo');
-// let navList = document.getElementsByClassName('nav')[0].children;
-// let startButton = document.getElementsByClassName('start-btn')[0];
-
 window.addEventListener('scroll', () => {
     let scrollLocation = document.documentElement.scrollTop;
     if (scrollLocation < 20) {
