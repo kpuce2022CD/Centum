@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Service Programming Homework</title>
+    <meta name="description" content="포트폴리오 관리 웹 페이지">
+    <meta name="keywords" content="web, service, portfolio, boxfolio, project">
+    <meta name="author" content="Centum">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--Open Graph-->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="포트폴리오 관리 웹 페이지">
+    <meta property="og:description" content="포트폴리오를 분석하고 관리해줍니다">
+
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" href="../../css/portfolio/folio_make.css" th:href="@{/css/portfolio/folio_make.css}">
+    <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
+</head>
+    <body>
+        <div id="root-wrap">
+            <header th:replace="template/header :: common_header">
+                <div class="wrap">
+                    <div class="header-container">
+                        <div class="logo">
+                            <a href="/" th:href="@{/}">BOXFOLIO</a>
+                        </div>
+                        <ul class="nav">
+                            <li>
+                                <a href="#">포트폴리오</a>
+                            </li>
+                            <li>
+                                <a href="#">분석&관리</a>
+                            </li>
+                            <li>
+                                <a href="#">커뮤니티</a>
+                            </li>
+                            <li>
+                                <a href="#">1:1문의</a>
+                            </li>
+                        </ul>
+                        <div class="user-area">
+                            <a href="#" class="start-btn">
+                                시작하기
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="container">
+                <h2>게시판 글쓰기</h2>
+                <form action="/portfolios/make" method="post" th:object="${portfolioSaveForm}">
+                    <div class="form-group">
+                        <label for="title">제목</label>
+                        <!-- placeholder 속성 입력한 데이터가 없는 경우 배경으로 나타난다.실제적으로 입력을 100자까지로 지정 -->
+                        <!-- required 속성을 설정하면 필수입력 사항이된다. -->
+                        <!-- pattern 속성을 이용한 정규표현식으로 데이터의 유효성 검사를 할 수 있다. -->
+                        <input type="text" class="form-control" id="title"
+                               placeholder="제목 입력(4-100)" name="title"
+                               maxlength="100" required="required"
+                               pattern=".{4,100}"
+                               th:field="*{title}">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">내용</label>
+                        <!--  여러줄의 데이터를 입력하고 하고자 할때 textarea 태그를 사용한다. -->
+                        <!--  textarea 안에 있는 모든 글자는 그대로 나타난다. 공백문자, tag, enter -->
+                        <textarea class="form-control" rows="5" id="content"
+                                  name="content" placeholder="내용 작성" th:field="*{contents}"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-default">등록</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

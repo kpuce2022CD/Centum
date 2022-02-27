@@ -20,27 +20,16 @@ class TestDataP {
     MemberRepositoryImpl memberRepository;
 
     @Test
-    void doItii () {
+    void doItii() {
         insert();
     }
 
-    void insert(){
-        for (int i = 0; i < 10; i ++){
-            Portfolio portfolio = new Portfolio();
-//            Member member = memberRepository.findById("testmember" + i).get();
-            portfolio.setVisibility(true);
-            portfolio.setTitle("test title + i");
-            portfolio.setStarTally(0);
-            portfolio.setPortfolioStars(null);
-            portfolio.setContents("test content" + i);
-//            portfolio.setMember(member);
+    void insert() {
+        for (int i = 0; i < 10; i++) {
 
-//            portfolioRepository.save(portfolio, member);
         }
     }
-
-    void delete(){
-
-    }
-
 }
+
+
+

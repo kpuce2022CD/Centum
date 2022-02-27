@@ -17,6 +17,30 @@
     <!--CSS-->
     <link rel="stylesheet" href="css/folio_make.css">
     <script src="js/folio_make.js"></script>
+    <script>
+        /*function start(){
+            for(var i = 0; i<make_f1.length; i++){
+                if (make_f1[number]=='youtube'){
+                    video_upf(make_f2[number]);
+                }
+                else if(make_f1[number]=='image'){
+                    image_upf(make_f2[number]);
+                }
+                else if(make_f1[number]=='video'){
+                    videoF_upf(make_f2[number]);
+                }
+                else if(make_f1[number]=='info'){
+                    info_upf(make_f2[number]);
+                }
+                else if(make_f1[number]=='git'){
+                    git_upf(make_f2[number]);
+                }
+            }
+        }*/
+    </script>
+
+    <!--fontawesome-->
+    <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
 </head>
 
 <body onload="start()">
@@ -50,89 +74,104 @@
         </div>
     </header>
 
-    <section class="make">
-        <div class="fo" id="fo">
-            <div class="image-ch" id="image-ch">
-                <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
-                <div class="im">
-                    <div class="container">
-                        <div class="image-upload" id="image-upload">
-                            <form method="post" enctype="multipart/form-data">
-                                <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)">
-                                <p id="fileName"></p>
-                            </form>
+    <form action="/portfolio" method="post" th:object="${portfolioForm}" id="send">
+        <div class="make">
+            <div class="fo" id="fo">
+                <label id="title" class="title">제목 : 
+                    <input type="text" th:field="*{title}" class="title_in" value="제목을 입력하세요" size="100">
+                </label>
+                <div class="image-ch" id="image-ch">
+                    <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
+                    <div class="im">
+                        <div class="container">
+                            <div class="image-upload" id="image-upload">
+                                <div>
+                                    <input type="file" id="chooseFile" class="chooseFile" th:field="*{folio_src}" accept="image/*" onchange="loadFile(this)">
+                                    <input type="text" id="what" class="what" th:field="*{folio_what}" value="image">
+                                    <p id="fileName"></p>
+                                </div>
+                            </div>
+                            <img class="image-show" id="image-show" src=""></img>
                         </div>
-                        <div class="image-show" id="image-show"></div>
                     </div>
+                    <button class="del" onclick="dele(this)">삭제</button>
                 </div>
-                <button class="del" onclick="dele(this)">삭제</button>
-            </div>
-
-            <div class="video-ch" id="video-ch">
-                <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
-                <div class="vi">
-                    <iframe id="hz" class="hz" width="560" height="315" src="">
-                    </iframe>
-                    <input id="hide" class="hide" size="100" type="url" onchange="video_in(value, this)" value="유튜브 src를 입력하세요">
-                </div>
-                <button class="del" onclick="dele(this)">삭제</button>
-            </div>
-
-            <div class="videoFile" id="videoFile">
-                <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
-                <div class="viF">
-                    <div class="video-upload" id="video-upload">
-                        <form method="post" enctype="multipart/form-data">
-                            <input type="file" id="chooseVideoFile" name="chooseVideoFile" accept="video.mp4" onchange="loadVideoFile(this)">
-                        </form>
+        
+                <div class="video-ch" id="video-ch">
+                    <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
+                    <div class="vi">
+                        <iframe id="hz" class="hz" width="560" height="315" src="">
+                        </iframe>
+                        <input id="hide" class="hide" th:field="*{folio_src}" size="100" type="url" onchange="video_in(value, this)" value="유튜브 src를 입력하세요">
+                        <input type="text" id="what" class="what" th:field="*{folio_what}" value="youtube">
                     </div>
-                    <video id="videoFi" class="videoFi" autoplay controls loop muted preload="none" width="1000">
-                        <source src="" type="video/mp4">
-                        브라우저가 동영상 업로드를 지원하지 않습니다
-                    </video>
+                    <button class="del" onclick="dele(this)">삭제</button>
                 </div>
-                <button class="del" onclick="dele(this)">삭제</button>
-            </div>
-
-            <div id="info" class="info">
-                <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
-                <label class="info-in"><input type="text" size="138" value="설명을 입력하세요"></label>
-                <button class="del" onclick="dele(this)">삭제</button>
-            </div>
-
-            <div id="git" class="git">
-                <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
-                <label class="git-in"><input type="text" size="138" value="깃허브 아이디를 입력하세요"></label>
-                <button class="del" onclick="dele(this)">삭제</button>
-            </div>
-        </div>
-    </section>
-    <section class="add">
-        <div class="set">
-            <button class="set-pub" onclick="set_pub()">public</button>
-            <button class="set-pri" onclick="set_pri()">private</button>
-        </div>
-        <div class="make-op">
-            <div class="mk-btn">
-                <button id="image-se" onclick="image_up()">사진 추가</button>
-            </div>
-            <div class="video-btn">
-                <button id="video-se" onclick="video_up()">유튜브 영상 추가</button>
-            </div>
-            <div class="videoF-btn">
-                <button id="videoF-se" onclick="videoF_up()">영상 파일 추가</button>
-            </div>
-            <div class="inf-btn">
-                <button id="info-se" onclick="info_up()">설명 추가</button>
-            </div>
-            <div class="git-btn">
-                <button id="git-up" onclick="git_up()">git 아이디 입력</button>
-            </div>
-            <div class="done">
-                <submit class="end">작성 완료</submit>
+        
+                <div class="videoFile" id="videoFile">
+                    <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
+                    <div class="viF">
+                        <div class="video-upload" id="video-upload">
+                            <div>
+                                <input type="file" th:field="*{folio_src}" id="chooseVideoFile" name="chooseVideoFile" accept="video.mp4" onchange="loadVideoFile(this)">
+                                <input type="'text" id="what" class="what" th:field="*{folio_what}" value="video">
+                            </div>
+                        </div>
+                        <video id="videoFi" class="videoFi" autoplay controls loop muted preload="none" width="1000">
+                            <source src="" type="video/mp4">
+                            브라우저가 동영상 업로드를 지원하지 않습니다
+                        </video>
+                    </div>
+                    <button class="del" onclick="dele(this)">삭제</button>
+                </div>
+        
+                <div id="info" class="info">
+                    <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
+                    <label class="info-in">
+                        <input type="text" th:field="*{folio_src}" size="138" onchange="info_in(this, value)" value="설명을 입력하세요">
+                        <input type="text" id="what" class="what" th:field="*{folio_what}" value="info">
+                    </label>
+                    <button class="del" onclick="dlel(this)">삭제</button>
+                </div>
+        
+                <div id="git" class="git">
+                    <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
+                    <label class="git-in">
+                        <input type="text" th:field="*{folio_src}" size="138" onchange="git_in(this, value)" value="깃허브 아이디를 입력하세요">
+                        <input type="text" id="what" class="what" th:field="*{folio_what}" value="git">
+                    </label>
+                    <button class="del" onclick="dele(this)">삭제</button>
+                </div>
             </div>
         </div>
-    </section>
+        <div class="add">
+            <div class="set">
+                <input type="text" class="what" th:field="*{setting}" id="view_setting" value="public">
+                <button class="set-pub" onclick="set_pub()">public</button>
+                <button class="set-pri" onclick="set_pri()">private</button>
+            </div>
+            <div class="make-op">
+                <div class="mk-btn">
+                    <button id="image-se" onclick="image_up()">사진 추가</button>
+                </div>
+                <div class="video-btn">
+                    <button id="video-se" onclick="video_up()">유튜브 영상 추가</button>
+                </div>
+                <div class="videoF-btn">
+                    <button id="videoF-se" onclick="videoF_up()">영상 파일 추가</button>
+                </div>
+                <div class="inf-btn">
+                    <button id="info-se" onclick="info_up()">설명 추가</button>
+                </div>
+                <div class="git-btn">
+                    <button id="git-up" onclick="git_up()">git 아이디 입력</button>
+                </div>
+                <div class="done" onclick="document.getElementById('send').submit()">
+                    <input type="submit" class="end" id="end">
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 </body>
 </html>
