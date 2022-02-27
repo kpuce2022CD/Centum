@@ -57,70 +57,80 @@
             </div>
         </div>
     </header>
-    <section class="main">
+    <section class="main" th:object="${infoPost}">
         <div class="wrap">
             <div class="title-container">
                 <div class="general-info">
                     <div class="title-area">
-                        <h1 class="title">게시판 제목입니다.</h1>
+                        <h1 class="title" th:text="*{title}">게시판 제목입니다.</h1>
                     </div>
                     <div class="writer-area">
                         <a href="" id="writer-img">
-                            <img src="../../static/image/member.png" alt="profile-img">
+                            <img src="../../static/image/member.png" alt="profile-img" th:src="@{/image/member.png}">
                         </a>
-                        <a href="" id="writer-nickname">SeoArc</a>
+                        <a href="" id="writer-nickname" th:text="*{member.nickname}">SeoArc</a>
                     </div>
                     <div class="post-info-area">
-                        <span id="created-date">2022-01-11 12:02:44</span>
-                        <span id="view-cnt">조회 1</span>
-                        <span id="star-cnt">추천 3</span>
-                        <span id="scrap-cnt">스크랩 2</span>
+                        <span id="created-date" th:text="*{#temporals.format(createdDate, 'yyyy-MM-dd HH:mm:ss')}">2022-01-11 12:02:44</span>
+                        <span id="view-cnt" th:text="|조회 *{viewTally}|">조회 1</span>
+                        <span id="star-cnt" th:text="|추천 *{starTally}|">추천 3</span>
+                        <span id="scrap-cnt" th:text="|스크랩 *{scrapTally}|">스크랩 2</span>
+                        <a id="update-board" href="" th:if="${#session.getAttribute('loginMember')} == *{member.id}">수정</a>
+                        <a id="delete-board" href="" th:if="${#session.getAttribute('loginMember')} == *{member.id}" th:href="@{/board/info/delete/{boardId}(boardId=*{id})}">삭제</a>
                     </div>
                 </div>
             </div>
             <div class="contents-container">
-                <div class="contents">123</div>
+                <div class="contents" th:utext="*{contents}"></div>
             </div>
             <div class="access-container">
                 <div class="comment-cnt-area">
                     <i class="far fa-comments"></i>
-                    <span id="comment-cnt">댓글 1</span>
+                    <span id="comment-cnt" th:text="|댓글 *{commentTally}|">댓글 1</span>
                 </div>
                 <div class="recommend-area">
-                    <button id="star-btn">
+                    <a id="star-btn" th:href="@{/board/star/{boardId}(boardId=*{id})}">
                         <i class="far fa-star"></i>
                         <span>추천</span>
-                    </button>
-                    <button id="scrap-btn">
+                    </a>
+                    <a id="scrap-btn" th:href="@{/board/scrap/{boardId}(boardId=*{id})}">
                         <i class="far fa-bookmark"></i>
                         <span>스크랩</span>
-                    </button>
+                    </a>
                 </div>
             </div>
             <div class="comment-container">
-                <div class="comment-area">
-                    <a href="" id="commenter-img">
-                        <img src="../../static/image/member.png" alt="member-img">
-                    </a>
-                    <div class="comment-box">
-                        <a href="" id="commenter-nickname">SeoArc</a>
-                        <p class="comment">댓글입니다.</p>
-                        <div class="comment-info">
-                            <span class="comment-created">2022.01.12. 01:23</span>
-                            <button class="reply-btn">답글</button>
+                <div class="comment-area" th:each="comment : ${comments}">
+                    <div class="comment-info">
+                        <a href="" id="commenter-img">
+                            <img src="../../static/image/member.png" alt="member-img">
+                        </a>
+                        <div class="comment-box">
+                            <a href="" id="commenter-nickname" th:text="${comment.member.nickname}">SeoArc</a>
+                            <p class="comment" th:utext="${comment.contents}">댓글입니다.</p>
+                            <div class="comment-info-access">
+                                <span class="comment-created" th:text="${#temporals.format(comment.createdDate, 'yyyy.MM.ss. HH:mm')}">2022.01.12. 01:23</span>
+                                <button class="reply-btn">답글</button>
+                            </div>
                         </div>
+                    </div>
+                    <div class="comment-access">
+                        <a id="update-comment" href="" th:if="${#session.getAttribute('loginMember')} == ${comment.member.id}"><span>수정</span></a>
+                        <a id="delete-comment" href="" th:if="${#session.getAttribute('loginMember')} == ${comment.member.id}" th:href="@{/board/comment/delete/{commentId}(commentId=${comment.id})}"><span>삭제</span></a>
                     </div>
                 </div>
                 <div class="comment-write-area">
-                    <textarea name="comment" id="comment-textarea" rows="1" placeholder="댓글을 입력하세요"></textarea>
-                    <div class="comment-access-area">
-                        <div class="file-box">
-                            <button id="image-upload-btn">
-                                <i class="far fa-image"></i>
-                            </button>
+                    <form id="comment-form" action="" th:action="@{/board/comment/{boardId}(boardId=*{id})}" method="post">
+                        <textarea name="comment" id="comment-textarea" rows="1" placeholder="댓글을 입력하세요" th:field="${boardCommentSaveForm.contents}"></textarea>
+                        <div class="comment-write-access-area">
+                            <div class="file-box">
+                                <button id="image-upload-btn">
+                                    <i class="far fa-image"></i>
+                                </button>
+                            </div>
+                            <input type="submit" id="comment-post-btn" value="등록">
                         </div>
-                        <button id="comment-post-btn">등록</button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

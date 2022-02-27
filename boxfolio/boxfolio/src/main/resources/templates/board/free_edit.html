@@ -59,15 +59,15 @@
     </header>
     <section class="main">
         <div class="wrap">
-            <form id="board-form" action="" th:action th:object="${recruitBoardSaveForm}" method="post">
+            <form id="board-form" action="" th:action th:object="${freeBoardSaveForm}" method="post">
                 <div class="notice-title-container">
                     <h2 class="notice-title">게시글 작성</h2>
                     </ul>
                 </div>
                 <div class="edit-head-container">
-                    <select name="category" id="category" th:value="${boardType}" required>
-                        <option value="free" th:selected="${boardType}=='자유'">자유 게시판</option>
-                        <option value="info" th:selected="${boardType}=='정보'">정보 게시판</option>
+                    <select name="category" id="category" required>
+                        <option value="free" selected>자유 게시판</option>
+                        <option value="info" >정보 게시판</option>
                     </select>
                 </div>
                 <div class="edit-container">
@@ -170,4 +170,5 @@
 </body>
 <script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
 <script src="../../static/js/board/editor.js" th:src="@{/js/board/editor.js}"></script>
+<script src="../../static/js/board/contents_post.js" th:src="@{/js/board/contents_post.js}"></script>
 </html>

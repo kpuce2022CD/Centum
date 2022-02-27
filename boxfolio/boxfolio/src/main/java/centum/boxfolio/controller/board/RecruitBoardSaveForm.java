@@ -41,6 +41,6 @@ public class RecruitBoardSaveForm {
     public Recruitment toRecruitBoard(Member member) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime deadlineDate = LocalDateTime.of(deadlineYear, deadlineMonth, deadlineDay, now.getHour(), now.getMinute(), now.getSecond());
-        return new Recruitment(title, contents, LocalDateTime.now(), commentAllow, scrapAllow, visibility, autoMatchingStatus, deadlineDate, memberTotal, member);
+        return new Recruitment(title, contents, now, commentAllow, scrapAllow, visibility, autoMatchingStatus, deadlineDate, memberTotal, member);
     }
 }

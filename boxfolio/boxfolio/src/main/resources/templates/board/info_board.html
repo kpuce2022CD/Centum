@@ -24,7 +24,7 @@
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" th:href="@{/css/reset.css}"/>
     <link rel="stylesheet" type="text/css" href="../../static/css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../static/css/board/recruitment_board.css" th:href="@{/css/board/recruitment_board.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/board/board.css" th:href="@{/css/board/board.css}"/>
     <!--fontawesome-->
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
 </head>
@@ -64,7 +64,7 @@
     <section class="main">
         <div class="wrap">
             <div class="board-title-container">
-                <h2 class="board-title" >구인게시판</h2>
+                <h2 class="board-title">정보게시판</h2>
                 <ul class="board-category">
                     <li class="free-board">
                         <a href="#" th:href="@{/board/free}">자유</a>
@@ -100,10 +100,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="board, i : ${recruitBoard}">
+                    <tr th:each="board, i : ${infoBoard}">
                         <td class="td-idx" th:text="${i.count}"></td>
                         <td class="td-title">
-                            <a href="/" th:href="@{/board/recruit/{boardId}(boardId=${board.id})}" th:text="${board.title}">
+                            <a href="/" th:href="@{/board/info/{boardId}(boardId=${board.id})}" th:text="${board.title}">
                             </a>
                             <span class="td-reply" th:text="|[${board.commentTally}]|"></span>
                         </td>
@@ -120,7 +120,7 @@
             <div class="access-container">
                 <button id="post-btn" type="button" title="글쓰기">
                     <i class="far fa-edit"></i>
-                    <a href="/board/edit" th:href="@{/board/recruit/edit}">글쓰기</a>
+                    <a href="/board/edit" th:href="@{/board/info/edit}">글쓰기</a>
                 </button>
             </div>
         </div>
