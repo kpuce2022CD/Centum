@@ -64,10 +64,10 @@
     <section class="main">
         <div class="wrap">
             <div class="board-title-container">
-                <h2 class="board-title" th:text="|${boardType}게시판|">자유게시판</h2>
+                <h2 class="board-title">자유게시판</h2>
                 <ul class="board-category">
                     <li class="free-board">
-                        <a href="#" th:href="@{/board/general}">자유</a>
+                        <a href="#" th:href="@{/board/free}">자유</a>
                     </li>
                     <li class="info-board">
                         <a href="#" th:href="@{/board/info}">정보</a>
@@ -100,18 +100,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="td-idx"></td>
+                        <tr th:each="board, i : ${freeBoard}">
+                            <td class="td-idx" th:text="${i.count}"></td>
                             <td class="td-title">
-                               <a href="/">
+                               <a href="/" th:href="@{/board/free/{boardId}(boardId=${board.id})}" th:text="${board.title}">
                                </a>
-                               <span class="td-reply"></span>
+                               <span class="td-reply" th:text="|[${board.commentTally}]|"></span>
                             </td>
-                            <td class="td-name"><a href="#"></a></td>
-                            <td class="td-date"></td>
-                            <td class="td-view"></td>
-                            <td class="td-like"></td>
-                            <td class="td-scrap"></td>
+                            <td class="td-name"><a href="#" th:text="${board.member.nickname}"></a></td>
+                            <td class="td-date" th:if="${!board.createdDate.toLocalDate().isEqual(#temporals.createToday())}" th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd')}"></td>
+                            <td class="td-date" th:if="${board.createdDate.toLocalDate().isEqual(#temporals.createToday())}" th:text="${#temporals.format(board.createdDate, 'HH:mm')}"></td>
+                            <td class="td-view" th:text="${board.viewTally}"></td>
+                            <td class="td-like" th:text="${board.starTally}"></td>
+                            <td class="td-scrap" th:text="${board.scrapTally}"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -119,7 +120,7 @@
             <div class="access-container">
                 <button id="post-btn" type="button" title="글쓰기">
                     <i class="far fa-edit"></i>
-                    <a href="/board/edit" th:href="@{/board/edit(type=${boardType})}">글쓰기</a>
+                    <a href="/board/edit" th:href="@{/board/free/edit}">글쓰기</a>
                 </button>
             </div>
         </div>

@@ -30,13 +30,12 @@ public class StarRepositoryImpl implements StarRepository {
     }
 
     @Override
-    public BoardStar downStar(Board board, Member member) {
+    public void downStar(Board board, Member member) {
         if (board.getStarTally() > 0) {
             board.setStarTally(board.getStarTally() - 1);
         }
         Optional<BoardStar> boardStar = findStarByBoardIdAndMemberId(board.getId(), member.getId());
         em.remove(boardStar.get());
-        return null;
     }
 
     @Override

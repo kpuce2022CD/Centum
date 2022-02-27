@@ -126,6 +126,16 @@ CREATE TABLE IF NOT EXISTS recruitment(
     FOREIGN KEY (board_id) REFERENCES board(id)
 );
 
+CREATE TABLE IF NOT EXISTS general(
+	board_id INT UNSIGNED PRIMARY KEY,
+    FOREIGN KEY (board_id) REFERENCES board(id)
+);
+
+CREATE TABLE IF NOT EXISTS information(
+	board_id INT UNSIGNED PRIMARY KEY,
+    FOREIGN KEY (board_id) REFERENCES board(id)
+);
+
 CREATE TABLE IF NOT EXISTS board_star(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     member_id INT UNSIGNED NOT NULL,

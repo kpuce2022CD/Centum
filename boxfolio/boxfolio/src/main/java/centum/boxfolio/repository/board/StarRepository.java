@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface StarRepository {
     BoardStar upStar(Board board, Member member);
-    BoardStar downStar(Board board, Member member);
+    void downStar(Board board, Member member);
     List<BoardStar> findStarAll();
     Optional<BoardStar> findStarByBoardIdAndMemberId(Long boardId, Long memberId);
 }

@@ -23,16 +23,23 @@ public class BoardStar {
     private Board board;
 
     public BoardStar(Board board, Member member) {
-        if (this.member != null) {
-            this.member.getBoardStars().remove(this);
-        }
-        this.member = member;
-        member.getBoardStars().add(this);
+        setBoard(board);
+        setMember(member);
+    }
 
+    private void setBoard(Board board) {
         if (this.board != null) {
             this.board.getBoardStars().remove(this);
         }
         this.board = board;
         board.getBoardStars().add(this);
+    }
+
+    private void setMember(Member member) {
+        if (this.member != null) {
+            this.member.getBoardStars().remove(this);
+        }
+        this.member = member;
+        member.getBoardStars().add(this);
     }
 }
