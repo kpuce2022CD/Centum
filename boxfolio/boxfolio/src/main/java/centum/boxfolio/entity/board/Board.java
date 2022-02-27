@@ -2,6 +2,7 @@ package centum.boxfolio.entity.board;
 
 import centum.boxfolio.entity.member.Member;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
+@NoArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "boardType")
@@ -20,14 +22,13 @@ public class Board {
     private String title;
     private String contents;
     private LocalDateTime createdDate;
-    private char commentAllow;
-    private char scrapAllow;
+    private boolean commentAllow;
+    private boolean scrapAllow;
     private long starTally;
     private long commentTally;
     private long scrapTally;
     private long viewTally;
     private String visibility;
-    private String boardType;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -41,4 +42,27 @@ public class Board {
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<BoardComment> boardComments = new ArrayList<>();
+
+    public Board(String title, String contents, LocalDateTime createdDate,
+                 boolean commentAllow, boolean scrapAllow, String visibility, Member member) {
+        this.title = title;
+        this.contents = contents;
+        this.createdDate = createdDate;
+        this.commentAllow = commentAllow;
+        this.scrapAllow = scrapAllow;
+        this.starTally = 0;
+        this.commentTally = 0;
+        this.scrapTally = 0;
+        this.viewTally = 0;
+        this.visibility = visibility;
+        setMember(member);
+    }
+
+    private void setMember(Member member) {
+        if (this.member != null) {
+            this.member.getBoards().remove(this);
+        }
+        this.member = member;
+        member.getBoards().add(this);
+    }
 }

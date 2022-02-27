@@ -33,7 +33,7 @@ public class MemberSaveForm {
     private String progressField;
 
     public Member toMember() {
-        LocalDate birth = LocalDate.parse(String.format("%d%02d%02d", year, month, day), DateTimeFormatter.BASIC_ISO_DATE);
+        LocalDate birth = LocalDate.of(year, month, day);
         return new Member(loginId, passwd, realName, nickname, phone, email, birth, sex, githubId, interestField, new MemberAbility());
     }
 }

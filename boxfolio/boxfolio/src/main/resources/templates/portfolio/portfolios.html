@@ -31,91 +31,93 @@
 </head>
 
 <body>
-<header th:replace="template/header :: common_header">
-    <div class="wrap">
-        <div class="header-container">
-            <div class="logo">
-                <a href="/" th:href="@{/}">BOXFOLIO</a>
-            </div>
-            <ul class="nav">
-                <li>
-                    <a href="#">포트폴리오</a>
-                </li>
-                <li>
-                    <a href="#">분석&관리</a>
-                </li>
-                <li>
-                    <a href="#">커뮤니티</a>
-                </li>
-                <li>
-                    <a href="#">1:1문의</a>
-                </li>
-            </ul>
-            <div class="member-area">
-                <a href="../member/login.html" class="start-btn" th:href="@{/login}">
-                    시작하기
-                </a>
-            </div>
-        </div>
-    </div>
-</header>
-<section>
-    <div class="wrap">
-        <div class="access-container">
-            <div class="portfolio-search">
-                <form id="portfolio-search-form" action="#" method="get" role="search">
-                    <input id="portfolio-query" type="text" title="포트폴리오검색" maxlength="255">
-                    <button id="portfolio-search-btn" type="submit" title="포트폴리오검색">
-                        <i class="fas fa-search search-icon"></i>
-                    </button>
-                </form>
-            </div>
-            <div class="to-myportfolio">
-                <a href="http://localhost:8080/wonho_free/PortfolioServlet?cmd=create">내 포트폴리오 만들기</a>
-                <i class="fas fa-arrow-right"></i>
-            </div>
-        </div>
-        <div class="portfolio-container">
-            <ul class="portfolio-list">
-                <!-- <c:forEach var="portfolio" items="${portfolioList}"> -->
-                <div>
-                    <li class="portfolio-card">
-                        <a href="#">
-                            <div class="portfolio-info">
-                                <div class="portfolio-head">
-                                    <h3>
-                                        서원호님의 포트폴리오
-                                    </h3>
-                                </div>
-                                <div class="portfolio-title">
-                                    제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.
-                                </div>
-                                <div class="interested">
-                                    <p>웹 / 백엔드</p>
-                                </div>
-                                <div class="portfolio-created">
-                                    <p>2022-02-11 12:30</p>
-                                </div>
-                            </div>
-                        </a>
-                        <ul class="portfolio-icons">
-                            <li class="portfolio-star">
-                                <i class="far fa-star"></i>
-                                <span>12</span>
-                            </li>
-                            <li class="portfolio-scrap">
-                                <i class="far fa-bookmark"></i>
-                                <span>381</span>
-                            </li>
-                        </ul>
-                    </li>
+<div class="root-wrap">
+    <header th:replace="template/header :: common_header">
+        <div class="wrap">
+            <div class="header-container">
+                <div class="logo-area">
+                    <a href="/" th:href="@{/}">BOXFOLIO</a>
                 </div>
-            </ul>
+                <ul class="nav">
+                    <li>
+                        <a href="#">포트폴리오</a>
+                    </li>
+                    <li>
+                        <a href="#">분석&관리</a>
+                    </li>
+                    <li>
+                        <a href="#">커뮤니티</a>
+                    </li>
+                    <li>
+                        <a href="#">고객지원</a>
+                    </li>
+                </ul>
+                <div class="member-area">
+                    <a href="/login" class="start-btn" th:href="@{/login}">
+                        시작하기
+                    </a>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
-<footer th:replace="template/footer :: common_footer">
-</footer>
+    </header>
+    <section>
+        <div class="wrap">
+            <div class="access-container">
+                <div class="portfolio-search">
+                    <form id="portfolio-search-form" action="#" method="get" role="search">
+                        <input id="portfolio-query" type="text" title="포트폴리오검색" maxlength="255">
+                        <button id="portfolio-search-btn" type="submit" title="포트폴리오검색">
+                            <i class="fas fa-search search-icon"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="to-my-portfolio">
+                    <a href="http://localhost:8080/wonho_free/PortfolioServlet?cmd=create">내 포트폴리오 만들기</a>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+            <div class="portfolio-container">
+                <ul class="portfolio-list">
+                    <!-- <c:forEach var="portfolio" items="${portfolioList}"> -->
+                    <div>
+                        <li class="portfolio-card">
+                            <a href="#">
+                                <div class="portfolio-info">
+                                    <div class="portfolio-head">
+                                        <h3>
+                                            서원호님의 포트폴리오
+                                        </h3>
+                                    </div>
+                                    <div class="portfolio-title">
+                                        제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.
+                                    </div>
+                                    <div class="interested">
+                                        <p>웹 / 백엔드</p>
+                                    </div>
+                                    <div class="portfolio-created">
+                                        <p>2022-02-11 12:30</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <ul class="portfolio-icons">
+                                <li class="portfolio-star">
+                                    <i class="far fa-star"></i>
+                                    <span>12</span>
+                                </li>
+                                <li class="portfolio-scrap">
+                                    <i class="far fa-bookmark"></i>
+                                    <span>381</span>
+                                </li>
+                            </ul>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <footer th:replace="template/footer :: common_footer">
+    </footer>
+</div>
 <script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
 </body>
 

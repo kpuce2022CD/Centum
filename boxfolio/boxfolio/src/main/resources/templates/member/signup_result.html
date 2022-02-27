@@ -22,9 +22,9 @@
     <!--    <link rel="short icon" type="image/x-icon" href="resources/social-care.png">-->
 
     <!--CSS-->
-    <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../css/member/signup_result.css" th:href="@{/css/member/signup_result.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common.css" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/member/signup_result.css" th:href="@{/css/member/signup_result.css}"/>
     <!--fontawesome-->
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
 </head>
@@ -33,7 +33,7 @@
     <header th:replace="template/header :: common_header">
         <div class="wrap">
             <div class="header-container">
-                <div class="logo">
+                <div class="logo-area">
                     <a href="/" th:href="@{/}">BOXFOLIO</a>
                 </div>
                 <ul class="nav">
@@ -47,23 +47,50 @@
                         <a href="#">커뮤니티</a>
                     </li>
                     <li>
-                        <a href="#">1:1문의</a>
+                        <a href="#">고객지원</a>
                     </li>
                 </ul>
                 <div class="member-area">
-                    <a href="login" class="start-btn" th:href="@{/login}">
+                    <a href="/login" th:href="@{/login}" class="start-btn">
                         시작하기
                     </a>
                 </div>
             </div>
         </div>
     </header>
+    <section class="signup-progress">
+        <div class="wrap">
+            <div class="progress-container">
+                <div class="progress-area">
+                    <ul class="progress-list">
+                        <li class="pg-terms">
+                            <span>1. 이용약관 동의</span>
+                        </li>
+                        <li class="pg-member">
+                            <span>2. 회원 정보 입력</span>
+                        </li>
+                        <li class="pg-auth">
+                            <span>3. 이메일 인증</span>
+                        </li>
+                        <li class="pg-complete">
+                            <span>4. 가입완료</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="progress-title-container">
+                <div class="progress-title">
+                    <span>3. 가입완료</span>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="main">
         <div class="wrap">
             <div class="main-container">
                 <div class="complete-view-area">
                     <div class="complete-img">
-                        <img src="../../image/check.png" th:src="@{/image/check.png}" alt="check-img"/>
+                        <img src="../../static/image/check.png" th:src="@{/image/check.png}" alt="check-img"/>
                     </div>
                     <div class="descript">
                         <h1>BOXFOLIO 가입을 환영합니다!</h1>
@@ -82,6 +109,6 @@
     <footer th:replace="template/footer :: common_footer">
     </footer>
 </div>
-<script src="../../js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
 </body>
 </html>

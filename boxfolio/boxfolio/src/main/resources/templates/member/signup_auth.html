@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>박스폴리오</title>
+    <meta name="description" content="포트폴리오 관리 웹 페이지">
+    <meta name="keywords" content="web, service, portfolio, boxfolio, project">
+    <meta name="author" content="Centum">
+    <meta name="viewport" content="width=device-width, member-scalable=no, initial-scale=1.0, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--Open Graph-->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="포트폴리오 관리 웹 페이지">
+    <meta property="og:description" content="포트폴리오를 분석하고 관리해줍니다">
+    <!-- <meta property="og:image" content="resources/-"> -->
+    <!-- <meta property="og:url" content="https://www.kpu.ac.kr"> -->
+
+    <!--fabicon-->
+    <!--    <link rel="icon" href="resources/social-care.png">-->
+    <!--    <link rel="apple-touch-icon" href="resources/social-care.png">-->
+    <!--    <link rel="short icon" type="image/x-icon" href="resources/social-care.png">-->
+
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common.css" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/member/signup_auth.css" th:href="@{/css/member/signup_auth.css}"/>
+    <!--fontawesome-->
+    <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root-wrap">
+    <header th:replace="template/header :: common_header">
+        <div class="wrap">
+            <div class="header-container">
+                <div class="logo-area">
+                    <a href="/" th:href="@{/}">BOXFOLIO</a>
+                </div>
+                <ul class="nav">
+                    <li>
+                        <a href="#">포트폴리오</a>
+                    </li>
+                    <li>
+                        <a href="#">분석&관리</a>
+                    </li>
+                    <li>
+                        <a href="#">커뮤니티</a>
+                    </li>
+                    <li>
+                        <a href="#">고객지원</a>
+                    </li>
+                </ul>
+                <div class="member-area">
+                    <a href="/login" th:href="@{/login}" class="start-btn">
+                        시작하기
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="signup-progress">
+        <div class="wrap">
+            <div class="progress-container">
+                <div class="progress-area">
+                    <ul class="progress-list">
+                        <li class="pg-terms">
+                            <span>1. 이용약관 동의</span>
+                        </li>
+                        <li class="pg-member">
+                            <span>2. 회원 정보 입력</span>
+                        </li>
+                        <li class="pg-auth">
+                            <span>3. 이메일 인증</span>
+                        </li>
+                        <li class="pg-complete">
+                            <span>4. 가입완료</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="progress-title-container">
+                <div class="progress-title">
+                    <span>3. 이메일 인증</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="main">
+        <div class="wrap">
+            <div class="main-container">
+                <div class="auth-view-area">
+                    <div class="descript">
+                        <img src="../../static/image/email.png" alt="email.png" id="email-icon" th:src="@{/image/email.png}">
+                        <h2>
+                            <span id="member-email" th:text="${memberEmail}">[email]</span>로 링크가 전송되었습니다.
+                        </h2>
+                        <p>메일을 확인하여 가입을 완료해주세요</p>
+                    </div>
+                    <div class="button-area">
+                        <button id="prev-btn" onclick="location.href='signup.html'" th:onclick="|location.href='@{/signup}'|">뒤로</button>
+                        <button id="next-btn" onclick="location.href='home.html'" th:onclick="|location.href='@{/}'|">나중에 인증</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer th:replace="template/footer :: common_footer">
+    </footer>
+</div>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+</body>
+</html>

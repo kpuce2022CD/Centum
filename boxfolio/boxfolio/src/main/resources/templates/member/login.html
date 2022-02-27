@@ -22,9 +22,9 @@
     <!--    <link rel="short icon" type="image/x-icon" href="resources/social-care.png">-->
 
     <!--CSS-->
-    <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../css/member/login.css" th:href="@{/css/member/login.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common.css" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/member/login.css" th:href="@{/css/member/login.css}"/>
     <!--fontawesome-->
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
 </head>
@@ -34,7 +34,7 @@
     <header th:replace="template/header :: common_header">
         <div class="wrap">
             <div class="header-container">
-                <div class="logo">
+                <div class="logo-area">
                     <!-- <img src="#" alt="logo-image"> -->
                     <a href="/" th:href="@{/}">BOXFOLIO</a>
                 </div>
@@ -49,7 +49,7 @@
                         <a href="#">커뮤니티</a>
                     </li>
                     <li>
-                        <a href="#">1:1문의</a>
+                        <a href="#">고객지원</a>
                     </li>
                 </ul>
                 <div class="member-area">
@@ -64,7 +64,7 @@
     <section class="main">
         <div class="wrap">
             <div class="main-container">
-                <form action="/login" th:action="@{/login}" method="post" th:object="${memberLoginForm}">
+                <form action="/login" th:action method="post" th:object="${memberLoginForm}">
                     <div class="login-wrap">
                         <div class="login-header">
                             <h2>로그인</h2>
@@ -99,7 +99,7 @@
                         <ul class="find-area">
                             <li><a href="#">아이디 찾기</a></li>
                             <li><a href="#">비밀번호 찾기</a></li>
-                            <li><a href="../member/signup.html" th:href="@{/signup}">회원가입</a></li>
+                            <li><a href="../member/signup.html" th:href="@{/signup/terms}">회원가입</a></li>
                         </ul>
                     </div>
                 </form>
@@ -110,6 +110,6 @@
     <footer th:replace="template/footer :: common_footer">
     </footer>
 </div>
-<script src="../../js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
 </body>
 </html>

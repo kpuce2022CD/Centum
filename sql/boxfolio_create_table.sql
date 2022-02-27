@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS member(
     github_id VARCHAR(20) NOT NULL DEFAULT "",
     interest_field VARCHAR(20) NOT NULL,
     progress_field VARCHAR(20) NOT NULL DEFAULT "",
+    email_verified TINYINT NOT NULL DEFAULT 0,
     member_ability_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (member_ability_id) REFERENCES member_ability(id)
 );
@@ -103,8 +104,8 @@ CREATE TABLE IF NOT EXISTS board(
     title VARCHAR(255) NOT NULL,
     contents MEDIUMTEXT NOT NULL,
     created_date DATETIME NOT NULL,
-    comment_allow CHAR(1) NOT NULL,
-    scrap_allow CHAR(1) NOT NULL,
+    comment_allow TINYINT NOT NULL,
+    scrap_allow TINYINT NOT NULL,
     star_tally INT UNSIGNED NOT NULL,
     comment_tally INT UNSIGNED NOT NULL,
     scrap_tally INT UNSIGNED NOT NULL,
@@ -117,10 +118,21 @@ CREATE TABLE IF NOT EXISTS board(
 
 CREATE TABLE IF NOT EXISTS recruitment(
 	board_id INT UNSIGNED PRIMARY KEY,
-    auto_matching_status CHAR(1) NOT NULL,
-    deadline_status CHAR(1) NOT NULL,
+    auto_matching_status TINYINT NOT NULL,
+    deadline_status TINYINT NOT NULL,
+    deadline_date DATETIME NOT NULL,
     member_tally INT UNSIGNED NOT NULL,
     member_total INT UNSIGNED NOT NULL,
+    FOREIGN KEY (board_id) REFERENCES board(id)
+);
+
+CREATE TABLE IF NOT EXISTS general(
+	board_id INT UNSIGNED PRIMARY KEY,
+    FOREIGN KEY (board_id) REFERENCES board(id)
+);
+
+CREATE TABLE IF NOT EXISTS information(
+	board_id INT UNSIGNED PRIMARY KEY,
     FOREIGN KEY (board_id) REFERENCES board(id)
 );
 
@@ -159,4 +171,14 @@ CREATE TABLE IF NOT EXISTS board_reply(
     board_comment_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (member_id) REFERENCES member(id),
     FOREIGN KEY (board_comment_id) REFERENCES board_comment(id)
+);
+
+CREATE TABLE IF NOT EXISTS confirmation_token(
+	id VARCHAR(40) PRIMARY KEY,
+    expiration_date DATETIME NOT NULL,
+    expired TINYINT NOT NULL,
+    created_date DATETIME NOT NULL,
+    last_modified_date DATETIME NOT NULL,
+    member_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (member_id) REFERENCES member(id)
 );

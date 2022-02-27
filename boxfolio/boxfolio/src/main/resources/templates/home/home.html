@@ -26,85 +26,124 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/common.css" th:href="@{/css/common.css}"/>
     <link rel="stylesheet" type="text/css" href="../../static/css/home/home.css" th:href="@{/css/home/home.css}"/>
     <!--fontawesome-->
+  
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<header th:replace="template/header :: common_header">
-    <div class="wrap">
-        <div class="header-container">
-            <div class="logo">
-                <a href="/" th:href="@{/}">BOXFOLIO</a>
+<div class="root-wrap">
+    <header th:replace="template/header :: common_header">
+        <div class="wrap">
+            <div class="header-container">
+                <div class="logo-area">
+                    <a href="/" th:href="@{/}" id="logo">BOXFOLIO</a>
+                </div>
+                <ul class="nav">
+                    <li>
+                        <a href="#" th:href="@{/portfolios}">포트폴리오</a>
+                        <ul class="depth">
+                            <li>
+                                <a href="">목록보기</a>
+                            </li>
+                            <li>
+                                <a href="">작성하기</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">분석&관리</a>
+                        <ul class="depth">
+                            <li>
+                                <a href="">프로젝트 분석</a>
+                            </li>
+                            <li>
+                                <a href="">분석 결과</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">커뮤니티</a>
+                        <ul class="depth">
+                            <li>
+                                <a href="">자유게시판</a>
+                            </li>
+                            <li>
+                                <a href="">정보게시판</a>
+                            </li>
+                            <li>
+                                <a href="">구인게시판</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">고객지원</a>
+                        <ul class="depth">
+                            <li>
+                                <a href="">FAQ</a>
+                            </li>
+                            <li>
+                                <a href="">1:1문의</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="member-area">
+                    <a href="/login" class="start-btn" th:href="@{/login}">
+                        시작하기
+                    </a>
+                </div>
             </div>
-            <ul class="nav">
-                <li>
-                    <a href="#" th:href="@{/portfolio}">포트폴리오</a>
-                </li>
-                <li>
-                    <a href="#">분석&관리</a>
-                </li>
-                <li>
-                    <a href="#">커뮤니티</a>
-                </li>
-                <li>
-                    <a href="#">1:1문의</a>
-                </li>
-            </ul>
-            <div class="member-area">
-                <a href="/login" class="start-btn" th:href="@{/login}">
-                    시작하기
+        </div>
+    </header>
+    <section class="banner">
+        <div class="wrap">
+            <div class="banner-container">
+                <h1>
+                    BOXFOLIO
+                </h1>
+                <span th:text="#{home.banner.description}">자신만의 포트폴리오를 만들고 분석해보세요!</span>
+                <a href="/login" th:href="@{/login}" class="analysis-btn" th:text="#{home.banner.button.start}">
+                    분석 받아보기
                 </a>
             </div>
         </div>
-    </div>
-</header>
-<section class="banner">
-    <div class="wrap">
-        <div class="banner-container">
-            <h1>
-                BOXFOLIO
-            </h1>
-            <span th:text="#{home.banner.description}">자신만의 포트폴리오를 만들고 분석해보세요!</span>
-            <a href="/login" th:href="@{/login}" class="analysis-btn" th:text="#{home.banner.button.start}">
-                분석 받아보기
-            </a>
-        </div>
-    </div>
-</section>
-<section class="main">
-    <div class="wrap">
-        <div class="main-container">
-            <h2 class="main-head" th:text="#{home.main.head}">
-                서비스 소개
-            </h2>
-            <div class="icon-area">
-                <a href="#" id="analysis-icon">
-                    <img src="../../static/image/connection.png" th:src="@{/image/connection.png}" alt="analysis-icon" />
-                    <p th:text="#{home.main.button.analysis}">프로젝트 분석</p>
-                </a>
-                <a href="#" id="portfolio-icon">
-                    <img src="../../static/image/briefcase.png" th:src="@{/image/briefcase.png}" alt="portfolio-icon" />
-                    <p th:text="#{home.main.button.portfolio}">포트폴리오 관리</p>
-                </a>
-                <a href="#" id="community-icon">
-                    <img src="../../static/image/community.png" th:src="@{/image/community.png}" alt="community-icon" />
-                    <p th:text="#{home.main.button.community}">팀원 매칭</p>
-                </a>
-                <a href="#" id="question-icon">
-                    <img src="../../static/image/question-and-answer.png" th:src="@{/image/question-and-answer.png}" alt="question-icon" />
-                    <p th:text="#{home.main.button.question}">1:1 문의</p>
-                </a>
+    </section>
+    <section class="main">
+        <div class="wrap">
+            <div class="main-container">
+                <h2 class="main-head" th:text="#{home.main.head}">
+                    서비스 소개
+                </h2>
+                <div class="icon-area">
+                    <a href="#" id="analysis-icon">
+                        <img src="../../static/image/connection.png" th:src="@{/image/connection.png}" alt="analysis-icon" />
+                        <p th:text="#{home.main.button.analysis}">프로젝트 분석</p>
+                    </a>
+                    <a href="#" id="portfolio-icon">
+                        <img src="../../static/image/briefcase.png" th:src="@{/image/briefcase.png}" alt="portfolio-icon" />
+                        <p th:text="#{home.main.button.portfolio}">포트폴리오 관리</p>
+                    </a>
+                    <a href="#" id="community-icon">
+                        <img src="../../static/image/community.png" th:src="@{/image/community.png}" alt="community-icon" />
+                        <p th:text="#{home.main.button.community}">팀원 매칭</p>
+                    </a>
+                    <a href="#" id="question-icon">
+                        <img src="../../static/image/question-and-answer.png" th:src="@{/image/question-and-answer.png}" alt="question-icon" />
+                        <p th:text="#{home.main.button.question}">1:1 문의</p>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<section class="descript first">
+    </section>
+    <section class="descript first">
 
-</section>
-<section class="descript second">
+    </section>
+    <section class="descript second">
 
-</section>
-<footer th:replace="template/footer :: common_footer">
-</footer>
-<script src="../../js/common.js" th:src="@{/js/common.js}"></script>
+    </section>
+    <footer th:replace="template/footer :: common_footer">
+    </footer>
+</div>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+<script src="../../static/js/home/home.js" th:src="@{/js/home/home.js}"></script>
 </body>
 </html>
