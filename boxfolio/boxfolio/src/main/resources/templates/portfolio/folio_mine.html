@@ -21,7 +21,7 @@
     <script src="../../js/portfolio/folio_mine.js"></script>
 </head>
 
-<body>
+<body onload="add()">
 <div id="root-wrap">
     <header th:replace="template/header :: common_header">
         <div class="wrap">
@@ -51,43 +51,30 @@
             </div>
         </div>
     </header>
-    <section class="folio">
-        <div class="wrap">
-            <div class="folio-container">
-                <a href="#">
-                    포트폴리오 작성
-                </a>
-                <a href="/portfolios">
-                    포트폴리오 목록
-                </a>
-        
+    <div class="portf">
+        <section class="make">
+            <div class="set">
+                <div id="set-pub" class="set-pub">public</div>
+                <div id="set-pri" class="set-pri">private</div>
             </div>
-        </div>
-    </section>
-
-    <section class="make">
-        <div class="set">
-            <div id="set-pub" class="set-pub">public</div>
-            <div id="set-pri" class="set-pri">private</div>
-        </div>
-        <div class="op">
-            <a href="/portfolios/make" class="make-btn">
-                작성
-            </a>
-            <button class="del-btn">
-                삭제
-            </button>
-        </div>
-        <div class="fo" id="fo">
-        </div>
-        <p id="date_1" class="date_1">최근 수정 날짜 : </p>
-        <p id="date_2" class="date_2">0000_00_00</p>
-    </section>
-
-
-    <footer>
-
-    </footer>
+            <div class="op">
+                <a href="/portfolios/make" class="make-btn">
+                    작성
+                </a>
+                <button class="del-btn">
+                    삭제
+                </button>
+            </div>
+            <div class="fo" id="fo">
+            </div>
+            <p id="date_1" class="date_1">최근 수정 날짜 : </p>
+            <p id="date_2" class="date_2">0000_00_00</p>
+        </section>
+    </div>
 </div>
+
+<footer th:replace="template/footer :: common_footer">
+</footer>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
 </body>
 </html>
