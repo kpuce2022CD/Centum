@@ -73,7 +73,7 @@ header {
     padding: 10px 5px;
 }
 
-.comment-area {
+.comment-box {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
@@ -89,12 +89,12 @@ header {
     height: 30px;
 }
 
-.comment-info {
+.comment-info-area {
     display: flex;
     align-items: flex-start;
 }
 
-.comment-info-access {
+.reply-access {
     display: flex;
     align-items: center;
 }

@@ -100,25 +100,29 @@
                 </div>
             </div>
             <div class="comment-container">
-                <div class="comment-area" th:each="comment : ${comments}">
-                    <div class="comment-info">
-                        <a href="" id="commenter-img">
-                            <img src="../../static/image/member.png" alt="member-img">
-                        </a>
+                <ul class="comments">
+                    <li class="comment-area" th:each="comment : ${comments}">
                         <div class="comment-box">
-                            <a href="" id="commenter-nickname" th:text="${comment.member.nickname}">SeoArc</a>
-                            <p class="comment" th:utext="${comment.contents}">댓글입니다.</p>
-                            <div class="comment-info-access">
-                                <span class="comment-created" th:text="${#temporals.format(comment.createdDate, 'yyyy.MM.ss. HH:mm')}">2022.01.12. 01:23</span>
-                                <button class="reply-btn">답글</button>
+                            <div class="comment-info-area">
+                                <a href="" id="commenter-img">
+                                    <img src="../../static/image/member.png" alt="member-img" th:src="@{/image/member.png}">
+                                </a>
+                                <div class="comment-info">
+                                    <a href="" id="commenter-nickname" th:text="${comment.member.nickname}">SeoArc</a>
+                                    <p class="comment" th:utext="${comment.contents}">댓글입니다.</p>
+                                    <div class="reply-access">
+                                        <span class="comment-created" th:text="${#temporals.format(comment.createdDate, 'yyyy.MM.ss. HH:mm')}">2022.01.12. 01:23</span>
+                                        <button class="reply-btn">답글</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-access">
+                                <a id="update-comment" href="" th:if="${#session.getAttribute('loginMember')} == ${comment.member.id}"><span>수정</span></a>
+                                <a id="delete-comment" href="" th:if="${#session.getAttribute('loginMember')} == ${comment.member.id}" th:href="@{/board/comment/delete/{commentId}(commentId=${comment.id})}"><span>삭제</span></a>
                             </div>
                         </div>
-                    </div>
-                    <div class="comment-access">
-                        <a id="update-comment" href="" th:if="${#session.getAttribute('loginMember')} == ${comment.member.id}"><span>수정</span></a>
-                        <a id="delete-comment" href="" th:if="${#session.getAttribute('loginMember')} == ${comment.member.id}" th:href="@{/board/comment/delete/{commentId}(commentId=${comment.id})}"><span>삭제</span></a>
-                    </div>
-                </div>
+                    </li>
+                </ul>
                 <div class="comment-write-area">
                     <form id="comment-form" action="" th:action="@{/board/comment/{boardId}(boardId=*{id})}" method="post">
                         <textarea name="comment" id="comment-textarea" rows="1" placeholder="댓글을 입력하세요" th:field="${boardCommentSaveForm.contents}"></textarea>
@@ -141,4 +145,5 @@
 </body>
 <script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
 <script src="../../static/js/board/comment.js" th:src="@{/js/board/comment.js}"></script>
+<script src="../../static/js/board/reply_edit.js" th:src="@{/js/board/reply_edit.js}"></script>
 </html>
