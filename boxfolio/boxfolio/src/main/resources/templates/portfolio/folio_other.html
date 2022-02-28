@@ -51,40 +51,27 @@
             </div>
         </div>
     </header>
-    <section class="folio">
-        <div class="wrap">
-            <div class="folio-container">
-                <a href="#">
-                    포트폴리오 작성
+    <div class="portf">
+        <section class="make">
+            <div class="op">
+                <a href="#" class="name_btn" id="name_btn">
+                    작성자 : OOO
                 </a>
-                <a href="folio_pub.html">
-                    포트폴리오 목록
-                </a>
-        
+                <button class="up-btn" id="up-btn" onclick="rec_up()">
+                    추천 : 0
+                </button>
             </div>
-        </div>
-    </section>
-
-    <section class="make">
-        <div class="op">
-            <a href="#" class="name_btn" id="name_btn">
-                작성자 : OOO
-            </a>
-            <button class="up-btn" id="up-btn" onclick="rec_up()">
-                추천 : 0
-            </button>
-        </div>
-        <div class="fo" id="fo">
-        </div>
-        <p id="date_1" class="date_1">작성 날짜 : </p>
-        <p id="date_2" class="date_2">0000_00_00</p>
-        
-    </section>
+            <div class="fo" id="fo">
+            </div>
+            <p id="date_1" class="date_1">작성 날짜 : </p>
+            <p id="date_2" class="date_2">0000_00_00</p>
+            
+        </section>
+    </div>
 
 
-    <footer>
-
-    </footer>
-</div>
+<footer th:replace="template/footer :: common_footer">
+</footer>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
 </body>
 </html>

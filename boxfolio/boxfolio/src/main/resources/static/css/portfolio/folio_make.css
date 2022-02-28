@@ -1,48 +1,4 @@
 @charset "UTF-8";
-HTML CSS JSResult Skip Results Iframe
-EDIT ON
-/* 공통 */
-* {
-    box-sizing: border-box;
-}
-
-html {
-    height: 100%;
-}
-
-body {
-    height: 100%;
-    margin: 0 auto;
-    color: #353535;
-    background-color: #353535;
-    font-family: "맑은 고딕", "굴림";
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-a {
-    all: unset;
-}
-
-a:link {
-    text-decoration: none;
-}
-
-a:visited {
-    text-decoration: none;
-}
-
-a:active {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: none;
-    cursor: pointer;
-}
 
 button{
     all: unset;
@@ -50,63 +6,6 @@ button{
 button:hover{
     cursor: pointer;
 }
-
-/* wrap */
-.wrap {
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-/* header */
-header {
-    width: 100%;
-    height: 120px;
-    background-color: transparent;
-    border-bottom: 1px solid #fff;
-    /*position: fixed;*/
-}
-
-.header-container {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logo a {
-    color: #fff;
-    font-size: 32px;
-    font-weight: bold;
-    margin: 0 20px;
-}
-
-.nav {
-    display: flex;
-}
-
-.nav a {
-    color: #fff;
-    padding: 20px 40px;
-}
-
-.nav a:hover {
-    animation: font-color 0.2s linear both;
-}
-
-.start-btn {
-    color: #fff;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    padding: 15px 35px;
-}
-
-.start-btn:hover {
-    animation: btn-color 0.2s linear both;
-}
-
-/* section */
 
 .what{
     display: none;
@@ -118,11 +17,15 @@ header {
 .make {
     display: flex;
     width: 70%;
+    flex-direction: column;
+}
+.back{
+    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
 }
 .title{
     color: #fff;
-    font:  bold;
     margin: 0 auto;
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 
@@ -413,17 +316,6 @@ header {
 }
 
 /* */
-.analysis-btn {
-    border: 1px solid #fff;
-    border-radius: 5px;
-    margin: 40px 20px 0;
-    padding: 20px;
-}
-
-.analysis-btn:hover {
-    animation: btn-color 0.2s linear both;
-}
-
 
 @keyframes font-color {
     100% {

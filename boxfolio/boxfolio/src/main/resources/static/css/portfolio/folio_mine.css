@@ -1,148 +1,11 @@
-@charset "UTF-8";
-HTML CSS JSResult Skip Results Iframe
-EDIT ON
-/* 공통 */
-* {
-    box-sizing: border-box;
-}
-
-html {
-    height: 100%;
-}
-
-body {
-    height: 100%;
-    margin: 0 auto;
-    color: #353535;
-    background-color: #353535;
-    font-family: "맑은 고딕", "굴림";
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-a {
-    all: unset;
-}
-
-a:link {
-    text-decoration: none;
-}
-
-a:visited {
-    text-decoration: none;
-}
-
-a:active {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: none;
-    cursor: pointer;
-}
-
-button{
-    all: unset;
-}
-button:hover{
-    cursor: pointer;
-}
-
-/* wrap */
-.wrap {
+.portf{
     width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-/* header */
-header {
-    width: 100%;
-    height: 120px;
-    background-color: transparent;
-    border-bottom: 1px solid #fff;
-    /*position: fixed;*/
-}
-
-.header-container {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logo a {
-    color: #fff;
-    font-size: 32px;
-    font-weight: bold;
-    margin: 0 20px;
-}
-
-.nav {
     display: flex;
 }
-
-.nav a {
-    color: #fff;
-    padding: 20px 40px;
-}
-
-.nav a:hover {
-    animation: font-color 0.2s linear both;
-}
-
-.start-btn {
-    color: #fff;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    padding: 15px 35px;
-}
-
-.start-btn:hover {
-    animation: btn-color 0.2s linear both;
-}
-
-/* section */
-
-.folio, .make{
-    float: left;
-}
-
-.folio {
-    width: 20%;
-    height: calc(100vh - 120px);
-    border-right: 1px solid #fff;
-}
-
-.folio-container {
-    height: 35%;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    margin-left: 30px;
-
-}
-
-.folio-container a {
-    font-size: 30px;
-    font-weight: lighter;
-    margin: 20px;
-}
-
-.folio-container a:hover {
-    animation: font-color linear both;
-}
-
 
 .make {
     width: calc(80% - 1px);
-    height: calc(100vh - 120px);
+    margin: 0 auto;
 }
 
 .set{
@@ -188,6 +51,7 @@ header {
     animation: btn-color 0.2s linear both;
 }
 .del-btn {
+    all:unset;
     color: #fff;
     border: 1px solid #fff;
     border-radius: 5px;
@@ -196,8 +60,8 @@ header {
 }
 .del-btn:hover {
     animation: btn-color 0.2s linear both;
+    cursor: pointer;
 }
-
 
 .fo{
     width: 70%;
@@ -217,30 +81,4 @@ header {
     color: #fff;
     margin-left: 10px;
     margin-bottom: 20px;
-}
-/* */
-.analysis-btn {
-    border: 1px solid #fff;
-    border-radius: 5px;
-    margin: 40px 20px 0;
-    padding: 20px;
-}
-
-.analysis-btn:hover {
-    animation: btn-color 0.2s linear both;
-}
-
-
-@keyframes font-color {
-    100% {
-        color: #FC3526;
-    }
-}
-
-@keyframes btn-color {
-    100% {
-        color: #000;
-        background-color: #F2593D;
-        border-color: #F2593D;
-    }
 }
