@@ -69,6 +69,15 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     }
 
     @Override
+    public List<Portfolio> findHighest() {
+        String jpql = "SELECT p FROM Portfolio AS p ORDER BY p.starTally ASC";
+
+        TypedQuery<Portfolio> query = em.createQuery(jpql, Portfolio.class);
+
+        return query.getResultList();
+    }
+
+    @Override
     public void delete(Portfolio portfolio) {
         em.remove(portfolio);
     }

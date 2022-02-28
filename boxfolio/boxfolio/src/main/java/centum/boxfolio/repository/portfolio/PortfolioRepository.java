@@ -13,6 +13,7 @@ public interface PortfolioRepository {
     Portfolio findById(long id);
     List<Portfolio> findByTitle(String title);
     Portfolio findByMember(Member member);
+    List<Portfolio> findHighest ();
     void delete (Portfolio portfolio);
     void changeStar (Portfolio portfolio, Member member, boolean upDown);
 }

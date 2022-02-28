@@ -15,4 +15,5 @@ public interface PortfolioService {
 
     List<Portfolio> searchWithTitle (String title);
     Portfolio searchWithMember (Member member);
+    List<Portfolio> searchHighestStar (int count);
 }

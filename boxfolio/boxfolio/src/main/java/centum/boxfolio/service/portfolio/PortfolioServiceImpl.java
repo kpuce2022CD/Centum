@@ -75,6 +75,11 @@ public class PortfolioServiceImpl implements PortfolioService{
         return portfolioRepository.findByMember(member);
     }
 
+    @Override
+    public List<Portfolio> searchHighestStar(int count) {
+        return portfolioRepository.findHighest();
+    }
+
     private void validateDuplicationPortfolio(Portfolio portfolio){
 
 

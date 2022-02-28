@@ -95,4 +95,13 @@ public class PortfolioController {
         model.addAttribute("portfolio", portfolio);
         return "/portfolio/folio_mine";
     }
+
+    @GetMapping("/search/other")
+    public String searchHighest(Model model){
+
+        List<Portfolio> portfolioList = portfolioService.searchHighestStar(5);
+
+        model.addAttribute("portfolioList", portfolioList);
+        return "/portfolio/folio_other";
+    }
 }
