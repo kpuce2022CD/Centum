@@ -101,7 +101,7 @@ header {
     padding: 10px 5px;
 }
 
-.comment-area {
+.comment-box {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
@@ -117,12 +117,12 @@ header {
     height: 30px;
 }
 
-.comment-info {
+.comment-info-area {
     display: flex;
     align-items: flex-start;
 }
 
-.comment-info-access {
+.reply-access {
     display: flex;
     align-items: center;
 }
@@ -138,6 +138,48 @@ header {
 
 .comment-access {
     padding: 0 10px 0 0;
+}
+
+.open .reply-edit {
+    display: block !important;
+}
+
+.reply-edit {
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    margin: 5px 0 0 40px;
+    padding: 10px;
+    display: none;
+}
+
+#reply-textarea {
+    background: transparent;
+    border: 0;
+    font-size: 13px;
+    width: 100%;
+    min-height: 17px;
+    max-height: 500px;
+    outline: 0;
+    resize: none;
+}
+
+.reply-write-access-area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0 0 0;
+}
+
+#reply-cancel-btn, #reply-post-btn {
+    background: transparent;
+    border-radius: 2px;
+    padding: 2px 5px;
+}
+
+#reply-cancel-btn:hover, #reply-post-btn:hover {
+    background: #89b;
+    color: #fff;
+    cursor: pointer;
 }
 
 .comment-write-area {

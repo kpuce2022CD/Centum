@@ -147,6 +147,18 @@ details summary::-webkit-details-marker {
     display: none;
 }
 
+ details[open] summary::before {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: block;
+    cursor: default;
+    content: " ";
+    background: transparent;
+}
+
 .openmenu .depth {
     max-height: 999px;
     height: auto;
