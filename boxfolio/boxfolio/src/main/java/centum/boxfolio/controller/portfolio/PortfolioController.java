@@ -1,6 +1,7 @@
 package centum.boxfolio.controller.portfolio;
 
 
+import centum.boxfolio.controller.member.SessionConst;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.repository.member.MemberRepositoryImpl;
@@ -50,7 +51,7 @@ public class PortfolioController {
 
             try{
                 HttpSession session = request.getSession();
-                String memberId = (String) session.getAttribute("loginMember");
+                long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
                 log.info(form.toString());
                 Portfolio savedPortfolio = portfolioService.upload(form, memberId);
             } catch (IllegalStateException e){
@@ -85,9 +86,12 @@ public class PortfolioController {
     public String searchPortfolioMine(Model model, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
-        String memberId = (String) session.getAttribute("loginMember");
+        long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
-        Portfolio portfolio = portfolioService.searchWithMember(memberRepository.findByLoginId(memberId).get());
+        Portfolio portfolio = portfolioService.searchWithMember(memberRepository.findById(memberId).get());
+
+        log.info(portfolio.getContents());
+
         model.addAttribute("portfolio", portfolio);
         return "/portfolio/folio_mine";
     }
