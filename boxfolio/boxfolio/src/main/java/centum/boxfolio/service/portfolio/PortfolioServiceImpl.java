@@ -21,8 +21,8 @@ public class PortfolioServiceImpl implements PortfolioService{
     private final PortfolioRepository portfolioRepository;
     private final MemberRepositoryImpl memberRepository;
     @Override
-    public Portfolio upload(PortfolioSaveForm form, String memberId) {
-        form.setMember(memberRepository.findByLoginId(memberId).get());
+    public Portfolio upload(PortfolioSaveForm form, long memberId) {
+        form.setMember(memberRepository.findById(memberId).get());
         Portfolio portfolio = form.toPortfolio();
 
         validateDuplicationPortfolio(portfolio);
@@ -79,6 +79,12 @@ public class PortfolioServiceImpl implements PortfolioService{
     @Override
     public void scrapPortfolio(Portfolio portfolio, Member member) {
         portfolioRepository.relationScrap(portfolio, member);
+    }
+
+    @Override
+    public List<Portfolio> searchHighestStar(int count) {
+        return portfolioRepository.findHighest();
+
     }
 
     private void validateDuplicationPortfolio(Portfolio portfolio){

@@ -1,5 +1,5 @@
-var mode=[]; //들어가있는 자료의 종류(사진파일, 영상파일, 유튜브 등). 순서대로. youtube=유투브 영상, video=영상 파일, image=사진 파일, info=설명, git=깃허브 아이디
-var make=[]; //들어가있는 파일의 src나 텍스트
+var mode=['youtube','youtube']; //들어가있는 자료의 종류(사진파일, 영상파일, 유튜브 등). 순서대로. youtube=유투브 영상, video=영상 파일, image=사진 파일, info=설명, git=깃허브 아이디
+var make=['https://www.youtube.com/embed/ian6CXeFUYc','https://www.youtube.com/embed/ian6CXeFUYc']; //들어가있는 파일의 src나 텍스트
 var make_date='0000_00_00'; //최근 수정 날짜
 var setting='public'; //공개 설정
 
@@ -65,12 +65,12 @@ function add(){
         var pub=document.getElementById('set-pub');
         var pri=document.getElementById('set-pri');
         pub.style.backgroundColor='black';
-        pri.style.backgroundColor='rgb(63, 63, 63)';
+        pri.style.backgroundColor='transparent';
     }
     else{
         var pub=document.getElementById('set-pub');
         var pri=document.getElementById('set-pri');
         pri.style.backgroundColor='black';
-        pub.style.backgroundColor='rgb(63, 63, 63)';
+        pub.style.backgroundColor='transparent';
     }
 }

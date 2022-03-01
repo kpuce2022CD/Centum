@@ -1,10 +1,10 @@
 package centum.boxfolio.controller.portfolio;
 
 
+import centum.boxfolio.controller.member.SessionConst;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.repository.member.MemberRepositoryImpl;
-import centum.boxfolio.service.member.MemberService;
 import centum.boxfolio.service.portfolio.PortfolioServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,11 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -37,7 +35,7 @@ public class PortfolioController {
     }
 
     @PostMapping("/make")
-    public String updatePortfolio(@Valid PortfolioSaveForm form,
+    public String uploadPortfolio(@Valid PortfolioSaveForm form,
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes,
                                   HttpServletRequest request) {
@@ -50,7 +48,7 @@ public class PortfolioController {
 
             try{
                 HttpSession session = request.getSession();
-                String memberId = (String) session.getAttribute("loginMember");
+                long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
                 log.info(form.toString());
                 Portfolio savedPortfolio = portfolioService.upload(form, memberId);
             } catch (IllegalStateException e){
@@ -62,7 +60,7 @@ public class PortfolioController {
         }
 
     @GetMapping("/make")
-    public String updatePortfolio(Model model){
+    public String uploadPortfolio(Model model){
         model.addAttribute("portfolioSaveForm", new PortfolioSaveForm());
         return "/portfolio/folio_make_json";
     }
@@ -84,11 +82,46 @@ public class PortfolioController {
     @GetMapping("/search/mine")
     public String searchPortfolioMine(Model model, HttpServletRequest request) {
 
-        HttpSession session = request.getSession();
-        String memberId = (String) session.getAttribute("loginMember");
+        Portfolio portfolio = getPortfolioBySessionId(request);
 
-        Portfolio portfolio = portfolioService.searchWithMember(memberRepository.findByLoginId(memberId).get());
+        log.info(portfolio.getContents());
+
         model.addAttribute("portfolio", portfolio);
         return "/portfolio/folio_mine";
+    }
+
+    @GetMapping("/search/other")
+    public String searchHighest(Model model){
+
+        List<Portfolio> portfolioList = portfolioService.searchHighestStar(5);
+
+        model.addAttribute("portfolioList", portfolioList);
+        return "/portfolio/folio_other";
+    }
+
+    @GetMapping("/delete")
+    public String deletePortfolio(HttpServletRequest request){
+        Portfolio portfolio = getPortfolioBySessionId(request);
+
+        portfolioService.delete(portfolio);
+        return "/portfolio/folio_pub";
+    }
+
+    @GetMapping("/update")
+    public String updatePortfolio(HttpServletRequest request, Model model){
+
+        Portfolio portfolio = getPortfolioBySessionId(request);
+
+        model.addAttribute(portfolio);
+
+        return "/portfolio/folio_make_json";
+    }
+
+    // 포트폴리오 찾기 함수
+    private Portfolio getPortfolioBySessionId(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+        return portfolioService.searchWithMember(memberRepository.findById(memberId).get());
     }
 }

@@ -219,6 +219,10 @@ function videoF_upf(input){
     number++;
 }
 
+function title_in(input){
+    title=input;
+}
+
 function reset(){
     for (var i = 0; i < make.length; i++) {
         make[i].firstElementChild.value = i;
