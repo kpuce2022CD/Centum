@@ -3,6 +3,7 @@ package centum.boxfolio.repository.portfolio;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
+import centum.boxfolio.entity.portfolio.PortfolioScrap;
 import centum.boxfolio.entity.portfolio.PortfolioStar;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -83,6 +84,26 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         }
     }
 
+    @Override
+    public void relationScrap(Portfolio portfolio, Member member) {
+        PortfolioScrap portfolioScrap = new PortfolioScrap();
+
+        portfolioScrap.setPortfolio(portfolio);
+        portfolioScrap.setMember(member);
+
+        em.persist(portfolioScrap);
+    }
+
+    @Override
+    public List<PortfolioScrap> findMyScrap(Member member) {
+        String jpql = "SELECT ps FROM PortfolioScrap AS ps WHERE ps.member = :memberId";
+
+        TypedQuery<PortfolioScrap> query = em.createQuery(jpql, PortfolioScrap.class);
+        query.setParameter("memberId", member);
+
+        return query.getResultList();
+    }
+
 
     private void addRelationPortfolioStar(Portfolio portfolio, Member member) {
 
@@ -111,5 +132,14 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
         tempP.setStarTally(portfolio.getStarTally() - 1);
         em.remove(portfolioStar);
+    }
+
+    private void addRelationPortfolioScrap(Portfolio portfolio, Member member) {
+
+    }
+
+
+    private void deleteRelationPortfolioScrap(Portfolio portfolio, Member member) {
+
     }
 }

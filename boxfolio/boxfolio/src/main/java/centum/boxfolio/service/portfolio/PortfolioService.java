@@ -15,4 +15,6 @@ public interface PortfolioService {
 
     List<Portfolio> searchWithTitle (String title);
     Portfolio searchWithMember (Member member);
+
+    void scrapPortfolio (Portfolio portfolio, Member member);
 }
