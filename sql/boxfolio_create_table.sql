@@ -54,6 +54,14 @@ CREATE TABLE IF NOT EXISTS portfolio_scrap(
     FOREIGN KEY (member_id) REFERENCES member(id)
 );
 
+CREATE TABLE IF NOT EXISTS portfolio_scrap(
+	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	portfolio_id INT UNSIGNED NOT NULL,
+    member_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (portfolio_id) REFERENCES portfolio(id),
+    FOREIGN KEY (member_id) REFERENCES member(id)
+);
+
 CREATE TABLE IF NOT EXISTS project(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     repository_addr VARCHAR(50) NOT NULL,
