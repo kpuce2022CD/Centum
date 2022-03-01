@@ -113,8 +113,11 @@
         </div>
     <!---------------------------------------------------------------------------------->
     
-        <div>
+        <div class="back">
             <div class="make">
+                <label class="title">제목 :
+                    <input type="text" size="100" onchange="title_in(value)">
+                </label>
                 <div class="fo" id="fo">
                     
                 </div>
@@ -151,5 +154,8 @@
             </div>
         </div>
     </div>
+<footer th:replace="template/footer :: common_footer">
+</footer>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
 </body>
 </html>

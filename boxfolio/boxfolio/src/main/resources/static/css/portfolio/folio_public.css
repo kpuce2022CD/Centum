@@ -1,258 +1,154 @@
-@charset "UTF-8";
-HTML CSS JSResult Skip Results Iframe
-EDIT ON
-/* 공통 */
-* {
-    box-sizing: border-box;
-}
-
-html {
-    height: 100%;
-}
-
-body {
-    height: 100%;
-    margin: 0 auto;
-    color: #353535;
-    background-color: #353535;
-    font-family: "맑은 고딕", "굴림";
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-a {
-    all: unset;
-}
-
-a:link {
-    text-decoration: none;
-}
-
-a:visited {
-    text-decoration: none;
-}
-
-a:active {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: none;
-    cursor: pointer;
-}
-
-button{
-    all: unset;
-}
-button:hover{
-    cursor: pointer;
-}
-
-/* wrap */
-.wrap {
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-/* header */
 header {
-    width: 100%;
-    height: 120px;
-    background-color: transparent;
-    border-bottom: 1px solid #fff;
-    /*position: fixed;*/
+    min-width: 1280px;
+    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
 }
 
-.header-container {
-    height: 100%;
+.access-container {
+    align-items: flex-end;
     display: flex;
-    align-items: center;
+    height: 150px;
     justify-content: space-between;
-}
-
-.logo a {
-    color: #fff;
-    font-size: 32px;
-    font-weight: bold;
-    margin: 0 20px;
-}
-
-.nav {
-    display: flex;
-}
-
-.nav a {
-    color: #fff;
-    padding: 20px 40px;
-}
-
-.nav a:hover {
-    animation: font-color 0.2s linear both;
-}
-
-.start-btn {
-    color: #fff;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    padding: 15px 35px;
-}
-
-.start-btn:hover {
-    animation: btn-color 0.2s linear both;
-}
-
-/* section */
-
-.folio, .public{
-    float: left;
-}
-
-.folio {
-    width: 20%;
-    height: calc(100vh - 120px);
-    border-right: 1px solid #fff;
-}
-
-.folio-container {
-    height: 35%;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    margin-left: 30px;
-
-}
-
-.folio-container a {
-    font-size: 30px;
-    font-weight: lighter;
-    margin: 20px;
-}
-
-.folio-container a:hover {
-    animation: font-color linear both;
-}
-
-.public {
-    width: calc(80% - 1px);
-    height: calc(100vh - 120px);
+    padding: 20px 0;
+    margin-bottom: 30px;
 }
 
 .best{
-    width: 100%;
-    height: 50%;
+    font-size: 20px;
+    font: bold;
+    margin-bottom: 20px;
 }
-.title{
-    margin-left: 100px;
-    margin-bottom: 10px;
-    color: white;
-}
-.best_index{
-    width: 92%;
-    height: 80%;
-    border: 2px solid white;
-    margin: auto;
+
+#portfolio-search-form {
+    align-items: center;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
-.best_index:before {
-    display: inline-block;
-    width: 1px;
-    content: '';
+
+#portfolio-query {
+    background-color: #fed;
+    border: 0.5px solid #f93;
+    border-radius: 8px;
+    height: 35px;
+    font-size: 16px;
+    padding: 5px;
+    width: 300px;
 }
-.best_index:after {
-    display: inline-block;
-    width: 1px;
-    content: '';
- }
-.index{
-    float: left;
-    width: 20%;
-    height: 80%;
-    border: 1px solid white;
-    display: none;
-    flex-direction: column;
-    align-items: center;
+
+#portfolio-search-btn {
+    background-color: transparent;
+    border: 0;
+    color: #f93;
+    font-size: 22px;
+    height: 28px;
+    margin: 0 10px;
+    outline: 0;
+    padding: 0;
+    width: 28px;
 }
-.index:hover{
+
+.to-myportfolio {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.to-myportfolio:hover {
+    color: #f93;
     cursor: pointer;
-}
-.maker{
-    color: #fff;
-}
-.count{
-    color: #fff;
+    transition: transform 0.5s;
+    transform: translateX(2px);
 }
 
-.normal{
-    width: 100%;
-    height: 50%;
-}
-.normal_index{
-    width: 92%;
-    height: 80%;
-    margin: auto;
+.portfolio-view{
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     align-items: center;
-    margin-bottom: 15px;
-}
-.normal_index:before {
-    display: inline-block;
-    width: 1px;
-    content: '';
-}
-.normal_index:after {
-    display: inline-block;
-    width: 1px;
-    content: '';
- }
-.back {
-    color: #fff;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    padding: 15px 35px;
-    margin-left: 15px;
-}
-.next {
-    float: right;
-    color: #fff;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    padding: 15px 35px;
-    margin-right: 15px;
+    justify-content: center;
 }
 
-/* */
-.analysis-btn {
-    border: 1px solid #fff;
-    border-radius: 5px;
-    margin: 40px 20px 0;
-    padding: 20px;
+.portfolio-container {
+    padding-bottom: 30px;
 }
 
-.analysis-btn:hover {
-    animation: btn-color 0.2s linear both;
+.best-portfolio-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0;
+    border: 1px solid aqua;
+    border-radius: 30px;
+    height: 220px;
+    flex-direction: row;
+    margin-bottom: 30px;
 }
 
-
-@keyframes font-color {
-    100% {
-        color: #FC3526;
-    }
+.portfolio-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 0;
 }
 
-@keyframes btn-color {
-    100% {
-        color: #000;
-        background-color: #F2593D;
-        border-color: #F2593D;
-    }
+.portfolio-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 10px 10px 10px -5px rgba(25, 42, 70, 0.2);
+    height: 180px;
+    margin: 0 10px;
+    width: 240px;
+}
+
+.portfolio-card:hover {
+    transition: transform 0.5s;
+    transform: translateY(-2px);
+}
+
+.portfolio-info {
+    padding: 5px 10px;
+}
+
+.portfolio-head {
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    padding: 5px 0;
+}
+
+.portfolio-title {
+    color: #777;
+    border-bottom: 1px solid #ddd;
+    padding: 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.interested {
+    color: #ffc74f;
+    font-size: 12px;
+    padding: 10px 0;
+}
+
+.portfolio-created {
+    font-size: 12px;
+}
+
+.portfolio-icons {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin: 10px 0;
+}
+
+.portfolio-icons li {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.portfolio-star:hover {
+    color: #fff555;
+}
+
+.portfolio-scrap:hover {
+    color: #00aeff;
 }
