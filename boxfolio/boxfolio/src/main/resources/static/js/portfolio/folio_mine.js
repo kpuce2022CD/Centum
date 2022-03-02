@@ -19,7 +19,6 @@ function add(){
         }
         else if(mode[i]=='image'){ //사진 파일
             var page=document.createElement('img');
-            alert(make[i]);
             page.src=make[i];
             page.style.width='1000px';
             page.style.display='flex';
@@ -74,6 +73,7 @@ function add(){
 
 function test() {
     var jsonData=document.getElementById('value_test').value;
+    console.log(jsonData);
     var data=JSON.parse(jsonData);
     title=data.title;
     for(var i in data.index){
@@ -82,6 +82,5 @@ function test() {
     }
     setting=data.view;
     console.log(data);
-    alert('ok');
     add();
 }

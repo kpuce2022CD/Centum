@@ -9,20 +9,44 @@ var id='id';
 var make_f1=[]; //원래 제작해 놓은 포트폴리오 정보(종류), youtube=유투브 영상, video=영상 파일, image=사진 파일, info=설명, git=깃허브 아이디
 var make_f2=[]; //원래 제작해 놓은 포트폴리오 정보(src, 텍스트)
 
+function toDataURL(src, callback, outputFormat) {
+    var img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = function() {
+        var canvas = document.createElement('CANVAS');
+        var ctx = canvas.getContext('2d');
+        var dataURL;
+        canvas.height = this.naturalHeight;
+        canvas.width = this.naturalWidth;
+        ctx.drawImage(this, 0, 0);
+        dataURL = canvas.toDataURL(outputFormat);
+        callback(dataURL);
+    };
+    img.src = src;
+    if (img.complete || img.complete === undefined) {
+        img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+        img.src = src;
+    }
+}
 
 function loadFile(input) {
     var file = input.files[0];
     var newImage;
     var up;
     var num;
+
     up=input.parentNode.parentNode;
     num=up.parentNode.parentNode.parentNode.style.order;
 
     newImage = up.nextElementSibling;
 
-    newImage.src = URL.createObjectURL(file);   
-    make_src[num]=file;
-    up.style.visibility = 'hidden';
+    toDataURL(URL.createObjectURL(file),
+        function(dataUrl) {
+            newImage.src=dataUrl;
+            make_src[num]=dataUrl;
+            up.style.visibility = 'hidden';
+        });
+
 };
 
 function loadVideoFile(input) {
@@ -296,6 +320,7 @@ function set_pri(){
 }
 
 function make_json(){
+    console.log(make_src[0]);
     var portfolio_data = new Object();
     var portfolio_index = new Array();
 
@@ -309,7 +334,6 @@ function make_json(){
         portfolio_index.push(portfolio_in);
     }
     portfolio_data.index=portfolio_index;
-
     json_data=JSON.stringify(portfolio_data);
 }
 
