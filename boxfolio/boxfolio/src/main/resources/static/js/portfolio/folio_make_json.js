@@ -21,7 +21,7 @@ function loadFile(input) {
     newImage = up.nextElementSibling;
 
     newImage.src = URL.createObjectURL(file);   
-    make_src[num]=newImage.src;
+    make_src[num]=file;
     up.style.visibility = 'hidden';
 };
 

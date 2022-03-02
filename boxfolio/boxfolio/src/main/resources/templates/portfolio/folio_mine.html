@@ -21,7 +21,7 @@
     <script src="../../js/portfolio/folio_mine.js"></script>
 </head>
 
-<body onload="add()">
+<body onload="test()">
 <div id="root-wrap">
     <header th:replace="template/header :: common_header">
         <div class="wrap">
@@ -52,6 +52,7 @@
         </div>
     </header>
     <div class="portf">
+        <input id="value_test" class="value_test" value="portfolio" th:value="${portfolio.contents}"/>
         <section class="make">
             <div class="set">
                 <div id="set-pub" class="set-pub">public</div>

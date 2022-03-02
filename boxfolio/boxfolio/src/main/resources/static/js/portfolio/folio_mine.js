@@ -1,12 +1,8 @@
-var mode=['youtube','youtube']; //들어가있는 자료의 종류(사진파일, 영상파일, 유튜브 등). 순서대로. youtube=유투브 영상, video=영상 파일, image=사진 파일, info=설명, git=깃허브 아이디
-var make=['https://www.youtube.com/embed/ian6CXeFUYc','https://www.youtube.com/embed/ian6CXeFUYc']; //들어가있는 파일의 src나 텍스트
+var mode=[]; //들어가있는 자료의 종류(사진파일, 영상파일, 유튜브 등). 순서대로. youtube=유투브 영상, video=영상 파일, image=사진 파일, info=설명, git=깃허브 아이디
+var make=[]; //들어가있는 파일의 src나 텍스트
 var make_date='0000_00_00'; //최근 수정 날짜
 var setting='public'; //공개 설정
-
-function saw() {
-    var data=document.getElementById('test');
-    console.log(data.value);
-}
+var title='';
 
 function add(){
     for(var i=0; i<mode.length; i++){
@@ -23,6 +19,7 @@ function add(){
         }
         else if(mode[i]=='image'){ //사진 파일
             var page=document.createElement('img');
+            alert(make[i]);
             page.src=make[i];
             page.style.width='1000px';
             page.style.display='flex';
@@ -73,4 +70,18 @@ function add(){
         pri.style.backgroundColor='black';
         pub.style.backgroundColor='transparent';
     }
+}
+
+function test() {
+    var jsonData=document.getElementById('value_test').value;
+    var data=JSON.parse(jsonData);
+    title=data.title;
+    for(var i in data.index){
+        mode[i]=data.index[i].what;
+        make[i]=data.index[i].src;
+    }
+    setting=data.view;
+    console.log(data);
+    alert('ok');
+    add();
 }
