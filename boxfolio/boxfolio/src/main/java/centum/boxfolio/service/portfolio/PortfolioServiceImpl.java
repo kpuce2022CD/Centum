@@ -57,13 +57,10 @@ public class PortfolioServiceImpl implements PortfolioService{
 
 
     public void downStar(Portfolio portfolio, Member member) {
-        if (portfolio.getStarTally() == 0){
-            return;
-        } else {
+
+        if (!(portfolio.getStarTally() == 0)){
             portfolioRepository.changeStar(portfolio, member, false);
         }
-
-
     }
 
     @Override
@@ -84,7 +81,6 @@ public class PortfolioServiceImpl implements PortfolioService{
     @Override
     public List<Portfolio> searchHighestStar(int count) {
         return portfolioRepository.findHighest();
-
     }
 
     private void validateDuplicationPortfolio(Portfolio portfolio){

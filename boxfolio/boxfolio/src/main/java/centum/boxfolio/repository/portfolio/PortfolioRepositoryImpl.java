@@ -95,12 +95,27 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
     @Override
     public void relationScrap(Portfolio portfolio, Member member) {
-        PortfolioScrap portfolioScrap = new PortfolioScrap();
 
-        portfolioScrap.setPortfolio(portfolio);
-        portfolioScrap.setMember(member);
+        String jpql = "SELECT ps FROM PortfolioScrap AS ps WHERE ps.member = :memberId and ps.portfolio = :portfolioId";
 
-        em.persist(portfolioScrap);
+        TypedQuery<PortfolioScrap> query = em.createQuery(jpql, PortfolioScrap.class);
+        query.setParameter("memberId", member);
+        query.setParameter("portfolioId", portfolio);
+
+        PortfolioScrap temp =  query.getSingleResult();
+
+        if (temp == null){
+            PortfolioScrap portfolioScrap = new PortfolioScrap();
+
+            portfolioScrap.setPortfolio(portfolio);
+            portfolioScrap.setMember(member);
+
+            em.persist(portfolioScrap);
+        } else {
+            em.remove(temp);
+        }
+
+
     }
 
     @Override
