@@ -49,7 +49,7 @@ public class PortfolioController {
             try{
                 HttpSession session = request.getSession();
                 long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
-                log.info(form.toString());
+                log.info(form.getContents());
                 Portfolio savedPortfolio = portfolioService.upload(form, memberId);
             } catch (IllegalStateException e){
                 bindingResult.reject("upload portfolio failed", e.getMessage());

@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 
 import javax.validation.constraints.NotBlank;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,7 +26,7 @@ public class PortfolioSaveForm {
 
     private Member member;
 
-    private List<File> files;
+    private ArrayList<File> files;
 
     public Portfolio toPortfolio(){
         return new Portfolio("testTitle", contents, false, member, null, null, null);
