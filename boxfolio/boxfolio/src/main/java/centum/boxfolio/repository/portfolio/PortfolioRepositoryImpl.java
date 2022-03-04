@@ -91,6 +91,8 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
     @Override
     public void delete(Portfolio portfolio) {
+        deleteRelationAllPortfolioStar(portfolio);
+        deleteRelationAllPortfolioFiles(portfolio);
         em.remove(portfolio);
     }
 
@@ -132,5 +134,31 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
         tempP.setStarTally(portfolio.getStarTally() - 1);
         em.remove(portfolioStar);
+    }
+
+    private void deleteRelationAllPortfolioStar(Portfolio portfolio){
+        String jpql = "SELECT ps FROM PortfolioStar AS ps WHERE ps.portfolio = :portfolioId";
+
+        TypedQuery<PortfolioStar> query = em.createQuery(jpql, PortfolioStar.class);
+        query.setParameter("portfolioId", portfolio);
+
+        List<PortfolioStar> temp = query.getResultList();
+
+        for (PortfolioStar ps : temp){
+            em.remove(ps);
+        }
+    }
+
+    private void deleteRelationAllPortfolioFiles(Portfolio portfolio){
+        String jpql = "SELECT pf FROM PortfolioFiles AS pf WHERE pf.portfolio = :portfolioId";
+
+        TypedQuery<PortfolioFiles> query = em.createQuery(jpql, PortfolioFiles.class);
+        query.setParameter("portfolioId", portfolio);
+
+        List<PortfolioFiles> temp = query.getResultList();
+
+        for (PortfolioFiles pf : temp){
+            em.remove(pf);
+        }
     }
 }
