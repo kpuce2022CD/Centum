@@ -182,3 +182,11 @@ CREATE TABLE IF NOT EXISTS confirmation_token(
     member_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (member_id) REFERENCES member(id)
 );
+
+CREATE TABLE IF NOT EXISTS portfolio_files(
+	id VARCHAR(40) PRIMARY KEY,
+	portfoilo_id INT UNSIGNED NOT NULL,
+    src_order INT UNSIGNED NOT NULL,
+    src blob NOT NULL,
+    FOREIGN KEY (portfoilo_id) REFERENCES portfolio(id)
+)

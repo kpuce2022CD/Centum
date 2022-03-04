@@ -3,6 +3,7 @@ package centum.boxfolio.repository.portfolio;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
+import centum.boxfolio.entity.portfolio.PortfolioFiles;
 import centum.boxfolio.entity.portfolio.PortfolioStar;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -10,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import java.io.File;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,10 +25,19 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     private final EntityManager em;
 
     @Override
-    public Portfolio save(Portfolio portfolio) {
+    public Portfolio save(Portfolio portfolio, ArrayList<File> files) {
         LocalDateTime today = LocalDateTime.now();
-
         portfolio.setUpdatedDate(today);
+
+        int count = 0;
+        for (File f : files){
+            PortfolioFiles portfolioFiles = new PortfolioFiles();
+            portfolioFiles.setPortfolio(portfolio);
+            portfolioFiles.setSrcOrder(count);
+            portfolioFiles.setSrc(f);
+            em.persist(portfolioFiles);
+        }
+
         em.persist(portfolio);
         return portfolio;
     }

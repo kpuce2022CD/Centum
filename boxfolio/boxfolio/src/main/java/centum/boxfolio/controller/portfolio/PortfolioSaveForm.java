@@ -2,6 +2,7 @@ package centum.boxfolio.controller.portfolio;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
+import centum.boxfolio.entity.portfolio.PortfolioFiles;
 import lombok.Getter;
 import lombok.Setter;
 import org.json.simple.JSONObject;

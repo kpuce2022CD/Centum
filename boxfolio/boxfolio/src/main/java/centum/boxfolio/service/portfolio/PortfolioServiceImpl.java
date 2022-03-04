@@ -24,9 +24,8 @@ public class PortfolioServiceImpl implements PortfolioService{
         form.setMember(memberRepository.findById(memberId).get());
         Portfolio portfolio = form.toPortfolio();
 
-        validateDuplicationPortfolio(portfolio);
 
-        return portfolioRepository.save(portfolio);
+        return portfolioRepository.save(portfolio, form.getFiles());
     }
 
     @Override
@@ -41,7 +40,7 @@ public class PortfolioServiceImpl implements PortfolioService{
         portfolio.setContents(context);
         portfolio.setVisibility(visibility);
         portfolio.setUpdatedDate(today);
-        portfolioRepository.save(portfolio);
+        portfolioRepository.save(portfolio, null);
     }
 
     @Override
@@ -80,8 +79,5 @@ public class PortfolioServiceImpl implements PortfolioService{
         return portfolioRepository.findHighest();
     }
 
-    private void validateDuplicationPortfolio(Portfolio portfolio){
 
-
-    }
 }
