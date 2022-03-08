@@ -16,7 +16,7 @@ public interface PortfolioRepository {
     Portfolio findByMember(Member member);
     List<Portfolio> findHighest ();
     void delete (Portfolio portfolio);
-    void changeStar (Portfolio portfolio, Member member, boolean upDown);
+    void relationStar (Portfolio portfolio, Member member);
 
     void relationScrap(Portfolio portfolio, Member member);
     List<PortfolioScrap> findMyScrap(Member member);

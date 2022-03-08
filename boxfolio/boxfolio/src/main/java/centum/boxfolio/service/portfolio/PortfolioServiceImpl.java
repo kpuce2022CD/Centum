@@ -47,20 +47,7 @@ public class PortfolioServiceImpl implements PortfolioService{
 
     @Override
     public void starChange(Portfolio portfolio, Member member) {
-
-    }
-
-
-    public void upStar(Portfolio portfolio, Member member) {
-        portfolioRepository.changeStar(portfolio, member, true);
-    }
-
-
-    public void downStar(Portfolio portfolio, Member member) {
-
-        if (!(portfolio.getStarTally() == 0)){
-            portfolioRepository.changeStar(portfolio, member, false);
-        }
+        portfolioRepository.relationStar(portfolio, member);
     }
 
     @Override
@@ -71,6 +58,11 @@ public class PortfolioServiceImpl implements PortfolioService{
     @Override
     public Portfolio searchWithMember(Member member) {
         return portfolioRepository.findByMember(member);
+    }
+
+    @Override
+    public Portfolio searchWithId(Long id) {
+        return portfolioRepository.findById(id);
     }
 
     @Override

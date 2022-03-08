@@ -5,6 +5,7 @@ import centum.boxfolio.controller.member.SessionConst;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.repository.member.MemberRepositoryImpl;
+import centum.boxfolio.service.member.MemberService;
 import centum.boxfolio.service.portfolio.PortfolioServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -117,11 +118,39 @@ public class PortfolioController {
         return "/portfolio/folio_make_json";
     }
 
+    @GetMapping("/star")
+    public String starChange(HttpServletRequest request, Long portfolioId){
+        Portfolio portfolio = portfolioService.searchWithId(portfolioId);
+        Member member = getLoginMember(request);
+
+        portfolioService.starChange(portfolio, member);
+
+        return "";
+    }
+
+    @GetMapping("/scrap")
+    public String scrapPortfolio (HttpServletRequest request, Long portfolioId){
+        Portfolio portfolio = portfolioService.searchWithId(portfolioId);
+        Member member = getLoginMember(request);
+
+        portfolioService.scrapPortfolio(portfolio, member);
+
+        return "";
+    }
+
+
     // 포트폴리오 찾기 함수
     private Portfolio getPortfolioBySessionId(HttpServletRequest request){
         HttpSession session = request.getSession();
         long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         return portfolioService.searchWithMember(memberRepository.findById(memberId).get());
+    }
+
+    private Member getLoginMember(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+        return memberRepository.findById(memberId).get();
     }
 }
