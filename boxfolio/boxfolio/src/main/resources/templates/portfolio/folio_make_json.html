@@ -61,7 +61,7 @@
                     <div class="container">
                         <div class="image-upload" id="image-upload">
                             <div>
-                                <input type="file" id="chooseFile" class="chooseFile" th:field="*{files}" accept="image/*" onchange="loadFile(this)">
+                                <input type="file" id="chooseFile" class="chooseFile" th:field="*{files[0]}" accept="image/*" onchange="loadFile(this)">
                                 <p id="fileName"></p>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                 <div class="viF">
                     <div class="video-upload" id="video-upload">
                         <div>
-                            <input type="file" id="chooseVideoFile" name="chooseVideoFile" th:field="*{files}" accept="video.mp4" onchange="loadVideoFile(this)">
+                            <input type="file" id="chooseVideoFile" name="chooseVideoFile" th:field="*{files[0]}" accept="video.mp4" onchange="loadVideoFile(this)">
                         </div>
                     </div>
                     <video id="videoFi" class="videoFi" autoplay controls loop muted preload="none" width="1000">

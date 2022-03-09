@@ -3,7 +3,6 @@ var make=[]; //들어가있는 파일의 src나 텍스트
 var make_date='0000_00_00'; //최근 수정 날짜
 var setting='public'; //공개 설정
 var title='테스트 제목';
-var file_data;
 
 function add(){
     for(var i=0; i<mode.length; i++){
@@ -76,9 +75,9 @@ function add(){
 function result() {
     var jsonData=document.getElementById('value_test').value;
     console.log(jsonData);
-    /*file_data=document.getElementById('file_test').value;
+    var file_data=document.getElementById('file_test').value;
     console.log(file_data);
-    var data=JSON.parse(jsonData);
+    /*var data=JSON.parse(jsonData);
     title=data.title;
     for(var i in data.index){
         mode[i]=data.index[i].what;
