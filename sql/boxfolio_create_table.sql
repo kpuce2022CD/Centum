@@ -184,8 +184,8 @@ CREATE TABLE IF NOT EXISTS confirmation_token(
 );
 
 CREATE TABLE IF NOT EXISTS portfolio_files(
-	id VARCHAR(40) PRIMARY KEY,
-	portfoilo_id INT UNSIGNED NOT NULL,
+	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	portfolio_id INT UNSIGNED NOT NULL,
     src_order INT UNSIGNED NOT NULL,
     src blob NOT NULL,
     FOREIGN KEY (portfoilo_id) REFERENCES portfolio(id)

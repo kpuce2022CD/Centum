@@ -19,15 +19,12 @@ public class PortfolioFiles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull
-    private File src;
-
     @ManyToOne
-    @JoinColumn(name="portfolio_id")
+    @JoinColumn(name = "portfolio_id")
     private Portfolio portfolio;
-
     @NotNull
     private int srcOrder;
-
+    @NotNull
+    private File src;
 
 }

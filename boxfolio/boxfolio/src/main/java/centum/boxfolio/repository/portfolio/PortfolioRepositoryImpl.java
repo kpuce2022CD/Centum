@@ -28,7 +28,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     public Portfolio save(Portfolio portfolio, ArrayList<File> files) {
         LocalDateTime today = LocalDateTime.now();
         portfolio.setUpdatedDate(today);
-
+        em.persist(portfolio);
         int count = 0;
         for (File f : files){
             PortfolioFiles portfolioFiles = new PortfolioFiles();
@@ -38,7 +38,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
             em.persist(portfolioFiles);
         }
 
-        em.persist(portfolio);
+
         return portfolio;
     }
 
