@@ -325,5 +325,4 @@ function data_in(){
     make_json();
     var data=document.getElementById('json_submit');
     data.value=json_data;
-    console.log(json_data);
 }

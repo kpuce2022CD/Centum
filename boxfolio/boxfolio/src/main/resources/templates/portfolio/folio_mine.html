@@ -21,7 +21,7 @@
     <script src="../../js/portfolio/folio_mine.js"></script>
 </head>
 
-<body onload="test()">
+<body onload="result()">
 <div id="root-wrap">
     <header th:replace="template/header :: common_header">
         <div class="wrap">
@@ -53,9 +53,10 @@
     </header>
     <div class="portf">
         <input id="value_test" class="value_test" value="portfolio" th:value="${portfolio.contents}"/>
+        <input id="file_test" class="value_test" value="portfolio" th:value="${portfolio_files}"/>
         <section class="make">
             <div class="set">
-                <div id="set-pub" class="set-pub">public</div>
+                <div id="set-pub" class="set-pub" onclick="saw();">public</div>
                 <div id="set-pri" class="set-pri">private</div>
             </div>
             <div class="op">
@@ -66,7 +67,9 @@
                     삭제
                 </button>
             </div>
+
             <div class="fo" id="fo">
+                <p class="title" id="title">내 포트폴리오</p>
             </div>
             <p id="date_1" class="date_1">최근 수정 날짜 : </p>
             <p id="date_2" class="date_2">0000_00_00</p>

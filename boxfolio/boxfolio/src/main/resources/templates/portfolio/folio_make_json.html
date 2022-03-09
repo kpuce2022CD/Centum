@@ -54,7 +54,7 @@
         </header>
     
     <!--------------------------------------------------------------------->
-        <form  action="/portfolios/make" method="post" th:object="${portfolioSaveForm}"class="send">
+        <form  action="/portfolios/make" method="post" th:object="${portfolioSaveForm}">
             <div class="image-ch" id="image-ch">
                 <input type="text" class="order" size="1" onchange="change(this, value)" value="0">
                 <div class="im">
@@ -115,46 +115,48 @@
         </form>
     <!---------------------------------------------------------------------------------->
     
-        <div class="back">
-            <div class="make">
-                <label class="title">제목 :
-                    <input type="text" size="100" onchange="title_in(value)">
-                </label>
-                <div class="fo" id="fo">
-                    
+        <section>
+            <div class="back">
+                <div class="make">
+                    <label class="title">제목 :
+                        <input type="text" size="100" onchange="title_in(value)">
+                    </label>
+                    <div class="fo" id="fo">
+
+                    </div>
+                </div>
+                <div class="add">
+                    <div class="set">
+                        <button class="set-pub" onclick="set_pub()">public</button>
+                        <button class="set-pri" onclick="set_pri()">private</button>
+                    </div>
+                    <div class="make-op">
+                        <div class="mk-btn">
+                            <button id="image-se" onclick="image_up()">사진 추가</button>
+                        </div>
+                        <div class="video-btn">
+                            <button id="video-se" onclick="video_up()">유튜브 영상 추가</button>
+                        </div>
+                        <div class="videoF-btn">
+                            <button id="videoF-se" onclick="videoF_up()">영상 파일 추가</button>
+                        </div>
+                        <div class="inf-btn">
+                            <button id="info-se" onclick="info_up()">설명 추가</button>
+                        </div>
+                        <div class="git-btn">
+                            <button id="git-up" onclick="git_up()">git 아이디 입력</button>
+                        </div>
+                        <div class="done">
+                            <button id="end" onclick="data_in()">완료</button>
+                        </div>
+                        <form  action="/portfolios/make" method="post" th:object="${portfolioSaveForm}" id="send" class="send">
+                            <input type="hidden" name="json_submit" id="json_submit" th:field="*{contents}" class="what" value="" >
+                            <input type="submit" id="done" class="sub" value="제출">
+                        </form>
+                    </div>
                 </div>
             </div>
-            <div class="add">
-                <div class="set">
-                    <button class="set-pub" onclick="set_pub()">public</button>
-                    <button class="set-pri" onclick="set_pri()">private</button>
-                </div>
-                <div class="make-op">
-                    <div class="mk-btn">
-                        <button id="image-se" onclick="image_up()">사진 추가</button>
-                    </div>
-                    <div class="video-btn">
-                        <button id="video-se" onclick="video_up()">유튜브 영상 추가</button>
-                    </div>
-                    <div class="videoF-btn">
-                        <button id="videoF-se" onclick="videoF_up()">영상 파일 추가</button>
-                    </div>
-                    <div class="inf-btn">
-                        <button id="info-se" onclick="info_up()">설명 추가</button>
-                    </div>
-                    <div class="git-btn">
-                        <button id="git-up" onclick="git_up()">git 아이디 입력</button>
-                    </div>
-                    <div class="done">
-                        <button id="end" onclick="data_in()">완료</button>
-                    </div>
-                    <form  action="/portfolios/make" method="post" th:object="${portfolioSaveForm}" id="send" class="send">
-                        <input type="hidden" name="json_submit" id="json_submit" th:field="*{contents}" class="what" value="" >
-                        <input type="submit" id="done" class="sub" value="제출">
-                    </form>
-                </div>
-            </div>
-        </div>
+        </section>
     </div>
 <footer th:replace="template/footer :: common_footer">
 </footer>

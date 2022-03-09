@@ -2,7 +2,8 @@ var mode=[]; //들어가있는 자료의 종류(사진파일, 영상파일, 유�
 var make=[]; //들어가있는 파일의 src나 텍스트
 var make_date='0000_00_00'; //최근 수정 날짜
 var setting='public'; //공개 설정
-var title='';
+var title='테스트 제목';
+var file_data;
 
 function add(){
     for(var i=0; i<mode.length; i++){
@@ -56,6 +57,7 @@ function add(){
 
     var date=document.getElementById('date_2');
     date.innerText=make_date;
+    document.getElementById('title').innerText=title;
 
     if(setting == 'public'){
         var pub=document.getElementById('set-pub');
@@ -71,9 +73,11 @@ function add(){
     }
 }
 
-function test() {
+function result() {
     var jsonData=document.getElementById('value_test').value;
     console.log(jsonData);
+    /*file_data=document.getElementById('file_test').value;
+    console.log(file_data);
     var data=JSON.parse(jsonData);
     title=data.title;
     for(var i in data.index){
@@ -82,5 +86,11 @@ function test() {
     }
     setting=data.view;
     console.log(data);
-    add();
+    add();*/
+}
+function saw(){
+    console.log(file_data[0]);
+    var test_node=document.createElement('img');
+    test_node.src=file_data[0];
+    document.getElementById('fo').appendChild(test_node);
 }
