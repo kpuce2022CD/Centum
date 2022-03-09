@@ -189,4 +189,4 @@ CREATE TABLE IF NOT EXISTS portfolio_files(
     src_order INT UNSIGNED NOT NULL,
     src blob NOT NULL,
     FOREIGN KEY (portfolio_id) REFERENCES portfolio(id)
-);
+)
