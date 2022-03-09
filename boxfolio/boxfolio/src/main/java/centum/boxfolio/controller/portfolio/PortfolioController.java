@@ -84,9 +84,8 @@ public class PortfolioController {
 
         Portfolio portfolio = getPortfolioBySessionId(request);
 
-        log.info(portfolio.getContents());
-
         model.addAttribute("portfolio", portfolio);
+        model.addAttribute("portfolio_files", portfolioService.findPortfolioFiles(portfolio));
         return "/portfolio/folio_mine";
     }
 

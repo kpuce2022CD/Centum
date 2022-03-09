@@ -106,6 +106,18 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         }
     }
 
+    @Override
+    public List<PortfolioFiles> getPortfolioFiles(Portfolio portfolio){
+
+        String jpql = "SELECT f FROM PortfolioFiles AS f WHERE f.portfolio = :portfolioId";
+        TypedQuery<PortfolioFiles> query = em.createQuery(jpql, PortfolioFiles.class);
+        query.setParameter("portfolioId", portfolio);
+
+        List<PortfolioFiles> result = query.getResultList();
+
+        return result;
+    }
+
 
     private void addRelationPortfolioStar(Portfolio portfolio, Member member) {
 
@@ -161,4 +173,6 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
             em.remove(pf);
         }
     }
+
+
 }

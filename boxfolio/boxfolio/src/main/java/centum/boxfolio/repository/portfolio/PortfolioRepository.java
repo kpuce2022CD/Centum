@@ -2,6 +2,7 @@ package centum.boxfolio.repository.portfolio;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
+import centum.boxfolio.entity.portfolio.PortfolioFiles;
 
 
 import java.io.File;
@@ -18,4 +19,5 @@ public interface PortfolioRepository {
     List<Portfolio> findHighest ();
     void delete (Portfolio portfolio);
     void changeStar (Portfolio portfolio, Member member, boolean upDown);
+    List<PortfolioFiles> getPortfolioFiles(Portfolio portfolio);
 }

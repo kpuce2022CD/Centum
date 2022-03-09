@@ -4,6 +4,7 @@ package centum.boxfolio.service.portfolio;
 import centum.boxfolio.controller.portfolio.PortfolioSaveForm;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
+import centum.boxfolio.entity.portfolio.PortfolioFiles;
 
 import java.util.List;
 
@@ -16,4 +17,5 @@ public interface PortfolioService {
     List<Portfolio> searchWithTitle (String title);
     Portfolio searchWithMember (Member member);
     List<Portfolio> searchHighestStar (int count);
+    List<PortfolioFiles> findPortfolioFiles(Portfolio portfolio);
 }

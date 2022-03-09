@@ -3,6 +3,7 @@ package centum.boxfolio.service.portfolio;
 import centum.boxfolio.controller.portfolio.PortfolioSaveForm;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
+import centum.boxfolio.entity.portfolio.PortfolioFiles;
 import centum.boxfolio.repository.member.MemberRepositoryImpl;
 import centum.boxfolio.repository.portfolio.PortfolioRepository;
 import lombok.RequiredArgsConstructor;
@@ -77,6 +78,11 @@ public class PortfolioServiceImpl implements PortfolioService{
     @Override
     public List<Portfolio> searchHighestStar(int count) {
         return portfolioRepository.findHighest();
+    }
+
+    @Override
+    public List<PortfolioFiles> findPortfolioFiles(Portfolio portfolio) {
+        return portfolioRepository.getPortfolioFiles(portfolio);
     }
 
 
