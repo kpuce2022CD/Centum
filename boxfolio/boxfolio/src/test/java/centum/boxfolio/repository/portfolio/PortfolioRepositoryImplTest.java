@@ -45,7 +45,7 @@ class PortfolioRepositoryImplTest {
             File tempImg = pf.getSrc();
 
             System.out.println(tempImg.setReadOnly());
-            tempImg.setReadOnly();
+            tempImg.setReadable(true);
             System.out.println(tempImg);
             System.out.println(tempImg.canRead());
             System.out.println(tempImg.canWrite());

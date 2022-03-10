@@ -31,6 +31,11 @@ public class PortfolioController {
 
     @GetMapping
     public String portfolioPage(Model model) {
+
+        List<Portfolio> portfolioList = portfolioService.searchHighestStar(5);
+
+        model.addAttribute("portfolioList", portfolioList);
+
         return "/portfolio/folio_pub";
     }
 
@@ -100,6 +105,8 @@ public class PortfolioController {
         model.addAttribute("portfolioList", portfolioList);
         return "/portfolio/folio_other";
     }
+
+
 
     @GetMapping("/delete")
     public String deletePortfolio(HttpServletRequest request){
