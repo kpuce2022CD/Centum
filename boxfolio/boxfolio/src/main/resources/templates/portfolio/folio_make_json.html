@@ -149,7 +149,7 @@
                         <div class="done">
                             <button id="end" onclick="data_in()">완료</button>
                         </div>
-                        <form  action="/portfolios/make" method="post" th:object="${portfolioSaveForm}" id="send" class="send">
+                        <form  action="/portfolios/make" method="post" enctype="multipart/form-data" th:object="${portfolioSaveForm}" id="send" class="send">
                             <input type="hidden" name="json_submit" id="json_submit" th:field="*{contents}" class="what" value="" >
                             <input type="submit" id="done" class="sub" value="제출">
                         </form>
