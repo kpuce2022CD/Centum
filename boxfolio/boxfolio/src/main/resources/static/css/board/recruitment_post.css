@@ -108,6 +108,10 @@ header {
     margin: 5px 0;
 }
 
+.replied {
+    padding: 0 0 0 40px;
+}
+
 #commenter-img {
     margin: 0 10px 0 0;
 }
@@ -150,6 +154,12 @@ header {
     margin: 5px 0 0 40px;
     padding: 10px;
     display: none;
+}
+
+#tag-nickname, .mention-member {
+    color: #86A8E7;
+    font-weight: bold;
+    margin: 0 5px 0 0;
 }
 
 #reply-textarea {

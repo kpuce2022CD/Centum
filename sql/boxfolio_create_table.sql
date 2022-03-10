@@ -167,6 +167,7 @@ CREATE TABLE IF NOT EXISTS board_reply(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     contents TEXT NOT NULL,
     created_date DATETIME NOT NULL,
+    board_type TINYINT NOT NULL,
     member_id INT UNSIGNED NOT NULL,
     board_comment_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (member_id) REFERENCES member(id),
