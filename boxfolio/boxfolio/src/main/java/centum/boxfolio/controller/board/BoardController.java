@@ -2,7 +2,10 @@ package centum.boxfolio.controller.board;
 
 import centum.boxfolio.controller.member.SessionConst;
 import centum.boxfolio.entity.board.*;
+import centum.boxfolio.entity.member.Member;
+import centum.boxfolio.repository.member.MemberRepository;
 import centum.boxfolio.service.board.BoardService;
+import centum.boxfolio.service.board.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -22,6 +25,8 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final CommentService commentService;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/free")
     public String generalBoardPage(Model model) {
@@ -42,9 +47,12 @@ public class BoardController {
     }
 
     @GetMapping("/free/{boardId}")
-    public String freeBoardPage(@PathVariable Long boardId, Model model) {
+    public String freeBoardPage(@PathVariable Long boardId, Model model, HttpServletRequest request) {
         Free post = boardService.readFreePost(boardId);
-        List<BoardComment> boardComments = boardService.readCommentsByBoardId(boardId);
+        List<BoardComment> boardComments = commentService.readCommentsByBoardId(boardId);
+
+        Member member = getLoginMember(request);
+        model.addAttribute("loginMember", member);
         model.addAttribute("freePost", post);
         model.addAttribute("comments", boardComments);
         model.addAttribute("boardCommentSaveForm", new BoardCommentSaveForm());
@@ -52,9 +60,12 @@ public class BoardController {
     }
 
     @GetMapping("/info/{boardId}")
-    public String infoBoardPage(@PathVariable Long boardId, Model model) {
+    public String infoBoardPage(@PathVariable Long boardId, Model model, HttpServletRequest request) {
         Information post = boardService.readInfoPost(boardId);
-        List<BoardComment> boardComments = boardService.readCommentsByBoardId(boardId);
+        List<BoardComment> boardComments = commentService.readCommentsByBoardId(boardId);
+
+        Member member = getLoginMember(request);
+        model.addAttribute("loginMember", member);
         model.addAttribute("infoPost", post);
         model.addAttribute("comments", boardComments);
         model.addAttribute("boardCommentSaveForm", new BoardCommentSaveForm());
@@ -62,13 +73,23 @@ public class BoardController {
     }
 
     @GetMapping("/recruit/{boardId}")
-    public String recruitBoardPage(@PathVariable Long boardId, Model model) {
+    public String recruitBoardPage(@PathVariable Long boardId, Model model, HttpServletRequest request) {
         Recruitment post = boardService.readRecruitPost(boardId);
-        List<BoardComment> boardComments = boardService.readCommentsByBoardId(boardId);
+        List<BoardComment> boardComments = commentService.readCommentsByBoardId(boardId);
+
+        Member member = getLoginMember(request);
+        model.addAttribute("loginMember", member);
         model.addAttribute("recruitPost", post);
         model.addAttribute("comments", boardComments);
         model.addAttribute("boardCommentSaveForm", new BoardCommentSaveForm());
         return "board/recruitment_post";
+    }
+
+    private Member getLoginMember(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        String memberId = session.getAttribute(SessionConst.LOGIN_MEMBER).toString();
+        Member member = memberRepository.findById(Long.parseLong(memberId)).get();
+        return member;
     }
 
     @GetMapping("/free/edit")
@@ -181,7 +202,7 @@ public class BoardController {
         }
         HttpSession session = request.getSession(false);
         long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        boardService.createComment(boardCommentSaveForm, boardId, memberId);
+        commentService.createComment(boardCommentSaveForm, boardId, memberId);
 
         return "redirect:" + referer;
     }
@@ -190,9 +211,25 @@ public class BoardController {
     public String deleteComment(@PathVariable Long commentId, HttpServletRequest request) {
         String referer = request.getHeader("referer");
         HttpSession session = request.getSession(false);
+        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
         if (referer != null) {
-            boardService.deleteComment(commentId);
+            commentService.deleteComment(commentId);
         }
+
+        return "redirect:" + referer;
+    }
+
+    @PostMapping("/reply/{commentId}")
+    public String postReply(@ModelAttribute BoardCommentSaveForm boardCommentSaveForm, BindingResult bindingResult,
+                            @PathVariable Long commentId, HttpServletRequest request) {
+        String referer = request.getHeader("referer");
+        if (bindingResult.hasErrors()) {
+            return referer;
+        }
+        HttpSession session = request.getSession(false);
+        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
+        BoardComment reply = commentService.createReply(boardCommentSaveForm, commentId, memberId);
+        log.info("{}", reply.getGroupNum());
 
         return "redirect:" + referer;
     }

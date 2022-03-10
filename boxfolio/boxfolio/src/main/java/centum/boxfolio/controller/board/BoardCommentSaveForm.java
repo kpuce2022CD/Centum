@@ -14,7 +14,11 @@ public class BoardCommentSaveForm {
     @NotNull
     private String contents;
 
-    public BoardComment toBoardComment(Board board, Member member) {
-        return new BoardComment(contents, LocalDateTime.now(), 0, board, member);
+    public BoardComment toBoardComment(Integer commentClass, Long commentOrder, Board board, Member member) {
+        return new BoardComment(contents, LocalDateTime.now(), commentClass, commentOrder, board, member);
+    }
+
+    public BoardComment toBoardComment(Integer commentClass, Long commentOrder, Long groupNum, Board board, Member member) {
+        return new BoardComment(contents, LocalDateTime.now(), commentClass, commentOrder, groupNum, board, member);
     }
 }

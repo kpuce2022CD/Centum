@@ -4,6 +4,7 @@ import centum.boxfolio.entity.member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,11 +16,16 @@ import java.util.List;
 @Entity
 public class BoardComment {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String contents;
     private LocalDateTime createdDate;
-    private long replyTally;
+    private Integer commentClass;
+    private Long commentOrder;
+    private Long groupNum;
+
+    @OneToMany(mappedBy = "groupNum", cascade = CascadeType.REMOVE)
+    private List<BoardComment> boardComments;
 
     @ManyToOne
     @JoinColumn(name = "board_id")
@@ -29,16 +35,25 @@ public class BoardComment {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "boardComment", cascade = CascadeType.ALL)
-    private List<BoardReply> boardReplies = new ArrayList<>();
-
-    public BoardComment(String contents, LocalDateTime createdDate, long replyTally, Board board, Member member) {
+    public BoardComment(String contents, LocalDateTime createdDate, Integer commentClass, Long commentOrder, Long groupNum, Board board, Member member) {
         this.contents = contents;
         this.createdDate = createdDate;
-        this.replyTally = replyTally;
+        this.commentClass = commentClass;
+        this.commentOrder = commentOrder;
+        this.groupNum = groupNum;
         setBoard(board);
         setMember(member);
     }
+
+    public BoardComment(String contents, LocalDateTime createdDate, Integer commentClass, Long commentOrder, Board board, Member member) {
+        this.contents = contents;
+        this.createdDate = createdDate;
+        this.commentClass = commentClass;
+        this.commentOrder = commentOrder;
+        setBoard(board);
+        setMember(member);
+    }
+
 
     private void setBoard(Board board) {
         if (this.board != null) {
