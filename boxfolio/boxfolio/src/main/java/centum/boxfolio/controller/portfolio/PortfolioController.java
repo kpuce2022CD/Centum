@@ -86,6 +86,9 @@ public class PortfolioController {
 
         model.addAttribute("portfolio", portfolio);
         model.addAttribute("portfolio_files", portfolioService.findPortfolioFiles(portfolio));
+
+        log.info(portfolioService.findPortfolioFiles(portfolio).get(0).toString());
+
         return "/portfolio/folio_mine";
     }
 
