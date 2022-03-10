@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class PortfolioServiceImpl implements PortfolioService{
     private final PortfolioRepository portfolioRepository;
     private final MemberRepositoryImpl memberRepository;
     @Override
-    public Portfolio upload(PortfolioSaveForm form, long memberId) {
+    public Portfolio upload(PortfolioSaveForm form, long memberId) throws IOException {
         form.setMember(memberRepository.findById(memberId).get());
         Portfolio portfolio = form.toPortfolio();
 
@@ -35,7 +36,7 @@ public class PortfolioServiceImpl implements PortfolioService{
     }
 
     @Override
-    public void change(Portfolio portfolio, String title, String context, boolean visibility) {
+    public void change(Portfolio portfolio, String title, String context, boolean visibility) throws IOException {
         LocalDateTime today = LocalDateTime.now();
         portfolio.setTitle(title);
         portfolio.setContents(context);

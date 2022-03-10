@@ -8,10 +8,14 @@ import centum.boxfolio.entity.portfolio.PortfolioStar;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,18 +27,35 @@ import java.util.List;
 public class PortfolioRepositoryImpl implements PortfolioRepository {
 
     private final EntityManager em;
+    public String MASTER_PATH = "C:\\images";
 
     @Override
-    public Portfolio save(Portfolio portfolio, ArrayList<File> files) {
+    public Portfolio save(Portfolio portfolio, ArrayList<File> files) throws IOException {
         LocalDateTime today = LocalDateTime.now();
         portfolio.setUpdatedDate(today);
         em.persist(portfolio);
         int count = 0;
         for (File f : files){
+
+            System.out.println(f.canWrite());
+            System.out.println(f.canRead());
+
+            String dir = MASTER_PATH + "\\" + portfolio.getId() + "\\";
+
+            File folder = new File(dir);
+
+            if (!folder.exists()){
+                folder.mkdirs();
+            }
+
+            BufferedImage image = ImageIO.read(f);
+
+            ImageIO.write(image, "jpg", new File(dir + f.getName()));
+
             PortfolioFiles portfolioFiles = new PortfolioFiles();
             portfolioFiles.setPortfolio(portfolio);
             portfolioFiles.setSrcOrder(count);
-            portfolioFiles.setSrc(f);
+            portfolioFiles.setSrc(dir + f.getName());
             em.persist(portfolioFiles);
         }
 

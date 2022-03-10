@@ -6,12 +6,13 @@ import centum.boxfolio.entity.portfolio.PortfolioFiles;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public interface PortfolioRepository {
-    Portfolio save (Portfolio portfolio, ArrayList<File> files);
+    Portfolio save (Portfolio portfolio, ArrayList<File> files) throws IOException;
     List<Portfolio> getHighestPortfolioList(int count);
     Portfolio findById(long id);
     List<Portfolio> findByTitle(String title);

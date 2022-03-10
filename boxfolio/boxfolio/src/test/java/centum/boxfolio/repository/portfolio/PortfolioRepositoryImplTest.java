@@ -42,7 +42,7 @@ class PortfolioRepositoryImplTest {
         System.out.println("\n");
         System.out.println("\n");
         for (PortfolioFiles pf : temp){
-            File tempImg = pf.getSrc();
+            File tempImg = new File(pf.getSrc());
 
             System.out.println(tempImg.setReadOnly());
             tempImg.setReadable(true);
