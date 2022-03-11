@@ -187,6 +187,6 @@ CREATE TABLE IF NOT EXISTS portfolio_files(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 	portfolio_id INT UNSIGNED NOT NULL,
     src_order INT UNSIGNED NOT NULL,
-    src blob NOT NULL,
+    src longtext NOT NULL,
     FOREIGN KEY (portfolio_id) REFERENCES portfolio(id)
 );

@@ -11,7 +11,7 @@ import java.util.List;
 
 
 public interface PortfolioRepository {
-    Portfolio save (Portfolio portfolio, ArrayList<File> files);
+    Portfolio save (Portfolio portfolio, ArrayList<String> files);
     List<Portfolio> getHighestPortfolioList(int count);
     Portfolio findById(long id);
     List<Portfolio> findByTitle(String title);

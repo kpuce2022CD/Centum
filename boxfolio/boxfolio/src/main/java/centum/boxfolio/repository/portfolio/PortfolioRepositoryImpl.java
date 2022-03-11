@@ -25,12 +25,12 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     private final EntityManager em;
 
     @Override
-    public Portfolio save(Portfolio portfolio, ArrayList<File> files) {
+    public Portfolio save(Portfolio portfolio, ArrayList<String> files) {
         LocalDateTime today = LocalDateTime.now();
         portfolio.setUpdatedDate(today);
         em.persist(portfolio);
         int count = 0;
-        for (File f : files){
+        for (String f : files){
             PortfolioFiles portfolioFiles = new PortfolioFiles();
             portfolioFiles.setPortfolio(portfolio);
             portfolioFiles.setSrcOrder(count);

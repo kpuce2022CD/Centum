@@ -25,6 +25,6 @@ public class PortfolioFiles {
     @NotNull
     private int srcOrder;
     @NotNull
-    private File src;
+    private String src;
 
 }
