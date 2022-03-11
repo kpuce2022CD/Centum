@@ -8,6 +8,7 @@ import centum.boxfolio.entity.portfolio.PortfolioStar;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
@@ -16,6 +17,9 @@ import javax.persistence.TypedQuery;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,15 +34,12 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     public String MASTER_PATH = "C:\\images";
 
     @Override
-    public Portfolio save(Portfolio portfolio, ArrayList<File> files) throws IOException {
+    public Portfolio save(Portfolio portfolio, List<MultipartFile> files) throws IOException {
         LocalDateTime today = LocalDateTime.now();
         portfolio.setUpdatedDate(today);
         em.persist(portfolio);
         int count = 0;
-        for (File f : files){
-
-            System.out.println(f.canWrite());
-            System.out.println(f.canRead());
+        for (MultipartFile f : files){
 
             String dir = MASTER_PATH + "\\" + portfolio.getId() + "\\";
 
@@ -48,9 +49,9 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
                 folder.mkdirs();
             }
 
-            BufferedImage image = ImageIO.read(f);
-
-            ImageIO.write(image, "jpg", new File(dir + f.getName()));
+            byte[] bytes = f.getBytes();
+            Path path = Paths.get(dir + f.getOriginalFilename());
+            Files.write(path, bytes);
 
             PortfolioFiles portfolioFiles = new PortfolioFiles();
             portfolioFiles.setPortfolio(portfolio);

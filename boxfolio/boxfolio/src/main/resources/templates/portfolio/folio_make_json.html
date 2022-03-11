@@ -61,7 +61,7 @@
                     <div class="container">
                         <div class="image-upload" id="image-upload">
                             <div>
-                                <input type="file" id="chooseFile" class="chooseFile" th:field="*{files}" accept="image/*" onchange="loadFile(this)">
+                                <input multiple="multiple" type="file" id="chooseFile" class="chooseFile" th:field="*{files}" accept="image/*" onchange="loadFile(this)">
                                 <p id="fileName"></p>
                             </div>
                         </div>
@@ -149,7 +149,7 @@
                         <div class="done">
                             <button id="end" onclick="data_in()">완료</button>
                         </div>
-                        <form  action="/portfolios/make" method="post" th:object="${portfolioSaveForm}" id="send" class="send">
+                        <form  action="/portfolios/make" method="post" th:object="${portfolioSaveForm}" id="send" class="send" enctype="multipart/form-data">
                             <input type="hidden" name="json_submit" id="json_submit" th:field="*{contents}" class="what" value="" >
                             <input type="submit" id="done" class="sub" value="제출">
                         </form>

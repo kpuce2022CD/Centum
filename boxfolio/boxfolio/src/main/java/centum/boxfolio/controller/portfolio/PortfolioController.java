@@ -56,10 +56,6 @@ public class PortfolioController {
                 HttpSession session = request.getSession();
                 long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
                 log.info(form.getContents());
-                System.out.println(form.getFiles().get(0).canWrite());
-                System.out.println(form.getFiles().get(0).canRead());
-                System.out.println(form.getFiles().get(0).setReadable(true));
-                System.out.println(form.getFiles().get(0).setWritable(true));
 
                 Portfolio savedPortfolio = portfolioService.upload(form, memberId);
             } catch (IllegalStateException e){

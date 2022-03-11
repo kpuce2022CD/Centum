@@ -2,14 +2,9 @@ package centum.boxfolio.controller.portfolio;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
-import centum.boxfolio.entity.portfolio.PortfolioFiles;
 import lombok.Getter;
 import lombok.Setter;
-import org.json.simple.JSONObject;
-
-
-import javax.validation.constraints.NotBlank;
-import java.io.File;
+import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +22,7 @@ public class PortfolioSaveForm {
 
     private Member member;
 
-    private ArrayList<File> files;
+    private List<MultipartFile> files;
 
     public Portfolio toPortfolio(){
         return new Portfolio("testTitle", contents, false, member, null, null, null);
