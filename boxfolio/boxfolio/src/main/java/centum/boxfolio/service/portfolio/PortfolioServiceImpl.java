@@ -86,5 +86,16 @@ public class PortfolioServiceImpl implements PortfolioService{
         return portfolioRepository.getPortfolioFiles(portfolio);
     }
 
+    public List<PortfolioFiles> findManyPortfolioFiles(List<Portfolio> portfolioList){
+        List<PortfolioFiles> portfolioFilesList = portfolioRepository.getPortfolioFiles(portfolioList.get(0));
+        int count = 1;
+        for (Portfolio p : portfolioList){
+            portfolioFilesList.addAll(portfolioRepository.getPortfolioFiles(portfolioList.get(count)));
+            count++;
+        }
+
+        return portfolioFilesList;
+    }
+
 
 }

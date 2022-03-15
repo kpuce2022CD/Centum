@@ -78,6 +78,7 @@ public class PortfolioController {
     public String searchPortfolioWithTitle(@RequestParam String title, Model model){
         List<Portfolio> portfolio = portfolioService.searchWithTitle(title);
         model.addAttribute("portfolioList", portfolio);
+        model.addAttribute("portfolio_files", portfolioService.findManyPortfolioFiles(portfolio));
         return "/portfolio/folio_other";
     }
 
@@ -85,6 +86,7 @@ public class PortfolioController {
     public String searchPortfolioWithMember(@RequestParam Member member, Model model) {
         Portfolio portfolio = portfolioService.searchWithMember(member);
         model.addAttribute("portfolioList", portfolio);
+        model.addAttribute("portfolio_files", portfolioService.findPortfolioFiles(portfolio));
         return "/portfolio/folio_other";
     }
 
@@ -107,6 +109,7 @@ public class PortfolioController {
         List<Portfolio> portfolioList = portfolioService.searchHighestStar(5);
 
         model.addAttribute("portfolioList", portfolioList);
+        model.addAttribute("portfolio_files", portfolioService.findManyPortfolioFiles(portfolioList));
         return "/portfolio/folio_other";
     }
 
@@ -126,6 +129,7 @@ public class PortfolioController {
         Portfolio portfolio = getPortfolioBySessionId(request);
 
         model.addAttribute(portfolio);
+        model.addAttribute("portfolio_files", portfolioService.findPortfolioFiles(portfolio));
 
         return "/portfolio/folio_make_json";
     }
