@@ -19,6 +19,13 @@
     <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
     <link rel="stylesheet" type="text/css" href="../../css/portfolio/folio_mine.css" th:href="@{/css/portfolio/folio_mine.css}" />
     <script src="../../js/portfolio/folio_mine.js"></script>
+    <script th:inline="javascript">
+        var i=0;
+        var data=[[${portfolio_files[0].src}]];
+        function test(){
+            saw(data);
+        }
+    </script>
 </head>
 
 <body onload="result()">
@@ -56,7 +63,7 @@
         <input id="file_test" class="value_test" value="portfolio" th:value="${portfolio_files}"/>
         <section class="make">
             <div class="set">
-                <div id="set-pub" class="set-pub" onclick="saw();">public</div>
+                <div id="set-pub" class="set-pub" onclick="test();">public</div>
                 <div id="set-pri" class="set-pri">private</div>
             </div>
             <div class="op">

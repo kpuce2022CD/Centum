@@ -3,6 +3,7 @@ var make=[]; //들어가있는 파일의 src나 텍스트
 var make_date='0000_00_00'; //최근 수정 날짜
 var setting='public'; //공개 설정
 var title='테스트 제목';
+var file_data;
 
 function add(){
     for(var i=0; i<mode.length; i++){
@@ -19,7 +20,7 @@ function add(){
         }
         else if(mode[i]=='image'){ //사진 파일
             var page=document.createElement('img');
-            page.src=make[i];
+            page.src='../../image/portfolio/1/215B644D56DCF5E82C.jpg';
             page.style.width='1000px';
             page.style.display='flex';
             page.style.marginLeft='auto';
@@ -64,6 +65,7 @@ function add(){
         pub.style.backgroundColor='black';
         pri.style.backgroundColor='transparent';
     }
+
     else{
         var pub=document.getElementById('set-pub');
         var pri=document.getElementById('set-pri');
@@ -75,9 +77,13 @@ function add(){
 function result() {
     var jsonData=document.getElementById('value_test').value;
     console.log(jsonData);
-    var file_data=document.getElementById('file_test').value;
-    console.log(file_data);
-    /*var data=JSON.parse(jsonData);
+    file_data='C:\\images\\1\\215B644D56DCF5E82C.jpg'//
+    var test_data = document.getElementById('file_test').value;
+
+    console.log(test_data);
+    console.log(typeof test_data);
+
+    var data=JSON.parse(jsonData);
     title=data.title;
     for(var i in data.index){
         mode[i]=data.index[i].what;
@@ -85,11 +91,8 @@ function result() {
     }
     setting=data.view;
     console.log(data);
-    add();*/
+    add();
 }
-function saw(){
-    console.log(file_data[0]);
-    var test_node=document.createElement('img');
-    test_node.src=file_data[0];
-    document.getElementById('fo').appendChild(test_node);
+function saw(input){
+    console.log(input);
 }

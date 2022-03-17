@@ -31,7 +31,7 @@ import java.util.List;
 public class PortfolioRepositoryImpl implements PortfolioRepository {
 
     private final EntityManager em;
-    public String MASTER_PATH = "C:\\images";
+    public String MASTER_PATH = "E:\\gitHub\\Centum\\boxfolio\\boxfolio\\src\\main\\resources\\static\\image\\portfolio";
 
     @Override
     public Portfolio save(Portfolio portfolio, List<MultipartFile> files) throws IOException {
