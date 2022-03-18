@@ -4,6 +4,7 @@ package centum.boxfolio.controller.portfolio;
 import centum.boxfolio.controller.member.SessionConst;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
+import centum.boxfolio.entity.portfolio.PortfolioFiles;
 import centum.boxfolio.repository.member.MemberRepositoryImpl;
 import centum.boxfolio.service.portfolio.PortfolioServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -94,11 +96,11 @@ public class PortfolioController {
     public String searchPortfolioMine(Model model, HttpServletRequest request) {
 
         Portfolio portfolio = getPortfolioBySessionId(request);
+        List<PortfolioFiles> portfolioFiles = portfolioService.findPortfolioFiles(portfolio);
+        List<String> srcList = convertPortfolioFilesToString(portfolioFiles);
 
         model.addAttribute("portfolio", portfolio);
-        model.addAttribute("portfolio_files", portfolioService.findPortfolioFiles(portfolio));
-
-        log.info(portfolioService.findPortfolioFiles(portfolio).get(0).toString());
+        model.addAttribute("portfolio_files", srcList);
 
         return "/portfolio/folio_mine";
     }
@@ -140,5 +142,16 @@ public class PortfolioController {
         long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         return portfolioService.searchWithMember(memberRepository.findById(memberId).get());
+    }
+
+    // 포트폴리오 파일 컨버터
+    private List<String> convertPortfolioFilesToString(List<PortfolioFiles> portfolioFilesList){
+
+        List<String> temp = new ArrayList<>();
+        for (PortfolioFiles pf : portfolioFilesList){
+            temp.add(pf.getSrc());
+        }
+
+        return temp;
     }
 }
