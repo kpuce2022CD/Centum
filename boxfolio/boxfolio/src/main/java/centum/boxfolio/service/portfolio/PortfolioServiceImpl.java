@@ -47,24 +47,9 @@ public class PortfolioServiceImpl implements PortfolioService{
 
     @Override
     public void starChange(Portfolio portfolio, Member member) {
-
+        portfolioRepository.changeStar(portfolio, member);
     }
 
-
-    public void upStar(Portfolio portfolio, Member member) {
-        portfolioRepository.changeStar(portfolio, member, true);
-    }
-
-
-    public void downStar(Portfolio portfolio, Member member) {
-        if (portfolio.getStarTally() == 0){
-            return;
-        } else {
-            portfolioRepository.changeStar(portfolio, member, false);
-        }
-
-
-    }
 
     @Override
     public List<Portfolio> searchWithTitle(String title) {

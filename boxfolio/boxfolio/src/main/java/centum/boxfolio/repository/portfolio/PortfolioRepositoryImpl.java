@@ -10,18 +10,15 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -119,10 +116,11 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         em.remove(portfolio);
     }
 
-    @Override
-    public void changeStar(Portfolio portfolio, Member member, boolean upDown) {
 
-        if (upDown){
+    @Override
+    public void changeStar(Portfolio portfolio, Member member) {
+
+        if (isStar(portfolio, member)){
             addRelationPortfolioStar(portfolio, member);
         } else {
             deleteRelationPortfolioStar(portfolio, member);
@@ -195,6 +193,17 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         for (PortfolioFiles pf : temp){
             em.remove(pf);
         }
+    }
+
+    private boolean isStar(Portfolio portfolio, Member member){
+        String jpql = "SELECT ps FROM PortfolioStar AS ps WHERE ps.portfolio = :portfolioId AND ps.member = :memberId";
+        TypedQuery<PortfolioStar> query = em.createQuery(jpql, PortfolioStar.class);
+        query.setParameter("portfolioId", portfolio);
+        query.setParameter("memberId", member);
+
+        PortfolioStar result = query.getSingleResult();
+
+        return result != null;
     }
 
 

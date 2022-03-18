@@ -20,6 +20,8 @@ public interface PortfolioRepository {
     Portfolio findByMember(Member member);
     List<Portfolio> findHighest ();
     void delete (Portfolio portfolio);
-    void changeStar (Portfolio portfolio, Member member, boolean upDown);
+
+    void changeStar(Portfolio portfolio, Member member);
+
     List<PortfolioFiles> getPortfolioFiles(Portfolio portfolio);
 }

@@ -87,8 +87,10 @@ public class PortfolioController {
     @GetMapping("/search/member")
     public String searchPortfolioWithMember(@RequestParam Member member, Model model) {
         Portfolio portfolio = portfolioService.searchWithMember(member);
+        List<PortfolioFiles> portfolioFiles = portfolioService.findPortfolioFiles(portfolio);
+        List<String> srcList = convertPortfolioFilesToString(portfolioFiles);
         model.addAttribute("portfolioList", portfolio);
-        model.addAttribute("portfolio_files", portfolioService.findPortfolioFiles(portfolio));
+        model.addAttribute("portfolio_files", srcList);
         return "/portfolio/folio_other";
     }
 
@@ -136,12 +138,27 @@ public class PortfolioController {
         return "/portfolio/folio_make_json";
     }
 
+    @GetMapping("/recommend")
+    public String recommendPortfolio(@RequestParam Portfolio portfolio, HttpServletRequest request, Model model){
+
+        portfolioService.starChange(portfolio, memberRepository.findById(getLoginMemberId(request)).get());
+
+        model.addAttribute("portfolio", portfolio);
+
+        return "/portfolio/folio_other";
+    }
+
     // 포트폴리오 찾기 함수
     private Portfolio getPortfolioBySessionId(HttpServletRequest request){
         HttpSession session = request.getSession();
         long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         return portfolioService.searchWithMember(memberRepository.findById(memberId).get());
+    }
+
+    private Long getLoginMemberId(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        return (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
     }
 
     // 포트폴리오 파일 컨버터
