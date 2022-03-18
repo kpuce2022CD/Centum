@@ -53,7 +53,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
             PortfolioFiles portfolioFiles = new PortfolioFiles();
             portfolioFiles.setPortfolio(portfolio);
             portfolioFiles.setSrcOrder(count);
-            portfolioFiles.setSrc(f.getOriginalFilename());
+            portfolioFiles.setSrc(portfolio.getId() + "\\" + f.getOriginalFilename());
             em.persist(portfolioFiles);
             count += 1;
         }
