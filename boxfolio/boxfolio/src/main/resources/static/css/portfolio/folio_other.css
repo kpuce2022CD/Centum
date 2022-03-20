@@ -14,7 +14,9 @@ header{
     width: calc(80% - 1px);
     margin: 0 auto;
 }
-
+.nothing{
+    display: none;
+}
 .op{
     float: right;
     margin-top: 20px;

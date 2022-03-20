@@ -20,15 +20,14 @@
     <link rel="stylesheet" type="text/css" href="../../css/portfolio/folio_mine.css" th:href="@{/css/portfolio/folio_mine.css}" />
     <script src="../../js/portfolio/folio_mine.js"></script>
     <script th:inline="javascript">
-        var i=0;
-        var data=[[${portfolio_files[0].src}]];
-        function test(){
-            saw(data);
+        function start(){
+            id_set([[${portfolio.id}]]);
+            result();
         }
     </script>
 </head>
 
-<body onload="result()">
+<body onload="start()">
 <div id="root-wrap">
     <header th:replace="template/header :: common_header">
         <div class="wrap">
@@ -63,14 +62,14 @@
         <input id="file_test" class="value_test" value="portfolio" th:value="${portfolio_files}"/>
         <section class="make">
             <div class="set">
-                <div id="set-pub" class="set-pub" onclick="test();">public</div>
+                <div id="set-pub" class="set-pub">public</div>
                 <div id="set-pri" class="set-pri">private</div>
             </div>
             <div class="op">
                 <a href="/portfolios/make" class="make-btn">
                     작성
                 </a>
-                <button class="del-btn">
+                <button class="del-btn" onclick = "location.href = '../../portfolios/delete' ">
                     삭제
                 </button>
             </div>

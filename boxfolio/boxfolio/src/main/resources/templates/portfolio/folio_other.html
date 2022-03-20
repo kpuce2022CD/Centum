@@ -53,18 +53,19 @@
     </header>
     <div class="portf">
         <section class="make">
-            <div class="op">
+            <form action="portfolios/recommend" method="post" class="op">
+                <input type="text" class="nothing" value="" th:value="${portfolio.id}">
                 <a href="#" class="name_btn" id="name_btn">
                     작성자 : OOO
                 </a>
-                <button class="up-btn" id="up-btn" onclick="rec_up()">
+                <button type="submit" class="up-btn" id="up-btn" onclick="rec_up()">
                     추천 : 0
                 </button>
-            </div>
+            </form>
             <div class="fo" id="fo">
             </div>
             <p id="date_1" class="date_1">작성 날짜 : </p>
-            <p id="date_2" class="date_2">0000_00_00</p>
+            <p id="date_2" class="date_2">0000.00.00</p>
             
         </section>
     </div>
