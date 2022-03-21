@@ -47,24 +47,9 @@ public class PortfolioServiceImpl implements PortfolioService{
 
     @Override
     public void starChange(Portfolio portfolio, Member member) {
-
+        portfolioRepository.changeStar(portfolio, member);
     }
 
-
-    public void upStar(Portfolio portfolio, Member member) {
-        portfolioRepository.changeStar(portfolio, member, true);
-    }
-
-
-    public void downStar(Portfolio portfolio, Member member) {
-        if (portfolio.getStarTally() == 0){
-            return;
-        } else {
-            portfolioRepository.changeStar(portfolio, member, false);
-        }
-
-
-    }
 
     @Override
     public List<Portfolio> searchWithTitle(String title) {
@@ -84,6 +69,17 @@ public class PortfolioServiceImpl implements PortfolioService{
     @Override
     public List<PortfolioFiles> findPortfolioFiles(Portfolio portfolio) {
         return portfolioRepository.getPortfolioFiles(portfolio);
+    }
+
+    public List<PortfolioFiles> findManyPortfolioFiles(List<Portfolio> portfolioList){
+        List<PortfolioFiles> portfolioFilesList = portfolioRepository.getPortfolioFiles(portfolioList.get(0));
+        int count = 1;
+        for (Portfolio p : portfolioList){
+            portfolioFilesList.addAll(portfolioRepository.getPortfolioFiles(portfolioList.get(count)));
+            count++;
+        }
+
+        return portfolioFilesList;
     }
 
 
