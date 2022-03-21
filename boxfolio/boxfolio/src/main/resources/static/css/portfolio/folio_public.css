@@ -152,3 +152,25 @@ header {
 .portfolio-scrap:hover {
     color: #00aeff;
 }
+
+.portfolio_change {
+    margin-top: 20px;
+}
+.before{
+    float: left;
+}
+.before:hover {
+    color: #f93;
+    cursor: pointer;
+    transition: transform 0.5s;
+    transform: translateX(-2px);
+}
+.next{
+    float: right;
+}
+.next:hover {
+    color: #f93;
+    cursor: pointer;
+    transition: transform 0.5s;
+    transform: translateX(2px);
+}
