@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import java.io.File;
@@ -28,7 +29,8 @@ import java.util.List;
 public class PortfolioRepositoryImpl implements PortfolioRepository {
 
     private final EntityManager em;
-    public String MASTER_PATH = "E:\\gitHub\\Centum\\boxfolio\\boxfolio\\src\\main\\resources\\static\\image\\portfolio";
+
+    public String MASTER_PATH = "C:\\Users\\joey3\\centum\\Centum\\boxfolio\\boxfolio\\src\\main\\resources\\static\\image\\portfolio";
 
     @Override
     public Portfolio save(Portfolio portfolio, List<MultipartFile> files) throws IOException {
@@ -109,11 +111,18 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         return query.getResultList();
     }
 
+    @Transactional
     @Override
     public void delete(Portfolio portfolio) {
+
         deleteRelationAllPortfolioStar(portfolio);
         deleteRelationAllPortfolioFiles(portfolio);
-        em.remove(portfolio);
+
+        Portfolio temp = findById(portfolio.getId());
+        em.remove(temp);
+        em.flush();
+
+        System.out.println("\ndelete complete\n" + portfolio.getId());
     }
 
 
