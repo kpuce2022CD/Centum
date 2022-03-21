@@ -38,12 +38,13 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         LocalDateTime today = LocalDateTime.now();
         portfolio.setUpdatedDate(today);
 
-        int count = 0;
-
+        em.persist(portfolio);
+        String dir = MASTER_PATH + "\\" + portfolio.getId() + "\\";
         for (MultipartFile f : files){
 
+            System.out.println("\n" + portfolio.getId() + "\n");
 
-            String dir = MASTER_PATH + "\\" + portfolio.getId() + "\\";
+            System.out.println("\n" + dir + "\n");
 
             File folder = new File(dir);
 
@@ -65,7 +66,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
             count += 1;
             */
         }
-        em.persist(portfolio);
+
 
         return portfolio;
     }
