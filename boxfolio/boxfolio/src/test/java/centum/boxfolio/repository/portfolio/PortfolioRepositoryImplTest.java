@@ -34,24 +34,6 @@ class PortfolioRepositoryImplTest {
     @Test
     void test () throws IOException {
 
-        BufferedImage img = null;
-
-        Portfolio portfolio = portfolioRepository.findById(6);
-
-        List<PortfolioFiles> temp = portfolioRepository.getPortfolioFiles(portfolio);
-        System.out.println("\n");
-        System.out.println("\n");
-        for (PortfolioFiles pf : temp){
-            File tempImg = new File(pf.getSrc());
-
-            System.out.println(tempImg.setReadOnly());
-            tempImg.setReadable(true);
-            System.out.println(tempImg);
-            System.out.println(tempImg.canRead());
-            System.out.println(tempImg.canWrite());
-
-            img = ImageIO.read(tempImg);
-        }
     }
 
 }
