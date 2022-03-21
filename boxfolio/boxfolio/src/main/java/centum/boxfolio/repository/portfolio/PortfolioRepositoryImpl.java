@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import java.io.File;
@@ -118,11 +119,14 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     public void delete(Portfolio portfolio) {
 
         deleteRelationAllPortfolioStar(portfolio);
-        deleteRelationAllPortfolioFiles(portfolio);
 
-        Portfolio temp = findById(portfolio.getId());
-        em.remove(temp);
-        em.flush();
+        String jpql = "DELETE FROM Portfolio AS p WHERE p.id = :id";
+
+
+        Query query = em.createQuery(jpql);
+        query.setParameter("id", portfolio.getId());
+
+        query.executeUpdate();
 
         System.out.println("\ndelete complete\n" + portfolio.getId());
     }
