@@ -55,12 +55,15 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
             Path path = Paths.get(dir + f.getOriginalFilename());
             Files.write(path, bytes);
 
+            
+            /*
             PortfolioFiles portfolioFiles = new PortfolioFiles();
             portfolioFiles.setPortfolio(portfolio);
             portfolioFiles.setSrcOrder(count);
             portfolioFiles.setSrc(portfolio.getId() + "\\" + f.getOriginalFilename());
             em.persist(portfolioFiles);
             count += 1;
+            */
         }
         em.persist(portfolio);
 
