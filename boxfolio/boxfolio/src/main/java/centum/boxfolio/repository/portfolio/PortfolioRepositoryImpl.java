@@ -33,12 +33,17 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     public Portfolio save(Portfolio portfolio, ArrayList<File> files) throws IOException {
         LocalDateTime today = LocalDateTime.now();
         portfolio.setUpdatedDate(today);
-        em.persist(portfolio);
+
         int count = 0;
         for (File f : files){
 
             System.out.println(f.canWrite());
             System.out.println(f.canRead());
+            System.out.println(f.setReadable(true));
+            System.out.println(f.setWritable(true));
+            System.out.println("path: " + f.getAbsolutePath());
+            System.out.println("space: " + f.getTotalSpace());
+            f.getAbsoluteFile();
 
             String dir = MASTER_PATH + "\\" + portfolio.getId() + "\\";
 
@@ -58,7 +63,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
             portfolioFiles.setSrc(dir + f.getName());
             em.persist(portfolioFiles);
         }
-
+        em.persist(portfolio);
 
         return portfolio;
     }
