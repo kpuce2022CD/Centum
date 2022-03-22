@@ -141,7 +141,9 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public Recruitment createRecruitPost(RecruitBoardSaveForm recruitBoardSaveForm, Long memberId) {
         Optional<Member> member = memberRepository.findById(memberId);
-        return boardRepository.saveRecruitPost(recruitBoardSaveForm.toRecruitBoard(member.get()));
+        Recruitment recruitment = boardRepository.saveRecruitPost(recruitBoardSaveForm.toRecruitBoard(member.get()));
+        boardRepository.saveProjectMember(recruitment, member.get());
+        return recruitment;
     }
 
     @Override

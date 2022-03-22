@@ -24,7 +24,11 @@ public class BoardComment {
     private Long commentOrder;
     private Long groupNum;
 
-    @OneToMany(mappedBy = "groupNum", cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private BoardComment boardComment;
+
+    @OneToMany(mappedBy = "boardComment", cascade = CascadeType.REMOVE)
     private List<BoardComment> boardComments;
 
     @ManyToOne
@@ -35,25 +39,36 @@ public class BoardComment {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public BoardComment(String contents, LocalDateTime createdDate, Integer commentClass, Long commentOrder, Long groupNum, Board board, Member member) {
+    public BoardComment(String contents, LocalDateTime createdDate, Integer commentClass, Long commentOrder, Long groupNum, BoardComment boardComment, Board board, Member member) {
         this.contents = contents;
         this.createdDate = createdDate;
         this.commentClass = commentClass;
         this.commentOrder = commentOrder;
         this.groupNum = groupNum;
+        setParent(boardComment);
         setBoard(board);
         setMember(member);
     }
 
-    public BoardComment(String contents, LocalDateTime createdDate, Integer commentClass, Long commentOrder, Board board, Member member) {
+    public BoardComment(String contents, LocalDateTime createdDate, Integer commentClass, Long commentOrder, BoardComment boardComment, Board board, Member member) {
         this.contents = contents;
         this.createdDate = createdDate;
         this.commentClass = commentClass;
         this.commentOrder = commentOrder;
+        setParent(boardComment);
         setBoard(board);
         setMember(member);
     }
 
+    private void setParent(BoardComment boardComment) {
+        if (this.boardComment != null) {
+            this.boardComment.getBoardComments().remove(this);
+        }
+        this.boardComment = boardComment;
+        if (boardComment != null) {
+            boardComment.getBoardComments().add(this);
+        }
+    }
 
     private void setBoard(Board board) {
         if (this.board != null) {

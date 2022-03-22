@@ -127,8 +127,8 @@
                                 <img src="../../static/image/member.png" alt="member-img" th:src="@{/image/member.png}">
                             </a>
                             <div class="comment-info">
-                                <a href="" id="commenter-nickname" th:text="${loginMember.nickname}">SeoArc</a>
-                                <p class="mention-member" th:if="${comment.groupNum} != ${comment.id}" th:text="|@${comment.member.nickname}|"></p>
+                                <a href="" id="commenter-nickname" th:text="${comment.member.nickname}">SeoArc</a>
+                                <p class="mention-member" th:if="${comment.groupNum} != ${comment.id}" th:text="|@${comment.boardComment.member.nickname}|"></p>
                                 <p class="comment" th:utext="${comment.contents}">댓글입니다.</p>
                                 <div class="reply-access">
                                     <span class="comment-created" th:text="${#temporals.format(comment.createdDate, 'yyyy.MM.dd. HH:mm')}">2022.01.12. 01:23</span>

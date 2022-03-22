@@ -1,9 +1,6 @@
 package centum.boxfolio.repository.board;
 
-import centum.boxfolio.entity.board.Board;
-import centum.boxfolio.entity.board.Free;
-import centum.boxfolio.entity.board.Information;
-import centum.boxfolio.entity.board.Recruitment;
+import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.member.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -110,6 +107,14 @@ public class BoardRepositoryImpl implements BoardRepository {
     public void removeRecruitBoard(Long id) {
         Optional<Recruitment> post = findRecruitPostById(id);
         em.remove(post.get());
+    }
+
+    @Override
+    public ProjectMember saveProjectMember(Recruitment recruitment, Member member) {
+        recruitment.setMemberTally(recruitment.getMemberTally() + 1);
+        ProjectMember projectMember = new ProjectMember(recruitment, member);
+        em.persist(projectMember);
+        return projectMember;
     }
 
     @Override
