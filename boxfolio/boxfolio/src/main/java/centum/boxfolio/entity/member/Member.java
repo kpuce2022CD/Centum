@@ -61,6 +61,9 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<BoardComment> boardComments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<ProjectMember> projectMembers = new ArrayList<>();
+
     public Member(String loginId, String passwd, String realName, String nickname, String phone,
                   String email, LocalDate birth, int sex, String githubId,
                   String interestField, MemberAbility memberAbility) {

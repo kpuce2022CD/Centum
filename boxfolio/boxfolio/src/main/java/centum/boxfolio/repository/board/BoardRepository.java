@@ -1,9 +1,6 @@
 package centum.boxfolio.repository.board;
 
-import centum.boxfolio.entity.board.Board;
-import centum.boxfolio.entity.board.Free;
-import centum.boxfolio.entity.board.Information;
-import centum.boxfolio.entity.board.Recruitment;
+import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.member.Member;
 
 import java.util.List;
@@ -28,6 +25,8 @@ public interface BoardRepository {
     Optional<Recruitment> findRecruitPostById(Long id);
     List<Recruitment> findRecruitBoard();
     void removeRecruitBoard(Long id);
+
+    ProjectMember saveProjectMember(Recruitment recruitment, Member member);
 
     Board upView(Board board);
 }

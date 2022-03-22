@@ -43,6 +43,9 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<BoardComment> boardComments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private List<ProjectMember> projectMembers = new ArrayList<>();
+
     public Board(String title, String contents, LocalDateTime createdDate,
                  boolean commentAllow, boolean scrapAllow, String visibility, Member member) {
         this.title = title;

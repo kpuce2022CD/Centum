@@ -15,17 +15,12 @@ import java.util.List;
 @Setter
 public class PortfolioSaveForm {
 
-
     private String title;
-
     private String contents;
-
     private String visibility;
-
     private Member member;
 
     public Portfolio toPortfolio(){
         return new Portfolio("testTitle", contents, false, member, null, null, null);
     }
-
 }

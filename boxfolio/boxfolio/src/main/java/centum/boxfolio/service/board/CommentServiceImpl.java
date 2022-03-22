@@ -25,7 +25,7 @@ public class CommentServiceImpl implements CommentService{
     public BoardComment createComment(BoardCommentSaveForm boardCommentSaveForm, Long boardId, Long memberId) {
         Optional<Board> board = boardRepository.findGeneralPostById(boardId);
         Optional<Member> member = memberRepository.findById(memberId);
-        return commentRepository.save(boardCommentSaveForm.toBoardComment(0, 0L, board.get(), member.get()));
+        return commentRepository.save(boardCommentSaveForm.toBoardComment(0, 0L, null, board.get(), member.get()));
     }
 
     @Override
@@ -47,12 +47,14 @@ public class CommentServiceImpl implements CommentService{
     public BoardComment createReply(BoardCommentSaveForm boardCommentSaveForm, Long commentId, Long memberId) {
         Optional<BoardComment> comment = commentRepository.findById(commentId);
         Optional<Member> member = memberRepository.findById(memberId);
+
         if (comment.isEmpty() || member.isEmpty()) {
             return null;
         }
+
         Long groupNum = comment.get().getGroupNum();
-        Long maxOrderInGroupNum = commentRepository.findMaxOrderInGroupNum(groupNum);
         Board board = comment.get().getBoard();
-        return commentRepository.save(boardCommentSaveForm.toBoardComment(1, maxOrderInGroupNum + 1, groupNum, board, member.get()));
+        Long maxOrderInGroupNum = commentRepository.findMaxOrderInGroupNum(groupNum);
+        return commentRepository.save(boardCommentSaveForm.toBoardComment(1, maxOrderInGroupNum + 1, groupNum, comment.get(), board, member.get()));
     }
 }
