@@ -8,11 +8,15 @@ import lombok.Setter;
 @Setter
 public class PortfolioLoadForm {
 
-    private String title;
-
     private String contents;
 
-    private String visibility;
-
     private String writer;
+
+    private long star;
+
+    public PortfolioLoadForm(String contents, String nickname, long starTally) {
+        this.contents = contents;
+        this.writer = nickname;
+        this.star = starTally;
+    }
 }

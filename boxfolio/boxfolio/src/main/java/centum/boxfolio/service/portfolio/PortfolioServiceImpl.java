@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class PortfolioServiceImpl implements PortfolioService{
     private final PortfolioRepository portfolioRepository;
     private final MemberRepositoryImpl memberRepository;
     @Override
-    public Portfolio upload(PortfolioSaveForm form, long memberId) {
+    public Portfolio upload(PortfolioSaveForm form, long memberId) throws IOException {
         form.setMember(memberRepository.findById(memberId).get());
         Portfolio portfolio = form.toPortfolio();
 
@@ -35,7 +36,7 @@ public class PortfolioServiceImpl implements PortfolioService{
     }
 
     @Override
-    public void change(Portfolio portfolio, String title, String context, boolean visibility) {
+    public void change(Portfolio portfolio, String title, String context, boolean visibility) throws IOException {
         LocalDateTime today = LocalDateTime.now();
         portfolio.setTitle(title);
         portfolio.setContents(context);
@@ -46,24 +47,9 @@ public class PortfolioServiceImpl implements PortfolioService{
 
     @Override
     public void starChange(Portfolio portfolio, Member member) {
-
+        portfolioRepository.changeStar(portfolio, member);
     }
 
-
-    public void upStar(Portfolio portfolio, Member member) {
-        portfolioRepository.changeStar(portfolio, member, true);
-    }
-
-
-    public void downStar(Portfolio portfolio, Member member) {
-        if (portfolio.getStarTally() == 0){
-            return;
-        } else {
-            portfolioRepository.changeStar(portfolio, member, false);
-        }
-
-
-    }
 
     @Override
     public List<Portfolio> searchWithTitle(String title) {
@@ -83,6 +69,17 @@ public class PortfolioServiceImpl implements PortfolioService{
     @Override
     public List<PortfolioFiles> findPortfolioFiles(Portfolio portfolio) {
         return portfolioRepository.getPortfolioFiles(portfolio);
+    }
+
+    public List<PortfolioFiles> findManyPortfolioFiles(List<Portfolio> portfolioList){
+        List<PortfolioFiles> portfolioFilesList = portfolioRepository.getPortfolioFiles(portfolioList.get(0));
+        int count = 1;
+        for (Portfolio p : portfolioList){
+            portfolioFilesList.addAll(portfolioRepository.getPortfolioFiles(portfolioList.get(count)));
+            count++;
+        }
+
+        return portfolioFilesList;
     }
 
 

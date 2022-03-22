@@ -4,6 +4,7 @@ package centum.boxfolio.controller.portfolio;
 import centum.boxfolio.controller.member.SessionConst;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
+import centum.boxfolio.entity.portfolio.PortfolioFiles;
 import centum.boxfolio.repository.member.MemberRepositoryImpl;
 import centum.boxfolio.service.portfolio.PortfolioServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -34,7 +37,15 @@ public class PortfolioController {
 
         List<Portfolio> portfolioList = portfolioService.searchHighestStar(5);
 
-        model.addAttribute("portfolioList", portfolioList);
+
+        List<PortfolioLoadForm> portfolioLoadFormList = new ArrayList<>();
+
+        for (Portfolio p : portfolioList){
+            portfolioLoadFormList.add(new PortfolioLoadForm(p.getContents(), p.getMember().getNickname(), p.getStarTally()));
+        }
+
+
+        model.addAttribute("portfolioList", portfolioLoadFormList);
 
         return "/portfolio/folio_pub";
     }
@@ -55,11 +66,14 @@ public class PortfolioController {
                 HttpSession session = request.getSession();
                 long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
                 log.info(form.getContents());
+
                 Portfolio savedPortfolio = portfolioService.upload(form, memberId);
             } catch (IllegalStateException e){
                 bindingResult.reject("upload portfolio failed", e.getMessage());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            log.info("post success");
+        log.info("post success");
 
             return "/portfolio/folio_pub";
         }
@@ -74,13 +88,17 @@ public class PortfolioController {
     public String searchPortfolioWithTitle(@RequestParam String title, Model model){
         List<Portfolio> portfolio = portfolioService.searchWithTitle(title);
         model.addAttribute("portfolioList", portfolio);
+        model.addAttribute("portfolio_files", portfolioService.findManyPortfolioFiles(portfolio));
         return "/portfolio/folio_other";
     }
 
     @GetMapping("/search/member")
     public String searchPortfolioWithMember(@RequestParam Member member, Model model) {
         Portfolio portfolio = portfolioService.searchWithMember(member);
+        List<PortfolioFiles> portfolioFiles = portfolioService.findPortfolioFiles(portfolio);
+        List<String> srcList = convertPortfolioFilesToString(portfolioFiles);
         model.addAttribute("portfolioList", portfolio);
+        model.addAttribute("portfolio_files", srcList);
         return "/portfolio/folio_other";
     }
 
@@ -88,11 +106,11 @@ public class PortfolioController {
     public String searchPortfolioMine(Model model, HttpServletRequest request) {
 
         Portfolio portfolio = getPortfolioBySessionId(request);
+        List<PortfolioFiles> portfolioFiles = portfolioService.findPortfolioFiles(portfolio);
+        List<String> srcList = convertPortfolioFilesToString(portfolioFiles);
 
         model.addAttribute("portfolio", portfolio);
-        model.addAttribute("portfolio_files", portfolioService.findPortfolioFiles(portfolio));
-
-        log.info(portfolioService.findPortfolioFiles(portfolio).get(0).toString());
+        model.addAttribute("portfolio_files", srcList);
 
         return "/portfolio/folio_mine";
     }
@@ -103,6 +121,7 @@ public class PortfolioController {
         List<Portfolio> portfolioList = portfolioService.searchHighestStar(5);
 
         model.addAttribute("portfolioList", portfolioList);
+        model.addAttribute("portfolio_files", portfolioService.findManyPortfolioFiles(portfolioList));
         return "/portfolio/folio_other";
     }
 
@@ -122,8 +141,19 @@ public class PortfolioController {
         Portfolio portfolio = getPortfolioBySessionId(request);
 
         model.addAttribute(portfolio);
+        model.addAttribute("portfolio_files", portfolioService.findPortfolioFiles(portfolio));
 
         return "/portfolio/folio_make_json";
+    }
+
+    @GetMapping("/recommend")
+    public String recommendPortfolio(@RequestParam Portfolio portfolio, HttpServletRequest request, Model model){
+
+        portfolioService.starChange(portfolio, memberRepository.findById(getLoginMemberId(request)).get());
+
+        model.addAttribute("portfolio", portfolio);
+
+        return "/portfolio/folio_other";
     }
 
     // 포트폴리오 찾기 함수
@@ -132,5 +162,21 @@ public class PortfolioController {
         long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         return portfolioService.searchWithMember(memberRepository.findById(memberId).get());
+    }
+
+    private Long getLoginMemberId(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        return (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
+    }
+
+    // 포트폴리오 파일 컨버터
+    private List<String> convertPortfolioFilesToString(List<PortfolioFiles> portfolioFilesList){
+
+        List<String> temp = new ArrayList<>();
+        for (PortfolioFiles pf : portfolioFilesList){
+            temp.add(pf.getSrc());
+        }
+
+        return temp;
     }
 }
