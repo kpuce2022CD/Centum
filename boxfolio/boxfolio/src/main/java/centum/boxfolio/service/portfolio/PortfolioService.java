@@ -19,4 +19,5 @@ public interface PortfolioService {
     Portfolio searchWithMember (Member member);
     List<Portfolio> searchHighestStar (int count);
     List<PortfolioFiles> findPortfolioFiles(Portfolio portfolio);
+    Portfolio searchWithId (long Id);
 }

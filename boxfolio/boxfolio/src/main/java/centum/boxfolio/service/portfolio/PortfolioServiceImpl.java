@@ -71,6 +71,11 @@ public class PortfolioServiceImpl implements PortfolioService{
         return portfolioRepository.getPortfolioFiles(portfolio);
     }
 
+    @Override
+    public Portfolio searchWithId(long id) {
+        return portfolioRepository.findById(id);
+    }
+
     public List<PortfolioFiles> findManyPortfolioFiles(List<Portfolio> portfolioList){
         List<PortfolioFiles> portfolioFilesList = portfolioRepository.getPortfolioFiles(portfolioList.get(0));
         int count = 1;
