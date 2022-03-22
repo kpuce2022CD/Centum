@@ -37,7 +37,15 @@ public class PortfolioController {
 
         List<Portfolio> portfolioList = portfolioService.searchHighestStar(5);
 
-        model.addAttribute("portfolioList", portfolioList);
+
+        List<PortfolioLoadForm> portfolioLoadFormList = new ArrayList<>();
+
+        for (Portfolio p : portfolioList){
+            portfolioLoadFormList.add(new PortfolioLoadForm(p.getContents(), p.getMember().getNickname(), p.getStarTally()));
+        }
+
+
+        model.addAttribute("portfolioList", portfolioLoadFormList);
 
         return "/portfolio/folio_pub";
     }
