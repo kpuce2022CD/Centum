@@ -9,10 +9,7 @@ import lombok.Setter;
 public class PortfolioLoadForm {
 
     private String title;
-
     private String contents;
-
     private String visibility;
-
     private String writer;
 }

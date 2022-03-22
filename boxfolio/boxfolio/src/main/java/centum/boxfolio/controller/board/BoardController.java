@@ -51,8 +51,6 @@ public class BoardController {
         Free post = boardService.readFreePost(boardId);
         List<BoardComment> boardComments = commentService.readCommentsByBoardId(boardId);
 
-        Member member = getLoginMember(request);
-        model.addAttribute("loginMember", member);
         model.addAttribute("freePost", post);
         model.addAttribute("comments", boardComments);
         model.addAttribute("boardCommentSaveForm", new BoardCommentSaveForm());
@@ -64,8 +62,6 @@ public class BoardController {
         Information post = boardService.readInfoPost(boardId);
         List<BoardComment> boardComments = commentService.readCommentsByBoardId(boardId);
 
-        Member member = getLoginMember(request);
-        model.addAttribute("loginMember", member);
         model.addAttribute("infoPost", post);
         model.addAttribute("comments", boardComments);
         model.addAttribute("boardCommentSaveForm", new BoardCommentSaveForm());
@@ -77,19 +73,10 @@ public class BoardController {
         Recruitment post = boardService.readRecruitPost(boardId);
         List<BoardComment> boardComments = commentService.readCommentsByBoardId(boardId);
 
-        Member member = getLoginMember(request);
-        model.addAttribute("loginMember", member);
         model.addAttribute("recruitPost", post);
         model.addAttribute("comments", boardComments);
         model.addAttribute("boardCommentSaveForm", new BoardCommentSaveForm());
         return "board/recruitment_post";
-    }
-
-    private Member getLoginMember(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        String memberId = session.getAttribute(SessionConst.LOGIN_MEMBER).toString();
-        Member member = memberRepository.findById(Long.parseLong(memberId)).get();
-        return member;
     }
 
     @GetMapping("/free/edit")
