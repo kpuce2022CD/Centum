@@ -20,6 +20,11 @@
     <link rel="stylesheet" href="../../css/portfolio/folio_public.css" th:href="@{/css/portfolio/folio_public.css}">
     <script src="../../js/portfolio/folio_public.js"></script>
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
+    <script th:inline="javascript">
+        var contents=[[${portfolio.contents}]];
+        var writer=[[${portfolio.writer}]];
+        var star=[[${portfolio.star}]];
+    </script>
 </head>
 
 <body>
@@ -80,115 +85,122 @@
                     <!-- <c:forEach var="portfolio" items="${portfolioList}"> -->
                     <div id="best_portfolio-view" class="portfolio-view">
                         <li class="portfolio-card">
-                            <a href="#">
+                            <a class="b_href" href="#">
                                 <div class="portfolio-info">
                                     <div class="portfolio-head">
-                                        <h3>
+                                        <h3 class="b_id">
                                             서원호님의 포트폴리오
                                         </h3>
                                     </div>
                                     <div class="portfolio-title">
-                                        제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.
+                                        <p class="b_title">제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.</p>
                                     </div>
                                     <div class="interested">
-                                        <p>웹 / 백엔드</p>
+                                        <p class="b_info">웹 / 백엔드</p>
+                                    </div>
+                                    <div class="portfolio-created">
+                                        <p class="b_date">2022-02-11 12:30</p>
                                     </div>
                                 </div>
                             </a>
                             <ul class="portfolio-icons">
                                 <li class="portfolio-star">
                                     <i class="far fa-star"></i>
-                                    <span>12</span>
+                                    <span class="b_star">12</span>
+                                </li>
+                                <li class="portfolio-scrap">
+                                    <i class="far fa-bookmark"></i>
+                                    <span class="b_scrap">381</span>
                                 </li>
                             </ul>
                         </li>
                         <li class="portfolio-card">
-                            <a href="#">
+                            <a class="b_href" href="#">
                                 <div class="portfolio-info">
                                     <div class="portfolio-head">
-                                        <h3>
+                                        <h3 class="b_id">
                                             서원호님의 포트폴리오
                                         </h3>
                                     </div>
                                     <div class="portfolio-title">
-                                        제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.
+                                        <p class="b_title">제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.</p>
                                     </div>
                                     <div class="interested">
-                                        <p>웹 / 백엔드</p>
+                                        <p class="b_info">웹 / 백엔드</p>
                                     </div>
                                     <div class="portfolio-created">
-                                        <p>2022-02-11 12:30</p>
+                                        <p class="b_date">2022-02-11 12:30</p>
                                     </div>
                                 </div>
                             </a>
                             <ul class="portfolio-icons">
                                 <li class="portfolio-star">
                                     <i class="far fa-star"></i>
-                                    <span>12</span>
+                                    <span class="b_star">12</span>
                                 </li>
                                 <li class="portfolio-scrap">
                                     <i class="far fa-bookmark"></i>
-                                    <span>381</span>
+                                    <span class="b_scrap">381</span>
                                 </li>
                             </ul>
                         </li>
                         <li class="portfolio-card">
-                            <a href="#">
+                            <a class="b_href" href="#">
                                 <div class="portfolio-info">
                                     <div class="portfolio-head">
-                                        <h3>
+                                        <h3 class="b_id">
                                             서원호님의 포트폴리오
                                         </h3>
                                     </div>
                                     <div class="portfolio-title">
-                                        제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.
+                                        <p class="b_title">제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.</p>
                                     </div>
                                     <div class="interested">
-                                        <p>웹 / 백엔드</p>
+                                        <p class="b_info">웹 / 백엔드</p>
                                     </div>
                                     <div class="portfolio-created">
-                                        <p>2022-02-11 12:30</p>
+                                        <p class="b_date">2022-02-11 12:30</p>
                                     </div>
                                 </div>
                             </a>
                             <ul class="portfolio-icons">
                                 <li class="portfolio-star">
                                     <i class="far fa-star"></i>
-                                    <span>12</span>
+                                    <span class="b_star">12</span>
                                 </li>
                                 <li class="portfolio-scrap">
                                     <i class="far fa-bookmark"></i>
-                                    <span>381</span>
+                                    <span class="b_scrap">381</span>
                                 </li>
                             </ul>
                         </li>
                         <li class="portfolio-card">
-                            <a href="#">
+                            <a class="b_href" href="#">
                                 <div class="portfolio-info">
                                     <div class="portfolio-head">
-                                        <h3>
+                                        <h3 class="b_id">
                                             서원호님의 포트폴리오
                                         </h3>
                                     </div>
                                     <div class="portfolio-title">
-                                        제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.
+                                        <p class="b_title">제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.</p>
                                     </div>
                                     <div class="interested">
-                                        <p>웹 / 백엔드</p>
+                                        <p class="b_info">웹 / 백엔드</p>
                                     </div>
                                     <div class="portfolio-created">
-                                        <p>2022-02-11 12:30</p>
+                                        <p class="b_date">2022-02-11 12:30</p>
                                     </div>
                                 </div>
                             </a>
                             <ul class="portfolio-icons">
                                 <li class="portfolio-star">
                                     <i class="far fa-star"></i>
-                                    <span>12</span>
+                                    <span class="b_star">12</span>
                                 </li>
                                 <li class="portfolio-scrap">
                                     <i class="far fa-bookmark"></i>
-                                    <span>381</span>
+                                    <span class="b_scrap">381</span>
                                 </li>
                             </ul>
                         </li>
@@ -198,32 +210,32 @@
                     <!-- <c:forEach var="portfolio" items="${portfolioList}"> -->
                     <div id="portfolio-view" class="portfolio-view">
                         <li class="portfolio-card">
-                            <a href="#">
+                            <a class="n_href" href="#">
                                 <div class="portfolio-info">
                                     <div class="portfolio-head">
-                                        <h3>
+                                        <h3 class="n_id">
                                             서원호님의 포트폴리오
                                         </h3>
                                     </div>
                                     <div class="portfolio-title">
-                                        제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.
+                                        <p class="n_title">제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.</p>
                                     </div>
                                     <div class="interested">
-                                        <p>웹 / 백엔드</p>
+                                        <p class="n_info">웹 / 백엔드</p>
                                     </div>
                                     <div class="portfolio-created">
-                                        <p>2022-02-11 12:30</p>
+                                        <p class="n_date">2022-02-11 12:30</p>
                                     </div>
                                 </div>
                             </a>
                             <ul class="portfolio-icons">
                                 <li class="portfolio-star">
                                     <i class="far fa-star"></i>
-                                    <span>12</span>
+                                    <span class="n_star">12</span>
                                 </li>
                                 <li class="portfolio-scrap">
                                     <i class="far fa-bookmark"></i>
-                                    <span>381</span>
+                                    <span class="n_scrap">381</span>
                                 </li>
                             </ul>
                         </li>
