@@ -13,7 +13,9 @@ import java.util.List;
 
 
 public interface PortfolioRepository {
+
     Portfolio save (Portfolio portfolio, List<MultipartFile> files) throws IOException;
+
     List<Portfolio> getHighestPortfolioList(int count);
     Portfolio findById(long id);
     List<Portfolio> findByTitle(String title);

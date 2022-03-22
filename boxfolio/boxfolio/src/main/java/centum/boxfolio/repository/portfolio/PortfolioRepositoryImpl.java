@@ -35,10 +35,12 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
     @Override
     public Portfolio save(Portfolio portfolio, List<MultipartFile> files) throws IOException {
+
         LocalDateTime today = LocalDateTime.now();
         portfolio.setUpdatedDate(today);
 
         em.persist(portfolio);
+
         String dir = MASTER_PATH + "\\" + portfolio.getId() + "\\";
         for (MultipartFile f : files){
 
@@ -58,6 +60,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
             
             /*
+
             PortfolioFiles portfolioFiles = new PortfolioFiles();
             portfolioFiles.setPortfolio(portfolio);
             portfolioFiles.setSrcOrder(count);

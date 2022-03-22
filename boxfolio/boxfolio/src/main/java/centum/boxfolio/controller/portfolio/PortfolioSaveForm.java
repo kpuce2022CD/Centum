@@ -22,7 +22,9 @@ public class PortfolioSaveForm {
 
     private Member member;
 
+
     private List<MultipartFile> files;
+
 
     public Portfolio toPortfolio(){
         return new Portfolio("testTitle", contents, false, member, null, null, null);
