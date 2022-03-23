@@ -3,7 +3,6 @@ var make=[]; //들어가있는 파일의 src나 텍스트
 var make_date='0000.00.00'; //최근 수정 날짜
 var setting='public'; //공개 설정
 var title='테스트 제목';
-var file_data;
 var file_where='../../image/portfolio';
 var id;
 
@@ -99,7 +98,4 @@ function result() {
     make_date=data.date;
     console.log(data);
     add();
-}
-function saw(input){
-    console.log(input);
 }

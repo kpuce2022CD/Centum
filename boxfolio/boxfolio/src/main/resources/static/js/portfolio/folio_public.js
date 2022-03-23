@@ -14,8 +14,8 @@ var normal_date=document.getElementsByClassName('n_date');
 var normal_star=document.getElementsByClassName('n_star');
 var normal_scrap=document.getElementsByClassName('n_star');
 
-var link_b,id_b, title_b, info_b, date_b, star_b, scrap_b=[];
-var link_n,id_n, title_n, info_n, date_n, star_n, scrap_n=[];
+var link_b, id_b, title_b, info_b, date_b, star_b, scrap_b=[];
+var link_n, id_n, title_n, info_n, date_n, star_n, scrap_n=[];
 
 function set_best(num){
     best_link[num].href=link_b[num];

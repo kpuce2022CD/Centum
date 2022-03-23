@@ -5,7 +5,9 @@ body {
 header{
     border-bottom: 1px solid #fff;
 }
-
+.value_test{
+    display: none;
+}
 .portf{
     width: 100%;
     display: flex;
@@ -56,12 +58,17 @@ header{
     margin-right: auto;
     background-color: beige;
 }
-
+.title{
+    margin: 0 auto;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 .date_1{
     float: left;
     color: #fff;
     margin-left: 1100px;
-    font: bold
+    font-weight: bold;
 }
 .date_2{
     float: left;
