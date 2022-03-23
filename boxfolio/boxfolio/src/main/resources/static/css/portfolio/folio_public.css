@@ -31,6 +31,7 @@ header {
     font-size: 16px;
     padding: 5px;
     width: 300px;
+    margin-left: 10px;
 }
 
 #portfolio-search-btn {
@@ -67,7 +68,9 @@ header {
 .portfolio-container {
     padding-bottom: 30px;
 }
-
+.portfolio-card-form:hover{
+    cursor: pointer;
+}
 .best-portfolio-list {
     display: flex;
     flex-wrap: wrap;
@@ -151,4 +154,8 @@ header {
 
 .portfolio-scrap:hover {
     color: #00aeff;
+}
+
+.send_id{
+    display: none;
 }
