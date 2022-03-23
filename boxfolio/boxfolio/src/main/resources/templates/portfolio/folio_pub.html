@@ -21,15 +21,17 @@
     <script src="../../js/portfolio/folio_public.js"></script>
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
     <script th:inline="javascript">
-        function saw(){
-            var contents=[[${portfolioList[0].contents}]];
-            console.log(contents);
+        var contents=[[${portfolioList[0].contents}]];
+        var writer=[[${portfolioList[0].writer}]];
+        var star=[[${portfolioList[0].star}]];
 
+        function saw(){
+            setting_b(0,contents,star,writer);
         }
     </script>
 </head>
 
-<body>
+<body onload="saw()">
     <header th:replace="template/header :: common_header">
         <div class="wrap">
             <div class="header-container">
@@ -113,10 +115,6 @@
                                 <li class="portfolio-scrap">
                                     <i class="far fa-bookmark"></i>
                                     <span class="b_scrap">381</span>
-                                </li>
-                                <li class="portfolio-scrap">
-                                    <i class="far fa-bookmark"></i>
-                                    <span>381</span>
                                 </li>
                             </ul>
                         </li>

@@ -14,8 +14,8 @@ var normal_date=document.getElementsByClassName('n_date');
 var normal_star=document.getElementsByClassName('n_star');
 var normal_scrap=document.getElementsByClassName('n_star');
 
-var link_b, id_b, title_b, info_b, date_b, star_b, scrap_b=[];
-var link_n, id_n, title_n, info_n, date_n, star_n, scrap_n=[];
+var link_b=['#'], id_b=['#'], title_b=['#'], info_b=['#'], date_b=['#'], star_b=['#'], scrap_b=['#'];
+var link_n=['#'], id_n=['#'], title_n=['#'], info_n=['#'], date_n=['#'], star_n=['#'], scrap_n=['#'];
 
 function set_best(num){
     best_link[num].href=link_b[num];
@@ -43,6 +43,18 @@ function start(b_num, n_num){
     for(var i in n_num){
         set_normal(i);
     }
+}
+
+function setting_b(num, cont, star, id){
+    var data=JSON.parse(cont);
+    console.log(data);
+    title_b[num]=data.title;
+    id_b[num]=id;
+    star_b[num]=star;
+    date_b[num]=data.date;
+    scrap_b[num]=0;
+    info_b[num]='웹/백엔드';
+    set_best(0);
 }
 
 function next_folio(){ //포트폴리오 리스트 다음 리스트로 변경
