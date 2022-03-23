@@ -33,15 +33,19 @@ public class PortfolioController {
     private final MemberRepositoryImpl memberRepository;
 
     @GetMapping
-    public String portfolioPage(Model model) {
+    public String portfolioPage(Model model, HttpServletRequest request) {
 
         List<Portfolio> portfolioList = portfolioService.searchHighestStar(5);
-
-
         List<PortfolioLoadForm> portfolioLoadFormList = new ArrayList<>();
-
         for (Portfolio p : portfolioList){
-            portfolioLoadFormList.add(new PortfolioLoadForm(p.getContents(), p.getMember().getNickname(), p.getStarTally()));
+            portfolioLoadFormList.add(new PortfolioLoadForm(
+                    p.getContents(),
+                    p.getMember().getNickname(),
+                    p.getStarTally(),
+                    p.getUpdatedDate(),
+                    p.getMember().getInterestField()
+                    )
+            );
         }
 
 
