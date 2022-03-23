@@ -109,7 +109,7 @@ public class PortfolioController {
     @GetMapping("/search/Id")
     public String searchPortfolioWithId(@RequestParam long id, Model model) {
         Portfolio portfolio = portfolioService.searchWithId(id);
-        model.addAttribute("portfolioList", portfolio);
+        model.addAttribute("portfolio", portfolio);
         return "/portfolio/folio_other";
     }
 
