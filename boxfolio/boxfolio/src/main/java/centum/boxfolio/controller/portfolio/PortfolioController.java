@@ -43,7 +43,8 @@ public class PortfolioController {
                     p.getMember().getNickname(),
                     p.getStarTally(),
                     p.getUpdatedDate(),
-                    p.getMember().getInterestField()
+                    p.getMember().getInterestField(),
+                    p.getId()
                     )
             );
         }
