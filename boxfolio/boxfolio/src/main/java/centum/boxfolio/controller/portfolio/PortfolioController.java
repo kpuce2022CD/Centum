@@ -33,15 +33,20 @@ public class PortfolioController {
     private final MemberRepositoryImpl memberRepository;
 
     @GetMapping
-    public String portfolioPage(Model model) {
+    public String portfolioPage(Model model, HttpServletRequest request) {
 
         List<Portfolio> portfolioList = portfolioService.searchHighestStar(5);
-
-
         List<PortfolioLoadForm> portfolioLoadFormList = new ArrayList<>();
-
         for (Portfolio p : portfolioList){
-            portfolioLoadFormList.add(new PortfolioLoadForm(p.getContents(), p.getMember().getNickname(), p.getStarTally()));
+            portfolioLoadFormList.add(new PortfolioLoadForm(
+                    p.getContents(),
+                    p.getMember().getNickname(),
+                    p.getStarTally(),
+                    p.getUpdatedDate(),
+                    p.getMember().getInterestField(),
+                    p.getId()
+                    )
+            );
         }
 
 
@@ -105,10 +110,7 @@ public class PortfolioController {
     @GetMapping("/search/Id")
     public String searchPortfolioWithId(@RequestParam long id, Model model) {
         Portfolio portfolio = portfolioService.searchWithId(id);
-        List<PortfolioFiles> portfolioFiles = portfolioService.findPortfolioFiles(portfolio);
-        List<String> srcList = convertPortfolioFilesToString(portfolioFiles);
-        model.addAttribute("portfolioList", portfolio);
-        model.addAttribute("portfolio_files", srcList);
+        model.addAttribute("portfolio", portfolio);
         return "/portfolio/folio_other";
     }
 
