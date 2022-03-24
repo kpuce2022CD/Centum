@@ -3,7 +3,11 @@ package centum.boxfolio.repository.portfolio;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
+
+import centum.boxfolio.entity.portfolio.PortfolioScrap;
+
 import centum.boxfolio.entity.portfolio.PortfolioFiles;
+
 import centum.boxfolio.entity.portfolio.PortfolioStar;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -11,7 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
+
+
 import javax.persistence.EntityTransaction;
+
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
@@ -141,7 +148,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
 
     @Override
-    public void changeStar(Portfolio portfolio, Member member) {
+    public void relationStar(Portfolio portfolio, Member member) {
 
         if (isStar(portfolio, member)){
             addRelationPortfolioStar(portfolio, member);
@@ -151,6 +158,39 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     }
 
     @Override
+    public void relationScrap(Portfolio portfolio, Member member) {
+
+        if (isScrap(portfolio, member)){
+            addRelationPortfolioScrap(portfolio, member);
+        } else {
+            deleteRelationPortfolioScrap(portfolio, member);
+        }
+    }
+
+    @Override
+    public List<PortfolioScrap> findMyScrap(Member member) {
+        String jpql = "SELECT ps FROM PortfolioScrap AS ps WHERE ps.member = :memberId";
+
+        TypedQuery<PortfolioScrap> query = em.createQuery(jpql, PortfolioScrap.class);
+        query.setParameter("memberId", member);
+
+        return query.getResultList();
+    }
+
+    // 스타 관련 기능
+    private boolean isStar(Portfolio portfolio, Member member){
+        String jpql = "SELECT ps FROM PortfolioStar AS ps WHERE ps.member = :memberId and ps.portfolio = :portfolioId";
+
+        TypedQuery<PortfolioStar> query = em.createQuery(jpql, PortfolioStar.class);
+
+        query.setParameter("memberId", member);
+        query.setParameter("portfolioId", portfolio);
+
+        PortfolioStar temp = query.getSingleResult();
+
+        return temp != null;
+    }
+
     public List<PortfolioFiles> getPortfolioFiles(Portfolio portfolio){
 
         String jpql = "SELECT f FROM PortfolioFiles AS f WHERE f.portfolio = :portfolioId";
@@ -161,6 +201,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
         return result;
     }
+
 
 
     private void addRelationPortfolioStar(Portfolio portfolio, Member member) {
@@ -178,19 +219,55 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
     private void deleteRelationPortfolioStar(Portfolio portfolio, Member member) {
 
-        String jpql = "SELECT ps FROM PortfolioStar AS ps WHERE ps.member = :memberId and ps.portfolio = :portfolioId";
+        String jpql = "DELETE FROM PortfolioStar AS ps WHERE ps.member = :memberId and ps.portfolio = :portfolioId";
 
-        TypedQuery<PortfolioStar> query = em.createQuery(jpql, PortfolioStar.class);
+        Query query = em.createQuery(jpql);
         query.setParameter("memberId", member);
         query.setParameter("portfolioId", portfolio);
 
         Portfolio tempP = em.find(Portfolio.class, portfolio.getId());
 
-        PortfolioStar portfolioStar = query.getSingleResult();
+        query.executeUpdate();
 
         tempP.setStarTally(portfolio.getStarTally() - 1);
-        em.remove(portfolioStar);
     }
+
+
+    // 스크랩 관련 기능
+    private void addRelationPortfolioScrap(Portfolio portfolio, Member member) {
+        PortfolioScrap portfolioScrap = new PortfolioScrap();
+        Portfolio tempP = em.find(Portfolio.class, portfolio.getId());
+        tempP.setStarTally(portfolio.getStarTally() + 1);
+        portfolioScrap.setMember(member);
+        portfolioScrap.setPortfolio(portfolio);
+
+        em.persist(portfolioScrap);
+    }
+
+
+    private void deleteRelationPortfolioScrap(Portfolio portfolio, Member member) {
+        String jpql = "DELETE FROM PortfolioScrap AS ps WHERE ps.member = :memberId and ps.portfolio = :portfolioId";
+
+        Query query = em.createQuery(jpql, PortfolioScrap.class);
+        query.setParameter("memberId", member);
+        query.setParameter("portfolioId", portfolio);
+
+        query.executeUpdate();
+
+        Portfolio tempP = em.find(Portfolio.class, portfolio.getId());
+        tempP.setStarTally(portfolio.getStarTally() - 1);
+    }
+
+    private boolean isScrap(Portfolio portfolio, Member member){
+        String jpql = "SELECT ps FROM PortfolioScrap AS ps WHERE ps.member = :memberId and ps.portfolio = :portfolioId";
+
+        TypedQuery<PortfolioScrap> query = em.createQuery(jpql, PortfolioScrap.class);
+        query.setParameter("memberId", member);
+        query.setParameter("portfolioId", portfolio);
+
+        PortfolioScrap temp =  query.getSingleResult();
+
+        return temp != null;
 
     private void deleteRelationAllPortfolioStar(Portfolio portfolio){
         String jpql = "SELECT ps FROM PortfolioStar AS ps WHERE ps.portfolio = :portfolioId";
@@ -227,6 +304,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         PortfolioStar result = query.getSingleResult();
 
         return result != null;
+
     }
 
 

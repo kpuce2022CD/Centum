@@ -3,7 +3,11 @@ package centum.boxfolio.service.portfolio;
 import centum.boxfolio.controller.portfolio.PortfolioSaveForm;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
+
+import centum.boxfolio.entity.portfolio.PortfolioScrap;
+
 import centum.boxfolio.entity.portfolio.PortfolioFiles;
+
 import centum.boxfolio.repository.member.MemberRepositoryImpl;
 import centum.boxfolio.repository.portfolio.PortfolioRepository;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +51,7 @@ public class PortfolioServiceImpl implements PortfolioService{
 
     @Override
     public void starChange(Portfolio portfolio, Member member) {
-        portfolioRepository.changeStar(portfolio, member);
+        portfolioRepository.relationStar(portfolio, member);
     }
 
 
@@ -59,6 +63,16 @@ public class PortfolioServiceImpl implements PortfolioService{
     @Override
     public Portfolio searchWithMember(Member member) {
         return portfolioRepository.findByMember(member);
+    }
+
+    @Override
+    public Portfolio searchWithId(Long id) {
+        return portfolioRepository.findById(id);
+    }
+
+    @Override
+    public void scrapPortfolio(Portfolio portfolio, Member member) {
+        portfolioRepository.relationScrap(portfolio, member);
     }
 
     @Override

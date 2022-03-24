@@ -2,8 +2,12 @@ package centum.boxfolio.repository.portfolio;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
+
+import centum.boxfolio.entity.portfolio.PortfolioScrap;
+
 import centum.boxfolio.entity.portfolio.PortfolioFiles;
 import org.springframework.web.multipart.MultipartFile;
+
 
 
 import java.io.File;
@@ -23,7 +27,14 @@ public interface PortfolioRepository {
     List<Portfolio> findHighest ();
     void delete (Portfolio portfolio);
 
+    void relationStar (Portfolio portfolio, Member member);
+
+    void relationScrap(Portfolio portfolio, Member member);
+    List<PortfolioScrap> findMyScrap(Member member);
+
+
     void changeStar(Portfolio portfolio, Member member);
 
     List<PortfolioFiles> getPortfolioFiles(Portfolio portfolio);
+
 }

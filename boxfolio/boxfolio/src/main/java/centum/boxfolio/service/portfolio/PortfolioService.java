@@ -17,7 +17,16 @@ public interface PortfolioService {
 
     List<Portfolio> searchWithTitle (String title);
     Portfolio searchWithMember (Member member);
+    Portfolio searchWithId(Long id);
+
+
+    void scrapPortfolio (Portfolio portfolio, Member member);
+
     List<Portfolio> searchHighestStar (int count);
+
+
+
     List<PortfolioFiles> findPortfolioFiles(Portfolio portfolio);
     Portfolio searchWithId (long Id);
+
 }

@@ -6,6 +6,7 @@ import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.entity.portfolio.PortfolioFiles;
 import centum.boxfolio.repository.member.MemberRepositoryImpl;
+import centum.boxfolio.service.member.MemberService;
 import centum.boxfolio.service.portfolio.PortfolioServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -158,14 +159,25 @@ public class PortfolioController {
         return "/portfolio/folio_make_json";
     }
 
-    @GetMapping("/recommend")
-    public String recommendPortfolio(@RequestParam Portfolio portfolio, HttpServletRequest request, Model model){
 
-        portfolioService.starChange(portfolio, memberRepository.findById(getLoginMemberId(request)).get());
+    @GetMapping("/star")
+    public String starChange(HttpServletRequest request, Long portfolioId){
+        Portfolio portfolio = portfolioService.searchWithId(portfolioId);
+        Member member = getLoginMember(request);
 
-        model.addAttribute("portfolio", portfolio);
+        portfolioService.starChange(portfolio, member);
 
-        return "/portfolio/folio_other";
+        return "/portfolio/folio_pub";
+    }
+
+    @GetMapping("/scrap")
+    public String scrapPortfolio (HttpServletRequest request, Long portfolioId){
+        Portfolio portfolio = portfolioService.searchWithId(portfolioId);
+        Member member = getLoginMember(request);
+
+        portfolioService.scrapPortfolio(portfolio, member);
+
+        return "/portfolio/folio_pub";
     }
 
     // 포트폴리오 찾기 함수
@@ -175,6 +187,13 @@ public class PortfolioController {
 
         return portfolioService.searchWithMember(memberRepository.findById(memberId).get());
     }
+
+
+    private Member getLoginMember(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+        return memberRepository.findById(memberId).get();
 
     private Long getLoginMemberId(HttpServletRequest request){
         HttpSession session = request.getSession();
@@ -190,5 +209,6 @@ public class PortfolioController {
         }
 
         return temp;
+
     }
 }
