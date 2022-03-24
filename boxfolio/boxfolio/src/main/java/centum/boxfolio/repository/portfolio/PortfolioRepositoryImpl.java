@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import java.time.LocalDateTime;
@@ -141,24 +142,24 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
     private void deleteRelationPortfolioStar(Portfolio portfolio, Member member) {
 
-        String jpql = "SELECT ps FROM PortfolioStar AS ps WHERE ps.member = :memberId and ps.portfolio = :portfolioId";
+        String jpql = "DELETE FROM PortfolioStar AS ps WHERE ps.member = :memberId and ps.portfolio = :portfolioId";
 
-        TypedQuery<PortfolioStar> query = em.createQuery(jpql, PortfolioStar.class);
+        Query query = em.createQuery(jpql);
         query.setParameter("memberId", member);
         query.setParameter("portfolioId", portfolio);
 
         Portfolio tempP = em.find(Portfolio.class, portfolio.getId());
 
-        PortfolioStar portfolioStar = query.getSingleResult();
+        query.executeUpdate();
 
         tempP.setStarTally(portfolio.getStarTally() - 1);
-        em.remove(portfolioStar);
     }
 
     // 스크랩 관련 기능
     private void addRelationPortfolioScrap(Portfolio portfolio, Member member) {
         PortfolioScrap portfolioScrap = new PortfolioScrap();
-
+        Portfolio tempP = em.find(Portfolio.class, portfolio.getId());
+        tempP.setStarTally(portfolio.getStarTally() + 1);
         portfolioScrap.setMember(member);
         portfolioScrap.setPortfolio(portfolio);
 
@@ -167,15 +168,16 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
 
     private void deleteRelationPortfolioScrap(Portfolio portfolio, Member member) {
-        String jpql = "SELECT ps FROM PortfolioScrap AS ps WHERE ps.member = :memberId and ps.portfolio = :portfolioId";
+        String jpql = "DELETE FROM PortfolioScrap AS ps WHERE ps.member = :memberId and ps.portfolio = :portfolioId";
 
-        TypedQuery<PortfolioScrap> query = em.createQuery(jpql, PortfolioScrap.class);
+        Query query = em.createQuery(jpql, PortfolioScrap.class);
         query.setParameter("memberId", member);
         query.setParameter("portfolioId", portfolio);
 
-        PortfolioScrap portfolioScrap = query.getSingleResult();
+        query.executeUpdate();
 
-        em.remove(portfolioScrap);
+        Portfolio tempP = em.find(Portfolio.class, portfolio.getId());
+        tempP.setStarTally(portfolio.getStarTally() - 1);
     }
 
     private boolean isScrap(Portfolio portfolio, Member member){

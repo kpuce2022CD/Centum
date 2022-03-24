@@ -125,7 +125,7 @@ public class PortfolioController {
 
         portfolioService.starChange(portfolio, member);
 
-        return "";
+        return "/portfolio/folio_pub";
     }
 
     @GetMapping("/scrap")
@@ -135,7 +135,7 @@ public class PortfolioController {
 
         portfolioService.scrapPortfolio(portfolio, member);
 
-        return "";
+        return "/portfolio/folio_pub";
     }
 
 
