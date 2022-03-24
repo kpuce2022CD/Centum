@@ -19,3 +19,4 @@ DROP TABLE portfolio;
 DROP TABLE confirmation_token;
 DROP TABLE member;
 DROP TABLE member_ability;
+

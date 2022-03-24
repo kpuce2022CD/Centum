@@ -1,5 +1,11 @@
 @charset "UTF-8";
-
+body {
+    min-width: 1280px;
+    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
+}
+header{
+    border-bottom: 1px solid #fff;
+}
 button{
     all: unset;
 }
@@ -19,9 +25,7 @@ button:hover{
     width: 70%;
     flex-direction: column;
 }
-.back{
-    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
-}
+
 .title{
     color: #fff;
     margin: 0 auto;
@@ -49,7 +53,7 @@ button:hover{
     padding: 10px;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
-    background-color: rgb(63, 63, 63);
+    background-color: transparent;
 }
 .set-pub:hover{
     cursor: pointer;
@@ -61,7 +65,7 @@ button:hover{
     padding: 10px;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
-    background-color: rgb(63, 63, 63);
+    background-color: transparent;
 }
 .set-pri:hover{
     cursor: pointer;

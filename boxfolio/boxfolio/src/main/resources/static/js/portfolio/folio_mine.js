@@ -1,11 +1,13 @@
-var mode=['youtube','youtube']; //들어가있는 자료의 종류(사진파일, 영상파일, 유튜브 등). 순서대로. youtube=유투브 영상, video=영상 파일, image=사진 파일, info=설명, git=깃허브 아이디
-var make=['https://www.youtube.com/embed/ian6CXeFUYc','https://www.youtube.com/embed/ian6CXeFUYc']; //들어가있는 파일의 src나 텍스트
-var make_date='0000_00_00'; //최근 수정 날짜
+var mode=[]; //들어가있는 자료의 종류(사진파일, 영상파일, 유튜브 등). 순서대로. youtube=유투브 영상, video=영상 파일, image=사진 파일, info=설명, git=깃허브 아이디
+var make=[]; //들어가있는 파일의 src나 텍스트
+var make_date='0000.00.00'; //최근 수정 날짜
 var setting='public'; //공개 설정
+var title='테스트 제목';
+var file_where='../../image/portfolio';
+var id;
 
-function saw() {
-    var data=document.getElementById('test');
-    console.log(data.value);
+function id_set(input){
+    id=input;
 }
 
 function add(){
@@ -23,7 +25,8 @@ function add(){
         }
         else if(mode[i]=='image'){ //사진 파일
             var page=document.createElement('img');
-            page.src=make[i];
+            page.src=file_where+'/'+id+'/'+make[i];
+            console.log(file_where+'/'+id+'/'+make[i]);
             page.style.width='1000px';
             page.style.display='flex';
             page.style.marginLeft='auto';
@@ -60,6 +63,7 @@ function add(){
 
     var date=document.getElementById('date_2');
     date.innerText=make_date;
+    document.getElementById('title').innerText=title;
 
     if(setting == 'public'){
         var pub=document.getElementById('set-pub');
@@ -67,10 +71,31 @@ function add(){
         pub.style.backgroundColor='black';
         pri.style.backgroundColor='transparent';
     }
+
     else{
         var pub=document.getElementById('set-pub');
         var pri=document.getElementById('set-pri');
         pri.style.backgroundColor='black';
         pub.style.backgroundColor='transparent';
     }
+}
+
+function result() {
+    var jsonData=document.getElementById('value_test').value;
+    console.log(jsonData);
+    var test_data = document.getElementById('file_test').value;
+
+    console.log(test_data);
+    console.log(typeof test_data);
+
+    var data=JSON.parse(jsonData);
+    title=data.title;
+    for(var i in data.index){
+        mode[i]=data.index[i].what;
+        make[i]=data.index[i].src;
+    }
+    setting=data.view;
+    make_date=data.date;
+    console.log(data);
+    add();
 }

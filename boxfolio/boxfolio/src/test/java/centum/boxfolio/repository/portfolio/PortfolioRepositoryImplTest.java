@@ -2,13 +2,20 @@ package centum.boxfolio.repository.portfolio;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
+import centum.boxfolio.entity.portfolio.PortfolioFiles;
 import centum.boxfolio.repository.member.MemberRepositoryImpl;
 import centum.boxfolio.service.portfolio.PortfolioService;
 import centum.boxfolio.service.portfolio.PortfolioServiceImpl;
+import lombok.extern.java.Log;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Repository;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Repository
@@ -25,12 +32,7 @@ class PortfolioRepositoryImplTest {
     PortfolioRepositoryImpl portfolioRepository;
 
     @Test
-    void test () {
-
-        List<Portfolio> temp = null;
-
-//        System.out.println(portfolioService.searchWithMember(memberRepository.findById("testmember0").get()).getId());
-
+    void test () throws IOException {
 
     }
 

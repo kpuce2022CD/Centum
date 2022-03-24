@@ -3,15 +3,30 @@ package centum.boxfolio.repository.portfolio;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
+
 import centum.boxfolio.entity.portfolio.PortfolioScrap;
+
+import centum.boxfolio.entity.portfolio.PortfolioFiles;
+
 import centum.boxfolio.entity.portfolio.PortfolioStar;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.EntityManager;
+
+
+import javax.persistence.EntityTransaction;
+
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,12 +38,47 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
     private final EntityManager em;
 
-    @Override
-    public Portfolio save(Portfolio portfolio) {
-        LocalDateTime today = LocalDateTime.now();
+    public String MASTER_PATH = "C:\\Users\\joey3\\centum\\Centum\\boxfolio\\boxfolio\\src\\main\\resources\\static\\image\\portfolio";
+    //public String MASTER_PATH = "E:\\gitHub\\Centum\\boxfolio\\boxfolio\\src\\main\\resources\\static\\image\\portfolio";
 
+    @Override
+    public Portfolio save(Portfolio portfolio, List<MultipartFile> files) throws IOException {
+
+        LocalDateTime today = LocalDateTime.now();
         portfolio.setUpdatedDate(today);
+
         em.persist(portfolio);
+
+        String dir = MASTER_PATH + "\\" + portfolio.getId() + "\\";
+        for (MultipartFile f : files){
+
+            System.out.println("\n" + portfolio.getId() + "\n");
+
+            System.out.println("\n" + dir + "\n");
+
+            File folder = new File(dir);
+
+            if (!folder.exists()){
+                folder.mkdirs();
+            }
+
+            byte[] bytes = f.getBytes();
+            Path path = Paths.get(dir + f.getOriginalFilename());
+            Files.write(path, bytes);
+
+            
+            /*
+
+            PortfolioFiles portfolioFiles = new PortfolioFiles();
+            portfolioFiles.setPortfolio(portfolio);
+            portfolioFiles.setSrcOrder(count);
+            portfolioFiles.setSrc(portfolio.getId() + "\\" + f.getOriginalFilename());
+            em.persist(portfolioFiles);
+            count += 1;
+            */
+        }
+
+
         return portfolio;
     }
 
@@ -79,13 +129,27 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         return query.getResultList();
     }
 
+    @Transactional
     @Override
     public void delete(Portfolio portfolio) {
-        em.remove(portfolio);
+
+        deleteRelationAllPortfolioStar(portfolio);
+
+        String jpql = "DELETE FROM Portfolio AS p WHERE p.id = :id";
+
+
+        Query query = em.createQuery(jpql);
+        query.setParameter("id", portfolio.getId());
+
+        query.executeUpdate();
+
+        System.out.println("\ndelete complete\n" + portfolio.getId());
     }
+
 
     @Override
     public void relationStar(Portfolio portfolio, Member member) {
+
         if (isStar(portfolio, member)){
             addRelationPortfolioStar(portfolio, member);
         } else {
@@ -127,6 +191,19 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         return temp != null;
     }
 
+    public List<PortfolioFiles> getPortfolioFiles(Portfolio portfolio){
+
+        String jpql = "SELECT f FROM PortfolioFiles AS f WHERE f.portfolio = :portfolioId";
+        TypedQuery<PortfolioFiles> query = em.createQuery(jpql, PortfolioFiles.class);
+        query.setParameter("portfolioId", portfolio);
+
+        List<PortfolioFiles> result = query.getResultList();
+
+        return result;
+    }
+
+
+
     private void addRelationPortfolioStar(Portfolio portfolio, Member member) {
 
         Portfolio tempP = em.find(Portfolio.class, portfolio.getId());
@@ -154,6 +231,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
         tempP.setStarTally(portfolio.getStarTally() - 1);
     }
+
 
     // 스크랩 관련 기능
     private void addRelationPortfolioScrap(Portfolio portfolio, Member member) {
@@ -190,6 +268,43 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         PortfolioScrap temp =  query.getSingleResult();
 
         return temp != null;
+
+    private void deleteRelationAllPortfolioStar(Portfolio portfolio){
+        String jpql = "SELECT ps FROM PortfolioStar AS ps WHERE ps.portfolio = :portfolioId";
+
+        TypedQuery<PortfolioStar> query = em.createQuery(jpql, PortfolioStar.class);
+        query.setParameter("portfolioId", portfolio);
+
+        List<PortfolioStar> temp = query.getResultList();
+
+        for (PortfolioStar ps : temp){
+            em.remove(ps);
+        }
+    }
+
+    private void deleteRelationAllPortfolioFiles(Portfolio portfolio){
+        String jpql = "SELECT pf FROM PortfolioFiles AS pf WHERE pf.portfolio = :portfolioId";
+
+        TypedQuery<PortfolioFiles> query = em.createQuery(jpql, PortfolioFiles.class);
+        query.setParameter("portfolioId", portfolio);
+
+        List<PortfolioFiles> temp = query.getResultList();
+
+        for (PortfolioFiles pf : temp){
+            em.remove(pf);
+        }
+    }
+
+    private boolean isStar(Portfolio portfolio, Member member){
+        String jpql = "SELECT ps FROM PortfolioStar AS ps WHERE ps.portfolio = :portfolioId AND ps.member = :memberId";
+        TypedQuery<PortfolioStar> query = em.createQuery(jpql, PortfolioStar.class);
+        query.setParameter("portfolioId", portfolio);
+        query.setParameter("memberId", member);
+
+        PortfolioStar result = query.getSingleResult();
+
+        return result != null;
+
     }
 
 

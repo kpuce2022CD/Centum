@@ -5,24 +5,42 @@ var make_src=[];
 var make_what=[];
 var number=0; //단 개수
 var title='title';
-var id='id';
 var make_f1=[]; //원래 제작해 놓은 포트폴리오 정보(종류), youtube=유투브 영상, video=영상 파일, image=사진 파일, info=설명, git=깃허브 아이디
 var make_f2=[]; //원래 제작해 놓은 포트폴리오 정보(src, 텍스트)
+var send_file=[];
+var send_name=[];
+var send_num=0;
+var make_date='';
 
+function date(){
+    var today = new Date();
+
+    var year = today.getFullYear(); // 년도
+    var month = today.getMonth() + 1;  // 월
+    var date = today.getDate();  // 날짜
+
+    make_date = year+'.'+month+'.'+date;  // 요일
+}
 
 function loadFile(input) {
     var file = input.files[0];
     var newImage;
     var up;
     var num;
+
     up=input.parentNode.parentNode;
     num=up.parentNode.parentNode.parentNode.style.order;
 
     newImage = up.nextElementSibling;
 
-    newImage.src = URL.createObjectURL(file);   
-    make_src[num]=newImage.src;
+    newImage.src=URL.createObjectURL(file);
+    make_src[num]=file.name;
     up.style.visibility = 'hidden';
+    input.style.display='none';
+    send_file[send_num]=input.cloneNode();
+    send_name[send_num]=file.name;
+    document.getElementById('send').appendChild(send_file[send_num]);
+    send_num++;
 };
 
 function loadVideoFile(input) {
@@ -40,6 +58,13 @@ function loadVideoFile(input) {
     
     me.style.display='none';
     up.style.display='flex';
+    make_src[num]=file.name;
+    input.style.display='none';
+
+    send_file[send_num]=input.cloneNode();
+    send_name[send_num]=file.name;
+    document.getElementById('send').appendChild(send_file[send_num]);
+    send_num++;
 };
 
 function video_in(input, me){
@@ -261,6 +286,16 @@ function dele(input){
     var me_num;
     me=input.parentNode;
     me_num=me.style.order;
+    if(make_what[me_num]=='image'){
+        var this_file=make_src[me_num];
+        for(var i in send_name.length){
+            if(send_name[i]==this_file){
+                send_file[i].remove();
+                send_name.splice(i,1);
+                send_file.splice(i,1);
+            }
+        }
+    }
     make[me_num].remove();
     make.splice(me_num,1);
     number--;
@@ -296,12 +331,13 @@ function set_pri(){
 }
 
 function make_json(){
+    date();
     var portfolio_data = new Object();
     var portfolio_index = new Array();
 
     portfolio_data.title=title; //제목
     portfolio_data.view=mode; //public/private
-    portfolio_data.id=id; //id
+    portfolio_data.date=make_date;
     for (var i in make){
         var portfolio_in=new Object();
         portfolio_in.what=make_what[i]; //종류(영상, 사진 등)
@@ -309,13 +345,12 @@ function make_json(){
         portfolio_index.push(portfolio_in);
     }
     portfolio_data.index=portfolio_index;
-
     json_data=JSON.stringify(portfolio_data);
+    console.log(json_data);
 }
 
 function data_in(){
     make_json();
     var data=document.getElementById('json_submit');
     data.value=json_data;
-    console.log(json_data);
 }

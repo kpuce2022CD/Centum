@@ -1,3 +1,14 @@
+body {
+    min-width: 1280px;
+    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
+}
+header{
+    border-bottom: 1px solid #fff;
+}
+
+.value_test{
+    display: none;
+}
 .portf{
     width: 100%;
     display: flex;
@@ -21,9 +32,6 @@
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
 }
-.set-pub:hover{
-    cursor: pointer;
-}
 
 .set-pri{
     margin-top: 15px;
@@ -31,9 +39,6 @@
     padding: 10px;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
-}
-.set-pri:hover{
-    cursor: pointer;
 }
 
 .op{
@@ -64,11 +69,19 @@
 }
 
 .fo{
+    display: flex;
+    flex-direction: column;
     width: 70%;
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
     background-color: beige;
+}
+.title{
+    margin: 0 auto;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .date_1{
     float: left;
