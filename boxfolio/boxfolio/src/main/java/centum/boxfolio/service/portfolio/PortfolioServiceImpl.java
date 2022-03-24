@@ -4,10 +4,6 @@ import centum.boxfolio.controller.portfolio.PortfolioSaveForm;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
 
-import centum.boxfolio.entity.portfolio.PortfolioScrap;
-
-import centum.boxfolio.entity.portfolio.PortfolioFiles;
-
 import centum.boxfolio.repository.member.MemberRepositoryImpl;
 import centum.boxfolio.repository.portfolio.PortfolioRepository;
 import lombok.RequiredArgsConstructor;
@@ -81,24 +77,8 @@ public class PortfolioServiceImpl implements PortfolioService{
     }
 
     @Override
-    public List<PortfolioFiles> findPortfolioFiles(Portfolio portfolio) {
-        return portfolioRepository.getPortfolioFiles(portfolio);
-    }
-
-    @Override
     public Portfolio searchWithId(long id) {
         return portfolioRepository.findById(id);
-    }
-
-    public List<PortfolioFiles> findManyPortfolioFiles(List<Portfolio> portfolioList){
-        List<PortfolioFiles> portfolioFilesList = portfolioRepository.getPortfolioFiles(portfolioList.get(0));
-        int count = 1;
-        for (Portfolio p : portfolioList){
-            portfolioFilesList.addAll(portfolioRepository.getPortfolioFiles(portfolioList.get(count)));
-            count++;
-        }
-
-        return portfolioFilesList;
     }
 
 

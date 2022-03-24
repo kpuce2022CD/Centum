@@ -4,9 +4,7 @@ package centum.boxfolio.controller.portfolio;
 import centum.boxfolio.controller.member.SessionConst;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
-import centum.boxfolio.entity.portfolio.PortfolioFiles;
 import centum.boxfolio.repository.member.MemberRepositoryImpl;
-import centum.boxfolio.service.member.MemberService;
 import centum.boxfolio.service.portfolio.PortfolioServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -94,17 +92,16 @@ public class PortfolioController {
     public String searchPortfolioWithTitle(@RequestParam String title, Model model){
         List<Portfolio> portfolio = portfolioService.searchWithTitle(title);
         model.addAttribute("portfolioList", portfolio);
-        model.addAttribute("portfolio_files", portfolioService.findManyPortfolioFiles(portfolio));
         return "/portfolio/folio_other";
     }
 
     @GetMapping("/search/member")
     public String searchPortfolioWithMember(@RequestParam Member member, Model model) {
         Portfolio portfolio = portfolioService.searchWithMember(member);
-        List<PortfolioFiles> portfolioFiles = portfolioService.findPortfolioFiles(portfolio);
-        List<String> srcList = convertPortfolioFilesToString(portfolioFiles);
+
+
         model.addAttribute("portfolioList", portfolio);
-        model.addAttribute("portfolio_files", srcList);
+
         return "/portfolio/folio_other";
     }
 
@@ -119,11 +116,9 @@ public class PortfolioController {
     public String searchPortfolioMine(Model model, HttpServletRequest request) {
 
         Portfolio portfolio = getPortfolioBySessionId(request);
-        List<PortfolioFiles> portfolioFiles = portfolioService.findPortfolioFiles(portfolio);
-        List<String> srcList = convertPortfolioFilesToString(portfolioFiles);
+
 
         model.addAttribute("portfolio", portfolio);
-        model.addAttribute("portfolio_files", srcList);
 
         return "/portfolio/folio_mine";
     }
@@ -134,7 +129,7 @@ public class PortfolioController {
         List<Portfolio> portfolioList = portfolioService.searchHighestStar(5);
 
         model.addAttribute("portfolioList", portfolioList);
-        model.addAttribute("portfolio_files", portfolioService.findManyPortfolioFiles(portfolioList));
+
         return "/portfolio/folio_other";
     }
 
@@ -154,7 +149,6 @@ public class PortfolioController {
         Portfolio portfolio = getPortfolioBySessionId(request);
 
         model.addAttribute(portfolio);
-        model.addAttribute("portfolio_files", portfolioService.findPortfolioFiles(portfolio));
 
         return "/portfolio/folio_make_json";
     }
@@ -189,26 +183,15 @@ public class PortfolioController {
     }
 
 
-    private Member getLoginMember(HttpServletRequest request){
+    private Member getLoginMember(HttpServletRequest request) {
         HttpSession session = request.getSession();
         long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         return memberRepository.findById(memberId).get();
+    }
 
     private Long getLoginMemberId(HttpServletRequest request){
         HttpSession session = request.getSession();
         return (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
-    }
-
-    // 포트폴리오 파일 컨버터
-    private List<String> convertPortfolioFilesToString(List<PortfolioFiles> portfolioFilesList){
-
-        List<String> temp = new ArrayList<>();
-        for (PortfolioFiles pf : portfolioFilesList){
-            temp.add(pf.getSrc());
-        }
-
-        return temp;
-
     }
 }
