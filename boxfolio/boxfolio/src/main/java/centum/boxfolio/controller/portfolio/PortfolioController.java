@@ -41,6 +41,7 @@ public class PortfolioController {
                     p.getContents(),
                     p.getMember().getNickname(),
                     p.getStarTally(),
+                    p.getScrapTally(),
                     p.getUpdatedDate(),
                     p.getMember().getInterestField(),
                     p.getId()

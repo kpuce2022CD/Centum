@@ -26,6 +26,7 @@ public class Portfolio {
     private boolean visibility;
 
     private long starTally;
+    private long scrapTally;
 
     @OneToOne
     @JoinColumn(name = "member_id")
@@ -53,6 +54,7 @@ public class Portfolio {
         this.portfolioScraps = portfolioScraps;
 
         this.starTally = 0;
+        this.scrapTally = 0;
         this.updatedDate = LocalDateTime.now();
     }
     
