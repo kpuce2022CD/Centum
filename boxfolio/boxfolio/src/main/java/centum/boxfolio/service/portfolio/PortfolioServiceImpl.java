@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -23,11 +24,21 @@ public class PortfolioServiceImpl implements PortfolioService{
     private final MemberRepositoryImpl memberRepository;
     @Override
     public Portfolio upload(PortfolioSaveForm form, long memberId) throws IOException {
-        form.setMember(memberRepository.findById(memberId).get());
+
+        if (memberRepository.findById(memberId).isEmpty()){
+            return null;
+        } else {
+            form.setMember(memberRepository.findById(memberId).get());
+        }
+
         Portfolio portfolio = form.toPortfolio();
 
+        if (portfolioRepository.save(portfolio, form.getFiles()).isEmpty()){
+            return null;
+        } else {
+            return portfolioRepository.save(portfolio, form.getFiles()).get();
+        }
 
-        return portfolioRepository.save(portfolio, form.getFiles());
     }
 
     @Override
@@ -58,12 +69,20 @@ public class PortfolioServiceImpl implements PortfolioService{
 
     @Override
     public Portfolio searchWithMember(Member member) {
-        return portfolioRepository.findByMember(member);
+        if (portfolioRepository.findByMember(member).isEmpty()){
+            return null;
+        } else {
+            return portfolioRepository.findByMember(member).get();
+        }
     }
 
     @Override
     public Portfolio searchWithId(Long id) {
-        return portfolioRepository.findById(id);
+        if (portfolioRepository.findById(id).isEmpty()){
+            return null;
+        } else {
+            return portfolioRepository.findById(id).get();
+        }
     }
 
     @Override
@@ -78,7 +97,11 @@ public class PortfolioServiceImpl implements PortfolioService{
 
     @Override
     public Portfolio searchWithId(long id) {
-        return portfolioRepository.findById(id);
+        if (portfolioRepository.findById(id).isEmpty()){
+            return null;
+        } else {
+            return portfolioRepository.findById(id).get();
+        }
     }
 
 

@@ -25,6 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -38,7 +39,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     //public String MASTER_PATH = "E:\\gitHub\\Centum\\boxfolio\\boxfolio\\src\\main\\resources\\static\\image\\portfolio";
 
     @Override
-    public Portfolio save(Portfolio portfolio, List<MultipartFile> files) throws IOException {
+    public Optional<Portfolio> save(Portfolio portfolio, List<MultipartFile> files) throws IOException {
 
         LocalDateTime today = LocalDateTime.now();
         portfolio.setUpdatedDate(today);
@@ -75,7 +76,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         }
 
 
-        return portfolio;
+        return Optional.of(portfolio);
     }
 
     // 탐색 관련
@@ -91,8 +92,8 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     }
 
     @Override
-    public Portfolio findById(long id) {
-        return em.find(Portfolio.class, id);
+    public Optional<Portfolio>  findById(long id) {
+        return Optional.ofNullable(em.find(Portfolio.class, id));
     }
 
     @Override
@@ -106,14 +107,14 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     }
 
     @Override
-    public Portfolio findByMember(Member member) {
+    public Optional<Portfolio> findByMember(Member member) {
         String jpql = "SELECT p FROM Portfolio AS p WHERE p.member = :member";
 
 
         TypedQuery<Portfolio> query = em.createQuery(jpql, Portfolio.class);
         query.setParameter("member", member);
 
-        return query.getSingleResult();
+        return Optional.ofNullable(query.getSingleResult());
     }
 
     @Override
