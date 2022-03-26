@@ -25,8 +25,9 @@ function add(){
         }
         else if(mode[i]=='image'){ //사진 파일
             var page=document.createElement('img');
-            page.src=file_where+'/'+id+'/'+make[i];
-            console.log(file_where+'/'+id+'/'+make[i]);
+            var link=file_where+'/'+id+'/'+make[i]
+            page.src=link;
+            console.log(link);
             page.style.width='1000px';
             page.style.display='flex';
             page.style.marginLeft='auto';
