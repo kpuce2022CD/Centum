@@ -2,7 +2,6 @@ var mode=[]; //들어가있는 자료의 종류(사진파일, 영상파일, 유�
 var make=[]; //들어가있는 파일의 src나 텍스트
 var make_date='0000_00_00'; //최근 수정 날짜
 var title="제목";
-var make_name='제작자'; //제작자 이름
 var rec=100; //추천 수
 var rec_true=0; //추천 했는지 여부
 var file_where='../../image/portfolio';
@@ -72,10 +71,6 @@ function add(){
 function result() {
     var jsonData=document.getElementById('value_test').value;
     console.log(jsonData);
-    var test_data = document.getElementById('file_test').value;
-
-    console.log(test_data);
-    console.log(typeof test_data);
 
     var data=JSON.parse(jsonData);
     title=data.title;

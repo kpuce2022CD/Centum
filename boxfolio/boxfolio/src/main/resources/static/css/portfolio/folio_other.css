@@ -25,18 +25,9 @@ header{
     margin-right: 200px;
     margin-bottom: 20px;
     display: flex;
+    flex-direction: row;
 }
-.name_btn{
-    color: #fff;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    padding: 10px;
-    margin-left: 10px;
-}
-.name_btn:hover {
-    animation: btn-color 0.2s linear both;
-    cursor: pointer;
-}
+
 .up-btn {
     all: unset;
     color: #fff;
@@ -44,14 +35,30 @@ header{
     border-radius: 5px;
     padding: 10px;
     margin-left: 10px;
+    float: left;
 }
 .up-btn:hover {
     animation: btn-color 0.2s linear both;
     cursor: pointer;
 }
 
+.scrap-btn {
+    all: unset;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 10px;
+}
+.scrap-btn:hover {
+    animation: btn-color 0.2s linear both;
+    cursor: pointer;
+}
+
 .fo{
     clear: both;
+    display: flex;
+    flex-direction: column;
     width: 70%;
     margin-top: 20px;
     margin-left: auto;
@@ -64,15 +71,19 @@ header{
     margin-top: 10px;
     margin-bottom: 10px;
 }
+.date{
+    display: flex;
+    float: right;
+    flex-direction: row;
+    margin-right: 250px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 .date_1{
-    float: left;
     color: #fff;
-    margin-left: 1100px;
     font-weight: bold;
 }
 .date_2{
-    float: left;
     color: #fff;
     margin-left: 10px;
-    margin-bottom: 20px;
 }

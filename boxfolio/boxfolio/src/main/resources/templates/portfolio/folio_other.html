@@ -17,8 +17,8 @@
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
     <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" href="../../css/portfolio/folio_other.css" th:href="@{css/portfolio/folio_other.css}">
-    <script src="../../static/js/portfolio/folio_other.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/portfolio/folio_other.css" th:href="@{/css/portfolio/folio_other.css}" />
+    <script src="../../js/portfolio/folio_other.js"></script>
     <script th:inline="javascript">
         function start(){
             id_set([[${portfolio.id}]]);
@@ -60,27 +60,27 @@
     <div class="portf">
         <input id="value_test" class="value_test" value="portfolio" th:value="${portfolio.contents}"/>
         <section class="make">
-
-                <a href="#" class="name_btn" id="name_btn">
-                    작성자 : OOO
-                </a>
-            <form action="portfolios/star" method="get" class="op">
-                <input type="text" class="nothing" value="" th:value="${portfolio.id}">
-                <button type="submit" class="up-btn" id="up-btn" onclick="star_up()">
-                    추천
-                </button>
-            </form>
-            <form action="portfolios/scrap" method="get" class="op">
-                <input type="text" class="nothing" value="" th:value="${portfolio.id}">
-                <button type="submit" class="up-btn" id="scrap-btn" onclick="star_up()">
-                    스크랩
-                </button>
-            </form>
+            <div class="op">
+                <form action="portfolios/star"  method="get">
+                    <input type="text" class="nothing" value="" th:value="${portfolio.id}">
+                    <button type="submit" class="up-btn" id="up-btn" onclick="star_up()">
+                        추천
+                    </button>
+                </form>
+                <form action="portfolios/scrap"  method="get">
+                    <input type="text" class="nothing" value="" th:value="${portfolio.id}">
+                    <button type="submit" class="scrap-btn" id="scrap-btn" onclick="star_up()">
+                        스크랩
+                    </button>
+                </form>
+            </div>
             <div class="fo" id="fo">
                 <p class="title" id="title">내 포트폴리오</p>
             </div>
-            <p id="date_1" class="date_1">작성 날짜 : </p>
-            <p id="date_2" class="date_2">0000.00.00</p>
+            <div class="date">
+                <p id="date_1" class="date_1">작성 날짜 : </p>
+                <p id="date_2" class="date_2">0000.00.00</p>
+            </div>
             
         </section>
     </div>

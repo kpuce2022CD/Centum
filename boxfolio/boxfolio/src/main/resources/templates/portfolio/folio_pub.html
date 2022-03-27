@@ -92,7 +92,7 @@
                 <ul id="best-portfolio-list" class="best-portfolio-list">
                     <!-- <c:forEach var="portfolio" items="${portfolioList}"> -->
                     <div id="best_portfolio-view" class="portfolio-view">
-                        <form action="portfolio/search/id" method="get" class="portfolio-card-form" onclick="go(this)">
+                        <form action="/portfolios/search/Id" method="get" class="portfolio-card-form" onclick="go(this)">
                             <input class="send_id" name="id" value="" th:value="${portfolioList[0].id}">
                             <li class="portfolio-card">
                                 <div class="portfolio-info">

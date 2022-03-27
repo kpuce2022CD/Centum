@@ -84,10 +84,6 @@ function add(){
 function result() {
     var jsonData=document.getElementById('value_test').value;
     console.log(jsonData);
-    var test_data = document.getElementById('file_test').value;
-
-    console.log(test_data);
-    console.log(typeof test_data);
 
     var data=JSON.parse(jsonData);
     title=data.title;
