@@ -4,7 +4,6 @@ import centum.boxfolio.entity.member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.internal.metadata.aggregated.PotentiallyContainerCascadingMetaData;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

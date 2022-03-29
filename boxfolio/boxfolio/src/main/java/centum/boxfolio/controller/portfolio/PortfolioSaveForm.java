@@ -29,7 +29,7 @@ public class PortfolioSaveForm {
         boolean result;
         result = visibility.equals("true");
 
-        return new Portfolio("testTitle", contents, result, member, null, null, null);
+        return new Portfolio("testTitle", contents, true, member, null, null, null);
     }
 
 }
