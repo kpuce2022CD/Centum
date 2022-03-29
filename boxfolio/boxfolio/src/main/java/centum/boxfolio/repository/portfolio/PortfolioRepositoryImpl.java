@@ -119,7 +119,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
     @Override
     public List<Portfolio> findHighest() {
-        String jpql = "SELECT p FROM Portfolio AS p ORDER BY p.starTally ASC";
+        String jpql = "SELECT p FROM Portfolio AS p WHERE p.visibility = true ORDER BY p.starTally ASC";
 
         TypedQuery<Portfolio> query = em.createQuery(jpql, Portfolio.class);
 
