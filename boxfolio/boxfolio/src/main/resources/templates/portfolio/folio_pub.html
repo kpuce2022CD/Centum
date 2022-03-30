@@ -24,9 +24,11 @@
         var contents=[[${portfolioList[0].contents}]];
         var writer=[[${portfolioList[0].writer}]];
         var star=[[${portfolioList[0].star}]];
+        var scrap=[[${portfolioList[0].scrap}]];
 
         function saw(){
-            setting_b(0,contents,star,writer);
+            console.log(star);
+            setting_b(0,contents, star, writer, scrap);
         }
     </script>
 </head>
@@ -69,7 +71,7 @@
                             <option value="title">제목</option>
                             <option value="writer">작성자</option>
                         </select>
-                        <form id="search_data" action="/portfolio/search/title" method="get" role="search">
+                        <form id="search_data" action="/portfolios/search/title" method="get" role="search">
                             <input id="portfolio-query" type="text" name="search" title="포트폴리오검색" maxlength="255">
                             <button id="portfolio-search-btn" type="submit" title="포트폴리오검색">
                                 <i class="fas fa-search search-icon"></i>

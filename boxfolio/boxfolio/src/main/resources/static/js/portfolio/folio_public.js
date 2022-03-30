@@ -4,7 +4,7 @@ var best_title=document.getElementsByClassName('b_title');
 var best_info=document.getElementsByClassName('b_info');
 var best_date=document.getElementsByClassName('b_date');
 var best_star=document.getElementsByClassName('b_star');
-var best_scrap=document.getElementsByClassName('b_star');
+var best_scrap=document.getElementsByClassName('b_scrap');
 
 var normal_link=document.getElementsByClassName('n_href');
 var normal_id=document.getElementsByClassName('n_id');
@@ -12,13 +12,13 @@ var normal_title=document.getElementsByClassName('n_title');
 var normal_info=document.getElementsByClassName('n_info');
 var normal_date=document.getElementsByClassName('n_date');
 var normal_star=document.getElementsByClassName('n_star');
-var normal_scrap=document.getElementsByClassName('n_star');
+var normal_scrap=document.getElementsByClassName('n_scrap');
 
 var link_b=['#'], id_b=['#'], title_b=['#'], info_b=['#'], date_b=['#'], star_b=['#'], scrap_b=['#'];
 var link_n=['#'], id_n=['#'], title_n=['#'], info_n=['#'], date_n=['#'], star_n=['#'], scrap_n=['#'];
 
 function set_best(num){
-    best_id[num].innerText=id_b[num]+'님의 포트폴리오 입니다.';
+    best_id[num].innerText=id_b[num]+'님의 포트폴리오';
     best_title[num].innerText=title_b[num];
     best_info[num].innerText=info_b[num];
     best_date[num].innerText=date_b[num];
@@ -43,16 +43,16 @@ function start(b_num, n_num){
     }
 }
 
-function setting_b(num, cont, star, id){
+function setting_b(num, cont, star, id, scrap){
     var data=JSON.parse(cont);
     console.log(data);
     title_b[num]=data.title;
     id_b[num]=id;
     star_b[num]=star;
     date_b[num]=data.date;
-    scrap_b[num]=0;
+    scrap_b[num]=scrap;
     info_b[num]='웹/백엔드';
-    set_best(0);
+    set_best(num);
 }
 
 function next_folio(){ //포트폴리오 리스트 다음 리스트로 변경
@@ -72,9 +72,9 @@ function go(input){
 
 function search_set(input){
     if(input.value=='title'){
-        document.getElementById('search_data').action="/portfolio/search/title";
+        document.getElementById('search_data').action="/portfolios/search/title";
     }
     else{
-        document.getElementById('search_data').action="/portfolio/search/writer";
+        document.getElementById('search_data').action="/portfolios/search/writer";
     }
 }
