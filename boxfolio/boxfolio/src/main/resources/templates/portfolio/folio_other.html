@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
     <link rel="stylesheet" type="text/css" href="../../css/portfolio/folio_other.css" th:href="@{/css/portfolio/folio_other.css}" />
     <script src="../../js/portfolio/folio_other.js"></script>
+    <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
     <script th:inline="javascript">
         function start(){
             id_set([[${portfolio.id}]]);
@@ -61,16 +62,16 @@
         <input id="value_test" class="value_test" value="portfolio" th:value="${portfolio.contents}"/>
         <section class="make">
             <div class="op">
-                <form action="portfolios/star"  method="get">
-                    <input type="text" class="nothing" value="" th:value="${portfolio.id}">
+                <form action="/portfolios/star"  method="get">
+                    <input type="text" class="nothing" name="id" value="" th:value="${portfolio.id}">
                     <button type="submit" class="up-btn" id="up-btn">
-                        추천
+                        <i class="fa-solid fa-star" style="color: yellow"></i>
                     </button>
                 </form>
-                <form action="portfolios/scrap"  method="get">
-                    <input type="text" class="nothing" value="" th:value="${portfolio.id}">
+                <form action="/portfolios/scrap"  method="get">
+                    <input type="text" class="nothing" name="id" value="" th:value="${portfolio.id}">
                     <button type="submit" class="scrap-btn" id="scrap-btn">
-                        스크랩
+                        <i class="fa-solid fa-bookmark" style="color: blue"></i>
                     </button>
                 </form>
             </div>
@@ -84,10 +85,10 @@
             
         </section>
     </div>
+</div>
 
-
-<footer th:replace="template/footer :: common_footer">
-</footer>
-<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+    <footer th:replace="template/footer :: common_footer">
+    </footer>
+    <script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
 </body>
 </html>

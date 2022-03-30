@@ -64,16 +64,18 @@
         <div class="wrap">
             <div class="access-container">
                 <div class="portfolio-search">
-                    <form id="portfolio-search-form" action="#" method="post" role="search">
-                        <select name="what">
+                    <div id="portfolio-search-form">
+                        <select name="what" onchange="search_set(this)">
                             <option value="title">제목</option>
                             <option value="writer">작성자</option>
                         </select>
-                        <input id="portfolio-query" type="text" name="search" title="포트폴리오검색" maxlength="255">
-                        <button id="portfolio-search-btn" type="submit" title="포트폴리오검색">
-                            <i class="fas fa-search search-icon"></i>
-                        </button>
-                    </form>
+                        <form id="search_data" action="/portfolio/search/title" method="get" role="search">
+                            <input id="portfolio-query" type="text" name="search" title="포트폴리오검색" maxlength="255">
+                            <button id="portfolio-search-btn" type="submit" title="포트폴리오검색">
+                                <i class="fas fa-search search-icon"></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
                 <div>
                     <div class="to-myportfolio">

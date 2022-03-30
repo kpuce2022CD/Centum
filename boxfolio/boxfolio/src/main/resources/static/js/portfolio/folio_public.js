@@ -69,3 +69,12 @@ function back_folio(){ //포트폴리오 리스트 이전 리스트로 변경
 function go(input){
     input.submit();
 }
+
+function search_set(input){
+    if(input.value=='title'){
+        document.getElementById('search_data').action="/portfolio/search/title";
+    }
+    else{
+        document.getElementById('search_data').action="/portfolio/search/writer";
+    }
+}
