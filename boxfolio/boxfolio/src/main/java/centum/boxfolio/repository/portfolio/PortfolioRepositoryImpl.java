@@ -148,9 +148,9 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     public void relationStar(Portfolio portfolio, Member member) {
 
         if (isStar(portfolio, member)){
-            addRelationPortfolioStar(portfolio, member);
-        } else {
             deleteRelationPortfolioStar(portfolio, member);
+        } else {
+            addRelationPortfolioStar(portfolio, member);
         }
     }
 
@@ -182,10 +182,13 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
         query.setParameter("memberId", member);
         query.setParameter("portfolioId", portfolio);
+        try {
+            PortfolioStar temp = query.getSingleResult();
+        } catch (Exception e) {
+            return false;
+        }
 
-        PortfolioStar temp = query.getSingleResult();
-
-        return temp != null;
+        return true;
     }
 
     private void addRelationPortfolioStar(Portfolio portfolio, Member member) {

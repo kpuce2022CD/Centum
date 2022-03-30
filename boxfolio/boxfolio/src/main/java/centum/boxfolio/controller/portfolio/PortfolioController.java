@@ -156,23 +156,23 @@ public class PortfolioController {
 
 
     @GetMapping("/star")
-    public String starChange(HttpServletRequest request, Long portfolioId){
-        Portfolio portfolio = portfolioService.searchWithId(portfolioId);
+    public String starChange(HttpServletRequest request, @RequestParam long id){
+        Portfolio portfolio = portfolioService.searchWithId(id);
         Member member = getLoginMember(request);
 
         portfolioService.starChange(portfolio, member);
 
-        return "/portfolio/folio_pub";
+        return "redirect:/";
     }
 
     @GetMapping("/scrap")
-    public String scrapPortfolio (HttpServletRequest request, Long portfolioId){
-        Portfolio portfolio = portfolioService.searchWithId(portfolioId);
+    public String scrapPortfolio (HttpServletRequest request, @RequestParam long id){
+        Portfolio portfolio = portfolioService.searchWithId(id);
         Member member = getLoginMember(request);
 
         portfolioService.scrapPortfolio(portfolio, member);
 
-        return "/portfolio/folio_pub";
+        return "redirect:/";
     }
 
     // 포트폴리오 찾기 함수
