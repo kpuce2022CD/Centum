@@ -92,7 +92,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     }
 
     @Override
-    public Optional<Portfolio>  findById(long id) {
+    public Optional<Portfolio> findById(long id) {
         return Optional.ofNullable(em.find(Portfolio.class, id));
     }
 
@@ -158,9 +158,9 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     public void relationScrap(Portfolio portfolio, Member member) {
 
         if (isScrap(portfolio, member)){
-            addRelationPortfolioScrap(portfolio, member);
-        } else {
             deleteRelationPortfolioScrap(portfolio, member);
+        } else {
+            addRelationPortfolioScrap(portfolio, member);
         }
     }
 
@@ -252,9 +252,12 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         query.setParameter("memberId", member);
         query.setParameter("portfolioId", portfolio);
 
-        PortfolioScrap temp = query.getSingleResult();
-
-        return temp != null;
+        try {
+            PortfolioScrap temp = query.getSingleResult();
+        } catch (Exception e){
+            return false;
+        }
+        return true;
     }
 
     private void deleteRelationAllPortfolioStar(Portfolio portfolio){
