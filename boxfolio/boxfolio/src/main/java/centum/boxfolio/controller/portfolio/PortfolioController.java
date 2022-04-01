@@ -33,22 +33,16 @@ public class PortfolioController {
     private final PortfolioServiceImpl portfolioService;
     private final MemberRepositoryImpl memberRepository;
 
+
+
+
     @GetMapping
     public String portfolioPage(Model model, HttpServletRequest request) {
 
         List<Portfolio> portfolioList = portfolioService.searchHighestStar(5);
         List<PortfolioLoadForm> portfolioLoadFormList = new ArrayList<>();
         for (Portfolio p : portfolioList){
-            portfolioLoadFormList.add(new PortfolioLoadForm(
-                    p.getContents(),
-                    p.getMember().getNickname(),
-                    p.getStarTally(),
-                    p.getScrapTally(),
-                    p.getUpdatedDate(),
-                    p.getMember().getInterestField(),
-                    p.getId()
-                    )
-            );
+            portfolioLoadFormList.add(portfolioToPortfolioLoadForm(p));
         }
 
 
@@ -94,7 +88,14 @@ public class PortfolioController {
     @GetMapping("/search/title")
     public String searchPortfolioWithTitle(@RequestParam String title, Model model){
         List<Portfolio> portfolio = portfolioService.searchWithTitle(title);
-        model.addAttribute("portfolioList", portfolio);
+
+        List<PortfolioLoadForm> portfolioLoadFormList = new ArrayList<>();
+
+        for (Portfolio p : portfolio){
+            portfolioLoadFormList.add(portfolioToPortfolioLoadForm(p));
+        }
+
+        model.addAttribute("portfolioList", portfolioLoadFormList);
         return "/portfolio/folio_pub";
     }
 
@@ -140,9 +141,13 @@ public class PortfolioController {
     public String searchPortfolioWithNickname(@RequestParam String nickname, Model model){
 
         List<Portfolio> portfolioList = portfolioService.searchWithNickname(nickname);
+        List<PortfolioLoadForm> portfolioLoadFormList = new ArrayList<>();
 
-        model.addAttribute("portfolio", portfolioList);
+        for (Portfolio p : portfolioList){
+            portfolioLoadFormList.add(portfolioToPortfolioLoadForm(p));
+        }
 
+        model.addAttribute("portfolioList", portfolioLoadFormList);
         return "/portfolio/folio_pub";
     }
 
@@ -206,5 +211,16 @@ public class PortfolioController {
     private Long getLoginMemberId(HttpServletRequest request){
         HttpSession session = request.getSession();
         return (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
+    }
+
+    private PortfolioLoadForm portfolioToPortfolioLoadForm(Portfolio p){
+        return new PortfolioLoadForm(
+                p.getContents(),
+                p.getMember().getNickname(),
+                p.getStarTally(),
+                p.getScrapTally(),
+                p.getUpdatedDate(),
+                p.getMember().getInterestField(),
+                p.getId());
     }
 }
