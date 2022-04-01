@@ -95,7 +95,7 @@ public class PortfolioController {
     public String searchPortfolioWithTitle(@RequestParam String title, Model model){
         List<Portfolio> portfolio = portfolioService.searchWithTitle(title);
         model.addAttribute("portfolioList", portfolio);
-        return "/portfolio/folio_other";
+        return "/portfolio/folio_pub";
     }
 
     @GetMapping("/search/member")
@@ -143,7 +143,7 @@ public class PortfolioController {
 
         model.addAttribute("portfolio", portfolioList);
 
-        return "/";
+        return "/portfolio/folio_pub";
     }
 
 
