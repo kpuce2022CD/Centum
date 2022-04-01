@@ -75,6 +75,6 @@ function search_set(input){
         document.getElementById('search_data').action="/portfolios/search/title";
     }
     else{
-        document.getElementById('search_data').action="/portfolios/search/writer";
+        document.getElementById('search_data').action="/portfolios/search/name";
     }
 }
