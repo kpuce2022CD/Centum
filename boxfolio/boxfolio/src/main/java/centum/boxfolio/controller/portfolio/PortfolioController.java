@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import javax.sound.sampled.Port;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +44,17 @@ public class PortfolioController {
         List<PortfolioLoadForm> portfolioLoadFormList = new ArrayList<>();
         for (Portfolio p : portfolioList){
             portfolioLoadFormList.add(portfolioToPortfolioLoadForm(p));
+        }
+        if (portfolioLoadFormList.isEmpty()) {
+            portfolioLoadFormList.add(new PortfolioLoadForm(
+                    "test",
+                    "test",
+                    0,
+                    0,
+                    LocalDateTime.now(),
+                    "test",
+                    0
+            ));
         }
 
 

@@ -21,7 +21,6 @@ public class PortfolioSaveForm {
     @NotNull
     private String contents;
 
-    @NotNull
     private String visibility;
 
     private Member member;
@@ -29,8 +28,8 @@ public class PortfolioSaveForm {
     private List<MultipartFile> files;
 
     public Portfolio toPortfolio() throws ParseException {
-        boolean result;
-        result = visibility.equals("true");
+        //boolean result;
+        //result = visibility.equals("true");
 
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(contents);
