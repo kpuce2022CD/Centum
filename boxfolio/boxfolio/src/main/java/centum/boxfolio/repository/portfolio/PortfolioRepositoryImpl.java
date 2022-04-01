@@ -7,6 +7,7 @@ import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.entity.portfolio.PortfolioScrap;
 
 import centum.boxfolio.entity.portfolio.PortfolioStar;
+import centum.boxfolio.repository.member.MemberRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +36,7 @@ import java.util.Optional;
 public class PortfolioRepositoryImpl implements PortfolioRepository {
 
     private final EntityManager em;
+    private final MemberRepositoryImpl memberRepository;
 
     public String MASTER_PATH = "C:\\Users\\joey3\\centum\\Centum\\boxfolio\\boxfolio\\src\\main\\resources\\static\\image\\portfolio";
     //public String MASTER_PATH = "E:\\gitHub\\Centum\\boxfolio\\boxfolio\\src\\main\\resources\\static\\image\\portfolio";
@@ -98,12 +101,26 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
     @Override
     public List<Portfolio> findByTitle(String title) {
-        String jpql = "SELECT p FROM Portfolio AS p WHERE p.title IN :title";
+        String jpql = "SELECT p FROM Portfolio AS p WHERE p.title LIKE :title";
 
         TypedQuery<Portfolio> query = em.createQuery(jpql, Portfolio.class);
 
-        query.setParameter("title", title);
+        query.setParameter("title", "%" + title + "%");
         return query.getResultList();
+    }
+
+    @Override
+    public List<Portfolio> findByNickname(String nickname) {
+
+        List<Member> memberList = memberRepository.findByNickname(nickname);
+
+        List<Portfolio> portfolioList = new ArrayList<>();
+        for (Member m : memberList){
+            if (findByMember(m).isPresent()) {
+                portfolioList.add(findByMember(m).get());
+            }
+        }
+        return portfolioList;
     }
 
     @Override
@@ -114,7 +131,11 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         TypedQuery<Portfolio> query = em.createQuery(jpql, Portfolio.class);
         query.setParameter("member", member);
 
-        return Optional.ofNullable(query.getSingleResult());
+        try{
+            return Optional.ofNullable(query.getSingleResult());
+        } catch (Exception e){
+            return Optional.empty();
+        }
     }
 
     @Override

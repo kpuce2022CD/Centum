@@ -12,4 +12,6 @@ public interface MemberRepository {
     Optional<Member> findByLoginId(String loginId);
     List<Member> findAll();
     void verifyEmail(Member member);
+
+    List<Member> findByNickname(String nickname);
 }

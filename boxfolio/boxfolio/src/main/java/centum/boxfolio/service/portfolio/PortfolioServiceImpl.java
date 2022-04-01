@@ -8,6 +8,7 @@ import centum.boxfolio.repository.member.MemberRepositoryImpl;
 import centum.boxfolio.repository.portfolio.PortfolioRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class PortfolioServiceImpl implements PortfolioService{
     private final PortfolioRepository portfolioRepository;
     private final MemberRepositoryImpl memberRepository;
     @Override
-    public Portfolio upload(PortfolioSaveForm form, long memberId) throws IOException {
+    public Portfolio upload(PortfolioSaveForm form, long memberId) throws IOException, ParseException {
 
         if (memberRepository.findById(memberId).isEmpty()){
             return null;
@@ -83,6 +84,11 @@ public class PortfolioServiceImpl implements PortfolioService{
         } else {
             return portfolioRepository.findById(id).get();
         }
+    }
+
+    @Override
+    public List<Portfolio> searchWithNickname(String nickname) {
+        return portfolioRepository.findByNickname(nickname);
     }
 
     @Override

@@ -8,6 +8,7 @@ import centum.boxfolio.repository.member.MemberRepositoryImpl;
 import centum.boxfolio.service.portfolio.PortfolioServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.sound.sampled.Port;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -75,7 +77,7 @@ public class PortfolioController {
                 Portfolio savedPortfolio = portfolioService.upload(form, memberId);
             } catch (IllegalStateException e){
                 bindingResult.reject("upload portfolio failed", e.getMessage());
-            } catch (IOException e) {
+            } catch (IOException | ParseException e) {
                 e.printStackTrace();
             }
         log.info("post success");
@@ -132,6 +134,16 @@ public class PortfolioController {
         model.addAttribute("portfolioList", portfolioList);
 
         return "/portfolio/folio_other";
+    }
+
+    @GetMapping("/search/name")
+    public String searchPortfolioWithNickname(@RequestParam String nickname, Model model){
+
+        List<Portfolio> portfolioList = portfolioService.searchWithNickname(nickname);
+
+        model.addAttribute("portfolio", portfolioList);
+
+        return "/";
     }
 
 

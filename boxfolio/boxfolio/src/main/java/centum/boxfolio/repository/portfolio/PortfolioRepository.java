@@ -20,6 +20,7 @@ public interface PortfolioRepository {
     List<Portfolio> getHighestPortfolioList(int count);
     Optional<Portfolio> findById(long id);
     List<Portfolio> findByTitle(String title);
+    List<Portfolio> findByNickname(String nickname);
     Optional<Portfolio> findByMember(Member member);
     List<Portfolio> findHighest ();
     void delete (Portfolio portfolio);
