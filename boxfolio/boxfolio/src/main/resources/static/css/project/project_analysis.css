@@ -1,0 +1,77 @@
+header {
+    min-width: 1280px;
+    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
+}
+.main{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+}
+
+.how{
+    margin-top: 100px;
+}
+.hover_icon {
+    float: right;
+    margin-right: 500px;
+    position: relative;
+    display: flex;
+}
+
+.hover_icon .tooltip {
+    visibility: hidden;       
+    width: 500px;             
+    background-color: rgb(173, 173, 173);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+  
+    position: absolute;       
+    z-index: 1;
+
+    top: 150%;
+    margin: auto;
+            
+}
+.tooltip{
+    margin-right: 500px;
+}
+.hover_icon:hover .tooltip {
+    visibility: visible;      
+}
+
+.hover_icon .tooltip::after {
+    content: " ";             
+    position: absolute;       
+    border-style: solid;
+    border-width: 5px;
+    
+    bottom: 100%;
+    right: 50%;
+
+
+    border-color: transparent transparent rgb(173, 173, 173) transparent;
+}
+
+.project_input{
+    clear: both;
+    margin: 0 auto;
+    margin-top: 10%;
+}
+.project_search{
+    display: flex;
+    flex-direction: column;
+}
+.project_name{
+    width: 500px;
+    border: 0.5px solid #71deff;
+    background-color: #CCFFFF;
+    border-radius: 5px;
+}
+.send_btn{
+    width: auto;
+    margin: auto;
+    margin-top: 30px;
+}
