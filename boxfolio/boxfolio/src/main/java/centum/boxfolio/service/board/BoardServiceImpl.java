@@ -83,8 +83,10 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public Free updateFreePost() {
-        return null;
+    public Free updateFreePost(FreeBoardSaveForm freeBoardSaveForm, Long boardId) {
+        Optional<Free> post = boardRepository.findFreePostById(boardId);
+        Optional<Free> free = boardRepository.modifyFreePost(post.get(), freeBoardSaveForm);
+        return free.get();
     }
 
     @Override
@@ -114,8 +116,10 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public Information updateInfoPost() {
-        return null;
+    public Information updateInfoPost(InfoBoardSaveForm infoBoardSaveForm, Long boardId) {
+        Optional<Information> post = boardRepository.findInfoPostById(boardId);
+        Optional<Information> information = boardRepository.modifyInfoPost(post.get(), infoBoardSaveForm);
+        return information.get();
     }
 
     @Override
@@ -147,8 +151,10 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public Recruitment updateRecruitPost() {
-        return null;
+    public Recruitment updateRecruitPost(RecruitBoardSaveForm recruitBoardSaveForm, Long boardId) {
+        Optional<Recruitment> post = boardRepository.findRecruitPostById(boardId);
+        Optional<Recruitment> recruitment = boardRepository.modifyRecruitPost(post.get(), recruitBoardSaveForm);
+        return recruitment.get();
     }
 
     @Override

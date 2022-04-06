@@ -134,7 +134,7 @@
                             <i class="fas fa-redo"></i>
                         </button>
                     </div>
-                    <div id="editor" contenteditable="true" th:field="*{contents}">
+                    <div id="editor" contenteditable="true" th:field="*{contents}" th:utext="*{contents}">
                     </div>
                 </div>
                 <div class="setting-container">
