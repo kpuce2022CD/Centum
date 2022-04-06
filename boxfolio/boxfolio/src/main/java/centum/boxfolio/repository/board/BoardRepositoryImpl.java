@@ -1,5 +1,8 @@
 package centum.boxfolio.repository.board;
 
+import centum.boxfolio.controller.board.FreeBoardSaveForm;
+import centum.boxfolio.controller.board.InfoBoardSaveForm;
+import centum.boxfolio.controller.board.RecruitBoardSaveForm;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.member.Member;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +60,12 @@ public class BoardRepositoryImpl implements BoardRepository {
     }
 
     @Override
+    public Optional<Free> modifyFreePost(Free free, FreeBoardSaveForm freeBoardSaveForm) {
+        free.setFree(freeBoardSaveForm.getTitle(), freeBoardSaveForm.getContents(), freeBoardSaveForm.isCommentAllow(), freeBoardSaveForm.isScrapAllow(), freeBoardSaveForm.getVisibility());
+        return Optional.ofNullable(free);
+    }
+
+    @Override
     public void removeFreeBoard(Long id) {
         Optional<Free> post = findFreePostById(id);
         em.remove(post.get());
@@ -80,6 +90,12 @@ public class BoardRepositoryImpl implements BoardRepository {
     }
 
     @Override
+    public Optional<Information> modifyInfoPost(Information information, InfoBoardSaveForm infoBoardSaveForm) {
+        information.setInfo(infoBoardSaveForm.getTitle(), infoBoardSaveForm.getContents(), infoBoardSaveForm.isCommentAllow(), infoBoardSaveForm.isScrapAllow(), infoBoardSaveForm.getVisibility());
+        return Optional.ofNullable(information);
+    }
+
+    @Override
     public void removeInfoBoard(Long id) {
         Optional<Information> post = findInfoPostById(id);
         em.remove(post.get());
@@ -101,6 +117,15 @@ public class BoardRepositoryImpl implements BoardRepository {
     @Override
     public List<Recruitment> findRecruitBoard() {
         return em.createQuery("SELECT r FROM Recruitment r LEFT JOIN Board b ON r.id = b.id", Recruitment.class).getResultList();
+    }
+
+    @Override
+    public Optional<Recruitment> modifyRecruitPost(Recruitment recruitment, RecruitBoardSaveForm recruitBoardSaveForm) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime deadlineDate = LocalDateTime.of(recruitBoardSaveForm.getDeadlineYear(), recruitBoardSaveForm.getDeadlineMonth(), recruitBoardSaveForm.getDeadlineDay(), now.getHour(), now.getMinute(), now.getSecond());
+        recruitment.setRecruit(recruitBoardSaveForm.getTitle(), recruitBoardSaveForm.getContents(), recruitBoardSaveForm.isCommentAllow(), recruitBoardSaveForm.isScrapAllow(),
+                recruitBoardSaveForm.getVisibility(), recruitBoardSaveForm.isAutoMatchingStatus(), deadlineDate, recruitBoardSaveForm.getMemberTotal());
+        return Optional.ofNullable(recruitment);
     }
 
     @Override

@@ -139,6 +139,63 @@ public class BoardController {
         return "redirect:/board/recruit/{id}";
     }
 
+    @GetMapping("/free/modify/{boardId}")
+    public String modifyFreeBoardPage(@PathVariable Long boardId, Model model) {
+        Free free = boardService.readFreePost(boardId);
+        model.addAttribute("freeBoardSaveForm", free.toFreeBoardSaveForm());
+        return "board/free_modify";
+    }
+
+    @GetMapping("/info/modify/{boardId}")
+    public String modifyInfoBoardPage(@PathVariable Long boardId, Model model) {
+        Information information = boardService.readInfoPost(boardId);
+        model.addAttribute("infoBoardSaveForm", information.toInfoBoardSaveForm());
+        return "board/info_modify";
+    }
+
+    @GetMapping("/recruit/modify/{boardId}")
+    public String modifyRecruitBoardPage(@PathVariable Long boardId, Model model) {
+        Recruitment recruitment = boardService.readRecruitPost(boardId);
+        model.addAttribute("recruitBoardSaveForm", recruitment.toRecruitBoardSaveForm());
+        return "board/recruitment_modify";
+    }
+
+    @PostMapping("/free/modify/{boardId}")
+    public String modifyFreeBoard(@PathVariable Long boardId, @ModelAttribute FreeBoardSaveForm freeBoardSaveForm, BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "/board/free_modify";
+        }
+
+        Free freePost = boardService.updateFreePost(freeBoardSaveForm, boardId);
+        redirectAttributes.addAttribute("id", freePost.getId());
+        return "redirect:/board/free/{id}";
+    }
+
+    @PostMapping("/info/modify/{boardId}")
+    public String modifyInfoBoard(@PathVariable Long boardId, @ModelAttribute InfoBoardSaveForm infoBoardSaveForm, BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "/board/info_modify";
+        }
+
+        Information freePost = boardService.updateInfoPost(infoBoardSaveForm, boardId);
+        redirectAttributes.addAttribute("id", freePost.getId());
+        return "redirect:/board/info/{id}";
+    }
+
+    @PostMapping("/recruit/modify/{boardId}")
+    public String modifyRecruitBoard(@PathVariable Long boardId, @ModelAttribute RecruitBoardSaveForm recruitBoardSaveForm, BindingResult bindingResult,
+                                     RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "/board/recruitment_modify";
+        }
+
+        Recruitment freePost = boardService.updateRecruitPost(recruitBoardSaveForm, boardId);
+        redirectAttributes.addAttribute("id", freePost.getId());
+        return "redirect:/board/recruit/{id}";
+    }
+
     @GetMapping("/free/delete/{boardId}")
     public String deleteFreeBoard(@PathVariable Long boardId) {
         boardService.deleteFreeBoard(boardId);

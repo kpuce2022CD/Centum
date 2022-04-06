@@ -18,19 +18,19 @@ public interface BoardService {
     void deleteGeneralBoard(Long id);
 
     Free createFreePost(FreeBoardSaveForm freeBoardSaveForm, Long memberId);
-    Free updateFreePost();
+    Free updateFreePost(FreeBoardSaveForm freeBoardSaveForm, Long boardId);
     Free readFreePost(Long id);
     List<Free> readFreeBoard();
     void deleteFreeBoard(Long id);
 
     Information createInfoPost(InfoBoardSaveForm infoBoardSaveForm, Long memberId);
-    Information updateInfoPost();
+    Information updateInfoPost(InfoBoardSaveForm infoBoardSaveForm, Long boardId);
     Information readInfoPost(Long id);
     List<Information> readInfoBoard();
     void deleteInfoBoard(Long id);
 
     Recruitment createRecruitPost(RecruitBoardSaveForm recruitBoardSaveForm, Long memberId);
-    Recruitment updateRecruitPost();
+    Recruitment updateRecruitPost(RecruitBoardSaveForm recruitBoardSaveForm, Long boardId);
     Recruitment readRecruitPost(Long id);
     List<Recruitment> readRecruitBoard();
     void deleteRecruitBoard(Long id);

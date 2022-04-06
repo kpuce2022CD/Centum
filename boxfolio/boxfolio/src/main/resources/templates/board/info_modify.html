@@ -24,7 +24,7 @@
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" th:href="@{/css/reset.css}"/>
     <link rel="stylesheet" type="text/css" href="../../static/css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../static/css/board/recruitment_edit.css" th:href="@{/css/board/recruitment_edit.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/board/edit.css" th:href="@{/css/board/recruitment_edit.css}"/>
     <link rel="stylesheet" type="text/css" href="../../static/css/input_design.css" th:href="@{/css/input_design.css}"/>
     <!--fontawesome-->
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script></head>
@@ -59,14 +59,15 @@
     </header>
     <section class="main">
         <div class="wrap">
-            <form id="board-form" action="" th:action th:object="${recruitBoardSaveForm}" method="post">
+            <form id="board-form" action="" th:action th:object="${infoBoardSaveForm}" method="post">
                 <div class="notice-title-container">
                     <h2 class="notice-title">게시글 작성</h2>
                     </ul>
                 </div>
                 <div class="edit-head-container">
-                    <select id="category" required>
-                        <option value="recruit">구인 게시판</option>
+                    <select name="category" id="category" required>
+                        <option value="free" >자유 게시판</option>
+                        <option value="info" selected>정보 게시판</option>
                     </select>
                 </div>
                 <div class="edit-container">
@@ -134,7 +135,7 @@
                             <i class="fas fa-redo"></i>
                         </button>
                     </div>
-                    <div id="editor" contenteditable="true" th:field="*{contents}">
+                    <div id="editor" contenteditable="true" th:field="*{contents}" th:utext="*{contents}">
                     </div>
                 </div>
                 <div class="setting-container">
@@ -154,37 +155,6 @@
                             <h4>스크랩 허용</h4>
                             <input id="scrap-allow" type="checkbox" class="switch" th:field="*{scrapAllow}"/>
                         </div>
-                    </div>
-                    <div class="member-total-area">
-                        <h4>모집 인원</h4>
-                        <input id="total1" type="radio" value="1" th:field="*{memberTotal}">
-                        <label for="total1">1명</label>
-                        <input id="total2" type="radio" value="2" th:field="*{memberTotal}">
-                        <label for="total2">2명</label>
-                        <input id="total3" type="radio" value="3" th:field="*{memberTotal}">
-                        <label for="total3">3명</label>
-                        <input id="total4" type="radio" value="4" th:field="*{memberTotal}">
-                        <label for="total4">4명</label>
-                        <input id="total5" type="radio" value="5" th:field="*{memberTotal}">
-                        <label for="total5">5명</label>
-                        <input id="total6" type="radio" value="6" th:field="*{memberTotal}">
-                        <label for="total6">6명</label>
-                    </div>
-                    <div class="deadline-area">
-                        <h4>마감 기한</h4>
-                        <select name="deadline-year" id="deadline-year" th:field="*{deadlineYear}">
-                            <option value="2022">2022</option>
-                        </select>
-                        <select name="deadline-month" id="deadline-month" th:field="*{deadlineMonth}">
-                            <option value="1">1월</option>
-                        </select>
-                        <select name="deadline-day" id="deadline-day" th:field="*{deadlineDay}">
-                            <option value="2">2일</option>
-                        </select>
-                    </div>
-                    <div class="auto-matching-area">
-                        <h4>자동 매칭</h4>
-                        <input id="auto-matching-status" type="checkbox" class="switch" th:field="*{autoMatchingStatus}"/>
                     </div>
                 </div>
                 <div class="access-container">
