@@ -62,7 +62,7 @@ public class Member {
     private List<BoardComment> boardComments = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<BoardReply> boardReplies = new ArrayList<>();
+    private List<ProjectMember> projectMembers = new ArrayList<>();
 
     public Member(String loginId, String passwd, String realName, String nickname, String phone,
                   String email, LocalDate birth, int sex, String githubId,

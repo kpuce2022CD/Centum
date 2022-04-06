@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 public class PortfolioLoadForm {
 
+
     private String contents;
 
     private String writer;
