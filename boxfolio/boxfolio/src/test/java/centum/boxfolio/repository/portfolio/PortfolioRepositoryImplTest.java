@@ -1,15 +1,13 @@
 package centum.boxfolio.repository.portfolio;
 
-import centum.boxfolio.entity.member.Member;
-import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.repository.member.MemberRepositoryImpl;
-import centum.boxfolio.service.portfolio.PortfolioService;
 import centum.boxfolio.service.portfolio.PortfolioServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Repository;
-import java.util.List;
+
+import java.io.IOException;
 
 @Repository
 @SpringBootTest
@@ -25,12 +23,7 @@ class PortfolioRepositoryImplTest {
     PortfolioRepositoryImpl portfolioRepository;
 
     @Test
-    void test () {
-
-        List<Portfolio> temp = null;
-
-//        System.out.println(portfolioService.searchWithMember(memberRepository.findById("testmember0").get()).getId());
-
+    void test () throws IOException {
 
     }
 

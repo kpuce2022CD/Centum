@@ -184,3 +184,13 @@ CREATE TABLE IF NOT EXISTS confirmation_token(
     member_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (member_id) REFERENCES member(id)
 );
+
+CREATE TABLE IF NOT EXISTS portfolio_files(
+	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	portfolio_id INT UNSIGNED NOT NULL,
+    src_order INT UNSIGNED NOT NULL,
+
+    src varchar(1000),
+
+    FOREIGN KEY (portfolio_id) REFERENCES portfolio(id)
+);

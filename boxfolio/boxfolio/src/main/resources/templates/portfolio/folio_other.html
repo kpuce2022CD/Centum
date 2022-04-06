@@ -17,11 +17,18 @@
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
     <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" href="../../css/portfolio/folio_other.css" th:href="@{css/portfolio/folio_other.css}">
-    <script src="../../static/js/portfolio/folio_other.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/portfolio/folio_other.css" th:href="@{/css/portfolio/folio_other.css}" />
+    <script src="../../js/portfolio/folio_other.js"></script>
+    <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
+    <script th:inline="javascript">
+        function start(){
+            id_set([[${portfolio.id}]]);
+            result();
+        }
+    </script>
 </head>
 
-<body onload="add()">
+<body onload="start()">
 <div id="root-wrap">
     <header th:replace="template/header :: common_header">
         <div class="wrap">
@@ -51,40 +58,37 @@
             </div>
         </div>
     </header>
-    <section class="folio">
-        <div class="wrap">
-            <div class="folio-container">
-                <a href="#">
-                    포트폴리오 작성
-                </a>
-                <a href="folio_pub.html">
-                    포트폴리오 목록
-                </a>
-        
+    <div class="portf">
+        <input id="value_test" class="value_test" value="portfolio" th:value="${portfolio.contents}"/>
+        <section class="make">
+            <div class="op">
+                <form action="/portfolios/star"  method="get">
+                    <input type="text" class="nothing" name="id" value="" th:value="${portfolio.id}">
+                    <button type="submit" class="up-btn" id="up-btn">
+                        <i class="fa-solid fa-star" style="color: yellow"></i>
+                    </button>
+                </form>
+                <form action="/portfolios/scrap"  method="get">
+                    <input type="text" class="nothing" name="id" value="" th:value="${portfolio.id}">
+                    <button type="submit" class="scrap-btn" id="scrap-btn">
+                        <i class="fa-solid fa-bookmark" style="color: blue"></i>
+                    </button>
+                </form>
             </div>
-        </div>
-    </section>
-
-    <section class="make">
-        <div class="op">
-            <a href="#" class="name_btn" id="name_btn">
-                작성자 : OOO
-            </a>
-            <button class="up-btn" id="up-btn" onclick="rec_up()">
-                추천 : 0
-            </button>
-        </div>
-        <div class="fo" id="fo">
-        </div>
-        <p id="date_1" class="date_1">작성 날짜 : </p>
-        <p id="date_2" class="date_2">0000_00_00</p>
-        
-    </section>
-
-
-    <footer>
-
-    </footer>
+            <div class="fo" id="fo">
+                <p class="title" id="title">내 포트폴리오</p>
+            </div>
+            <div class="date">
+                <p id="date_1" class="date_1">작성 날짜 : </p>
+                <p id="date_2" class="date_2">0000.00.00</p>
+            </div>
+            
+        </section>
+    </div>
 </div>
+
+    <footer th:replace="template/footer :: common_footer">
+    </footer>
+    <script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
 </body>
 </html>

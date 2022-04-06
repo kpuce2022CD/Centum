@@ -1,57 +1,82 @@
-var best_maker=['제작자1','제작자2','제작자3','제작자4']; //최다 추천작 제작자 이름(4개까지)
-var best_count=['100','200','300','400']; //최다 추천작들 추천수
-var best_url=['folio_other.html','folio_other.html','folio_other.html','folio_other.html']; //최다 추천작 링크
-var best_list=[];
+var best_link=document.getElementsByClassName('b_href');
+var best_id=document.getElementsByClassName('b_id');
+var best_title=document.getElementsByClassName('b_title');
+var best_info=document.getElementsByClassName('b_info');
+var best_date=document.getElementsByClassName('b_date');
+var best_star=document.getElementsByClassName('b_star');
+var best_scrap=document.getElementsByClassName('b_scrap');
 
-var normal_maker=['제작자5','제작자6','제작자7','제작자8']; //일반 작품 제작자 이름(4개까지)
-var normal_count=['10','20','30','40']; //일반 작품 추천수
-var normal_url=['#','#','#','#']; //일반 작품 링크
-var normal_list=[];
+var normal_link=document.getElementsByClassName('n_href');
+var normal_id=document.getElementsByClassName('n_id');
+var normal_title=document.getElementsByClassName('n_title');
+var normal_info=document.getElementsByClassName('n_info');
+var normal_date=document.getElementsByClassName('n_date');
+var normal_star=document.getElementsByClassName('n_star');
+var normal_scrap=document.getElementsByClassName('n_scrap');
 
+var link_b=['#'], id_b=['#'], title_b=['#'], info_b=['#'], date_b=['#'], star_b=['#'], scrap_b=['#'];
+var link_n=['#'], id_n=['#'], title_n=['#'], info_n=['#'], date_n=['#'], star_n=['#'], scrap_n=['#'];
 
-function set_best(){//표시는 일단 제작자 이름이랑 추천 수만 됩니다
-    var copy; //나중에 썸네일 이미지 같은거 데이터로 넣게 되면 띄워줄수도 있겠지만 일단은 이렇게만 해뒀어요
-    var loc;
-    loc=document.getElementById('best_index');
-    copy=document.getElementById('index');
-    for(var i=0; i<best_maker.length; i++){    
-        best_list[i]=copy.cloneNode(true);
-        best_list[i].firstElementChild.innerText="제작자 : " + best_maker[i];
-        best_list[i].firstElementChild.nextElementSibling.innerText="추천 수 : " + best_count[i];
-        best_list[i].href=best_url[i];
-        best_list[i].style.display='flex';
-        loc.append(best_list[i]);
-    }
+function set_best(num){
+    best_id[num].innerText=id_b[num]+'님의 포트폴리오';
+    best_title[num].innerText=title_b[num];
+    best_info[num].innerText=info_b[num];
+    best_date[num].innerText=date_b[num];
+    best_star[num].innerText=star_b[num];
+    best_scrap[num].innerText=scrap_b[num];
 }
-function set_normal(){
-    var copy;
-    var loc;
-    loc=document.getElementById('normal_index');
-    copy=document.getElementById('index');
-    for(var i=0; i<normal_maker.length; i++){    
-        normal_list[i]=copy.cloneNode(true);
-        normal_list[i].firstElementChild.innerText="제작자 : " + normal_maker[i];
-        normal_list[i].firstElementChild.nextElementSibling.innerText="추천 수 : " + normal_count[i];
-        normal_list[i].href=normal_url[i];
-        normal_list[i].style.display='flex';
-        loc.append(normal_list[i]);
-    }
+function set_normal(num){
+    normal_id[num].innerText=id_n[num]+'님의 포트폴리오 입니다.';
+    normal_title[num].innerText=title_n[num];
+    normal_info[num].innerText=info_n[num];
+    normal_date[num].innerText=date_n[num];
+    normal_star[num].innerText=star_n[num];
+    normal_scrap[num].innerText=scrap_n[num];
 }
 
-function start(){
-    set_best();
-    set_normal();
+function start(b_num, n_num){
+    for(var i in b_num){
+        set_best(i);
+    }
+    for(var i in n_num){
+        set_normal(i);
+    }
+}
+
+function setting_b(num, cont, star, id, scrap){
+    var data=JSON.parse(cont);
+    console.log(data);
+    title_b[num]=data.title;
+    id_b[num]=id;
+    star_b[num]=star;
+    date_b[num]=data.date;
+    scrap_b[num]=scrap;
+    info_b[num]='웹/백엔드';
+    set_best(num);
 }
 
 function next_folio(){ //포트폴리오 리스트 다음 리스트로 변경
-    for(var i=0; i<normal_list.length; i++){//이전에 있던 리스트 삭제
-        normal_list[i].remove();
+    for(var i in 4){
+        set_normal(i);
     }
-    set_normal();//새로 입력된 데이터로 재 표시
 }
 function back_folio(){ //포트폴리오 리스트 이전 리스트로 변경
-    for(var i=0; i<normal_list.length; i++){
-        normal_list[i].remove();
+    for(var i in 4){
+        set_normal(i);
     }
-    set_normal();
+}
+
+function go(input){
+    input.submit();
+}
+
+function search_set(input){
+    if(input.value=='title'){
+        document.getElementById('search_data').action="/portfolios/search/title";
+        document.getElementById('portfolio-query').name='title';
+    }
+    else{
+        document.getElementById('search_data').action="/portfolios/search/name";
+        document.getElementById('portfolio-query').name='nickname';
+    }
 }

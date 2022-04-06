@@ -4,7 +4,6 @@ import centum.boxfolio.entity.member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.internal.metadata.aggregated.PotentiallyContainerCascadingMetaData;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -26,6 +25,7 @@ public class Portfolio {
     private boolean visibility;
 
     private long starTally;
+    private long scrapTally;
 
     @OneToOne
     @JoinColumn(name = "member_id")
@@ -53,6 +53,7 @@ public class Portfolio {
         this.portfolioScraps = portfolioScraps;
 
         this.starTally = 0;
+        this.scrapTally = 0;
         this.updatedDate = LocalDateTime.now();
     }
     

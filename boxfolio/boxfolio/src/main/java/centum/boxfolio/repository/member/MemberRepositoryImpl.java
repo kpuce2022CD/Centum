@@ -2,12 +2,14 @@ package centum.boxfolio.repository.member;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.member.MemberAbility;
+import centum.boxfolio.entity.portfolio.Portfolio;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,5 +48,15 @@ public class MemberRepositoryImpl implements MemberRepository {
     @Override
     public void verifyEmail(Member member) {
         member.setEmailVerified(1);
+    }
+
+    @Override
+    public List<Member> findByNickname(String nickname) {
+        String jpql = "SELECT m FROM Member AS m WHERE m.nickname LIKE :nickname";
+        TypedQuery<Member> query = em.createQuery(jpql, Member.class);
+
+        query.setParameter("nickname", "%" + nickname + "%");
+
+        return query.getResultList();
     }
 }
