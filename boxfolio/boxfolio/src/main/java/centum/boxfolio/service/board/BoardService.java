@@ -13,11 +13,6 @@ public interface BoardService {
     BoardStar countStar(Long boardId, Long memberId);
     BoardScrap countScrap(Long boardId, Long memberId);
 
-    BoardComment createComment(BoardCommentSaveForm boardCommentSaveForm, Long boardId, Long memberId);
-    List<BoardComment> readComments();
-    List<BoardComment> readCommentsByBoardId(Long boardId);
-    void deleteComment(Long commentId);
-
     Board readGeneralPost(Long id);
     List<Board> readGeneralBoard();
     void deleteGeneralBoard(Long id);

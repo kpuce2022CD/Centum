@@ -10,9 +10,9 @@ import javax.persistence.*;
 @Getter @Setter
 @NoArgsConstructor
 @Entity
-public class BoardScrap {
+public class ProjectMember {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "board_id")
@@ -22,7 +22,7 @@ public class BoardScrap {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public BoardScrap(Board board, Member member) {
+    public ProjectMember(Board board, Member member) {
         setBoard(board);
         setMember(member);
     }
@@ -32,7 +32,7 @@ public class BoardScrap {
             this.board.getBoardScraps().remove(this);
         }
         this.board = board;
-        board.getBoardScraps().add(this);
+        board.getProjectMembers().add(this);
     }
 
     private void setMember(Member member) {
@@ -40,6 +40,6 @@ public class BoardScrap {
             this.member.getBoardScraps().remove(this);
         }
         this.member = member;
-        member.getBoardScraps().add(this);
+        member.getProjectMembers().add(this);
     }
 }

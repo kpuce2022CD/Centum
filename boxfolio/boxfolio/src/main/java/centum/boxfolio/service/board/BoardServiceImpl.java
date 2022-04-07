@@ -25,7 +25,6 @@ public class BoardServiceImpl implements BoardService{
     private final BoardRepository boardRepository;
     private final ScrapRepository scrapRepository;
     private final StarRepository starRepository;
-    private final CommentRepository commentRepository;
     private final MemberRepository memberRepository;
 
     @Override
@@ -55,28 +54,6 @@ public class BoardServiceImpl implements BoardService{
         }
         scrapRepository.downScrap(post.get(), member.get());
         return null;
-    }
-
-    @Override
-    public BoardComment createComment(BoardCommentSaveForm boardCommentSaveForm, Long boardId, Long memberId) {
-        Optional<Board> board = boardRepository.findGeneralPostById(boardId);
-        Optional<Member> member = memberRepository.findById(memberId);
-        return commentRepository.save(boardCommentSaveForm.toBoardComment(board.get(), member.get()));
-    }
-
-    @Override
-    public List<BoardComment> readComments() {
-        return commentRepository.findAll();
-    }
-
-    @Override
-    public List<BoardComment> readCommentsByBoardId(Long boardId) {
-        return commentRepository.findCertainCommentsByBoardId(boardId);
-    }
-
-    @Override
-    public void deleteComment(Long commentId) {
-        commentRepository.remove(commentRepository.findById(commentId).get());
     }
 
     @Override
@@ -164,7 +141,9 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public Recruitment createRecruitPost(RecruitBoardSaveForm recruitBoardSaveForm, Long memberId) {
         Optional<Member> member = memberRepository.findById(memberId);
-        return boardRepository.saveRecruitPost(recruitBoardSaveForm.toRecruitBoard(member.get()));
+        Recruitment recruitment = boardRepository.saveRecruitPost(recruitBoardSaveForm.toRecruitBoard(member.get()));
+        boardRepository.saveProjectMember(recruitment, member.get());
+        return recruitment;
     }
 
     @Override

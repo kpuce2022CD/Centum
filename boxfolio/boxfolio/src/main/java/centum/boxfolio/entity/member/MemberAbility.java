@@ -17,7 +17,7 @@ public class MemberAbility {
     private int complexity;
     private int memberLevel;
 
-    @OneToOne(mappedBy = "memberAbility")
+    @OneToOne(mappedBy = "memberAbility", orphanRemoval = true)
     private Member member;
 
     public MemberAbility() {

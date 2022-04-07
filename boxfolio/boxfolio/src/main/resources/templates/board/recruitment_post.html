@@ -120,7 +120,7 @@
         </div>
         <div class="comment-container">
             <ul class="comments">
-                <li class="comment-area" id="1" th:id="${comment.id}" th:each="comment : ${comments}">
+                <li class="comment-area" id="1" th:id="${comment.id}" th:each="comment : ${comments}" th:classappend="${comment.groupNum != comment.id ? 'replied' : ''}">
                     <div class="comment-box">
                         <div class="comment-info-area">
                             <a href="" id="commenter-img">
@@ -128,9 +128,10 @@
                             </a>
                             <div class="comment-info">
                                 <a href="" id="commenter-nickname" th:text="${comment.member.nickname}">SeoArc</a>
+                                <p class="mention-member" th:if="${comment.groupNum} != ${comment.id}" th:text="|@${comment.boardComment.member.nickname}|"></p>
                                 <p class="comment" th:utext="${comment.contents}">댓글입니다.</p>
                                 <div class="reply-access">
-                                    <span class="comment-created" th:text="${#temporals.format(comment.createdDate, 'yyyy.MM.ss. HH:mm')}">2022.01.12. 01:23</span>
+                                    <span class="comment-created" th:text="${#temporals.format(comment.createdDate, 'yyyy.MM.dd. HH:mm')}">2022.01.12. 01:23</span>
                                     <button class="reply-btn">답글</button>
                                 </div>
                             </div>
@@ -142,6 +143,7 @@
                     </div>
                     <div class="reply-edit">
                         <form id="reply-form" action="" th:action="@{/board/reply/{commentId}(commentId=${comment.id})}" method="post">
+                            <span id="tag-nickname" th:text="|@${comment.member.nickname}|"></span>
                             <textarea name="reply" id="reply-textarea" rows="1" placeholder="답글을 입력하세요" th:field="${boardCommentSaveForm.contents}"></textarea>
                             <div class="reply-write-access-area">
                                 <div class="file-box">
