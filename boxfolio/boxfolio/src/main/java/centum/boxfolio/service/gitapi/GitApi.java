@@ -1,6 +1,7 @@
 package centum.boxfolio.service.gitapi;
 
 import org.kohsuke.github.GHContent;
+import org.kohsuke.github.GitHub;
 import org.kohsuke.github.PagedIterable;
 
 import java.io.File;
@@ -15,10 +16,12 @@ import java.util.logging.Logger;
 
 public interface GitApi {
 
-    String DEFAULT_PATH = "";
-    boolean gitAccess(String personalToken);
-    boolean getAllUsersRepo();
-    boolean getAllPublicRepo(String path);
+    String DEFAULT_PATH = "C:\\Users\\joey3\\centum\\Centum\\boxfolio\\boxfolio\\src\\main\\resources\\static\\git";
+    //String DEFAULT_PATH = "E:\\gitHub\\Centum\\boxfolio\\boxfolio\\src\\main\\resources\\static\\static\git";
+    GitHub gitAccess(String personalToken);
+    boolean getAllUsersRepo(String personalToken);
+    boolean getAllPublicRepo(String path, String personalToken);
+    boolean getCodeForRepo(String repoName, String personalToken) throws IOException;
 
     static void downloadDirectory(GHContent content, String path, String parentPath) {
         final Logger LOG = Logger.getGlobal();
