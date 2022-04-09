@@ -18,25 +18,37 @@ import java.time.LocalDateTime;
 @PrimaryKeyJoinColumn(name = "board_id")
 public class Recruitment extends Board {
 
-    private boolean autoMatchingStatus;
-    private boolean deadlineStatus;
+    private Boolean autoMatchingStatus;
+    private Boolean deadlineStatus;
     private LocalDateTime deadlineDate;
-    private long memberTally;
-    private long memberTotal;
+    private Long memberTally;
+    private Long memberTotal;
+    private String projectSubject;
+    private String projectField;
+    private Integer projectLevel;
+    private Integer requiredMemberLevel;
+    private String expectedPeriod;
 
     public Recruitment(String title, String contents, LocalDateTime createdDate,
-                       boolean commentAllow, boolean scrapAllow, String visibility,
-                       boolean autoMatchingStatus, LocalDateTime deadlineDate, Long memberTotal, Member member) {
+                       Boolean commentAllow, Boolean scrapAllow, String visibility,
+                       Boolean autoMatchingStatus, LocalDateTime deadlineDate, Long memberTotal,
+                       String projectSubject, String projectField, Integer projectLevel, Integer requiredMemberLevel, String expectedPeriod, Member member) {
         super(title, contents, createdDate, commentAllow, scrapAllow, visibility, member);
         this.autoMatchingStatus = autoMatchingStatus;
         this.deadlineStatus = false;
         this.deadlineDate = deadlineDate;
-        this.memberTally = 0;
+        this.memberTally = 0L;
         this.memberTotal = memberTotal;
+        this.projectSubject = projectSubject;
+        this.projectField = projectField;
+        this.projectLevel = projectLevel;
+        this.requiredMemberLevel = requiredMemberLevel;
+        this.expectedPeriod = expectedPeriod;
     }
 
-    public void setRecruit(String title, String contents, boolean commentAllow, boolean scrapAllow, String visibility,
-                           boolean autoMatchingStatus, LocalDateTime deadlineDate, Long memberTotal) {
+    public void setRecruit(String title, String contents, Boolean commentAllow, Boolean scrapAllow, String visibility,
+                           Boolean autoMatchingStatus, LocalDateTime deadlineDate, Long memberTotal,
+                           String projectSubject, String projectField, Integer projectLevel, Integer requiredMemberLevel, String expectedPeriod) {
         setTitle(title);
         setContents(contents);
         setCommentAllow(commentAllow);
@@ -45,10 +57,16 @@ public class Recruitment extends Board {
         setAutoMatchingStatus(autoMatchingStatus);
         setDeadlineDate(deadlineDate);
         setMemberTotal(memberTotal);
+        setProjectSubject(projectSubject);
+        setProjectField(projectField);
+        setProjectLevel(projectLevel);
+        setRequiredMemberLevel(requiredMemberLevel);
+        setExpectedPeriod(expectedPeriod);
     }
 
     public RecruitBoardSaveForm toRecruitBoardSaveForm() {
-        return new RecruitBoardSaveForm(getTitle(), getContents(), isCommentAllow(), isScrapAllow(), getVisibility(),
-                isAutoMatchingStatus(), getDeadlineDate().getYear(), getDeadlineDate().getMonth().getValue(), getDeadlineDate().getDayOfMonth(), getMemberTotal());
+        return new RecruitBoardSaveForm(getTitle(), getContents(), getCommentAllow(), getScrapAllow(), getVisibility(),
+                getAutoMatchingStatus(), getDeadlineDate().getYear(), getDeadlineDate().getMonth().getValue(), getDeadlineDate().getDayOfMonth(), getMemberTotal(),
+                getProjectSubject(), getProjectField(), getProjectLevel(), getRequiredMemberLevel(), getExpectedPeriod());
     }
 }

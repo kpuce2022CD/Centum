@@ -33,6 +33,11 @@ public interface BoardRepository {
     void removeRecruitBoard(Long id);
 
     ProjectMember saveProjectMember(Recruitment recruitment, Member member);
+    List<ProjectMember> findAllProjectMember();
+    Optional<ProjectMember> findProjectMemberByBoardIdAndMemberId(Long boardId, Long memberId);
+
+    Recruitment setRecruitStatusToTrue(Recruitment recruitment);
+    Recruitment setRecruitStatusToFalse(Recruitment recruitment);
 
     Board upView(Board board);
 }

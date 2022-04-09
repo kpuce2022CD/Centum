@@ -61,7 +61,7 @@ public class BoardRepositoryImpl implements BoardRepository {
 
     @Override
     public Optional<Free> modifyFreePost(Free free, FreeBoardSaveForm freeBoardSaveForm) {
-        free.setFree(freeBoardSaveForm.getTitle(), freeBoardSaveForm.getContents(), freeBoardSaveForm.isCommentAllow(), freeBoardSaveForm.isScrapAllow(), freeBoardSaveForm.getVisibility());
+        free.setFree(freeBoardSaveForm.getTitle(), freeBoardSaveForm.getContents(), freeBoardSaveForm.getCommentAllow(), freeBoardSaveForm.getScrapAllow(), freeBoardSaveForm.getVisibility());
         return Optional.ofNullable(free);
     }
 
@@ -91,7 +91,7 @@ public class BoardRepositoryImpl implements BoardRepository {
 
     @Override
     public Optional<Information> modifyInfoPost(Information information, InfoBoardSaveForm infoBoardSaveForm) {
-        information.setInfo(infoBoardSaveForm.getTitle(), infoBoardSaveForm.getContents(), infoBoardSaveForm.isCommentAllow(), infoBoardSaveForm.isScrapAllow(), infoBoardSaveForm.getVisibility());
+        information.setInfo(infoBoardSaveForm.getTitle(), infoBoardSaveForm.getContents(), infoBoardSaveForm.getCommentAllow(), infoBoardSaveForm.getScrapAllow(), infoBoardSaveForm.getVisibility());
         return Optional.ofNullable(information);
     }
 
@@ -123,8 +123,9 @@ public class BoardRepositoryImpl implements BoardRepository {
     public Optional<Recruitment> modifyRecruitPost(Recruitment recruitment, RecruitBoardSaveForm recruitBoardSaveForm) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime deadlineDate = LocalDateTime.of(recruitBoardSaveForm.getDeadlineYear(), recruitBoardSaveForm.getDeadlineMonth(), recruitBoardSaveForm.getDeadlineDay(), now.getHour(), now.getMinute(), now.getSecond());
-        recruitment.setRecruit(recruitBoardSaveForm.getTitle(), recruitBoardSaveForm.getContents(), recruitBoardSaveForm.isCommentAllow(), recruitBoardSaveForm.isScrapAllow(),
-                recruitBoardSaveForm.getVisibility(), recruitBoardSaveForm.isAutoMatchingStatus(), deadlineDate, recruitBoardSaveForm.getMemberTotal());
+        recruitment.setRecruit(recruitBoardSaveForm.getTitle(), recruitBoardSaveForm.getContents(), recruitBoardSaveForm.getCommentAllow(), recruitBoardSaveForm.getScrapAllow(),
+                recruitBoardSaveForm.getVisibility(), recruitBoardSaveForm.getAutoMatchingStatus(), deadlineDate, recruitBoardSaveForm.getMemberTotal(),
+                recruitBoardSaveForm.getProjectSubject(), recruitBoardSaveForm.getProjectField(), recruitBoardSaveForm.getProjectLevel(), recruitBoardSaveForm.getRequiredMemberLevel(), recruitBoardSaveForm.getExpectedPeriod());
         return Optional.ofNullable(recruitment);
     }
 
@@ -140,6 +141,34 @@ public class BoardRepositoryImpl implements BoardRepository {
         ProjectMember projectMember = new ProjectMember(recruitment, member);
         em.persist(projectMember);
         return projectMember;
+    }
+
+    @Override
+    public List<ProjectMember> findAllProjectMember() {
+        return em.createQuery("select pm from ProjectMember pm", ProjectMember.class).getResultList();
+    }
+
+    @Override
+    public Optional<ProjectMember> findProjectMemberByBoardIdAndMemberId(Long boardId, Long memberId) {
+        return findAllProjectMember().stream()
+                .filter(pm -> pm.getBoard().getId() == boardId)
+                .filter(pm -> pm.getMember().getId() == memberId)
+                .findAny();
+    }
+
+    /**
+     * 마감 완료
+     */
+    @Override
+    public Recruitment setRecruitStatusToTrue(Recruitment recruitment) {
+        recruitment.setDeadlineStatus(true);
+        return recruitment;
+    }
+
+    @Override
+    public Recruitment setRecruitStatusToFalse(Recruitment recruitment) {
+        recruitment.setDeadlineStatus(false);
+        return recruitment;
     }
 
     @Override

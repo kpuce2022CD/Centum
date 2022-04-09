@@ -19,13 +19,13 @@ public class InfoBoardSaveForm {
     @NotNull
     private String contents;
     @NotNull
-    private boolean commentAllow;
+    private Boolean commentAllow;
     @NotNull
-    private boolean scrapAllow;
+    private Boolean scrapAllow;
     @NotNull
     private String visibility;
 
-    public InfoBoardSaveForm(String title, String contents, boolean commentAllow, boolean scrapAllow, String visibility) {
+    public InfoBoardSaveForm(String title, String contents, Boolean commentAllow, Boolean scrapAllow, String visibility) {
         this.title = title;
         this.contents = contents;
         this.commentAllow = commentAllow;
