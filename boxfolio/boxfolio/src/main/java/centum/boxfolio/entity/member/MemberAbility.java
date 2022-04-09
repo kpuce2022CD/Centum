@@ -10,12 +10,12 @@ import javax.persistence.*;
 public class MemberAbility {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    private int cohesion;
-    private int coupling;
-    private int complexity;
-    private int memberLevel;
+    private Integer cohesion;
+    private Integer coupling;
+    private Integer complexity;
+    private Integer memberLevel;
 
     @OneToOne(mappedBy = "memberAbility", orphanRemoval = true)
     private Member member;

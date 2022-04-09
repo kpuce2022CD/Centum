@@ -68,6 +68,11 @@ header {
     padding: 10px 5px;
 }
 
+.contents-area {
+    display: flex;
+    margin: 0 0 10px 0;
+}
+
 #editor {
     background-color: #fefefe;
     border: 1px solid #ebecef;
@@ -78,10 +83,55 @@ header {
     overflow: auto;
     text-align: justify;
     margin-bottom: 10px;
+    width: 100%;
+    flex-shrink: 1;
+    margin: 0 10px 0 0;
 }
 
 #editor img {
     max-width: 100%;
+}
+
+.project-area {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    flex-shrink: 4;
+    width: 100%;
+    padding: 8px;
+}
+
+.project-info {
+    width: 100%;
+}
+
+.project-info tr {
+    border-bottom: 1px solid #fff;
+}
+
+.project-info th {
+    font-weight: normal;
+    background-color: #86A8E7;
+    font-size: 13px;
+}
+
+.project-area td {
+    font-size: 13px;
+}
+
+.project-subject + td {
+    border: 1px solid #eee;
+    padding: 5px 10px;
+}
+
+#project-subject {
+    background-color: transparent;
+    outline: none;
+}
+
+.project-area select {
+    width: 100%;
+    height: 30px;
+    background-color: #fafafa;
 }
 
 .setting-container {

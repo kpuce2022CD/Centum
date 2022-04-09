@@ -19,11 +19,11 @@ import java.time.LocalDateTime;
 public class Information extends Board{
 
     public Information(String title, String contents, LocalDateTime createdDate,
-                       boolean commentAllow, boolean scrapAllow, String visibility, Member member) {
+                       Boolean commentAllow, Boolean scrapAllow, String visibility, Member member) {
         super(title, contents, createdDate, commentAllow, scrapAllow, visibility, member);
     }
 
-    public void setInfo(String title, String contents, boolean commentAllow, boolean scrapAllow, String visibility) {
+    public void setInfo(String title, String contents, Boolean commentAllow, Boolean scrapAllow, String visibility) {
         setTitle(title);
         setContents(contents);
         setCommentAllow(commentAllow);
@@ -32,6 +32,6 @@ public class Information extends Board{
     }
 
     public InfoBoardSaveForm toInfoBoardSaveForm() {
-        return new InfoBoardSaveForm(getTitle(), getContents(), isCommentAllow(), isScrapAllow(), getVisibility());
+        return new InfoBoardSaveForm(getTitle(), getContents(), getCommentAllow(), getScrapAllow(), getVisibility());
     }
 }

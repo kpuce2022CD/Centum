@@ -15,17 +15,17 @@ public class PortfolioLoadForm {
 
     private String writer;
 
-    private long star;
+    private Long star;
 
-    private long scrap;
+    private Long scrap;
 
     private LocalDateTime updatedDate;
 
     private String interestField;
 
-    private long id;
+    private Long id;
 
-    public PortfolioLoadForm(String contents, String nickname, long starTally, long scrapTally, LocalDateTime updatedDate, String interestField, long id) {
+    public PortfolioLoadForm(String contents, String nickname, Long starTally, Long scrapTally, LocalDateTime updatedDate, String interestField, Long id) {
         this.contents = contents;
         this.writer = nickname;
         this.star = starTally;

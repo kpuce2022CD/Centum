@@ -34,4 +34,8 @@ public interface BoardService {
     Recruitment readRecruitPost(Long id);
     List<Recruitment> readRecruitBoard();
     void deleteRecruitBoard(Long id);
+    Recruitment endRecruit(Long boardId);
+    Recruitment restartRecruit(Long boardId);
+    ProjectMember applyRecruit(Long boardId, Long memberId);
+    Boolean checkApplyStatus(Long boardId, Long memberId);
 }
