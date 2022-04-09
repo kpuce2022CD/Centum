@@ -21,7 +21,7 @@ public interface GitApi {
     GitHub gitAccess(String personalToken);
     boolean getAllUsersRepo(String personalToken);
     boolean getAllPublicRepo(String path, String personalToken);
-    boolean getCodeForRepo(String repoName, String personalToken) throws IOException;
+    void getCodeForRepo(String repoName, String personalToken) throws IOException;
 
     static void downloadDirectory(GHContent content, String path, String parentPath) {
         final Logger LOG = Logger.getGlobal();
