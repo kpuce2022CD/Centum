@@ -31,7 +31,7 @@ public class ProjectController {
     @GetMapping("/upload")
     public String addProject (Model model) {
         model.addAttribute("projectLoadForm", new ProjectLoadForm());
-        return "";
+        return "/project/project_analysis";
     }
 
     @PostMapping("/upload")
@@ -43,13 +43,13 @@ public class ProjectController {
         try {
             gitApi.getCodeForRepo(form.getRepoName(), form.getPersonalToken());
         } catch (IOException e){
-            return "";
+            return "/project/project_analysis_error";
         }
 
         Project project = new Project(form.getRepoName());
 
         projectService.upload(project, null);
 
-        return "";
+        return "/project/project_analysis";
     }
 }
