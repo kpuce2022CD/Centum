@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class PortfolioLoadForm {
-    
+
     private String contents;
 
     private String writer;
