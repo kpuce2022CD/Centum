@@ -75,7 +75,7 @@
                         <span id="view-cnt" th:text="|조회 *{viewTally}|">조회 1</span>
                         <span id="star-cnt" th:text="|추천 *{starTally}|">추천 3</span>
                         <span id="scrap-cnt" th:text="|스크랩 *{scrapTally}|">스크랩 2</span>
-                        <a id="update-board" href="" th:if="${#session.getAttribute('loginMember')} == *{member.id}">수정</a>
+                        <a id="update-board" href="" th:if="${#session.getAttribute('loginMember')} == *{member.id}" th:href="@{/board/info/modify/{boardId}(boardId=*{id})}">수정</a>
                         <a id="delete-board" href="" th:if="${#session.getAttribute('loginMember')} == *{member.id}" th:href="@{/board/info/delete/{boardId}(boardId=*{id})}">삭제</a>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
             </div>
             <div class="comment-container">
                 <ul class="comments">
-                    <li class="comment-area" th:each="comment : ${comments}">
+                    <li class="comment-area" id="1" th:id="${comment.id}" th:each="comment : ${comments}" th:classappend="${comment.groupNum != comment.id ? 'replied' : ''}">
                         <div class="comment-box">
                             <div class="comment-info-area">
                                 <a href="" id="commenter-img">
@@ -109,9 +109,10 @@
                                 </a>
                                 <div class="comment-info">
                                     <a href="" id="commenter-nickname" th:text="${comment.member.nickname}">SeoArc</a>
+                                    <p class="mention-member" th:if="${comment.groupNum} != ${comment.id}" th:text="|@${comment.boardComment.member.nickname}|"></p>
                                     <p class="comment" th:utext="${comment.contents}">댓글입니다.</p>
                                     <div class="reply-access">
-                                        <span class="comment-created" th:text="${#temporals.format(comment.createdDate, 'yyyy.MM.ss. HH:mm')}">2022.01.12. 01:23</span>
+                                        <span class="comment-created" th:text="${#temporals.format(comment.createdDate, 'yyyy.MM.dd. HH:mm')}">2022.01.12. 01:23</span>
                                         <button class="reply-btn">답글</button>
                                     </div>
                                 </div>
@@ -120,6 +121,23 @@
                                 <a id="update-comment" href="" th:if="${#session.getAttribute('loginMember')} == ${comment.member.id}"><span>수정</span></a>
                                 <a id="delete-comment" href="" th:if="${#session.getAttribute('loginMember')} == ${comment.member.id}" th:href="@{/board/comment/delete/{commentId}(commentId=${comment.id})}"><span>삭제</span></a>
                             </div>
+                        </div>
+                        <div class="reply-edit">
+                            <form id="reply-form" action="" th:action="@{/board/reply/{commentId}(commentId=${comment.id})}" method="post">
+                                <span id="tag-nickname" th:text="|@${comment.member.nickname}|"></span>
+                                <textarea name="reply" id="reply-textarea" rows="1" placeholder="답글을 입력하세요" th:field="${boardCommentSaveForm.contents}"></textarea>
+                                <div class="reply-write-access-area">
+                                    <div class="file-box">
+                                        <button id="image-upload-btn">
+                                            <i class="far fa-image"></i>
+                                        </button>
+                                    </div>
+                                    <div class="btn-box">
+                                        <button id="reply-cancel-btn">취소</button>
+                                        <input type="submit" id="reply-post-btn" value="등록">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </li>
                 </ul>

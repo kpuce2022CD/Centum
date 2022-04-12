@@ -1,0 +1,38 @@
+@charset "UTF-8";
+header {
+    border-bottom: 1px solid #fff;
+    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
+}
+
+/* section */
+.main {
+    width: 100%;
+    height: calc(100vh - 120px);
+    background-color: transparent;
+}
+
+.info-container {
+    margin: 100px 0 0;
+    border: 1px solid #555;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.member-info-area {
+    display: flex; 
+    height: 250px;
+}
+
+.profile-img-area img {
+    width: 250px;
+}
+
+.name-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.member-name {
+    font-size: 24px;
+}

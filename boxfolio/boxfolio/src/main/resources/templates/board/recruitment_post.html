@@ -75,7 +75,7 @@
                     <span id="view-cnt" th:text="|조회 *{viewTally}|">조회 1</span>
                     <span id="star-cnt" th:text="|추천 *{starTally}|">추천 3</span>
                     <span id="scrap-cnt" th:text="|스크랩 *{scrapTally}|">스크랩 2</span>
-                    <a id="update-board" href="" th:if="${#session.getAttribute('loginMember')} == *{member.id}">수정</a>
+                    <a id="update-board" href="" th:if="${#session.getAttribute('loginMember')} == *{member.id}" th:href="@{/board/recruit/modify/{boardId}(boardId=*{id})}">수정</a>
                     <a id="delete-board" href="" th:if="${#session.getAttribute('loginMember')} == *{member.id}" th:href="@{/board/recruit/delete/{boardId}(boardId=*{id})}">삭제</a>
                 </div>
             </div>
@@ -101,6 +101,69 @@
         </div>
         <div class="contents-container">
             <div class="contents" th:utext="*{contents}"></div>
+            <div class="project-area">
+                <table class="project-info">
+                    <colgroup>
+                        <col style="width: 70px;">
+                        <col>
+                    </colgroup>
+                    <tr>
+                        <th class="project-subject">주제</th>
+                        <td>
+                            <span th:text="*{projectSubject}"></span>
+                        </td>
+                    </tr>
+                    <tr class="project-field">
+                        <th>분야</th>
+                        <td>
+                            <span th:if="*{projectField.equals('android')}">앱/안드로이드</span>
+                            <span th:if="*{projectField.equals('ios')}">앱/IOS</span>
+                            <span th:if="*{projectField.equals('web')}">웹</span>
+                            <span th:if="*{projectField.equals('ai')}">AI</span>
+                            <span th:if="*{projectField.equals('embedded')}">임베디드</span>
+                        </td>
+                    </tr>
+                    <tr class="project-level">
+                        <th>난이도</th>
+                        <td>
+                            <span th:if="*{projectLevel == 1}">하</span>
+                            <span th:if="*{projectLevel == 2}">중</span>
+                            <span th:if="*{projectLevel == 3}">상</span>
+                        </td>
+                    </tr>
+                    <tr class="required-member-level">
+                        <th>최소등급</th>
+                        <td>
+                            <span th:if="*{requiredMemberLevel == 0}">입문개발자</span>
+                            <span th:if="*{requiredMemberLevel == 1}">초급개발자</span>
+                            <span th:if="*{requiredMemberLevel == 2}">중급개발자</span>
+                            <span th:if="*{requiredMemberLevel == 3}">상급개발자</span>
+                        </td>
+                    </tr>
+                    <tr class="expected-period">
+                        <th>예상기간</th>
+                        <td>
+                            <span th:if="*{expectedPeriod.equals('two-w')}">2주 이하</span>
+                            <span th:if="*{expectedPeriod.equals('one-m')}">1개월 이하</span>
+                            <span th:if="*{expectedPeriod.equals('three-m')}">3개월 이하</span>
+                            <span th:if="*{expectedPeriod.equals('six-m')}">6개월 이하</span>
+                            <span th:if="*{expectedPeriod.equals('lower-one-y')}">1년 이하</span>
+                            <span th:if="*{expectedPeriod.equals('higher-one-y')}">1년 이싱</span>
+                        </td>
+                    </tr>
+                </table>
+                <div class="recruit-access">
+                    <div th:if="*{deadlineStatus == true}">
+                        <p th:if="${#session.getAttribute('loginMember')} != *{member.id}" class="project-end-msg">마감되었습니다.</p>
+                        <a th:if="${#session.getAttribute('loginMember')} == *{member.id}" class="project-restart-btn" th:href="@{/board/recruit/restart/{boardId}(boardId=*{id})}">모집하기</a>
+                    </div>
+                    <div th:if="*{deadlineStatus == false}">
+                        <p th:if="${#session.getAttribute('loginMember')} != *{member.id} and ${applyStatus}">신청이 완료되었습니다.</p>
+                        <a th:if="${#session.getAttribute('loginMember')} != *{member.id} and ${!applyStatus}" class="project-apply-btn" th:href="@{/board/recruit/apply/{boardId}(boardId=*{id})}">신청하기</a>
+                        <a th:if="${#session.getAttribute('loginMember')} == *{member.id}" class="project-end-btn" th:href="@{/board/recruit/end/{boardId}(boardId=*{id})}">마감하기</a>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="access-container">
             <div class="comment-cnt-area">
@@ -120,7 +183,7 @@
         </div>
         <div class="comment-container">
             <ul class="comments">
-                <li class="comment-area" id="1" th:id="${comment.id}" th:each="comment : ${comments}">
+                <li class="comment-area" id="1" th:id="${comment.id}" th:each="comment : ${comments}" th:classappend="${comment.groupNum != comment.id ? 'replied' : ''}">
                     <div class="comment-box">
                         <div class="comment-info-area">
                             <a href="" id="commenter-img">
@@ -128,9 +191,10 @@
                             </a>
                             <div class="comment-info">
                                 <a href="" id="commenter-nickname" th:text="${comment.member.nickname}">SeoArc</a>
+                                <p class="mention-member" th:if="${comment.groupNum} != ${comment.id}" th:text="|@${comment.boardComment.member.nickname}|"></p>
                                 <p class="comment" th:utext="${comment.contents}">댓글입니다.</p>
                                 <div class="reply-access">
-                                    <span class="comment-created" th:text="${#temporals.format(comment.createdDate, 'yyyy.MM.ss. HH:mm')}">2022.01.12. 01:23</span>
+                                    <span class="comment-created" th:text="${#temporals.format(comment.createdDate, 'yyyy.MM.dd. HH:mm')}">2022.01.12. 01:23</span>
                                     <button class="reply-btn">답글</button>
                                 </div>
                             </div>
@@ -142,6 +206,7 @@
                     </div>
                     <div class="reply-edit">
                         <form id="reply-form" action="" th:action="@{/board/reply/{commentId}(commentId=${comment.id})}" method="post">
+                            <span id="tag-nickname" th:text="|@${comment.member.nickname}|"></span>
                             <textarea name="reply" id="reply-textarea" rows="1" placeholder="답글을 입력하세요" th:field="${boardCommentSaveForm.contents}"></textarea>
                             <div class="reply-write-access-area">
                                 <div class="file-box">

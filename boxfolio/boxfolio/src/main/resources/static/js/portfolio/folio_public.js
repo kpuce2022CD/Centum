@@ -73,8 +73,10 @@ function go(input){
 function search_set(input){
     if(input.value=='title'){
         document.getElementById('search_data').action="/portfolios/search/title";
+        document.getElementById('portfolio-query').name='title';
     }
     else{
         document.getElementById('search_data').action="/portfolios/search/name";
+        document.getElementById('portfolio-query').name='nickname';
     }
 }

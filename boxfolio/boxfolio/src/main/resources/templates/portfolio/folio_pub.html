@@ -21,16 +21,17 @@
     <script src="../../js/portfolio/folio_public.js"></script>
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
     <script th:inline="javascript">
-        var contents=[[${portfolioList[0].contents}]];
+        /*var contents=[[${portfolioList[0].contents}]];
+
         var writer=[[${portfolioList[0].writer}]];
         var star=[[${portfolioList[0].star}]];
-        var scrap=[[${portfolioList[0].scrap}]];
-
+        var scrap=[[${portfolioList[0].scrap}]];*/
         function saw(){
-            console.log(star);
-            setting_b(0,contents, star, writer, scrap);
+            //console.log(star);
+            //setting_b(0,contents, star, writer, scrap);
         }
     </script>
+
 </head>
 
 <body onload="saw()">
@@ -72,7 +73,7 @@
                             <option value="name">작성자</option>
                         </select>
                         <form id="search_data" action="/portfolios/search/title" method="get" role="search">
-                            <input id="portfolio-query" type="text" name="search" title="포트폴리오검색" maxlength="255">
+                            <input id="portfolio-query" type="text" name="title" title="포트폴리오검색" maxlength="255">
                             <button id="portfolio-search-btn" type="submit" title="포트폴리오검색">
                                 <i class="fas fa-search search-icon"></i>
                             </button>
@@ -95,13 +96,13 @@
                 </p>
                 <ul id="best-portfolio-list" class="best-portfolio-list">
                     <!-- <c:forEach var="portfolio" items="${portfolioList}"> -->
-                    <div id="best_portfolio-view" class="portfolio-view">
-                        <form action="/portfolios/search/Id" method="get" class="portfolio-card-form" onclick="go(this)">
-                            <input class="send_id" name="id" value="" th:value="${portfolioList[0].id}">
+                    <ul id="best_portfolio-view" class="portfolio-view">
+                        <form action="/portfolios/search/Id" method="get" class="portfolio-card-form" th:each="portfolio : ${portfolioList}" onclick="go(this)">
+                            <input class="send_id" name="id" value="" th:value="${portfolio.id}">
                             <li class="portfolio-card">
                                 <div class="portfolio-info">
                                     <div class="portfolio-head">
-                                        <h3 class="b_id">
+                                        <h3 class="b_id" th:text="${portfolio.writer} + '님의 포트폴리오'">
                                             서원호님의 포트폴리오
                                         </h3>
                                     </div>
@@ -119,112 +120,24 @@
                                 <ul class="portfolio-icons">
                                     <li class="portfolio-star">
                                         <i class="far fa-star"></i>
-                                        <span class="b_star">12</span>
+                                        <span th:text="${portfolio.star}" class="b_star">12</span>
                                     </li>
                                     <li class="portfolio-scrap">
                                         <i class="far fa-bookmark"></i>
-                                        <span class="b_scrap">381</span>
+                                        <span th:text="${portfolio.scrap}" class="b_scrap">381</span>
                                     </li>
                                 </ul>
                             </li>
                         </form>
-                        <li class="portfolio-card">
-                            <a class="b_href" href="#">
-                                <div class="portfolio-info">
-                                    <div class="portfolio-head">
-                                        <h3 class="b_id">
-                                            서원호님의 포트폴리오
-                                        </h3>
-                                    </div>
-                                    <div class="portfolio-title">
-                                        <p class="b_title">제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.</p>
-                                    </div>
-                                    <div class="interested">
-                                        <p class="b_info">웹 / 백엔드</p>
-                                    </div>
-                                    <div class="portfolio-created">
-                                        <p class="b_date">2022-02-11 12:30</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <ul class="portfolio-icons">
-                                <li class="portfolio-star">
-                                    <i class="far fa-star"></i>
-                                    <span class="b_star">12</span>
-                                </li>
-                                <li class="portfolio-scrap">
-                                    <i class="far fa-bookmark"></i>
-                                    <span class="b_scrap">381</span>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="portfolio-card">
-                            <a class="b_href" href="#">
-                                <div class="portfolio-info">
-                                    <div class="portfolio-head">
-                                        <h3 class="b_id">
-                                            서원호님의 포트폴리오
-                                        </h3>
-                                    </div>
-                                    <div class="portfolio-title">
-                                        <p class="b_title">제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.</p>
-                                    </div>
-                                    <div class="interested">
-                                        <p class="b_info">웹 / 백엔드</p>
-                                    </div>
-                                    <div class="portfolio-created">
-                                        <p class="b_date">2022-02-11 12:30</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <ul class="portfolio-icons">
-                                <li class="portfolio-star">
-                                    <i class="far fa-star"></i>
-                                    <span class="b_star">12</span>
-                                </li>
-                                <li class="portfolio-scrap">
-                                    <i class="far fa-bookmark"></i>
-                                    <span class="b_scrap">381</span>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="portfolio-card">
-                            <a class="b_href" href="#">
-                                <div class="portfolio-info">
-                                    <div class="portfolio-head">
-                                        <h3 class="b_id">
-                                            서원호님의 포트폴리오
-                                        </h3>
-                                    </div>
-                                    <div class="portfolio-title">
-                                        <p class="b_title">제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.</p>
-                                    </div>
-                                    <div class="interested">
-                                        <p class="b_info">웹 / 백엔드</p>
-                                    </div>
-                                    <div class="portfolio-created">
-                                        <p class="b_date">2022-02-11 12:30</p>
-                                    </div>
-                                </div>
-                            </a>
-                            <ul class="portfolio-icons">
-                                <li class="portfolio-star">
-                                    <i class="far fa-star"></i>
-                                    <span class="b_star">12</span>
-                                </li>
-                                <li class="portfolio-scrap">
-                                    <i class="far fa-bookmark"></i>
-                                    <span class="b_scrap">381</span>
-                                </li>
-                            </ul>
-                        </li>
-                    </div>
+
+                    </ul>
                 </ul>
                 <ul id="portfolio-list" class="portfolio-list">
                     <!-- <c:forEach var="portfolio" items="${portfolioList}"> -->
                     <div id="portfolio-view" class="portfolio-view">
-                        <li class="portfolio-card">
-                            <a class="n_href" href="#">
+                        <form action="/portfolios/search/Id" method="get" class="portfolio-card-form" onclick="go(this)">
+                            <input class="send_id" name="id" value="" th:value="${portfolioList[0].id}">
+                            <li class="portfolio-card">
                                 <div class="portfolio-info">
                                     <div class="portfolio-head">
                                         <h3 class="n_id">
@@ -241,18 +154,19 @@
                                         <p class="n_date">2022-02-11 12:30</p>
                                     </div>
                                 </div>
-                            </a>
-                            <ul class="portfolio-icons">
-                                <li class="portfolio-star">
-                                    <i class="far fa-star"></i>
-                                    <span class="n_star">12</span>
-                                </li>
-                                <li class="portfolio-scrap">
-                                    <i class="far fa-bookmark"></i>
-                                    <span class="n_scrap">381</span>
-                                </li>
-                            </ul>
-                        </li>
+
+                                <ul class="portfolio-icons">
+                                    <li class="portfolio-star">
+                                        <i class="far fa-star"></i>
+                                        <span class="n_star">12</span>
+                                    </li>
+                                    <li class="portfolio-scrap">
+                                        <i class="far fa-bookmark"></i>
+                                        <span class="n_scrap">381</span>
+                                    </li>
+                                </ul>
+                            </li>
+                        </form>
                     </div>
                 </ul>
             </div>

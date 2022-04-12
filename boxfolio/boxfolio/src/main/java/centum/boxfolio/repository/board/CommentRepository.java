@@ -12,5 +12,8 @@ public interface CommentRepository {
     Optional<BoardComment> findById(Long id);
     List<BoardComment> findCertainCommentsByBoardId(Long boardId);
     List<BoardComment> findAll();
+    List<BoardComment> findAllOrdered();
+    Long findMaxOrderInGroupNum(Long groupNum);
     void remove(BoardComment comment);
+
 }

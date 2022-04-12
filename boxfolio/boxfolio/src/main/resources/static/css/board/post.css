@@ -41,9 +41,15 @@ header {
 }
 
 .contents-container {
+    display: flex;
+}
+
+.contents {
     background-color: #fafafa;
     min-height: 150px;
     padding: 12px 16px;
+    flex-shrink: 1;
+    width: 100%;
 }
 
 .access-container {
@@ -80,6 +86,10 @@ header {
     margin: 5px 0;
 }
 
+.replied {
+    padding: 0 0 0 40px;
+}
+
 #commenter-img {
     margin: 0 10px 0 0;
 }
@@ -110,6 +120,54 @@ header {
 
 .comment-access {
     padding: 0 10px 0 0;
+}
+
+.open .reply-edit {
+    display: block !important;
+}
+
+.reply-edit {
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    margin: 5px 0 0 40px;
+    padding: 10px;
+    display: none;
+}
+
+#tag-nickname, .mention-member {
+    color: #86A8E7;
+    font-weight: bold;
+    margin: 0 5px 0 0;
+}
+
+#reply-textarea {
+    background: transparent;
+    border: 0;
+    font-size: 13px;
+    width: 100%;
+    min-height: 17px;
+    max-height: 500px;
+    outline: 0;
+    resize: none;
+}
+
+.reply-write-access-area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0 0 0;
+}
+
+#reply-cancel-btn, #reply-post-btn {
+    background: transparent;
+    border-radius: 2px;
+    padding: 2px 5px;
+}
+
+#reply-cancel-btn:hover, #reply-post-btn:hover {
+    background: #89b;
+    color: #fff;
+    cursor: pointer;
 }
 
 .comment-write-area {

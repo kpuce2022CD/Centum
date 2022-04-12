@@ -12,15 +12,15 @@ import javax.persistence.*;
 @Entity
 public class BoardStar {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     public BoardStar(Board board, Member member) {
         setBoard(board);

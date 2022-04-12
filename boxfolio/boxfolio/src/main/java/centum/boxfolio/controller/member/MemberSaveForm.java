@@ -27,7 +27,7 @@ public class MemberSaveForm {
     private Integer year;
     private Integer month;
     private Integer day;
-    private int sex;
+    private Integer sex;
     private String githubId;
     private String interestField;
     private String progressField;

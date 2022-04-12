@@ -1,9 +1,9 @@
-DROP TABLE board_reply;
 DROP TABLE board_comment;
 DROP TABLE board_scrap;
 DROP TABLE board_star;
+DROP TABLE project_member;
 DROP TABLE information;
-DROP TABLE general;
+DROP TABLE free;
 DROP TABLE recruitment;
 DROP TABLE board;
 DROP TABLE member_skill;

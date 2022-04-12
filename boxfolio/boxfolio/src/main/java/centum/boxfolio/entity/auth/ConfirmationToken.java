@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ConfirmationToken extends BaseTimeEntity {
 
-    private static final long EMAIL_TOKEN_EXPIRATION_TIME_VALUE = 5L;
+    private static final Long EMAIL_TOKEN_EXPIRATION_TIME_VALUE = 5L;
 
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -31,10 +31,10 @@ public class ConfirmationToken extends BaseTimeEntity {
     private LocalDateTime expirationDate;
 
     @Column
-    private boolean expired;
+    private Boolean expired;
 
     @Column
-    private long memberId;
+    private Long memberId;
 
     public static ConfirmationToken createEmailConfirmationToken(long memberId) {
         ConfirmationToken confirmationToken = new ConfirmationToken();

@@ -20,9 +20,7 @@ public class PortfolioSaveForm {
 
     @NotNull
     private String contents;
-
     private String visibility;
-
     private Member member;
 
     private List<MultipartFile> files;
@@ -37,6 +35,5 @@ public class PortfolioSaveForm {
 
         return new Portfolio((String) jsonObj.get("title"), contents, true, member, null, null, null);
     }
-
 }
 

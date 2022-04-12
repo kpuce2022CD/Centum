@@ -17,17 +17,17 @@ import java.util.List;
 @DiscriminatorColumn(name = "boardType")
 public class Board {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String title;
     private String contents;
     private LocalDateTime createdDate;
-    private boolean commentAllow;
-    private boolean scrapAllow;
-    private long starTally;
-    private long commentTally;
-    private long scrapTally;
-    private long viewTally;
+    private Boolean commentAllow;
+    private Boolean scrapAllow;
+    private Long starTally;
+    private Long commentTally;
+    private Long scrapTally;
+    private Long viewTally;
     private String visibility;
 
     @ManyToOne
@@ -43,6 +43,9 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<BoardComment> boardComments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private List<ProjectMember> projectMembers = new ArrayList<>();
+
     public Board(String title, String contents, LocalDateTime createdDate,
                  boolean commentAllow, boolean scrapAllow, String visibility, Member member) {
         this.title = title;
@@ -50,10 +53,10 @@ public class Board {
         this.createdDate = createdDate;
         this.commentAllow = commentAllow;
         this.scrapAllow = scrapAllow;
-        this.starTally = 0;
-        this.commentTally = 0;
-        this.scrapTally = 0;
-        this.viewTally = 0;
+        this.starTally = 0L;
+        this.commentTally = 0L;
+        this.scrapTally = 0L;
+        this.viewTally = 0L;
         this.visibility = visibility;
         setMember(member);
     }

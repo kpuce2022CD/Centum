@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 public class PortfolioStar {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "portfolio_id")

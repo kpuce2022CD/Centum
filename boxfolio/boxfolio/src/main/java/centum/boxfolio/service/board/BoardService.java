@@ -13,30 +13,29 @@ public interface BoardService {
     BoardStar countStar(Long boardId, Long memberId);
     BoardScrap countScrap(Long boardId, Long memberId);
 
-    BoardComment createComment(BoardCommentSaveForm boardCommentSaveForm, Long boardId, Long memberId);
-    List<BoardComment> readComments();
-    List<BoardComment> readCommentsByBoardId(Long boardId);
-    void deleteComment(Long commentId);
-
     Board readGeneralPost(Long id);
     List<Board> readGeneralBoard();
     void deleteGeneralBoard(Long id);
 
     Free createFreePost(FreeBoardSaveForm freeBoardSaveForm, Long memberId);
-    Free updateFreePost();
+    Free updateFreePost(FreeBoardSaveForm freeBoardSaveForm, Long boardId);
     Free readFreePost(Long id);
     List<Free> readFreeBoard();
     void deleteFreeBoard(Long id);
 
     Information createInfoPost(InfoBoardSaveForm infoBoardSaveForm, Long memberId);
-    Information updateInfoPost();
+    Information updateInfoPost(InfoBoardSaveForm infoBoardSaveForm, Long boardId);
     Information readInfoPost(Long id);
     List<Information> readInfoBoard();
     void deleteInfoBoard(Long id);
 
     Recruitment createRecruitPost(RecruitBoardSaveForm recruitBoardSaveForm, Long memberId);
-    Recruitment updateRecruitPost();
+    Recruitment updateRecruitPost(RecruitBoardSaveForm recruitBoardSaveForm, Long boardId);
     Recruitment readRecruitPost(Long id);
     List<Recruitment> readRecruitBoard();
     void deleteRecruitBoard(Long id);
+    Recruitment endRecruit(Long boardId);
+    Recruitment restartRecruit(Long boardId);
+    ProjectMember applyRecruit(Long boardId, Long memberId);
+    Boolean checkApplyStatus(Long boardId, Long memberId);
 }

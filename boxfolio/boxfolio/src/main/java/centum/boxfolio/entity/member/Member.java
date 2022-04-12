@@ -22,7 +22,7 @@ import java.util.List;
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String loginId;
     private String passwd;
     private String realName;
@@ -30,11 +30,11 @@ public class Member {
     private String phone;
     private String email;
     private LocalDate birth;
-    private int sex;
+    private Integer sex;
     private String githubId;
     private String interestField;
     private String progressField;
-    private int emailVerified;
+    private Integer emailVerified;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "member_ability_id")
@@ -62,7 +62,7 @@ public class Member {
     private List<BoardComment> boardComments = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<BoardReply> boardReplies = new ArrayList<>();
+    private List<ProjectMember> projectMembers = new ArrayList<>();
 
     public Member(String loginId, String passwd, String realName, String nickname, String phone,
                   String email, LocalDate birth, int sex, String githubId,
