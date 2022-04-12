@@ -1,6 +1,7 @@
 package centum.boxfolio.entity.portfolio;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Getter @Setter
 @Entity
+@NoArgsConstructor
 public class Project {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -23,4 +25,10 @@ public class Project {
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<ProjectSkill> projectSkills = new ArrayList<>();
+
+
+    public Project(String repositoryAddr){
+        this.repositoryAddr = repositoryAddr;
+    }
+
 }

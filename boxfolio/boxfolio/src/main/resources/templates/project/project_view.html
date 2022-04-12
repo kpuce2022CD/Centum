@@ -17,12 +17,14 @@
     <!--CSS-->
     <!--link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
     <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" href="../../css/project/project_analysis.css" th:href="@{/css/project/project_analysis.css}">
+    <link rel="stylesheet" href="../../css/project/project_view.css" th:href="@{/css/project/project_view.css}">
     <script src="../../js/project"></script-->
     <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" >
     <link rel="stylesheet" type="text/css" href="../../static/css/common.css">
-    <link rel="stylesheet" href="../../static/css/project/project_analysis.css">
-    <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../static/css/project/project_view.css">
+    
+    <!--script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     
 </head>
 
@@ -56,30 +58,15 @@
         </div>
     </header>
     <section class="main">
-        <div class="how">
-            <div class="hover_icon">
-                <i class="fa-solid fa-circle-question fa-2x" style="margin-left: 230px;"></i>
-                    
-                <span class="tooltip tooltip-bottom">
-                    깃허브 프로젝트 이름과 personal token을 입력하세요<br>
-                    분석이 끝나면 프로젝트 관리 탭에서 확인이 가능합니다
-                </span>
-                    
-                
-            </div>
-                
+        <div class="level_chart">
+            <canvas id="pie-chart" width="400" height="400"></canvas>
+            <canvas id="radar-chart" width="400" height="400"></canvas>
         </div>
-        <div class="project_input">
-            <form action="#" method="post" class="project_search">
-                <input class="project_name" name="repoName" type="text" placeholder="project name">
-                <input class="project_name" name="personalToken" type="text" placeholder="personal token">
-                <button type="submit" class="send_btn"><분석받기></button>
-            </form>
-        </div>
-        
+        <button onclick="change()">버튼</button>
     </section>
 <footer th:replace="template/footer :: common_footer">
 </footer>
+<script src="../../static/js/project/project_view.js"></script>
 <script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
 </body>
     

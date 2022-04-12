@@ -84,7 +84,7 @@ public class GitApiImpl implements GitApi {
     }
 
     @Override
-    public boolean getCodeForRepo(String repoName, String personalToken) throws IOException {
+    public void getCodeForRepo(String repoName, String personalToken) throws IOException {
         GitHub github = gitAccess(personalToken);
         GHUser gitUser = github.getMyself();
 
@@ -98,6 +98,5 @@ public class GitApiImpl implements GitApi {
             GitApi.downloadDirectory(c, c.getName(), "");
         }
 
-        return true;
     }
 }

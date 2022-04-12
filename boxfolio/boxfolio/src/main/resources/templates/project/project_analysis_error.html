@@ -23,10 +23,18 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/common.css">
     <link rel="stylesheet" href="../../static/css/project/project_analysis.css">
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
+    <script>
+        var name_error='프로젝트 이름이 잘못되었습니다';
+        var token_error='personal token이 잘못되었습니다';
+        var rang='프로젝트에 사용된 언어에 Python이 포함되어 있지 않습니다';
+        function error_msg(){
+            alert(rang)
+        }
+    </script>
     
 </head>
 
-<body>
+<body onload="error_msg()">
     <header th:replace="template/header :: common_header">
         <div class="wrap">
             <div class="header-container">
