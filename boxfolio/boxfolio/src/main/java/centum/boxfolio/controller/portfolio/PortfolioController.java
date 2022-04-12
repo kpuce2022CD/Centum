@@ -62,7 +62,8 @@ public class PortfolioController {
                     0L,
                     LocalDateTime.now(),
                     "test",
-                    0L
+                    0L,
+                    "test"
             ));
         }
 
@@ -74,7 +75,8 @@ public class PortfolioController {
                     0L,
                     LocalDateTime.now(),
                     "test",
-                    0L
+                    0L,
+                    "test"
             ));
         }
 
@@ -255,6 +257,8 @@ public class PortfolioController {
                 p.getScrapTally(),
                 p.getUpdatedDate(),
                 p.getMember().getInterestField(),
-                p.getId());
+                p.getId(),
+                p.getTitle()
+                );
     }
 }
