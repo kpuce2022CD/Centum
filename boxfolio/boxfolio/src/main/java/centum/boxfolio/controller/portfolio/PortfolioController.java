@@ -58,11 +58,11 @@ public class PortfolioController {
             highestPortfolioLoadFormList.add(new PortfolioLoadForm(
                     "test",
                     "test",
-                    0,
-                    0,
+                    0L,
+                    0L,
                     LocalDateTime.now(),
                     "test",
-                    0
+                    0L
             ));
         }
 
