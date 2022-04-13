@@ -4,10 +4,10 @@ var make_date='0000.00.00'; //최근 수정 날짜
 var setting='public'; //공개 설정
 var title='테스트 제목';
 var file_where='../../image/portfolio';
-var id;
+var id=0;
 
-function id_set(input){
-    id=input;
+function id_set(){
+    id=document.getElementById('id_test').value;
 }
 
 function add(){
@@ -81,7 +81,7 @@ function add(){
     }
 }
 
-function result() {
+function result(input) {
     var jsonData=document.getElementById('value_test').value;
     console.log(jsonData);
 
