@@ -21,15 +21,7 @@
     <script src="../../js/portfolio/folio_public.js"></script>
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
     <script th:inline="javascript">
-        /*var contents=[[${portfolioList[0].contents}]];
 
-        var writer=[[${portfolioList[0].writer}]];
-        var star=[[${portfolioList[0].star}]];
-        var scrap=[[${portfolioList[0].scrap}]];*/
-        function saw(){
-            //console.log(star);
-            //setting_b(0,contents, star, writer, scrap);
-        }
     </script>
 
 </head>
@@ -97,7 +89,7 @@
                 <ul id="best-portfolio-list" class="best-portfolio-list">
                     <!-- <c:forEach var="portfolio" items="${portfolioList}"> -->
                     <ul id="best_portfolio-view" class="portfolio-view">
-                        <form action="/portfolios/search/Id" method="get" class="portfolio-card-form" th:each="portfolio : ${portfolioList}" onclick="go(this)">
+                        <form action="/portfolios/search/Id" method="get" class="portfolio-card-form" th:each="portfolio : ${highestPortfolioList}" onclick="go(this)">
                             <input class="send_id" name="id" value="" th:value="${portfolio.id}">
                             <li class="portfolio-card">
                                 <div class="portfolio-info">
@@ -107,7 +99,7 @@
                                         </h3>
                                     </div>
                                     <div class="portfolio-title">
-                                        <p class="b_title">제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.</p>
+                                        <p class="b_title" th:text="${portfolio.title}">제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.</p>
                                     </div>
                                     <div class="interested">
                                         <p class="b_info">웹 / 백엔드</p>
@@ -135,34 +127,34 @@
                 <ul id="portfolio-list" class="portfolio-list">
                     <!-- <c:forEach var="portfolio" items="${portfolioList}"> -->
                     <div id="portfolio-view" class="portfolio-view">
-                        <form action="/portfolios/search/Id" method="get" class="portfolio-card-form" onclick="go(this)">
-                            <input class="send_id" name="id" value="" th:value="${portfolioList[0].id}">
+                        <form action="/portfolios/search/Id" method="get" class="portfolio-card-form" th:each="portfolio : ${normalPortfolioList}" onclick="go(this)">
+                            <input class="send_id" name="id" value="" th:value="${portfolio.id}">
                             <li class="portfolio-card">
                                 <div class="portfolio-info">
                                     <div class="portfolio-head">
-                                        <h3 class="n_id">
+                                        <h3 class="b_id" th:text="${portfolio.writer} + '님의 포트폴리오'">
                                             서원호님의 포트폴리오
                                         </h3>
                                     </div>
                                     <div class="portfolio-title">
-                                        <p class="n_title">제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.</p>
+                                        <p class="b_title" th:text="${portfolio.title}">제 포트폴리오 입니다. 포트폴리오 제목 테스트 입니다.</p>
                                     </div>
                                     <div class="interested">
-                                        <p class="n_info">웹 / 백엔드</p>
+                                        <p class="b_info">웹 / 백엔드</p>
                                     </div>
                                     <div class="portfolio-created">
-                                        <p class="n_date">2022-02-11 12:30</p>
+                                        <p class="b_date">2022-02-11 12:30</p>
                                     </div>
                                 </div>
 
                                 <ul class="portfolio-icons">
                                     <li class="portfolio-star">
                                         <i class="far fa-star"></i>
-                                        <span class="n_star">12</span>
+                                        <span th:text="${portfolio.star}" class="b_star">12</span>
                                     </li>
                                     <li class="portfolio-scrap">
                                         <i class="far fa-bookmark"></i>
-                                        <span class="n_scrap">381</span>
+                                        <span th:text="${portfolio.scrap}" class="b_scrap">381</span>
                                     </li>
                                 </ul>
                             </li>
