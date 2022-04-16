@@ -43,7 +43,14 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public List<BoardComment> findCertainCommentsByBoardId(Long boardId) {
+    public List<BoardComment> findCommentsByMemberId(Long memberId) {
+        return findAll().stream()
+                .filter(c -> c.getMember().getId() == memberId)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BoardComment> findCommentsByBoardId(Long boardId) {
         return findAllOrdered().stream()
                 .filter(c -> c.getBoard().getId() == boardId)
                 .collect(Collectors.toList());

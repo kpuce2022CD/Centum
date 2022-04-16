@@ -135,6 +135,10 @@ header::before {
     margin: 5px 0;
 }
 
+.member-nickname {
+    font-weight: bold;
+}
+
 .access-list a:hover {
     color: #86A8E7;
 }

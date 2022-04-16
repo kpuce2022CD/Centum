@@ -10,7 +10,8 @@ import java.util.Optional;
 public interface CommentRepository {
     BoardComment save(BoardComment comment);
     Optional<BoardComment> findById(Long id);
-    List<BoardComment> findCertainCommentsByBoardId(Long boardId);
+    List<BoardComment> findCommentsByMemberId(Long memberId);
+    List<BoardComment> findCommentsByBoardId(Long boardId);
     List<BoardComment> findAll();
     List<BoardComment> findAllOrdered();
     Long findMaxOrderInGroupNum(Long groupNum);

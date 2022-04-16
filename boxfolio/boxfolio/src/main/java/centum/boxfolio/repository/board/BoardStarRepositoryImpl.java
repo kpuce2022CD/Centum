@@ -1,7 +1,6 @@
 package centum.boxfolio.repository.board;
 
 import centum.boxfolio.entity.board.Board;
-import centum.boxfolio.entity.board.BoardScrap;
 import centum.boxfolio.entity.board.BoardStar;
 import centum.boxfolio.entity.member.Member;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,7 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 @Transactional
-public class StarRepositoryImpl implements StarRepository {
+public class BoardStarRepositoryImpl implements BoardStarRepository {
 
     private final EntityManager em;
 

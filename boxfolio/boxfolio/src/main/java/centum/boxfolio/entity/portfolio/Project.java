@@ -23,4 +23,8 @@ public class Project {
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<ProjectSkill> projectSkills = new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "project_analysis_id")
+    private ProjectAnalysis projectAnalysis;
 }

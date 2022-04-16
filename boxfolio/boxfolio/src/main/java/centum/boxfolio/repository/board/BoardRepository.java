@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface BoardRepository {
     Optional<Board> findGeneralPostById(Long id);
     List<Board> findGeneralBoard();
+    List<Board> findBoardByMemberId(Long memberId);
     void removeGeneralBoard(Long id);
 
     Free saveFreePost(Free free);
@@ -34,6 +35,7 @@ public interface BoardRepository {
 
     ProjectMember saveProjectMember(Recruitment recruitment, Member member);
     List<ProjectMember> findAllProjectMember();
+    List<ProjectMember> findProjectMemberByMemberId(Long memberId);
     Optional<ProjectMember> findProjectMemberByBoardIdAndMemberId(Long boardId, Long memberId);
 
     Recruitment setRecruitStatusToTrue(Recruitment recruitment);

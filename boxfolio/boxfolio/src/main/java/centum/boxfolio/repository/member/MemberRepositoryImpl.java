@@ -2,6 +2,8 @@ package centum.boxfolio.repository.member;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.member.MemberAbility;
+import centum.boxfolio.entity.member.MemberSkill;
+import centum.boxfolio.entity.member.MemberTitle;
 import centum.boxfolio.entity.portfolio.Portfolio;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Repository
@@ -58,5 +61,29 @@ public class MemberRepositoryImpl implements MemberRepository {
         query.setParameter("nickname", "%" + nickname + "%");
 
         return query.getResultList();
+    }
+
+    @Override
+    public List<MemberSkill> findMemberSkillsByMemberId(Long memberId) {
+        return findAllMemberSkill().stream()
+                .filter(m -> m.getMember().getId() == memberId)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MemberSkill> findAllMemberSkill() {
+        return em.createQuery("select ms from MemberSkill ms", MemberSkill.class).getResultList();
+    }
+
+    @Override
+    public List<MemberTitle> findMemberTitlesByMemberId(Long memberId) {
+        return findAllMemberTitle().stream()
+                .filter(mt -> mt.getMember().getId() == memberId)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MemberTitle> findAllMemberTitle() {
+        return em.createQuery("select mt from MemberTitle mt", MemberTitle.class).getResultList();
     }
 }
