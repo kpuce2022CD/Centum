@@ -35,7 +35,7 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public List<BoardComment> readCommentsByBoardId(Long boardId) {
-        return commentRepository.findCertainCommentsByBoardId(boardId);
+        return commentRepository.findCommentsByBoardId(boardId);
     }
 
     @Override

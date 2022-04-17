@@ -97,17 +97,151 @@
                 </div>
             </div>
         </header>
-        <section class="main">
+        <section class="main" th:object="${member}">
             <div class="wrap">
-                <div class="info-container">
-                    <div class="member-info-area">
+                <div class="profile-container">
+                    <h2 class="profile-title">
+                        프로필 정보
+                    </h2>
+                    <div class="profile-area">
                         <div class="profile-img-area">
                             <a href="#" class="profile-img">
-                                <img src="../../static/image/member.png" alt="">
+                                <img src="../../static/image/member.png" th:src="@{/image/member.png}" alt="">
                             </a>
                         </div>
-                        <div class="name-area">
-                            <span class="member-name">서원호</span>
+                        <ul class="member-info-area">
+                            <li class="member-status">
+                                <p class="member-nickname" th:text="*{nickname}">SeoArc</p>
+                                <p class="member-level" th:if="*{memberAbility.getMemberLevel() == 1}" th:text="#{member.level1}">입문개발자</p>
+                                <p class="member-level" th:if="*{memberAbility.getMemberLevel() == 2}" th:text="#{member.level2}"></p>
+                                <p class="member-level" th:if="*{memberAbility.getMemberLevel() == 3}" th:text="#{member.level3}"></p>
+                                <p class="member-level" th:if="*{memberAbility.getMemberLevel() == 4}" th:text="#{member.level4}"></p>
+                                <p class="member-level" th:if="*{memberAbility.getMemberLevel() == 5}" th:text="#{member.level5}"></p>
+                            </li>
+                            <li class="member-name" th:text="*{realName}">서원호</li>
+                            <li class="member-email" th:text="*{email}">rt3310@naver.com</li>
+                            <li class="member-field">
+                                <div class="interest-field">
+                                    <h6>관심</h6>
+                                    <p th:if="*{interestField.equals('frontend')}" th:text="'웹/프론트엔드'"></p>
+                                    <p th:if="*{interestField.equals('backend')}" th:text="'웹/백엔드'"></p>
+                                    <p th:if="*{interestField.equals('android')}" th:text="'앱/안드로이드'"></p>
+                                    <p th:if="*{interestField.equals('ios')}" th:text="'앱/IOS'"></p>
+                                    <p th:if="*{interestField.equals('ai')}" th:text="'AI'"></p>
+                                    <p th:if="*{interestField.equals('embedded')}" th:text="'하드/임베디드'"></p>
+                                    <p th:if="*{interestField.equals('iot')}" th:text="'하드/IOT'"></p>
+                                </div>
+                                <i class="fa-solid fa-caret-right"></i>
+                                <div class="progress-field">
+                                    <h6>진행</h6>
+                                    <p th:if="*{progressField.equals('')}" th:text="'분석중'"></p>
+                                    <p th:if="*{progressField.equals('frontend')}" th:text="'웹/프론트엔드'"></p>
+                                    <p th:if="*{progressField.equals('backend')}" th:text="'웹/백엔드'"></p>
+                                    <p th:if="*{progressField.equals('android')}" th:text="'앱/안드로이드'"></p>
+                                    <p th:if="*{progressField.equals('ios')}" th:text="'앱/IOS'"></p>
+                                    <p th:if="*{progressField.equals('ai')}" th:text="'AI'"></p>
+                                    <p th:if="*{progressField.equals('embedded')}" th:text="'하드/임베디드'"></p>
+                                    <p th:if="*{progressField.equals('iot')}" th:text="'하드/IOT'"></p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="profile-access-area">
+                            <a href="#" class="modify-profile-btn">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+                            <a href="#" class="github-link-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="github-icon">
+                                    <path
+                                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                </svg>
+                                <p class="github-id" th:if="*{githubId.equals('')}" th:text="#{profile.github.warn}">연동된 ID가 없습니다</p>
+                                <p class="github-id" th:if="*{!githubId.equals('')}" th:text="*{githubId}"></p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ability-container">
+                    <h2 class="ability-title">
+                        프로젝트 분석
+                    </h2>
+                    <div class="ability-area">
+                        <div class="code-chart">
+                            <h3><i class="fa-solid fa-caret-right"></i> 코드 구현도</h3>
+                            <canvas id="code-chart" width="350" height="350"></canvas>
+                        </div>
+                        <div class="stack-area">
+                            <div class="skill-stack">
+                                <h3><i class="fa-solid fa-caret-right"></i> 기술 스택</h3>
+                                <ul class="skills">
+                                    <li th:each="ms : ${memberSkills}" th:text="${ms.skill.skillName}"></li>
+                                    <p th:if="${memberSkills.isEmpty()}" th:text="'아직 기술 스택이 없습니다.'"></p>
+                                </ul>
+                            </div>
+                            <div class="title-stack">
+                                <h3><i class="fa-solid fa-caret-right"></i> 칭호</h3>
+                                <ul class="titles">
+                                    <li th:each="mt : ${memberTitles}" th:text="${mt.title.titleName}"></li>
+                                    <p th:if="${memberTitles.isEmpty()}" th:text="'아직 칭호가 없습니다.'"></p>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="project-area">
+                            <div class="complete-project-list">
+                                <h3><i class="fa-solid fa-caret-right"></i> 완료된 프로젝트 목록</h3>
+                                <ul class="complete-projects">
+                                    <li>일상 기록 애플리케이션</li>
+                                    <li>데이트 코스 추천 애플리케이션</li>
+                                </ul>
+                            </div>
+                            <div class="progress-project-list">
+                                <h3><i class="fa-solid fa-caret-right"></i> 진행중인 프로젝트 목록</h3>
+                                <ul class="progress-projects">
+                                    <li th:each="pp : ${progressProjects}" th:text="${pp.getBoard().projectSubject}"></li>
+                                    <p th:if="${progressProjects.isEmpty()}" th:text="'진행 중인 프로젝트가 없습니다.'"></p>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="archive-container">
+                    <h2 class="archive-title">
+                        내 보관함
+                    </h2>
+                    <div class="archive-area">
+                        <div class="scrap-portfolio-list">
+                            <h3><i class="fa-solid fa-caret-right"></i> 스크랩 한 포트폴리오</h3>
+                            <ul class="scrap-portfolios">
+                                <li th:each="ps : ${portfolioScraps}" th:text="${ps.getPortfolio().title}"></li>
+                                <p th:if="${portfolioScraps.isEmpty()}" th:text="'스크랩 한 포트폴리오가 없습니다.'"></p>
+                            </ul>
+                        </div>
+                        <div class="scrap-post-list">
+                            <h3><i class="fa-solid fa-caret-right"></i> 스크랩 한 게시글</h3>
+                            <ul class="scrap-posts">
+                                <li th:each="bs : ${boardScraps}" th:text="${bs.getBoard().title}"></li>
+                                <p th:if="${boardScraps.isEmpty()}" th:text="'스크랩 한 게시글이 없습니다.'"></p>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="record-container">
+                    <h2 class="record-title">
+                        내 기록
+                    </h2>
+                    <div class="record-area">
+                        <div class="post-list">
+                            <h3><i class="fa-solid fa-caret-right"></i> 내 게시글</h3>
+                            <ul class="posts">
+                                <li th:each="b : ${board}" th:text="${b.title}"></li>
+                                <p th:if="${board.isEmpty()}" th:text="'게시글이 없습니다.'"></p>
+                            </ul>
+                        </div>
+                        <div class="comment-list">
+                            <h3><i class="fa-solid fa-caret-right"></i> 내 댓글</h3>
+                            <ul class="comments">
+                                <li th:each="c : ${comments}" th:text="${c.contents}"></li>
+                                <p th:if="${comments.isEmpty()}" th:text="'댓글이 없습니다.'"></p>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -117,6 +251,47 @@
         </footer>
     </div>
     <script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script th:inline="javascript">
+        const cohesion = [[${member.memberAbility.getCohesion()}]];
+        const coupling = [[${member.memberAbility.getCoupling()}]];
+        const complexity = [[${member.memberAbility.getComplexity()}]];
+        const redundancy = [[${member.memberAbility.getRedundancy()}]];
+        const standard = [[${member.memberAbility.getStandard()}]];
+        new Chart(document.getElementById("code-chart"), {
+            type: 'radar',
+            data: {
+                labels: ["응집도", "비결합도", "비복잡도", "비중복도", "표준화"],
+                datasets: [
+                    {
+                        label: "현재 구현도",
+                        fill: true,
+                        backgroundColor: "rgba(200,222,255,0.2)",
+                        borderColor: "rgba(200,222,255,1)",
+                        pointBorderColor: "#fff",
+                        pointBackgroundColor: "rgba(179,181,198,1)",
+                        data: [cohesion, coupling, complexity, redundancy, standard],
+                    },
+                    {
+                        label: "",
+                        fill: false,
+                        data: [0, 100],
+                        backgroundColor: "#fff0",
+                        borderColor: "#fff0",
+                        pointBorderColor: "#fff0",
+                        pointBackgroundColor: "#fff0"
+                    }
+                ]
+            },
+            options: {
+                //   title: {
+                //     display: true,
+                //     text: '코드 구현도'
+                //   }
+            }
+        });
+    </script>
+<!--    <script src="../../static/js/member/chart.js" th:src="@{/js/member/chart.js}"></script>-->
 </body>
 
 </html>

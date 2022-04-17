@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Repository
@@ -33,6 +34,13 @@ public class BoardRepositoryImpl implements BoardRepository {
     @Override
     public List<Board> findGeneralBoard() {
         return em.createQuery("SELECT b FROM Board b", Board.class).getResultList();
+    }
+
+    @Override
+    public List<Board> findBoardByMemberId(Long memberId) {
+        return findGeneralBoard().stream()
+                .filter(b -> b.getMember().getId() == memberId)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -146,6 +154,13 @@ public class BoardRepositoryImpl implements BoardRepository {
     @Override
     public List<ProjectMember> findAllProjectMember() {
         return em.createQuery("select pm from ProjectMember pm", ProjectMember.class).getResultList();
+    }
+
+    @Override
+    public List<ProjectMember> findProjectMemberByMemberId(Long memberId) {
+        return findAllProjectMember().stream()
+                .filter(pm -> pm.getMember().getId() == memberId)
+                .collect(Collectors.toList());
     }
 
     @Override

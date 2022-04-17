@@ -23,11 +23,11 @@ public interface PortfolioRepository {
     List<Portfolio> findByTitle(String title);
     List<Portfolio> findByNickname(String nickname);
     Optional<Portfolio> findByMember(Member member);
-    List<Portfolio> findHighest ();
+    List<Portfolio> findHighest();
     void delete (Portfolio portfolio);
     void relationStar (Portfolio portfolio, Member member);
     void relationScrap(Portfolio portfolio, Member member);
-    List<PortfolioScrap> findMyScrap(Member member);
-    List<Portfolio> findLatest();
 
+    List<PortfolioScrap> findAllScrap();
+    List<PortfolioScrap> findScrapByMemberId(Long memberId);
 }

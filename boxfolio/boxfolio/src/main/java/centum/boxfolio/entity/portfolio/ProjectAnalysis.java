@@ -1,5 +1,7 @@
-package centum.boxfolio.entity.member;
+package centum.boxfolio.entity.portfolio;
 
+import centum.boxfolio.entity.member.Member;
+import centum.boxfolio.entity.member.MemberAbility;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,8 +9,7 @@ import javax.persistence.*;
 
 @Getter @Setter
 @Entity
-public class MemberAbility {
-
+public class ProjectAnalysis {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -17,17 +18,15 @@ public class MemberAbility {
     private Integer complexity;
     private Integer redundancy;
     private Integer standard;
-    private Integer memberLevel;
 
-    @OneToOne(mappedBy = "memberAbility", orphanRemoval = true)
-    private Member member;
+    @OneToOne(mappedBy = "projectAnalysis", orphanRemoval = true)
+    private Project project;
 
-    public MemberAbility() {
+    public ProjectAnalysis() {
         this.cohesion = 0;
         this.coupling = 0;
         this.complexity = 0;
         this.redundancy = 0;
         this.standard = 0;
-        this.memberLevel = 0;
     }
 }
