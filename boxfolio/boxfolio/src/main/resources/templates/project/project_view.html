@@ -24,11 +24,31 @@
     <link rel="stylesheet" href="../../static/css/project/project_view.css">
     
     <!--script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script-->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        function draw(){
+            change(["c++", "c", "python"], [30,50,20], [25,50,75]);
+        }
+
+        $(document).ready(function(){
+            // menu 클래스 바로 하위에 있는 a 태그를 클릭했을때
+            $(".li_list>a").click(function(){
+                var submenu = $(this).next("ul");
+
+                // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
+                if( submenu.is(":visible") ){
+                    submenu.slideUp();
+                }else{
+                    submenu.slideDown();
+                }
+            });
+        });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     
 </head>
 
-<body>
+<body onload="draw()">
     <header th:replace="template/header :: common_header">
         <div class="wrap">
             <div class="header-container">
@@ -59,10 +79,20 @@
     </header>
     <section class="main">
         <div class="level_chart">
-            <canvas id="pie-chart" width="400" height="400"></canvas>
-            <canvas id="radar-chart" width="400" height="400"></canvas>
+            <div class="chart">
+                <canvas id="pie-chart" width="400" height="400"></canvas>
+                <canvas id="radar-chart" width="400" height="400"></canvas>
+            </div>
+            <li class="li_list" id="li_list">
+                <a class="list_name">사용된 python 라이브러리 리스트</a>
+                <ul class="hide">
+                    <li> · 라이브러리</li>
+                    <li> · 라이브러리</li>
+                    <li> · 라이브러리</li>
+                </ul>
+            </li>
         </div>
-        <button onclick="change()">버튼</button>
+
     </section>
 <footer th:replace="template/footer :: common_footer">
 </footer>
