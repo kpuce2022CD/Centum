@@ -24,6 +24,7 @@ public interface PortfolioRepository {
     List<Portfolio> findByNickname(String nickname);
     Optional<Portfolio> findByMember(Member member);
     List<Portfolio> findHighest();
+    List<Portfolio> findLatest();
     void delete (Portfolio portfolio);
     void relationStar (Portfolio portfolio, Member member);
     void relationScrap(Portfolio portfolio, Member member);

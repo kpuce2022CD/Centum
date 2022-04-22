@@ -148,6 +148,16 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         return query.getResultList();
     }
 
+    @Override
+    public List<Portfolio> findLatest() {
+        String jpql = "SELECT p FROM Portfolio AS p WHERE p.visibility = true ORDER BY p.updatedDate ASC";
+
+        TypedQuery<Portfolio> query = em.createQuery(jpql, Portfolio.class);
+
+        return query.getResultList();
+    }
+
+
     @Transactional
     @Override
     public void delete(Portfolio portfolio) {
