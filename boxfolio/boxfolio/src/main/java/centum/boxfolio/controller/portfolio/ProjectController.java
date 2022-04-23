@@ -32,7 +32,7 @@ public class ProjectController {
 
     @GetMapping("/upload")
     public String addProject (Model model) {
-        model.addAttribute("projectLoadForm", new ProjectSaveForm());
+        model.addAttribute("projectSaveForm", new ProjectSaveForm());
         return "/project/project_analysis";
     }
 
