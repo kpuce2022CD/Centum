@@ -3,11 +3,16 @@ package centum.boxfolio.controller.portfolio;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashMap;
+import java.util.List;
+
 @Getter
 @Setter
 public class ProjectLoadForm {
 
-    private String repoName;
+    HashMap<String, Integer> languages;
 
-    private String personalToken;
+    List<String> library;
+
+    List<Integer> level;
 }
