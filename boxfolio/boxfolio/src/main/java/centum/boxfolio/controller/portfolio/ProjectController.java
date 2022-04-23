@@ -79,7 +79,6 @@ public class ProjectController {
 
         projectLoadForm.setLanguage(language);
         projectLoadForm.setPercent(percent);
-        projectLoadForm.setLanguages(hashMap);
         projectLoadForm.setLevel(level);
         projectLoadForm.setLibrary(library);
 
