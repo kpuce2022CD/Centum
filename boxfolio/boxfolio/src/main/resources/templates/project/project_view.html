@@ -15,27 +15,27 @@
     <meta property="og:description" content="포트폴리오를 분석하고 관리해줍니다">
 
     <!--CSS-->
-    <!--link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
     <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
     <link rel="stylesheet" href="../../css/project/project_view.css" th:href="@{/css/project/project_view.css}">
-    <script src="../../js/project"></script-->
-    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" >
+    <!--script src="../../js/project_view.js" th:href="@{/css/project/project_view.js}"></script-->
+    <!--link rel="stylesheet" type="text/css" href="../../static/css/reset.css" >
     <link rel="stylesheet" type="text/css" href="../../static/css/common.css">
-    <link rel="stylesheet" href="../../static/css/project/project_view.css">
+    <link rel="stylesheet" href="../../static/css/project/project_view.css"-->
     
     <!--script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script-->
+
     <script src="http://code.jquery.com/jquery-latest.js"></script>
+
     <script>
         function draw(){
-            change(["c++", "c", "python"], [30,50,20], [25,50,75]);
+            change();
         }
 
         $(document).ready(function(){
-            // menu 클래스 바로 하위에 있는 a 태그를 클릭했을때
             $(".li_list>a").click(function(){
                 var submenu = $(this).next("ul");
 
-                // submenu 가 화면상에 보일때는 위로 보드랍게 접고 아니면 아래로 보드랍게 펼치기
                 if( submenu.is(":visible") ){
                     submenu.slideUp();
                 }else{
@@ -44,6 +44,7 @@
             });
         });
     </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     
 </head>
@@ -78,25 +79,32 @@
         </div>
     </header>
     <section class="main">
+        <p class="project_name">분석 프로젝트 명 : CENTUM</p>
         <div class="level_chart">
             <div class="chart">
-                <canvas id="pie-chart" width="400" height="400"></canvas>
-                <canvas id="radar-chart" width="400" height="400"></canvas>
+                <div class="lan_ch">
+                    <canvas id="pie-chart" width="400" height="400"></canvas>
+                </div>
+                <div class="le_ch">
+                    <canvas id="radar-chart" width="400" height="400"></canvas>
+                </div>
             </div>
             <li class="li_list" id="li_list">
                 <a class="list_name">사용된 python 라이브러리 리스트</a>
                 <ul class="hide">
-                    <li> · 라이브러리</li>
-                    <li> · 라이브러리</li>
-                    <li> · 라이브러리</li>
+                    <li th:each="lib : ${projectLoadForm.library}" th:text=" ' · ' + ${lib}"> · 라이브러리</li>
                 </ul>
             </li>
+            <input class="level"  th:each="level : ${projectLoadForm.level}" th:value="${level}">
+            <input class="language"  th:each="language : ${projectLoadForm.language}" th:value="${language}">
+            <input class="percent"  th:each="percent : ${projectLoadForm.percent}" th:value="${percent}">
+
         </div>
 
     </section>
 <footer th:replace="template/footer :: common_footer">
 </footer>
-<script src="../../static/js/project/project_view.js"></script>
+<script src="../../js/project/project_view.js"></script>
 <script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
 </body>
     

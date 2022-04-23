@@ -59,18 +59,26 @@ public class ProjectController {
     public String viewAnalysis(Model model){
         ProjectLoadForm projectLoadForm = new ProjectLoadForm();
 
-        HashMap<String, Integer> hashMap = new HashMap<>();
-        hashMap.put("JAVA", 50);
-        hashMap.put("PYTHON", 50);
+
+        List<String> language = new ArrayList<>();
+        language.add("JAVA");
+        language.add("PYTHON");
+        List<Integer> percent = new ArrayList<>();
+        percent.add(50);
+        percent.add(50);
         List<Integer> level = new ArrayList<>();
         level.add(25);
         level.add(50);
         level.add(100);
+        level.add(30);
+        level.add(80);
         List<String> library = new ArrayList<>();
         library.add("Spring");
         library.add("pycharm");
         library.add("JPA");
 
+        projectLoadForm.setLanguage(language);
+        projectLoadForm.setPercent(percent);
         projectLoadForm.setLanguages(hashMap);
         projectLoadForm.setLevel(level);
         projectLoadForm.setLibrary(library);

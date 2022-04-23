@@ -15,13 +15,13 @@
     <meta property="og:description" content="포트폴리오를 분석하고 관리해줍니다">
 
     <!--CSS-->
-    <!--link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
     <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
     <link rel="stylesheet" href="../../css/project/project_analysis.css" th:href="@{/css/project/project_analysis.css}">
-    <script src="../../js/project"></script-->
-    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" >
+    <script src="../../js/project"></script>
+    <!--link rel="stylesheet" type="text/css" href="../../static/css/reset.css" >
     <link rel="stylesheet" type="text/css" href="../../static/css/common.css">
-    <link rel="stylesheet" href="../../static/css/project/project_analysis.css">
+    <link rel="stylesheet" href="../../static/css/project/project_analysis.css"-->
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
     <script>
         var name_error='프로젝트 이름이 잘못되었습니다';
@@ -78,10 +78,10 @@
                 
         </div>
         <div class="project_input">
-            <form action="#" method="post" class="project_search">
+            <form action="projectSaveForm" method="post" class="project_search">
                 <input class="project_name" name="repoName" type="text" placeholder="project name">
                 <input class="project_name" name="personalToken" type="text" placeholder="personal token">
-                <button type="submit" class="send_btn"><분석받기></button>
+                <button type="submit" class="send_btn">&lt;분석받기&gt;</button>
             </form>
         </div>
         

@@ -10,7 +10,9 @@ import java.util.List;
 @Setter
 public class ProjectLoadForm {
 
-    HashMap<String, Integer> languages;
+    List<String> language;
+
+    List<Integer> percent;
 
     List<String> library;
 
