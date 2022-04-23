@@ -75,7 +75,7 @@
                         <span id="view-cnt" th:text="|조회 *{viewTally}|">조회 1</span>
                         <span id="star-cnt" th:text="|추천 *{starTally}|">추천 3</span>
                         <span id="scrap-cnt" th:text="|스크랩 *{scrapTally}|">스크랩 2</span>
-                        <a id="update-board" href="" th:if="${#session.getAttribute('loginMember')} == *{member.id}">수정</a>
+                        <a id="update-board" href="" th:if="${#session.getAttribute('loginMember')} == *{member.id}" th:href="@{/board/info/modify/{boardId}(boardId=*{id})}">수정</a>
                         <a id="delete-board" href="" th:if="${#session.getAttribute('loginMember')} == *{member.id}" th:href="@{/board/info/delete/{boardId}(boardId=*{id})}">삭제</a>
                     </div>
                 </div>

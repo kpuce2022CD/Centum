@@ -110,5 +110,10 @@ public class PortfolioServiceImpl implements PortfolioService{
         }
     }
 
+    @Override
+    public List<Portfolio> searchLatest() {
+        return portfolioRepository.findLatest();
+    }
+
 
 }

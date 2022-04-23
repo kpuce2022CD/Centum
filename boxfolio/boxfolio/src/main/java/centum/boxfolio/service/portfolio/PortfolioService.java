@@ -23,4 +23,6 @@ public interface PortfolioService {
     List<Portfolio> searchHighestStar (int count);
     Portfolio searchWithId (long Id);
 
+    List<Portfolio> searchLatest();
+
 }

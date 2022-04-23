@@ -37,25 +37,49 @@ public class PortfolioController {
     @GetMapping
     public String portfolioPage(Model model, HttpServletRequest request) {
 
-        List<Portfolio> portfolioList = portfolioService.searchHighestStar(5);
-        List<PortfolioLoadForm> portfolioLoadFormList = new ArrayList<>();
-        for (Portfolio p : portfolioList){
-            portfolioLoadFormList.add(portfolioToPortfolioLoadForm(p));
+        List<Portfolio> highestPortfolioList = portfolioService.searchHighestStar(5);
+        List<Portfolio> normalPortfolioList = portfolioService.searchLatest();
+
+        List<PortfolioLoadForm> highestPortfolioLoadFormList = new ArrayList<>();
+        List<PortfolioLoadForm> normalPortfolioLoadFormList = new ArrayList<>();
+
+
+        for (Portfolio p : highestPortfolioList){
+            highestPortfolioLoadFormList.add(portfolioToPortfolioLoadForm(p));
         }
-        if (portfolioLoadFormList.isEmpty()) {
-            portfolioLoadFormList.add(new PortfolioLoadForm(
+
+        for (Portfolio p : normalPortfolioList){
+            normalPortfolioLoadFormList.add(portfolioToPortfolioLoadForm(p));
+        }
+        if (highestPortfolioLoadFormList.isEmpty()) {
+            highestPortfolioLoadFormList.add(new PortfolioLoadForm(
                     "test",
                     "test",
-                    0,
-                    0,
+                    0L,
+                    0L,
                     LocalDateTime.now(),
                     "test",
-                    0
+                    0L,
+                    "test"
+            ));
+        }
+
+        if (normalPortfolioLoadFormList.isEmpty()) {
+            normalPortfolioLoadFormList.add(new PortfolioLoadForm(
+                    "test",
+                    "test",
+                    0L,
+                    0L,
+                    LocalDateTime.now(),
+                    "test",
+                    0L,
+                    "test"
             ));
         }
 
 
-        model.addAttribute("portfolioList", portfolioLoadFormList);
+        model.addAttribute("highestPortfolioList", highestPortfolioLoadFormList);
+        model.addAttribute("normalPortfolioList", normalPortfolioLoadFormList);
 
         return "/portfolio/folio_pub";
     }
@@ -230,6 +254,8 @@ public class PortfolioController {
                 p.getScrapTally(),
                 p.getUpdatedDate(),
                 p.getMember().getInterestField(),
-                p.getId());
+                p.getId(),
+                p.getTitle()
+                );
     }
 }

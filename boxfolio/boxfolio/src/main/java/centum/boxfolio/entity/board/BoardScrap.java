@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 public class BoardScrap {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "board_id")

@@ -19,10 +19,12 @@
     <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
     <link rel="stylesheet" type="text/css" href="../../css/portfolio/folio_mine.css" th:href="@{/css/portfolio/folio_mine.css}" />
     <script src="../../js/portfolio/folio_mine.js"></script>
-    <script th:inline="javascript">
+    <script>
         function start(){
-            id_set([[${portfolio.id}]]);
-            result();
+            if(document.getElementById('id_test')!=null) {
+                id_set();
+                result();
+            }
         }
     </script>
 </head>
@@ -58,7 +60,10 @@
         </div>
     </header>
     <div class="portf">
-        <input id="value_test" class="value_test" value="portfolio" th:value="${portfolio.contents}"/>
+        <div class="value_test" th:each="pf : ${portfolio}">
+            <input id="value_test" class="value_test" value="portfolio" th:value="${portfolio.contents}"/>
+            <input id="id_test" class="value_test" value="0" th:value="${portfolio.id}"/>
+        </div>
         <section class="make">
             <div class="set">
                 <div id="set-pub" class="set-pub">public</div>

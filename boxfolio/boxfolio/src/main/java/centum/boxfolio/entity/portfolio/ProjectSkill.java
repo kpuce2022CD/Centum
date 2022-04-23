@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 public class ProjectSkill {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "project_id")

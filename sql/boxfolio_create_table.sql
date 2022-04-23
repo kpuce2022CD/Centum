@@ -123,6 +123,11 @@ CREATE TABLE IF NOT EXISTS recruitment(
     deadline_date DATETIME NOT NULL,
     member_tally INT UNSIGNED NOT NULL,
     member_total INT UNSIGNED NOT NULL,
+    project_subject VARCHAR(50) NOT NULL,
+    project_field VARCHAR(20) NOT NULL,
+    project_level TINYINT NOT NULL,
+    required_member_level TINYINT NOT NULL,
+    expected_period VARCHAR(10) NOT NULL,
     FOREIGN KEY (board_id) REFERENCES board(id)
 );
 
@@ -137,7 +142,7 @@ CREATE TABLE IF NOT EXISTS information(
 );
 
 CREATE TABLE IF NOT EXISTS project_member(
-	id INT UNSIGNED PRIMARY KEY,
+	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     board_id INT UNSIGNED NOT NULL,
     member_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (board_id) REFERENCES board(id),
@@ -189,8 +194,6 @@ CREATE TABLE IF NOT EXISTS portfolio_files(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 	portfolio_id INT UNSIGNED NOT NULL,
     src_order INT UNSIGNED NOT NULL,
-
     src varchar(1000),
-
     FOREIGN KEY (portfolio_id) REFERENCES portfolio(id)
 );

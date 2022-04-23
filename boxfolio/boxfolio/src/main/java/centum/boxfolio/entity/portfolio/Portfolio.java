@@ -16,16 +16,16 @@ import java.util.List;
 public class Portfolio {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String title;
     private String contents;
 
     private LocalDateTime updatedDate;
-    private boolean visibility;
+    private Boolean visibility;
 
-    private long starTally;
-    private long scrapTally;
+    private Long starTally;
+    private Long scrapTally;
 
     @OneToOne
     @JoinColumn(name = "member_id")
@@ -52,8 +52,8 @@ public class Portfolio {
         this.portfolioStars = portfolioStars;
         this.portfolioScraps = portfolioScraps;
 
-        this.starTally = 0;
-        this.scrapTally = 0;
+        this.starTally = 0L;
+        this.scrapTally = 0L;
         this.updatedDate = LocalDateTime.now();
     }
     
