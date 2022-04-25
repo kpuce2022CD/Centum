@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.security.KeyStore;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
@@ -18,8 +19,9 @@ public class ProjectRepositoryImpl implements ProjectRepository{
     private final EntityManager em;
     @Override
     public Optional<Project> saveProject(Project project, Portfolio portfolio) {
-
+        LocalDateTime today = LocalDateTime.now();
         project.setPortfolio(portfolio);
+        project.setUpdatedDate(today);
 
         em.persist(project);
         return Optional.of(project);

@@ -27,8 +27,4 @@ public class Project {
     private List<ProjectSkill> projectSkills = new ArrayList<>();
 
 
-    public Project(String repositoryAddr){
-        this.repositoryAddr = repositoryAddr;
-    }
-
 }

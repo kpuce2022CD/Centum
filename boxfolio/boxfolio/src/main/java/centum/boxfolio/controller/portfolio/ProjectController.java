@@ -1,11 +1,16 @@
 package centum.boxfolio.controller.portfolio;
 
 
+import centum.boxfolio.controller.member.SessionConst;
+import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.entity.portfolio.Project;
+import centum.boxfolio.repository.member.MemberRepositoryImpl;
 import centum.boxfolio.service.gitapi.GitApiImpl;
+import centum.boxfolio.service.portfolio.PortfolioServiceImpl;
 import centum.boxfolio.service.portfolio.ProjectServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,9 +33,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjectController {
 
-    GitApiImpl gitApi;
-    ProjectServiceImpl projectService;
+    private final ProjectServiceImpl projectService;
 
+    private final GitApiImpl gitApi;
+
+    private final PortfolioServiceImpl portfolioService;
+
+    private final MemberRepositoryImpl memberRepository;
     @GetMapping("/upload")
     public String addProject (Model model) {
         model.addAttribute("projectSaveForm", new ProjectSaveForm());
@@ -48,9 +58,13 @@ public class ProjectController {
             return "/project/project_analysis_error";
         }
 
-        Project project = new Project(form.getRepoName());
+        Project project = new Project();
+        project.setRepositoryAddr(form.getRepoName());
+        if (getPortfolioBySessionId(request) == null){
+            return "/project/project_analysis_error";
+        }
 
-        projectService.upload(project, null);
+        projectService.upload(project, getPortfolioBySessionId(request));
 
         return "/project/project_analysis";
     }
@@ -84,5 +98,12 @@ public class ProjectController {
 
         model.addAttribute("projectLoadForm", projectLoadForm);
         return "project/project_view";
+    }
+
+    private Portfolio getPortfolioBySessionId(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+        return portfolioService.searchWithMember(memberRepository.findById(memberId).get());
     }
 }

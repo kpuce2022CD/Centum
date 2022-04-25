@@ -1,16 +1,19 @@
 package centum.boxfolio.service.gitapi;
 
+import lombok.RequiredArgsConstructor;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHUser;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 import org.kohsuke.github.PagedIterable;
 import org.kohsuke.github.GHContent;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
-
+@Service
+@RequiredArgsConstructor
 public class GitApiImpl implements GitApi {
 
     final Logger LOG = Logger.getGlobal();
