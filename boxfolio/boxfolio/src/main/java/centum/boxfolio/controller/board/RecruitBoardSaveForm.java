@@ -44,6 +44,8 @@ public class RecruitBoardSaveForm {
     @NotNull
     private String projectField;
     @NotNull
+    private String projectPreview;
+    @NotNull
     private Integer projectLevel;
     @NotNull
     private Integer requiredMemberLevel;
@@ -65,6 +67,7 @@ public class RecruitBoardSaveForm {
         this.memberTotal = memberTotal;
         this.projectSubject = projectSubject;
         this.projectField = projectField;
+        this.projectPreview = "";
         this.projectLevel = projectLevel;
         this.requiredMemberLevel = requiredMemberLevel;
         this.expectedPeriod = expectedPeriod;

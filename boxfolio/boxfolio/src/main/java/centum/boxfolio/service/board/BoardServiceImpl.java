@@ -3,6 +3,9 @@ package centum.boxfolio.service.board;
 import centum.boxfolio.controller.board.FreeBoardSaveForm;
 import centum.boxfolio.controller.board.InfoBoardSaveForm;
 import centum.boxfolio.controller.board.RecruitBoardSaveForm;
+import centum.boxfolio.controller.member.ProjectPlanSaveForm;
+import centum.boxfolio.controller.member.ProjectRuleSaveForm;
+import centum.boxfolio.controller.member.ProjectSaveForm;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.repository.board.BoardRepository;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -144,6 +148,7 @@ public class BoardServiceImpl implements BoardService{
         Optional<Member> member = memberRepository.findById(memberId);
         Recruitment recruitment = boardRepository.saveRecruitPost(recruitBoardSaveForm.toRecruitBoard(member.get()));
         boardRepository.saveProjectMember(recruitment, member.get());
+        checkClosingRecruit(recruitment);
         return recruitment;
     }
 
@@ -175,12 +180,56 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
+    public List<Recruitment> recommendRecruitBoard(Member member) {
+        return boardRepository.findRecruitBoard().stream()
+                .filter(r -> r.getDeadlineStatus() == false)
+                .filter(r -> r.getAutoMatchingStatus() == true)
+                .filter(r -> r.getMemberTally() < r.getMemberTotal())
+                .filter(r -> boardRepository.findProjectMemberByBoardIdAndMemberId(r.getId(), member.getId()).isEmpty())
+                .filter(r -> r.getRequiredMemberLevel() <= member.getMemberAbility().getMemberLevel())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Recruitment> readProgressProjectByPage(Integer page, Long memberId) {
+        Integer lastProject = page * 10;
+        List<Recruitment> recruitments = boardRepository.findProjectMemberByMemberId(memberId).stream()
+                .map(r -> r.getRecruitment())
+                .collect(Collectors.toList());
+        if (recruitments.size() < lastProject) {
+            lastProject = recruitments.size();
+        }
+        return recruitments.subList(page * 10 - 10, lastProject);
+    }
+
+    @Override
+    public Integer findLastProgressProjectPage(Long memberId) {
+        Long projectCount = boardRepository.findProjectMemberByMemberId(memberId).stream()
+                .count();
+        if (projectCount == 0L) {
+            projectCount = 1L;
+        }
+        Long lastPage = projectCount / 10L;
+        if (projectCount % 10L == 0L) {
+            return lastPage.intValue();
+        }
+        return lastPage.intValue() + 1;
+    }
+
+    @Override
+    public List<Member> findMembersByBoardId(Long boardId) {
+        return boardRepository.findProjectMemberByBoardId(boardId).stream()
+                .map(pm -> pm.getMember())
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Recruitment endRecruit(Long boardId) {
         Optional<Recruitment> post = boardRepository.findRecruitPostById(boardId);
         if (post.isEmpty()) {
             return null;
         }
-        return boardRepository.setRecruitStatusToTrue(post.get());
+        return boardRepository.setDeadlineStatusToTrue(post.get());
     }
 
     @Override
@@ -189,7 +238,7 @@ public class BoardServiceImpl implements BoardService{
         if (post.isEmpty()) {
             return null;
         }
-        return boardRepository.setRecruitStatusToFalse(post.get());
+        return boardRepository.setDeadlineStatusToFalse(post.get());
     }
 
     @Override
@@ -199,6 +248,12 @@ public class BoardServiceImpl implements BoardService{
         if (post.isEmpty() || member.isEmpty()) {
             return null;
         }
+
+        Optional<ProjectMember> foundProjectMember = boardRepository.findProjectMemberByBoardIdAndMemberId(boardId, memberId);
+        if (foundProjectMember.isPresent()) {
+            return foundProjectMember.get();
+        }
+
         ProjectMember projectMember = boardRepository.saveProjectMember(post.get(), member.get());
         if (post.get().getMemberTally() == post.get().getMemberTotal()) {
             endRecruit(boardId);
@@ -213,5 +268,41 @@ public class BoardServiceImpl implements BoardService{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public Boolean checkClosingRecruit(Recruitment recruitment) {
+        if (recruitment.getMemberTally() >= recruitment.getMemberTotal()) {
+            boardRepository.setDeadlineStatusToTrue(recruitment);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Recruitment updateProjectSubjectAndPreview(ProjectSaveForm projectSaveForm, Long boardId) {
+        Optional<Recruitment> post = boardRepository.findRecruitPostById(boardId);
+        if (post.isEmpty()) {
+            return null;
+        }
+        return boardRepository.modifySubjectAndPreview(post.get(), projectSaveForm);
+    }
+
+    @Override
+    public ProjectPlan createProjectPlan(ProjectPlanSaveForm projectPlanSaveForm, Long boardId) {
+        Optional<Recruitment> post = boardRepository.findRecruitPostById(boardId);
+        if (post.isEmpty()) {
+            return null;
+        }
+        return boardRepository.saveProjectPlan(projectPlanSaveForm.toProjectPlan(post.get()));
+    }
+
+    @Override
+    public ProjectRule createProjectRule(ProjectRuleSaveForm projectRuleSaveForm, Long boardId) {
+        Optional<Recruitment> post = boardRepository.findRecruitPostById(boardId);
+        if (post.isEmpty()) {
+            return null;
+        }
+        return boardRepository.saveProjectRule(projectRuleSaveForm.toProjectRule(post.get()));
     }
 }

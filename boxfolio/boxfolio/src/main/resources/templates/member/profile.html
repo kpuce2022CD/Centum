@@ -112,11 +112,11 @@
                         <ul class="member-info-area">
                             <li class="member-status">
                                 <p class="member-nickname" th:text="*{nickname}">SeoArc</p>
-                                <p class="member-level" th:if="*{memberAbility.getMemberLevel() == 1}" th:text="#{member.level1}">입문개발자</p>
+                                <p class="member-level" th:if="*{memberAbility.getMemberLevel() == 0}" th:text="#{member.level0}">입문개발자</p>
+                                <p class="member-level" th:if="*{memberAbility.getMemberLevel() == 1}" th:text="#{member.level1}"></p>
                                 <p class="member-level" th:if="*{memberAbility.getMemberLevel() == 2}" th:text="#{member.level2}"></p>
                                 <p class="member-level" th:if="*{memberAbility.getMemberLevel() == 3}" th:text="#{member.level3}"></p>
                                 <p class="member-level" th:if="*{memberAbility.getMemberLevel() == 4}" th:text="#{member.level4}"></p>
-                                <p class="member-level" th:if="*{memberAbility.getMemberLevel() == 5}" th:text="#{member.level5}"></p>
                             </li>
                             <li class="member-name" th:text="*{realName}">서원호</li>
                             <li class="member-email" th:text="*{email}">rt3310@naver.com</li>

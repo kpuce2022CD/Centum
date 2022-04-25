@@ -67,11 +67,16 @@ CREATE TABLE IF NOT EXISTS project_analysis(
 
 CREATE TABLE IF NOT EXISTS project(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    repository_addr VARCHAR(50) NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    project_field VARCHAR(20) NOT NULL,
     updated_date DATETIME NOT NULL,
-    portfolio_id INT UNSIGNED NOT NULL,
+    from_repository TINYINT NOT NULL,
+    repository_addr VARCHAR(50) NOT NULL,
+    portfolio_id INT UNSIGNED,
+    member_id INT UNSIGNED NOT NULL,
     project_analysis_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (portfolio_id) REFERENCES portfolio(id),
+    FOREIGN KEY (member_id) REFERENCES member(id),
     FOREIGN KEY (project_analysis_id) REFERENCES project_analysis(id)
 );
 
@@ -140,9 +145,28 @@ CREATE TABLE IF NOT EXISTS recruitment(
     member_total INT UNSIGNED NOT NULL,
     project_subject VARCHAR(50) NOT NULL,
     project_field VARCHAR(20) NOT NULL,
+    project_preview MEDIUMTEXT NOT NULL,
     project_level TINYINT NOT NULL,
     required_member_level TINYINT NOT NULL,
     expected_period VARCHAR(10) NOT NULL,
+    FOREIGN KEY (board_id) REFERENCES board(id)
+);
+
+CREATE TABLE IF NOT EXISTS project_rule(
+	id INT UNSIGNED PRIMARY KEY,
+    rule_order TINYINT NOT NULL,
+    contents TEXT NOT NULL,
+    board_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (board_id) REFERENCES board(id)
+);
+
+CREATE TABLE IF NOT EXISTS project_plan(
+	id INT UNSIGNED PRIMARY KEY,
+    plan_order INT NOT NULL,
+    start_date DATETIME NOT NULL,
+    end_date DATETIME NOT NULL,
+    contents TEXT NOT NULL,
+    board_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (board_id) REFERENCES board(id)
 );
 
