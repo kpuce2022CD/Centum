@@ -7,6 +7,7 @@ import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.entity.portfolio.PortfolioScrap;
 
 import centum.boxfolio.entity.portfolio.PortfolioStar;
+import centum.boxfolio.repository.member.MemberRepository;
 import centum.boxfolio.repository.member.MemberRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -37,10 +38,11 @@ import java.util.stream.Collectors;
 public class PortfolioRepositoryImpl implements PortfolioRepository {
 
     private final EntityManager em;
-    private final MemberRepositoryImpl memberRepository;
+    private final MemberRepository memberRepository;
 
-    public String MASTER_PATH = "C:\\Users\\joey3\\centum\\Centum\\boxfolio\\boxfolio\\src\\main\\resources\\static\\image\\portfolio";
+//    public String MASTER_PATH = "C:\\Users\\joey3\\centum\\Centum\\boxfolio\\boxfolio\\src\\main\\resources\\static\\image\\portfolio";
     //public String MASTER_PATH = "E:\\gitHub\\Centum\\boxfolio\\boxfolio\\src\\main\\resources\\static\\image\\portfolio";
+    public String MASTER_PATH = "/Users/seowonho/centum_test";
 
     @Override
     public Optional<Portfolio> save(Portfolio portfolio, List<MultipartFile> files) throws IOException {

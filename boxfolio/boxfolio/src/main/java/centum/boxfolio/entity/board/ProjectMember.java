@@ -16,23 +16,23 @@ public class ProjectMember {
 
     @ManyToOne
     @JoinColumn(name = "board_id")
-    private Board board;
+    private Recruitment recruitment;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public ProjectMember(Board board, Member member) {
-        setBoard(board);
+    public ProjectMember(Recruitment recruitment, Member member) {
+        setBoard(recruitment);
         setMember(member);
     }
 
-    private void setBoard(Board board) {
-        if (this.board != null) {
-            this.board.getBoardScraps().remove(this);
+    private void setBoard(Recruitment recruitment) {
+        if (this.recruitment != null) {
+            this.recruitment.getBoardScraps().remove(this);
         }
-        this.board = board;
-        board.getProjectMembers().add(this);
+        this.recruitment = recruitment;
+        recruitment.getProjectMembers().add(this);
     }
 
     private void setMember(Member member) {

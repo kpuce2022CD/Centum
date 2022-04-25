@@ -158,9 +158,10 @@
                         <a th:if="${#session.getAttribute('loginMember')} == *{member.id}" class="project-restart-btn" th:href="@{/board/recruit/restart/{boardId}(boardId=*{id})}">모집하기</a>
                     </div>
                     <div th:if="*{deadlineStatus == false}">
+                        <p th:if="${!applyStatus} and *{memberTally >= memberTotal}">인원이 다 찼습니다.</p>
                         <p th:if="${#session.getAttribute('loginMember')} != *{member.id} and ${applyStatus}">신청이 완료되었습니다.</p>
                         <a th:if="${#session.getAttribute('loginMember')} != *{member.id} and ${!applyStatus}" class="project-apply-btn" th:href="@{/board/recruit/apply/{boardId}(boardId=*{id})}">신청하기</a>
-                        <a th:if="${#session.getAttribute('loginMember')} == *{member.id}" class="project-end-btn" th:href="@{/board/recruit/end/{boardId}(boardId=*{id})}">마감하기</a>
+                        <a th:if="${#session.getAttribute('loginMember')} == *{member.id} and *{memberTally < memberTotal}" class="project-end-btn" th:href="@{/board/recruit/end/{boardId}(boardId=*{id})}">마감하기</a>
                     </div>
                 </div>
             </div>

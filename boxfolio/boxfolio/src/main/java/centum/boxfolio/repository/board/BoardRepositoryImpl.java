@@ -3,6 +3,7 @@ package centum.boxfolio.repository.board;
 import centum.boxfolio.controller.board.FreeBoardSaveForm;
 import centum.boxfolio.controller.board.InfoBoardSaveForm;
 import centum.boxfolio.controller.board.RecruitBoardSaveForm;
+import centum.boxfolio.controller.member.ProjectSaveForm;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.member.Member;
 import lombok.RequiredArgsConstructor;
@@ -133,7 +134,7 @@ public class BoardRepositoryImpl implements BoardRepository {
         LocalDateTime deadlineDate = LocalDateTime.of(recruitBoardSaveForm.getDeadlineYear(), recruitBoardSaveForm.getDeadlineMonth(), recruitBoardSaveForm.getDeadlineDay(), now.getHour(), now.getMinute(), now.getSecond());
         recruitment.setRecruit(recruitBoardSaveForm.getTitle(), recruitBoardSaveForm.getContents(), recruitBoardSaveForm.getCommentAllow(), recruitBoardSaveForm.getScrapAllow(),
                 recruitBoardSaveForm.getVisibility(), recruitBoardSaveForm.getAutoMatchingStatus(), deadlineDate, recruitBoardSaveForm.getMemberTotal(),
-                recruitBoardSaveForm.getProjectSubject(), recruitBoardSaveForm.getProjectField(), recruitBoardSaveForm.getProjectLevel(), recruitBoardSaveForm.getRequiredMemberLevel(), recruitBoardSaveForm.getExpectedPeriod());
+                recruitBoardSaveForm.getProjectSubject(), recruitBoardSaveForm.getProjectField(), "", recruitBoardSaveForm.getProjectLevel(), recruitBoardSaveForm.getRequiredMemberLevel(), recruitBoardSaveForm.getExpectedPeriod());
         return Optional.ofNullable(recruitment);
     }
 
@@ -164,9 +165,16 @@ public class BoardRepositoryImpl implements BoardRepository {
     }
 
     @Override
+    public List<ProjectMember> findProjectMemberByBoardId(Long boardId) {
+        return findAllProjectMember().stream()
+                .filter(pm -> pm.getRecruitment().getId() == boardId)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<ProjectMember> findProjectMemberByBoardIdAndMemberId(Long boardId, Long memberId) {
         return findAllProjectMember().stream()
-                .filter(pm -> pm.getBoard().getId() == boardId)
+                .filter(pm -> pm.getRecruitment().getId() == boardId)
                 .filter(pm -> pm.getMember().getId() == memberId)
                 .findAny();
     }
@@ -175,15 +183,58 @@ public class BoardRepositoryImpl implements BoardRepository {
      * 마감 완료
      */
     @Override
-    public Recruitment setRecruitStatusToTrue(Recruitment recruitment) {
+    public Recruitment setDeadlineStatusToTrue(Recruitment recruitment) {
         recruitment.setDeadlineStatus(true);
         return recruitment;
     }
 
     @Override
-    public Recruitment setRecruitStatusToFalse(Recruitment recruitment) {
+    public Recruitment setDeadlineStatusToFalse(Recruitment recruitment) {
         recruitment.setDeadlineStatus(false);
         return recruitment;
+    }
+
+    @Override
+    public List<ProjectRule> findAllProjectRule() {
+        return em.createQuery("SELECT pr FROM ProjectRule pr", ProjectRule.class).getResultList();
+    }
+
+    @Override
+    public List<ProjectRule> findProjectRulesByBoardId(Long boardId) {
+        return findAllProjectRule().stream()
+                .filter(pr -> pr.getRecruitment().getId() == boardId)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProjectPlan> findAllProjectPlan() {
+        return em.createQuery("SELECT pp FROM ProjectPlan pp", ProjectPlan.class).getResultList();
+    }
+
+    @Override
+    public List<ProjectPlan> findProjectPlansByBoardId(Long boardId) {
+        return findAllProjectPlan().stream()
+                .filter(pp -> pp.getRecruitment().getId() == boardId)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Recruitment modifySubjectAndPreview(Recruitment recruitment, ProjectSaveForm projectSaveForm) {
+        recruitment.setProjectSubject(projectSaveForm.getProjectSubject());
+        recruitment.setProjectPreview(projectSaveForm.getProjectPreview());
+        return recruitment;
+    }
+
+    @Override
+    public ProjectPlan saveProjectPlan(ProjectPlan projectPlan) {
+        em.persist(projectPlan);
+        return projectPlan;
+    }
+
+    @Override
+    public ProjectRule saveProjectRule(ProjectRule projectRule) {
+        em.persist(projectRule);
+        return projectRule;
     }
 
     @Override

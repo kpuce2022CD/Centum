@@ -3,6 +3,7 @@ package centum.boxfolio.repository.board;
 import centum.boxfolio.controller.board.FreeBoardSaveForm;
 import centum.boxfolio.controller.board.InfoBoardSaveForm;
 import centum.boxfolio.controller.board.RecruitBoardSaveForm;
+import centum.boxfolio.controller.member.ProjectSaveForm;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.member.Member;
 
@@ -36,10 +37,20 @@ public interface BoardRepository {
     ProjectMember saveProjectMember(Recruitment recruitment, Member member);
     List<ProjectMember> findAllProjectMember();
     List<ProjectMember> findProjectMemberByMemberId(Long memberId);
+    List<ProjectMember> findProjectMemberByBoardId(Long boardId);
     Optional<ProjectMember> findProjectMemberByBoardIdAndMemberId(Long boardId, Long memberId);
 
-    Recruitment setRecruitStatusToTrue(Recruitment recruitment);
-    Recruitment setRecruitStatusToFalse(Recruitment recruitment);
+    Recruitment setDeadlineStatusToTrue(Recruitment recruitment);
+    Recruitment setDeadlineStatusToFalse(Recruitment recruitment);
+
+    List<ProjectRule> findAllProjectRule();
+    List<ProjectRule> findProjectRulesByBoardId(Long boardId);
+    List<ProjectPlan> findAllProjectPlan();
+    List<ProjectPlan> findProjectPlansByBoardId(Long boardId);
+
+    Recruitment modifySubjectAndPreview(Recruitment recruitment, ProjectSaveForm projectSaveForm);
+    ProjectPlan saveProjectPlan(ProjectPlan projectPlan);
+    ProjectRule saveProjectRule(ProjectRule projectRule);
 
     Board upView(Board board);
 }

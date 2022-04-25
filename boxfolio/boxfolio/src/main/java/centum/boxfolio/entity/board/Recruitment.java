@@ -1,15 +1,16 @@
 package centum.boxfolio.entity.board;
 
 import centum.boxfolio.controller.board.RecruitBoardSaveForm;
+import centum.boxfolio.controller.member.ProjectSaveForm;
 import centum.boxfolio.entity.member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 @Entity
@@ -25,9 +26,19 @@ public class Recruitment extends Board {
     private Long memberTotal;
     private String projectSubject;
     private String projectField;
+    private String projectPreview;
     private Integer projectLevel;
     private Integer requiredMemberLevel;
     private String expectedPeriod;
+
+    @OneToMany(mappedBy = "recruitment", cascade = CascadeType.ALL)
+    private List<ProjectMember> projectMembers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "recruitment", cascade = CascadeType.ALL)
+    private List<ProjectRule> projectRules = new ArrayList<>();
+
+    @OneToMany(mappedBy = "recruitment", cascade = CascadeType.ALL)
+    private List<ProjectPlan> projectPlans = new ArrayList<>();
 
     public Recruitment(String title, String contents, LocalDateTime createdDate,
                        Boolean commentAllow, Boolean scrapAllow, String visibility,
@@ -41,6 +52,7 @@ public class Recruitment extends Board {
         this.memberTotal = memberTotal;
         this.projectSubject = projectSubject;
         this.projectField = projectField;
+        this.projectPreview = "";
         this.projectLevel = projectLevel;
         this.requiredMemberLevel = requiredMemberLevel;
         this.expectedPeriod = expectedPeriod;
@@ -48,7 +60,7 @@ public class Recruitment extends Board {
 
     public void setRecruit(String title, String contents, Boolean commentAllow, Boolean scrapAllow, String visibility,
                            Boolean autoMatchingStatus, LocalDateTime deadlineDate, Long memberTotal,
-                           String projectSubject, String projectField, Integer projectLevel, Integer requiredMemberLevel, String expectedPeriod) {
+                           String projectSubject, String projectField, String projectPreview, Integer projectLevel, Integer requiredMemberLevel, String expectedPeriod) {
         setTitle(title);
         setContents(contents);
         setCommentAllow(commentAllow);
@@ -59,6 +71,7 @@ public class Recruitment extends Board {
         setMemberTotal(memberTotal);
         setProjectSubject(projectSubject);
         setProjectField(projectField);
+        setProjectPreview(projectPreview);
         setProjectLevel(projectLevel);
         setRequiredMemberLevel(requiredMemberLevel);
         setExpectedPeriod(expectedPeriod);
@@ -68,5 +81,9 @@ public class Recruitment extends Board {
         return new RecruitBoardSaveForm(getTitle(), getContents(), getCommentAllow(), getScrapAllow(), getVisibility(),
                 getAutoMatchingStatus(), getDeadlineDate().getYear(), getDeadlineDate().getMonth().getValue(), getDeadlineDate().getDayOfMonth(), getMemberTotal(),
                 getProjectSubject(), getProjectField(), getProjectLevel(), getRequiredMemberLevel(), getExpectedPeriod());
+    }
+
+    public ProjectSaveForm toProjectSaveForm() {
+        return new ProjectSaveForm(getProjectSubject(), getProjectPreview());
     }
 }

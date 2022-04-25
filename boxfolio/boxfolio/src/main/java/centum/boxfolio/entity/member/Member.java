@@ -5,6 +5,7 @@ import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.entity.portfolio.PortfolioScrap;
 import centum.boxfolio.entity.portfolio.PortfolioStar;
+import centum.boxfolio.entity.portfolio.Project;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,6 +43,9 @@ public class Member {
 
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
     private Portfolio portfolio;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Project> projects = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<PortfolioStar> portfolioStars = new ArrayList<>();

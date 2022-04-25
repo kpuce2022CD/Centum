@@ -176,7 +176,7 @@ h1, h2, h3, h4, h5, h6 {
     align-content: flex-start;
     flex-wrap: wrap;
     height: calc(100% - 10px);
-    overflow: scroll;
+    overflow-y: auto;
 }
 
 .skills li {
@@ -201,7 +201,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .complete-projects, .progress-projects {
     height: calc(100% - 10px);
-    overflow: scroll;
+    overflow-y: auto;
 }
 
 .complete-projects li, .progress-projects li {
@@ -238,7 +238,7 @@ h1, h2, h3, h4, h5, h6 {
     flex-wrap: wrap;
     align-content: flex-start;
     height: calc(100% - 10px);
-    overflow: scroll;
+    overflow-y: auto;
 }
 
 .scrap-portfolios li, .scrap-posts li {
@@ -276,7 +276,7 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
     flex-wrap: wrap;
     height: calc(100% - 10px);
-    overflow: scroll;
+    overflow-y: auto;
     margin: 5px 0;
 }
 

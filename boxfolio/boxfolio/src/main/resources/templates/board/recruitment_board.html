@@ -134,10 +134,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr onclick="location.href='#'">
-                            <th>1</th>
-                            <th>기록 관리 애플리케이션</th>
-                            <th>중</th>
+                        <tr th:onclick="|location.href='@{/board/recruit/{boardId}(boardId=${rrb.id})}'|" th:each="rrb, i : ${recommendRecruitBoard}">
+                            <th th:text="${i.count}">1</th>
+                            <th th:text="${rrb.projectSubject}">기록 관리 애플리케이션</th>
+                            <th th:if="${rrb.projectLevel == 1}" th:text="'하'"></th>
+                            <th th:if="${rrb.projectLevel == 2}" th:text="'중'"></th>
+                            <th th:if="${rrb.projectLevel == 3}" th:text="'상'"></th>
                         </tr>
                         </tbody>
                     </table>

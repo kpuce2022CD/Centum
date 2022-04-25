@@ -6,6 +6,7 @@ import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.repository.member.MemberRepository;
 import centum.boxfolio.service.board.BoardService;
 import centum.boxfolio.service.board.CommentService;
+import centum.boxfolio.service.portfolio.ProjectService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,6 +28,7 @@ public class BoardController {
 
     private final BoardService boardService;
     private final CommentService commentService;
+    private final ProjectService projectService;
     private final MemberRepository memberRepository;
 
     @GetMapping("/free")
@@ -41,7 +44,12 @@ public class BoardController {
     }
 
     @GetMapping("/recruit")
-    public String recruitBoardPage(Model model) {
+    public String recruitBoardPage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
+        Member member = memberRepository.findById(memberId).get();
+
+        model.addAttribute("recommendRecruitBoard", boardService.recommendRecruitBoard(member));
         model.addAttribute("recruitBoard", boardService.readRecruitBoard());
         return "board/recruitment_board";
     }
