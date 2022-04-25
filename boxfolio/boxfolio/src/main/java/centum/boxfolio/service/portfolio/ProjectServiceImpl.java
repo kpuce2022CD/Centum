@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import centum.boxfolio.entity.portfolio.Portfolio;
+import centum.boxfolio.repository.portfolio.ProjectRepositoryImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Service
 @RequiredArgsConstructor
 public class ProjectServiceImpl implements ProjectService {
@@ -61,3 +65,19 @@ public class ProjectServiceImpl implements ProjectService {
         return lastPage.intValue() + 1;
     }
 }
+
+// @Service
+// @RequiredArgsConstructor
+// public class ProjectServiceImpl implements ProjectService{
+
+//     @Autowired
+//     private ProjectRepositoryImpl projectRepository;
+
+//     @Override
+//     public Project upload(Project project, Portfolio portfolio) {
+//         if (projectRepository.saveProject(project, portfolio).isPresent()){
+//             return projectRepository.saveProject(project, portfolio).get();
+//         }
+//         return null;
+//     }
+// }

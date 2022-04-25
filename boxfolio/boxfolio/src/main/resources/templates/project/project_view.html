@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Service Programming Homework</title>
+    <meta name="description" content="포트폴리오 관리 웹 페이지">
+    <meta name="keywords" content="web, service, portfolio, boxfolio, project">
+    <meta name="author" content="Centum">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--Open Graph-->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="포트폴리오 관리 웹 페이지">
+    <meta property="og:description" content="포트폴리오를 분석하고 관리해줍니다">
+
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" href="../../css/project/project_view.css" th:href="@{/css/project/project_view.css}">
+    <!--script src="../../js/project_view.js" th:href="@{/css/project/project_view.js}"></script-->
+    <!--link rel="stylesheet" type="text/css" href="../../static/css/reset.css" >
+    <link rel="stylesheet" type="text/css" href="../../static/css/common.css">
+    <link rel="stylesheet" href="../../static/css/project/project_view.css"-->
+    
+    <!--script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script-->
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+
+    <script>
+        function draw(){
+            change();
+        }
+
+        $(document).ready(function(){
+            $(".li_list>a").click(function(){
+                var submenu = $(this).next("ul");
+
+                if( submenu.is(":visible") ){
+                    submenu.slideUp();
+                }else{
+                    submenu.slideDown();
+                }
+            });
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    
+</head>
+
+<body onload="draw()">
+    <header th:replace="template/header :: common_header">
+        <div class="wrap">
+            <div class="header-container">
+                <div class="logo">
+                    <a href="/" th:href="@{/}">BOXFOLIO</a>
+                </div>
+                <ul class="nav">
+                    <li>
+                        <a href="#">포트폴리오</a>
+                    </li>
+                    <li>
+                        <a href="#">분석&관리</a>
+                    </li>
+                    <li>
+                        <a href="#">커뮤니티</a>
+                    </li>
+                    <li>
+                        <a href="#">1:1문의</a>
+                    </li>
+                </ul>
+                <div class="member-area">
+                    <a href="../member/login.html" class="start-btn" th:href="@{/login}">
+                        시작하기
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="main">
+        <p class="project_name">분석 프로젝트 명 : CENTUM</p>
+        <div class="level_chart">
+            <div class="chart">
+                <div class="lan_ch">
+                    <canvas id="pie-chart" width="400" height="400"></canvas>
+                </div>
+                <div class="le_ch">
+                    <canvas id="radar-chart" width="400" height="400"></canvas>
+                </div>
+            </div>
+            <li class="li_list" id="li_list">
+                <a class="list_name">사용된 python 라이브러리 리스트</a>
+                <ul class="hide">
+                    <li th:each="lib : ${projectLoadForm.library}" th:text=" ' · ' + ${lib}"> · 라이브러리</li>
+                </ul>
+            </li>
+            <input class="level"  th:each="level : ${projectLoadForm.level}" th:value="${level}">
+            <input class="language"  th:each="language : ${projectLoadForm.language}" th:value="${language}">
+            <input class="percent"  th:each="percent : ${projectLoadForm.percent}" th:value="${percent}">
+
+        </div>
+
+    </section>
+<footer th:replace="template/footer :: common_footer">
+</footer>
+<script src="../../js/project/project_view.js"></script>
+<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+</body>
+    
+</html>

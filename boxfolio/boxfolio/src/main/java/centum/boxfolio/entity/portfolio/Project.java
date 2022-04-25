@@ -14,6 +14,7 @@ import java.util.List;
 @Getter @Setter
 @NoArgsConstructor
 @Entity
+@NoArgsConstructor
 public class Project {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,6 +33,7 @@ public class Project {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "project_analysis_id")
