@@ -1,39 +1,45 @@
 package centum.boxfolio.service.gitapi;
 
+import lombok.RequiredArgsConstructor;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHUser;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
 import org.kohsuke.github.PagedIterable;
 import org.kohsuke.github.GHContent;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
-
+@Service
+@RequiredArgsConstructor
 public class GitApiImpl implements GitApi {
 
     final Logger LOG = Logger.getGlobal();
-    private GitHub github = null;
 
     @Override
-    public boolean gitAccess(String personalToken) {
+    public GitHub gitAccess(String personalToken) {
+
+        GitHub gitHub;
+
         if (personalToken == null){
             LOG.info("personal token cannot be null");
-            return false;
+            return null;
         }
         try {
-            this.github = new GitHubBuilder().withOAuthToken(personalToken).build();
-            return true;
+            gitHub = new GitHubBuilder().withOAuthToken(personalToken).build();
+            return gitHub;
         } catch (Exception e){
             LOG.info("access github error : " + e);
-            return false;
+            return null;
         }
 
     }
 
     @Override
-    public boolean getAllUsersRepo() {
+    public boolean getAllUsersRepo(String personalToken) {
+        GitHub github = gitAccess(personalToken);
 
         try {
             GHUser gitUser = github.getMyself();
@@ -58,10 +64,11 @@ public class GitApiImpl implements GitApi {
     }
 
     @Override
-    public boolean getAllPublicRepo(String path) {
+    public boolean getAllPublicRepo(String path, String personalToken) {
 
-        if (this.github != null){
-            PagedIterable<GHRepository> repoList = this.github.listAllPublicRepositories();
+        GitHub github = gitAccess(personalToken);
+        if (github != null){
+            PagedIterable<GHRepository> repoList = github.listAllPublicRepositories();
 
             for (GHRepository i : repoList){
                 try {
@@ -77,5 +84,22 @@ public class GitApiImpl implements GitApi {
 
         }
         return false;
+    }
+
+    @Override
+    public void getCodeForRepo(String repoName, String personalToken) throws IOException {
+        GitHub github = gitAccess(personalToken);
+        GHUser gitUser = github.getMyself();
+
+        GHRepository repository = gitUser.getRepository(repoName);
+
+        String language = repository.getLanguage();
+
+        List<GHContent> ghContentList = repository.getDirectoryContent("");
+
+        for (GHContent c : ghContentList){
+            GitApi.downloadDirectory(c, c.getName(), "");
+        }
+
     }
 }

@@ -1,0 +1,57 @@
+header {
+    min-width: 1280px;
+    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
+}
+.main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.project_name{
+    margin: 0 auto;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+.level_chart{
+    margin: 0 auto;
+    margin-top: 30px;
+    display: flex;
+    width: 900px;
+    flex-direction: column;
+}
+.le_ch{
+    margin-left: 100px;
+}
+
+.chart{
+    display: flex;
+    flex-direction: row;
+}
+.li_list{
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.li_list a{cursor: pointer;}
+
+.li_list .hide{
+    display: none;
+}
+
+.list_name{
+    width: 100%;
+    height: 200px;
+    border-radius: 5px;
+    background-color: skyblue;
+}
+
+.hide{
+    margin-top: 10px;
+}
+
+.level, .language, .percent{
+    display: none;
+}

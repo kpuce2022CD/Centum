@@ -17,20 +17,16 @@
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
     <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../css/portfolio/folio_mine.css" th:href="@{/css/portfolio/folio_mine.css}" />
-    <script src="../../js/portfolio/folio_mine.js"></script>
-    <script>
-        function start(){
-            if(document.getElementById('id_test')!=null) {
-                id_set();
-                result();
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="../../css/project/project_analysis.css" th:href="@{/css/project/project_analysis.css}">
+
+    <!--link rel="stylesheet" type="text/css" href="../../static/css/reset.css" >
+    <link rel="stylesheet" type="text/css" href="../../static/css/common.css">
+    <link rel="stylesheet" href="../../static/css/project/project_analysis.css"-->
+    <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
+    
 </head>
 
-<body onload="start()">
-<div id="root-wrap">
+<body>
     <header th:replace="template/header :: common_header">
         <div class="wrap">
             <div class="header-container">
@@ -51,44 +47,40 @@
                         <a href="#">1:1문의</a>
                     </li>
                 </ul>
-                <div class="user-area">
-                    <a href="#" class="start-btn">
+                <div class="member-area">
+                    <a href="../member/login.html" class="start-btn" th:href="@{/login}">
                         시작하기
                     </a>
                 </div>
             </div>
         </div>
     </header>
-    <div class="portf">
-        <div class="value_test" th:each="pf : ${portfolio}">
-            <input id="value_test" class="value_test" value="portfolio" th:value="${portfolio.contents}"/>
-            <input id="id_test" class="value_test" value="0" th:value="${portfolio.id}"/>
+    <section class="main">
+        <div class="how">
+            <div class="hover_icon">
+                <i class="fa-solid fa-circle-question fa-2x" style="margin-left: 230px;"></i>
+                    
+                <span class="tooltip tooltip-bottom">
+                    깃허브 프로젝트 이름과 personal token을 입력하세요<br>
+                    분석이 끝나면 프로젝트 관리 탭에서 확인이 가능합니다
+                </span>
+                    
+                
+            </div>
+                
         </div>
-        <section class="make">
-            <div class="set">
-                <div id="set-pub" class="set-pub">public</div>
-                <div id="set-pri" class="set-pri">private</div>
-            </div>
-            <div class="op">
-                <a href="/portfolios/make" class="make-btn">
-                    작성
-                </a>
-                <button class="del-btn" onclick = "location.href = '/portfolios/delete' ">
-                    삭제
-                </button>
-            </div>
-
-            <div class="fo" id="fo">
-                <p class="title" id="title">내 포트폴리오</p>
-            </div>
-            <p id="date_1" class="date_1">최근 수정 날짜 : </p>
-            <p id="date_2" class="date_2">0000_00_00</p>
-        </section>
-    </div>
-</div>
-
+        <div class="project_input">
+            <form action="/project/upload" method="post" class="project_search">
+                <input class="project_name" name="repoName" type="text" placeholder="project name">
+                <input class="project_name" name="personalToken" type="text" placeholder="personal token">
+                <button type="submit" class="send_btn">&lt;분석받기&gt;</button>
+            </form>
+        </div>
+        
+    </section>
 <footer th:replace="template/footer :: common_footer">
 </footer>
 <script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
 </body>
+    
 </html>

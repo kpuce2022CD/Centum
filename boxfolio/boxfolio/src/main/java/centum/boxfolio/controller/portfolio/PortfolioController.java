@@ -34,9 +34,6 @@ public class PortfolioController {
     private final PortfolioServiceImpl portfolioService;
     private final MemberRepositoryImpl memberRepository;
 
-
-
-
     @GetMapping
     public String portfolioPage(Model model, HttpServletRequest request) {
 
