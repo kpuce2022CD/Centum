@@ -45,6 +45,7 @@ header {
 .board {
     border-top: 1px solid #333;
     width: 100%;
+    margin: 0 20px 0 0;
 }
 
 .board th, .board td {
@@ -63,6 +64,34 @@ header {
 
 .td-reply {
    color: red;
+}
+
+.matching-list-area {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    width: 400px;
+}
+
+.matching-list-title {
+    background-color: #C8DEFF;
+    padding: 10px;
+    text-align: center;
+}
+
+.matching-list {
+    width: 100%;
+}
+
+.matching-list th {
+    font-weight: normal;
+    height: 30px;
+    border-top: 1px solid #aaa;
+}
+
+.matching-list tbody tr:hover {
+    background-color: #f88;
+    color: #fff;
+    cursor: pointer;
 }
 
 .access-container {

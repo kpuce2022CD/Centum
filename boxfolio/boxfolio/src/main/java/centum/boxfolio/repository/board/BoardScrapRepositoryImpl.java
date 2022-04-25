@@ -11,12 +11,13 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Repository
 @RequiredArgsConstructor
 @Transactional
-public class ScrapRepositoryImpl implements ScrapRepository {
+public class BoardScrapRepositoryImpl implements BoardScrapRepository {
 
     private final EntityManager em;
 
@@ -48,5 +49,12 @@ public class ScrapRepositoryImpl implements ScrapRepository {
                 .filter(b -> b.getBoard().getId() == boardId)
                 .filter(b -> b.getMember().getId() == memberId)
                 .findAny();
+    }
+
+    @Override
+    public List<BoardScrap> findScrapByMemberId(Long memberId) {
+        return findScrapAll().stream()
+                .filter(b -> b.getMember().getId() == memberId)
+                .collect(Collectors.toList());
     }
 }

@@ -28,6 +28,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -66,7 +67,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
             Path path = Paths.get(dir + f.getOriginalFilename());
             Files.write(path, bytes);
 
-            
+
             /*
 
             PortfolioFiles portfolioFiles = new PortfolioFiles();
@@ -147,6 +148,16 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         return query.getResultList();
     }
 
+    @Override
+    public List<Portfolio> findLatest() {
+        String jpql = "SELECT p FROM Portfolio AS p WHERE p.visibility = true ORDER BY p.updatedDate ASC";
+
+        TypedQuery<Portfolio> query = em.createQuery(jpql, Portfolio.class);
+
+        return query.getResultList();
+    }
+
+
     @Transactional
     @Override
     public void delete(Portfolio portfolio) {
@@ -183,25 +194,6 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         } else {
             addRelationPortfolioScrap(portfolio, member);
         }
-    }
-
-    @Override
-    public List<PortfolioScrap> findMyScrap(Member member) {
-        String jpql = "SELECT ps FROM PortfolioScrap AS ps WHERE ps.member = :memberId";
-
-        TypedQuery<PortfolioScrap> query = em.createQuery(jpql, PortfolioScrap.class);
-        query.setParameter("memberId", member);
-
-        return query.getResultList();
-    }
-
-    @Override
-    public List<Portfolio> findLatest() {
-        String jpql = "SELECT p FROM Portfolio AS p WHERE p.visibility = true ORDER BY p.updatedDate ASC";
-
-        TypedQuery<Portfolio> query = em.createQuery(jpql, Portfolio.class);
-
-        return query.getResultList();
     }
 
     // 스타 관련 기능
@@ -301,5 +293,17 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         for (PortfolioStar ps : temp){
             em.remove(ps);
         }
+    }
+
+    @Override
+    public List<PortfolioScrap> findAllScrap() {
+        return em.createQuery("SELECT ps FROM PortfolioScrap ps", PortfolioScrap.class).getResultList();
+    }
+
+    @Override
+    public List<PortfolioScrap> findScrapByMemberId(Long memberId) {
+        return findAllScrap().stream()
+                .filter(ps -> ps.getMember().getId() == memberId)
+                .collect(Collectors.toList());
     }
 }

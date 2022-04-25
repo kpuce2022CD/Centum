@@ -15,6 +15,8 @@ public class MemberAbility {
     private Integer cohesion;
     private Integer coupling;
     private Integer complexity;
+    private Integer redundancy;
+    private Integer standard;
     private Integer memberLevel;
 
     @OneToOne(mappedBy = "memberAbility", orphanRemoval = true)
@@ -24,6 +26,8 @@ public class MemberAbility {
         this.cohesion = 0;
         this.coupling = 0;
         this.complexity = 0;
+        this.redundancy = 0;
+        this.standard = 0;
         this.memberLevel = 0;
     }
 }

@@ -5,6 +5,8 @@ CREATE TABLE IF NOT EXISTS member_ability(
     cohesion INT NOT NULL DEFAULT 0,
     coupling INT NOT NULL DEFAULT 0,
     complexity INT NOT NULL DEFAULT 0,
+    redundancy INT NOT NULL DEFAULT 0,
+    standard INT NOT NULL DEFAULT 0,
     member_level INT NOT NULL DEFAULT 0
 );
 
@@ -54,21 +56,23 @@ CREATE TABLE IF NOT EXISTS portfolio_scrap(
     FOREIGN KEY (member_id) REFERENCES member(id)
 );
 
+CREATE TABLE IF NOT EXISTS project_analysis(
+	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    cohesion INT NOT NULL DEFAULT 0,
+    coupling INT NOT NULL DEFAULT 0,
+    complexity INT NOT NULL DEFAULT 0,
+    redundancy INT NOT NULL DEFAULT 0,
+    standard INT NOT NULL DEFAULT 0
+);
+
 CREATE TABLE IF NOT EXISTS project(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     repository_addr VARCHAR(50) NOT NULL,
     updated_date DATETIME NOT NULL,
     portfolio_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (portfolio_id) REFERENCES portfolio(id)
-);
-
-CREATE TABLE IF NOT EXISTS project_analysis(
-	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-    cohesion INT NOT NULL,
-    coupling INT NOT NULL,
-    complexity INT NOT NULL,
-    project_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY (project_id) REFERENCES project(id)
+    project_analysis_id INT UNSIGNED NOT NULL,
+    FOREIGN KEY (portfolio_id) REFERENCES portfolio(id),
+    FOREIGN KEY (project_analysis_id) REFERENCES project_analysis(id)
 );
 
 CREATE TABLE IF NOT EXISTS skill_type(
@@ -97,6 +101,17 @@ CREATE TABLE IF NOT EXISTS member_skill(
     member_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (skill_id) REFERENCES skill(id),
     FOREIGN KEY (member_id) REFERENCES member(id)
+);
+
+CREATE TABLE IF NOT EXISTS title(
+	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    title_name VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS member_title(
+	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	title_id INT UNSIGNED NOT NULL,
+    member_id INT UNSIGNED NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS board(

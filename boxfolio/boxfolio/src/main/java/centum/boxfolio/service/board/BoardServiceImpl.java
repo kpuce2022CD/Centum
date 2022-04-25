@@ -1,20 +1,17 @@
 package centum.boxfolio.service.board;
 
-import centum.boxfolio.controller.board.BoardCommentSaveForm;
 import centum.boxfolio.controller.board.FreeBoardSaveForm;
 import centum.boxfolio.controller.board.InfoBoardSaveForm;
 import centum.boxfolio.controller.board.RecruitBoardSaveForm;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.repository.board.BoardRepository;
-import centum.boxfolio.repository.board.CommentRepository;
-import centum.boxfolio.repository.board.ScrapRepository;
-import centum.boxfolio.repository.board.StarRepository;
+import centum.boxfolio.repository.board.BoardScrapRepository;
+import centum.boxfolio.repository.board.BoardStarRepository;
 import centum.boxfolio.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,8 +20,8 @@ import java.util.Optional;
 public class BoardServiceImpl implements BoardService{
 
     private final BoardRepository boardRepository;
-    private final ScrapRepository scrapRepository;
-    private final StarRepository starRepository;
+    private final BoardScrapRepository scrapRepository;
+    private final BoardStarRepository boardStarRepository;
     private final MemberRepository memberRepository;
 
     @Override
@@ -34,13 +31,13 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public BoardStar countStar(Long boardId, Long memberId) {
-        Optional<BoardStar> boardStar = starRepository.findStarByBoardIdAndMemberId(boardId, memberId);
+        Optional<BoardStar> boardStar = boardStarRepository.findStarByBoardIdAndMemberId(boardId, memberId);
         Optional<Member> member = memberRepository.findById(memberId);
         Optional<Board> post = boardRepository.findGeneralPostById(boardId);
         if (boardStar.isEmpty()) {
-            return starRepository.upStar(post.get(), member.get());
+            return boardStarRepository.upStar(post.get(), member.get());
         }
-        starRepository.downStar(post.get(), member.get());
+        boardStarRepository.downStar(post.get(), member.get());
         return null;
     }
 
