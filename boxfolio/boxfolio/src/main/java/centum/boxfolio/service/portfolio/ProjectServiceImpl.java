@@ -1,8 +1,8 @@
 package centum.boxfolio.service.portfolio;
 
+import centum.boxfolio.controller.portfolio.ProjectSaveForm;
 import centum.boxfolio.entity.board.ProjectMember;
 import centum.boxfolio.entity.board.Recruitment;
-import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Project;
 import centum.boxfolio.entity.portfolio.ProjectAnalysis;
 import centum.boxfolio.repository.board.BoardRepository;
@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import centum.boxfolio.entity.portfolio.Portfolio;
-import centum.boxfolio.repository.portfolio.ProjectRepositoryImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 @RequiredArgsConstructor
@@ -64,20 +62,10 @@ public class ProjectServiceImpl implements ProjectService {
         }
         return lastPage.intValue() + 1;
     }
+
+    @Override
+    public Project uploadProjectFromPortfolio(ProjectSaveForm projectSaveForm, Portfolio portfolio, String repoURL) {
+        Project project = new Project(projectSaveForm.getRepoName(), "", LocalDateTime.now(), 1L, true, repoURL, portfolio.getMember(), new ProjectAnalysis());
+        return projectRepository.save(project);
+    }
 }
-
-// @Service
-// @RequiredArgsConstructor
-// public class ProjectServiceImpl implements ProjectService{
-
-//     @Autowired
-//     private ProjectRepositoryImpl projectRepository;
-
-//     @Override
-//     public Project upload(Project project, Portfolio portfolio) {
-//         if (projectRepository.saveProject(project, portfolio).isPresent()){
-//             return projectRepository.saveProject(project, portfolio).get();
-//         }
-//         return null;
-//     }
-// }

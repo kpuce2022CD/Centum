@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Web Service Programming Homework</title>
+    <title>박스폴리오</title>
     <meta name="description" content="포트폴리오 관리 웹 페이지">
     <meta name="keywords" content="web, service, portfolio, boxfolio, project">
     <meta name="author" content="Centum">
@@ -15,80 +15,80 @@
     <meta property="og:description" content="포트폴리오를 분석하고 관리해줍니다">
 
     <!--CSS-->
-    <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../css/portfolio/folio_mine.css" th:href="@{/css/portfolio/folio_mine.css}" />
+    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common.css" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/portfolio/folio_mine.css" th:href="@{/css/portfolio/folio_mine.css}" />
+</head>
+
+<body onload="start()">
+    <div id="root-wrap">
+        <header th:replace="template/header :: common_header">
+            <div class="wrap">
+                <div class="header-container">
+                    <div class="logo">
+                        <a href="/" th:href="@{/}">BOXFOLIO</a>
+                    </div>
+                    <ul class="nav">
+                        <li>
+                            <a href="#">포트폴리오</a>
+                        </li>
+                        <li>
+                            <a href="#">분석&관리</a>
+                        </li>
+                        <li>
+                            <a href="#">커뮤니티</a>
+                        </li>
+                        <li>
+                            <a href="#">1:1문의</a>
+                        </li>
+                    </ul>
+                    <div class="user-area">
+                        <a href="#" class="start-btn">
+                            시작하기
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="portf">
+            <div class="value_test" th:each="pf : ${portfolio}">
+                <input id="value_test" class="value_test" value="portfolio" th:value="${portfolio.contents}"/>
+                <input id="id_test" class="value_test" value="0" th:value="${portfolio.id}"/>
+            </div>
+            <section class="make">
+                <div class="set">
+                    <div id="set-pub" class="set-pub">public</div>
+                    <div id="set-pri" class="set-pri">private</div>
+                </div>
+                <div class="op">
+                    <a href="/portfolios/make" class="make-btn">
+                        작성
+                    </a>
+                    <button class="del-btn" onclick = "location.href = '/portfolios/delete' ">
+                        삭제
+                    </button>
+                </div>
+
+                <div class="fo" id="fo">
+                    <p class="title" id="title">내 포트폴리오</p>
+                </div>
+                <p id="date_1" class="date_1">최근 수정 날짜 : </p>
+                <p id="date_2" class="date_2">0000_00_00</p>
+            </section>
+        </div>
+    </div>
+    <footer th:replace="template/footer :: common_footer">
+    </footer>
+    
+    <script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
     <script src="../../js/portfolio/folio_mine.js"></script>
     <script>
-        function start(){
-            if(document.getElementById('id_test')!=null) {
+        function start() {
+            if (document.getElementById('id_test') != null) {
                 id_set();
                 result();
             }
         }
     </script>
-</head>
-
-<body onload="start()">
-<div id="root-wrap">
-    <header th:replace="template/header :: common_header">
-        <div class="wrap">
-            <div class="header-container">
-                <div class="logo">
-                    <a href="/" th:href="@{/}">BOXFOLIO</a>
-                </div>
-                <ul class="nav">
-                    <li>
-                        <a href="#">포트폴리오</a>
-                    </li>
-                    <li>
-                        <a href="#">분석&관리</a>
-                    </li>
-                    <li>
-                        <a href="#">커뮤니티</a>
-                    </li>
-                    <li>
-                        <a href="#">1:1문의</a>
-                    </li>
-                </ul>
-                <div class="user-area">
-                    <a href="#" class="start-btn">
-                        시작하기
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
-    <div class="portf">
-        <div class="value_test" th:each="pf : ${portfolio}">
-            <input id="value_test" class="value_test" value="portfolio" th:value="${portfolio.contents}"/>
-            <input id="id_test" class="value_test" value="0" th:value="${portfolio.id}"/>
-        </div>
-        <section class="make">
-            <div class="set">
-                <div id="set-pub" class="set-pub">public</div>
-                <div id="set-pri" class="set-pri">private</div>
-            </div>
-            <div class="op">
-                <a href="/portfolios/make" class="make-btn">
-                    작성
-                </a>
-                <button class="del-btn" onclick = "location.href = '/portfolios/delete' ">
-                    삭제
-                </button>
-            </div>
-
-            <div class="fo" id="fo">
-                <p class="title" id="title">내 포트폴리오</p>
-            </div>
-            <p id="date_1" class="date_1">최근 수정 날짜 : </p>
-            <p id="date_2" class="date_2">0000_00_00</p>
-        </section>
-    </div>
-</div>
-
-<footer th:replace="template/footer :: common_footer">
-</footer>
-<script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
 </body>
 </html>

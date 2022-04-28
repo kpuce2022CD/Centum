@@ -5,7 +5,7 @@ import centum.boxfolio.controller.board.InfoBoardSaveForm;
 import centum.boxfolio.controller.board.RecruitBoardSaveForm;
 import centum.boxfolio.controller.member.ProjectPlanSaveForm;
 import centum.boxfolio.controller.member.ProjectRuleSaveForm;
-import centum.boxfolio.controller.member.ProjectSaveForm;
+import centum.boxfolio.controller.member.ProgressProjectSaveForm;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.repository.board.BoardRepository;
@@ -280,29 +280,29 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public Recruitment updateProjectSubjectAndPreview(ProjectSaveForm projectSaveForm, Long boardId) {
+    public Recruitment updateProjectSubjectAndPreview(ProgressProjectSaveForm progressProjectSaveForm, Long boardId) {
         Optional<Recruitment> post = boardRepository.findRecruitPostById(boardId);
         if (post.isEmpty()) {
             return null;
         }
-        return boardRepository.modifySubjectAndPreview(post.get(), projectSaveForm);
+        return boardRepository.modifySubjectAndPreview(post.get(), progressProjectSaveForm);
     }
 
     @Override
-    public ProjectPlan createProjectPlan(ProjectPlanSaveForm projectPlanSaveForm, Long boardId) {
+    public ProjectPlan createProjectPlan(ProgressProjectSaveForm progressProjectSaveForm, Long boardId) {
         Optional<Recruitment> post = boardRepository.findRecruitPostById(boardId);
         if (post.isEmpty()) {
             return null;
         }
-        return boardRepository.saveProjectPlan(projectPlanSaveForm.toProjectPlan(post.get()));
+        return boardRepository.saveProjectPlan(progressProjectSaveForm.toProjectPlan(post.get()));
     }
 
     @Override
-    public ProjectRule createProjectRule(ProjectRuleSaveForm projectRuleSaveForm, Long boardId) {
+    public ProjectRule createProjectRule(ProgressProjectSaveForm progressProjectSaveForm, Long boardId) {
         Optional<Recruitment> post = boardRepository.findRecruitPostById(boardId);
         if (post.isEmpty()) {
             return null;
         }
-        return boardRepository.saveProjectRule(projectRuleSaveForm.toProjectRule(post.get()));
+        return boardRepository.saveProjectRule(progressProjectSaveForm.toProjectRule(post.get()));
     }
 }

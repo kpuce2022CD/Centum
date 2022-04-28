@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>박스폴리오</title>
+    <meta name="description" content="포트폴리오 관리 웹 페이지">
+    <meta name="keywords" content="web, service, portfolio, boxfolio, project">
+    <meta name="author" content="Centum">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--Open Graph-->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="포트폴리오 관리 웹 페이지">
+    <meta property="og:description" content="포트폴리오를 분석하고 관리해줍니다">
+
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" th:href="@{/css/reset.css}" />
+    <link rel="stylesheet" type="text/css" href="../../static/css/common.css" th:href="@{/css/common.css}" />
+    <link rel="stylesheet" href="../../static/css/portfolio/portfolio_edit.css" th:href="@{/css/portfolio/portfolio_edit.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/css/input_design.css" th:href="@{/css/input_design.css}" />
+</head>
+
+<body onload="start()">
+    <div id="root-wrap">
+        <header th:replace="template/header :: common_header">
+            <div class="wrap">
+                <div class="header-container">
+                    <div class="logo">
+                        <a href="/" th:href="@{/}">BOXFOLIO</a>
+                    </div>
+                    <ul class="nav">
+                        <li>
+                            <a href="#">포트폴리오</a>
+                        </li>
+                        <li>
+                            <a href="#">분석&관리</a>
+                        </li>
+                        <li>
+                            <a href="#">커뮤니티</a>
+                        </li>
+                        <li>
+                            <a href="#">1:1문의</a>
+                        </li>
+                    </ul>
+                    <div class="user-area">
+                        <a href="#" class="start-btn">
+                            시작하기
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!--------------------------------------------------------------------->
+        <form action="/portfolios/make" method="post" th:object="${portfolioSaveForm}">
+            <div class="image-ch" id="image-ch">
+                <label class="order">
+                    <input type="text" size="1" onchange="change(this, value)" value="0">
+                </label>
+                <div class="image-box">
+                    <div class="image-container">
+                        <div class="image-upload" id="image-upload">
+                            <div>
+                                <input multiple="multiple" type="file" id="chooseFile" class="chooseFile" th:field="*{files}"
+                                    accept="image/*" onchange="loadFile(this)">
+                                <p id="fileName"></p>
+                            </div>
+                        </div>
+                        <img class="image-show" id="image-show" src="" alt=""/>
+                    </div>
+                </div>
+                <button class="delete-btn" onclick="dele(this)">삭제</button>
+            </div>
+        
+            <div class="video-ch" id="video-ch">
+                <label class="order">
+                    <input type="text" size="1" onchange="change(this, value)" value="0">
+                </label>
+                <div class="video-box">
+                    <iframe id="hz" class="hz" src="">
+                    </iframe>
+                    <input id="hide" class="hide" size="100" type="url" onchange="video_in(value, this)" placeholder="유튜브 src를 입력하세요">
+                </div>
+                <button class="delete-btn" onclick="dele(this)">삭제</button>
+            </div>
+        
+            <div class="videoFile" id="videoFile">
+                <label class="order">
+                    <input type="text" size="1" onchange="change(this, value)" value="0">
+                </label>
+                <div class="video-file-box">
+                    <div class="video-upload" id="video-upload">
+                        <div>
+                            <input type="file" id="chooseVideoFile" name="chooseVideoFile" th:field="*{files}"
+                                accept="video.mp4" onchange="loadVideoFile(this)">
+                        </div>
+                    </div>
+                    <video id="videoFi" class="videoFi" autoplay controls loop muted preload="none">
+                        <source src="" type="video/mp4">
+                        브라우저가 동영상 업로드를 지원하지 않습니다
+                    </video>
+                </div>
+                <button class="delete-btn" onclick="dele(this)">삭제</button>
+            </div>
+        
+            <div id="info" class="info">
+                <label class="order">
+                    <input type="text" size="1" onchange="change(this, value)" value="0">
+                </label>
+                <label class="info-in">
+                    <input type="text" onchange="info_in(this, value)" placeholder="설명을 입력하세요">
+                </label>
+                <button class="delete-btn" onclick="dele(this)">삭제</button>
+            </div>
+        
+            <div id="git" class="git">
+                <label class="order">
+                    <input type="text" size="1" onchange="change(this, value)" value="0">
+                </label>
+                <label class="git-in">
+                    <input type="text" onchange="git_in(this, value)" placeholder="깃허브 아이디를 입력하세요">
+                </label>
+                <button class="delete-btn" onclick="dele(this)">삭제</button>
+            </div>
+        </form>
+        <!---------------------------------------------------------------------------------->
+
+        <section class="main">
+            <div class="wrap">
+                <div class="main-container">
+                    <div class="make-area">
+                        <label class="portfolio-title">
+                            <input type="text" size="100" onchange="title_in(value)" placeholder="제목을 입력하세요">
+                        </label>
+                        <div id="portfolio-box">
+                        </div>
+                    </div>
+                    <div class="access-area">
+                        <div class="public-box">
+                            <span>private</span>
+                            <input id="public-status" type="checkbox" class="switch" th:field="${portfolioSaveForm.visibility}"/>
+                            <span>public</span>
+                        </div>
+                        <div class="addition-box">
+                            <button id="image-se" onclick="image_up()">사진 추가</button>
+                            <button id="video-se" onclick="video_up()">유튜브 영상 추가</button>
+                            <button id="videoF-se" onclick="videoF_up()">영상 파일 추가</button>
+                            <button id="info-se" onclick="info_up()">설명 추가</button>
+                            <button id="git-up" onclick="git_up()">git 아이디 입력</button>
+                            <form th:action="@{/portfolio/make}" method="post" th:object="${portfolioSaveForm}" id="portfolio-send-form"class="portfolio-send-form" enctype="multipart/form-data">
+                                <input type="hidden" name="json_submit" id="json_submit" th:field="*{contents}" class="what" value="">
+                                <button id="complete-btn" onclick="data_in()">완료</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../static/js/portfolio/portfolio_edit.js" th:src="@{/js/portfolio/portfolio_edit.js}"></script>
+    <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

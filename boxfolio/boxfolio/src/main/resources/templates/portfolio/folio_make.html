@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Web Service Programming Homework</title>
+    <title>박스폴리오</title>
     <meta name="description" content="포트폴리오 관리 웹 페이지">
     <meta name="keywords" content="web, service, portfolio, boxfolio, project">
     <meta name="author" content="Centum">
@@ -15,10 +15,10 @@
     <meta property="og:description" content="포트폴리오를 분석하고 관리해줍니다">
 
     <!--CSS-->
-    <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" href="../../css/portfolio/folio_make.css" th:href="@{/css/portfolio/folio_make.css}">
-    <script src="../../js/portfolio/folio_make.js" th:href="@{js/portfolio/folio_make.js}"></script>
+    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common.css" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" href="../../static/css/portfolio/folio_make.css" th:href="@{/css/portfolio/folio_make.css}">
+    <script src="../../static/js/portfolio/folio_make.js" th:href="@{js/portfolio/folio_make.js}"></script>
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
 </head>
 
@@ -64,7 +64,7 @@
                         <p id="fileName"></p>
                     </div>
                 </div>
-                <img class="image-show" id="image-show" src=""></img>
+                <img class="image-show" id="image-show" src=""/>
             </div>
         </div>
         <button class="del" onclick="dele(this)">삭제</button>

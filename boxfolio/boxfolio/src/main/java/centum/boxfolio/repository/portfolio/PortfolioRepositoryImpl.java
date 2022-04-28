@@ -52,6 +52,10 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
 
         em.persist(portfolio);
 
+        if (files == null) {
+            return Optional.ofNullable(portfolio);
+        }
+
         String dir = MASTER_PATH + "\\" + portfolio.getId() + "\\";
         for (MultipartFile f : files){
 
@@ -85,6 +89,16 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
         return Optional.of(portfolio);
     }
 
+    @Override
+    public List<Portfolio> findAll() {
+        return em.createQuery("SELECT p FROM Portfolio p", Portfolio.class).getResultList();
+    }
+
+    @Override
+    public List<Portfolio> findAllPublic() {
+        return em.createQuery("SELECT p FROM Portfolio p WHERE p.visibility = true", Portfolio.class).getResultList();
+    }
+
     // 탐색 관련
     @Override
     public List<Portfolio> getHighestPortfolioList(int count) {
@@ -98,7 +112,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     }
 
     @Override
-    public Optional<Portfolio> findById(long id) {
+    public Optional<Portfolio> findById(Long id) {
         return Optional.ofNullable(em.find(Portfolio.class, id));
     }
 
@@ -142,18 +156,23 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     }
 
     @Override
-    public List<Portfolio> findHighest() {
-        String jpql = "SELECT p FROM Portfolio AS p WHERE p.visibility = true ORDER BY p.starTally ASC";
+    public Optional<Portfolio> findByMemberId(Long memberId) {
+        return findAll().stream()
+                .filter(p -> p.getMember().getId() == memberId)
+                .findAny();
+    }
 
+    @Override
+    public List<Portfolio> findHighestInPublic() {
+        String jpql = "SELECT p FROM Portfolio AS p WHERE p.visibility = true ORDER BY p.starTally ASC";
         TypedQuery<Portfolio> query = em.createQuery(jpql, Portfolio.class);
 
         return query.getResultList();
     }
 
     @Override
-    public List<Portfolio> findLatest() {
+    public List<Portfolio> findLatestInPublic() {
         String jpql = "SELECT p FROM Portfolio AS p WHERE p.visibility = true ORDER BY p.updatedDate ASC";
-
         TypedQuery<Portfolio> query = em.createQuery(jpql, Portfolio.class);
 
         return query.getResultList();

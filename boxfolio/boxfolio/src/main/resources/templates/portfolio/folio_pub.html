@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Web Service Programming Homework</title>
+    <title>박스폴리오</title>
     <meta name="description" content="포트폴리오 관리 웹 페이지">
     <meta name="keywords" content="web, service, portfolio, boxfolio, project">
     <meta name="author" content="Centum">
@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
     <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
     <link rel="stylesheet" href="../../css/portfolio/folio_public.css" th:href="@{/css/portfolio/folio_public.css}">
-    <script src="../../js/portfolio/folio_public.js"></script>
+    <!-- <script src="../../js/portfolio/folio_public.js"></script> -->
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
     <script th:inline="javascript">
 
@@ -87,7 +87,6 @@
                 <p class="best" onclick="saw()">BEST 포트폴리오
                 </p>
                 <ul id="best-portfolio-list" class="best-portfolio-list">
-                    <!-- <c:forEach var="portfolio" items="${portfolioList}"> -->
                     <ul id="best_portfolio-view" class="portfolio-view">
                         <form action="/portfolios/search/Id" method="get" class="portfolio-card-form" th:each="portfolio : ${highestPortfolioList}" onclick="go(this)">
                             <input class="send_id" name="id" value="" th:value="${portfolio.id}">
@@ -121,7 +120,6 @@
                                 </ul>
                             </li>
                         </form>
-
                     </ul>
                 </ul>
                 <ul id="portfolio-list" class="portfolio-list">

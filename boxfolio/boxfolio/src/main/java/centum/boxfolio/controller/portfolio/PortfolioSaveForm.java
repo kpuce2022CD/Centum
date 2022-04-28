@@ -22,7 +22,7 @@ public class PortfolioSaveForm {
     private String title;
 
     private String contents;
-    private String visibility;
+    private Boolean visibility;
     private Member member;
 
     private List<MultipartFile> files;
@@ -32,10 +32,13 @@ public class PortfolioSaveForm {
         //result = visibility.equals("true");
 
         JSONParser parser = new JSONParser();
-        Object obj = parser.parse(contents);
-        JSONObject jsonObj = (JSONObject) obj;
+        JSONObject jsonObj = (JSONObject) parser.parse(contents);
 
-        return new Portfolio((String) jsonObj.get("title"), contents, true, member, null, null, null);
+        if (jsonObj.get("view").toString().equals("public")) {
+            this.visibility = true;
+        } else {
+            this.visibility = false;
+        }
+        return new Portfolio( jsonObj.get("title").toString(), contents, visibility, member, null, null, null);
     }
 }
-

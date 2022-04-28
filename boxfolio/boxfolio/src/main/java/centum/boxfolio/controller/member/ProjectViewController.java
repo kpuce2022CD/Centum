@@ -1,13 +1,8 @@
 package centum.boxfolio.controller.member;
 
-import centum.boxfolio.entity.board.ProjectMember;
-import centum.boxfolio.entity.board.ProjectPlan;
-import centum.boxfolio.entity.board.ProjectRule;
 import centum.boxfolio.entity.board.Recruitment;
-import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Project;
 import centum.boxfolio.repository.board.BoardRepository;
-import centum.boxfolio.repository.portfolio.ProjectRepository;
 import centum.boxfolio.service.board.BoardService;
 import centum.boxfolio.service.portfolio.ProjectService;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +21,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/project")
-public class ProjectController {
+public class ProjectViewController {
 
     private final BoardService boardService;
     private final ProjectService projectService;
@@ -83,10 +78,8 @@ public class ProjectController {
         if (memberId != recruitment.getMember().getId()) {
             return "redirect:/board/recruit";
         }
-        model.addAttribute("projectSaveForm", recruitment.toProjectSaveForm());
+        model.addAttribute("progressProjectSaveForm", recruitment.toProgressProjectSaveForm());
         model.addAttribute("recruitment", recruitment);
-        model.addAttribute("projectPlanSaveForm", new ProjectPlanSaveForm());
-        model.addAttribute("projectRuleSaveForm", new ProjectRuleSaveForm());
         model.addAttribute("members", boardService.findMembersByBoardId(id));
         model.addAttribute("projectRules", boardRepository.findProjectRulesByBoardId(id));
         model.addAttribute("projectPlans", boardRepository.findProjectPlansByBoardId(id));
@@ -94,37 +87,37 @@ public class ProjectController {
     }
 
     @PostMapping("/progress/{id}/edit")
-    public String progressProjectSave(@PathVariable Long id, @ModelAttribute ProjectSaveForm projectSaveForm, BindingResult bindingResult,
+    public String progressProjectSave(@PathVariable Long id, @ModelAttribute ProgressProjectSaveForm progressProjectSaveForm, BindingResult bindingResult,
                                       RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "member/progress_project_edit";
         }
 
-        boardService.updateProjectSubjectAndPreview(projectSaveForm, id);
+        boardService.updateProjectSubjectAndPreview(progressProjectSaveForm, id);
         redirectAttributes.addAttribute("id", id);
         return "redirect:/project/progress/{id}";
     }
 
     @PostMapping("/progress/{id}/plan/save")
-    public String progressProjectPlanSave(@PathVariable Long id, @ModelAttribute ProjectPlanSaveForm projectPlanSaveForm, BindingResult bindingResult,
+    public String progressProjectPlanSave(@PathVariable Long id, @ModelAttribute ProgressProjectSaveForm progressProjectSaveForm, BindingResult bindingResult,
                                           RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "member/progress_project_edit";
         }
 
-        boardService.createProjectPlan(projectPlanSaveForm, id);
+        boardService.createProjectPlan(progressProjectSaveForm, id);
         redirectAttributes.addAttribute("id", id);
         return "redirect:/project/progress/{id}/edit";
     }
 
     @PostMapping("/progress/{id}/rule/save")
-    public String progressProjectRuleSave(@PathVariable Long id, @ModelAttribute ProjectRuleSaveForm projectRuleSaveForm, BindingResult bindingResult,
+    public String progressProjectRuleSave(@PathVariable Long id, @ModelAttribute ProgressProjectSaveForm progressProjectSaveForm, BindingResult bindingResult,
                                           RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "member/progress_project_edit";
         }
 
-        boardService.createProjectRule(projectRuleSaveForm, id);
+        boardService.createProjectRule(progressProjectSaveForm, id);
         redirectAttributes.addAttribute("id", id);
         return "redirect:/project/progress/{id}/edit";
     }

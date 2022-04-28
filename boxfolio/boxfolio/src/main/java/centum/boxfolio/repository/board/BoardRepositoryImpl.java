@@ -3,7 +3,7 @@ package centum.boxfolio.repository.board;
 import centum.boxfolio.controller.board.FreeBoardSaveForm;
 import centum.boxfolio.controller.board.InfoBoardSaveForm;
 import centum.boxfolio.controller.board.RecruitBoardSaveForm;
-import centum.boxfolio.controller.member.ProjectSaveForm;
+import centum.boxfolio.controller.member.ProgressProjectSaveForm;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.member.Member;
 import lombok.RequiredArgsConstructor;
@@ -219,9 +219,9 @@ public class BoardRepositoryImpl implements BoardRepository {
     }
 
     @Override
-    public Recruitment modifySubjectAndPreview(Recruitment recruitment, ProjectSaveForm projectSaveForm) {
-        recruitment.setProjectSubject(projectSaveForm.getProjectSubject());
-        recruitment.setProjectPreview(projectSaveForm.getProjectPreview());
+    public Recruitment modifySubjectAndPreview(Recruitment recruitment, ProgressProjectSaveForm progressProjectSaveForm) {
+        recruitment.setProjectSubject(progressProjectSaveForm.getProjectSubject());
+        recruitment.setProjectPreview(progressProjectSaveForm.getProjectPreview());
         return recruitment;
     }
 

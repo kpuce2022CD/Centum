@@ -4,7 +4,8 @@ var make_date='0000.00.00'; //최근 수정 날짜
 var setting='public'; //공개 설정
 var title='테스트 제목';
 var file_where='../../image/portfolio';
-var id=0;
+var id = 0;
+var fo = document.getElementById('fo');
 
 function id_set(){
     id=document.getElementById('id_test').value;
@@ -62,9 +63,9 @@ function add(){
         }
     }
 
-    var date=document.getElementById('date_2');
+    var date=document.getElementById('updated-date');
     date.innerText=make_date;
-    document.getElementById('title').innerText=title;
+    document.getElementById('portfolio-title').innerText=title;
 
     if(setting == 'public'){
         var pub=document.getElementById('set-pub');

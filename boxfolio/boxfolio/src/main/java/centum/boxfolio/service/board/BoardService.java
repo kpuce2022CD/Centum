@@ -1,12 +1,11 @@
 package centum.boxfolio.service.board;
 
-import centum.boxfolio.controller.board.BoardCommentSaveForm;
 import centum.boxfolio.controller.board.FreeBoardSaveForm;
 import centum.boxfolio.controller.board.InfoBoardSaveForm;
 import centum.boxfolio.controller.board.RecruitBoardSaveForm;
+import centum.boxfolio.controller.member.ProgressProjectSaveForm;
 import centum.boxfolio.controller.member.ProjectPlanSaveForm;
 import centum.boxfolio.controller.member.ProjectRuleSaveForm;
-import centum.boxfolio.controller.member.ProjectSaveForm;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.member.Member;
 
@@ -50,7 +49,7 @@ public interface BoardService {
     Boolean checkApplyStatus(Long boardId, Long memberId);
     Boolean checkClosingRecruit(Recruitment recruitment);
 
-    Recruitment updateProjectSubjectAndPreview(ProjectSaveForm projectSaveForm, Long boardId);
-    ProjectPlan createProjectPlan(ProjectPlanSaveForm projectPlanSaveForm, Long boardId);
-    ProjectRule createProjectRule(ProjectRuleSaveForm projectRuleSaveForm, Long boardId);
+    Recruitment updateProjectSubjectAndPreview(ProgressProjectSaveForm progressProjectSaveForm, Long boardId);
+    ProjectPlan createProjectPlan(ProgressProjectSaveForm progressProjectSaveForm, Long boardId);
+    ProjectRule createProjectRule(ProgressProjectSaveForm progressProjectSaveForm, Long boardId);
 }

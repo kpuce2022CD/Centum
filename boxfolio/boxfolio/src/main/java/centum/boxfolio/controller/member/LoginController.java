@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -25,7 +26,7 @@ public class LoginController {
     private final MemberService memberService;
 
     @GetMapping("/login")
-    public String loginPage(Model model) {
+    public String loginPage(Model model, HttpServletRequest request) {
         model.addAttribute("memberLoginForm", new MemberLoginForm());
         return "/member/login";
     }

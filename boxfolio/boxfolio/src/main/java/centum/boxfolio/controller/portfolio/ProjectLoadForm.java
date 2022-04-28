@@ -11,10 +11,7 @@ import java.util.List;
 public class ProjectLoadForm {
 
     List<String> language;
-
-    List<Integer> percent;
-
+    List<Long> percent;
     List<String> library;
-
     List<Integer> level;
 }

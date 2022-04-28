@@ -14,7 +14,6 @@ import java.util.List;
 @Getter @Setter
 @NoArgsConstructor
 @Entity
-@NoArgsConstructor
 public class Project {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

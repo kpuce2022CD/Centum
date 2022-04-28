@@ -1,7 +1,7 @@
 package centum.boxfolio.entity.board;
 
 import centum.boxfolio.controller.board.RecruitBoardSaveForm;
-import centum.boxfolio.controller.member.ProjectSaveForm;
+import centum.boxfolio.controller.member.ProgressProjectSaveForm;
 import centum.boxfolio.entity.member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -83,7 +83,7 @@ public class Recruitment extends Board {
                 getProjectSubject(), getProjectField(), getProjectLevel(), getRequiredMemberLevel(), getExpectedPeriod());
     }
 
-    public ProjectSaveForm toProjectSaveForm() {
-        return new ProjectSaveForm(getProjectSubject(), getProjectPreview());
+    public ProgressProjectSaveForm toProgressProjectSaveForm() {
+        return new ProgressProjectSaveForm(getProjectSubject(), getProjectPreview());
     }
 }

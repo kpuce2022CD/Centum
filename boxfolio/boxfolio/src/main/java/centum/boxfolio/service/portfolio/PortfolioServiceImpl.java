@@ -24,22 +24,16 @@ public class PortfolioServiceImpl implements PortfolioService{
     private final PortfolioRepository portfolioRepository;
     private final MemberRepositoryImpl memberRepository;
     @Override
-    public Portfolio upload(PortfolioSaveForm form, long memberId) throws IOException, ParseException {
-
+    public Portfolio upload(PortfolioSaveForm portfolioSaveForm, Long memberId) throws IOException, ParseException {
         if (memberRepository.findById(memberId).isEmpty()){
             return null;
-        } else {
-            form.setMember(memberRepository.findById(memberId).get());
         }
-
-        Portfolio portfolio = form.toPortfolio();
-
-        if (portfolioRepository.save(portfolio, form.getFiles()).isEmpty()){
+        portfolioSaveForm.setMember(memberRepository.findById(memberId).get());
+        Portfolio portfolio = portfolioSaveForm.toPortfolio();
+        if (portfolioRepository.save(portfolio, portfolioSaveForm.getFiles()).isEmpty()){
             return null;
-        } else {
-            return portfolioRepository.save(portfolio, form.getFiles()).get();
         }
-
+        return portfolioRepository.save(portfolio, portfolioSaveForm.getFiles()).get();
     }
 
     @Override
@@ -78,12 +72,13 @@ public class PortfolioServiceImpl implements PortfolioService{
     }
 
     @Override
-    public Portfolio searchWithId(Long id) {
-        if (portfolioRepository.findById(id).isEmpty()){
-            return null;
-        } else {
-            return portfolioRepository.findById(id).get();
-        }
+    public Optional<Portfolio> searchByMemberId(Long memberId) {
+        return portfolioRepository.findByMemberId(memberId);
+    }
+
+    @Override
+    public Optional<Portfolio> searchById(Long id) {
+        return portfolioRepository.findById(id);
     }
 
     @Override
@@ -97,22 +92,14 @@ public class PortfolioServiceImpl implements PortfolioService{
     }
 
     @Override
-    public List<Portfolio> searchHighestStar(int count) {
-        return portfolioRepository.findHighest();
+    public List<Portfolio> searchHighestStarInPublic(int count) {
+        return portfolioRepository.findHighestInPublic();
     }
 
-    @Override
-    public Portfolio searchWithId(long id) {
-        if (portfolioRepository.findById(id).isEmpty()){
-            return null;
-        } else {
-            return portfolioRepository.findById(id).get();
-        }
-    }
 
     @Override
-    public List<Portfolio> searchLatest() {
-        return portfolioRepository.findLatest();
+    public List<Portfolio> searchLatestInPublic() {
+        return portfolioRepository.findLatestInPublic();
     }
 
 

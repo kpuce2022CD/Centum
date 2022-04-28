@@ -11,18 +11,18 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PortfolioService {
-    Portfolio upload(PortfolioSaveForm form, long memberId) throws IOException, ParseException;
+    Portfolio upload(PortfolioSaveForm form, Long memberId) throws IOException, ParseException;
     void delete(Portfolio portfolio);
     void change(Portfolio portfolio, String title, String context, boolean visibility) throws IOException;
     void starChange(Portfolio portfolio, Member member);
     List<Portfolio> searchWithTitle (String title);
     Portfolio searchWithMember (Member member);
-    Portfolio searchWithId(Long id);
+    Optional<Portfolio> searchByMemberId(Long memberId);
+    Optional<Portfolio> searchById(Long id);
     List<Portfolio> searchWithNickname(String nickname);
     void scrapPortfolio (Portfolio portfolio, Member member);
-    List<Portfolio> searchHighestStar (int count);
-    Portfolio searchWithId (long Id);
+    List<Portfolio> searchHighestStarInPublic(int count);
 
-    List<Portfolio> searchLatest();
+    List<Portfolio> searchLatestInPublic();
 
 }
