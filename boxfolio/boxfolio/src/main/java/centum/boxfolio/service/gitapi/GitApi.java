@@ -1,6 +1,7 @@
 package centum.boxfolio.service.gitapi;
 
 import org.kohsuke.github.GHContent;
+import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.PagedIterable;
 
@@ -16,12 +17,13 @@ import java.util.logging.Logger;
 
 public interface GitApi {
 
-    String DEFAULT_PATH = "C:\\Users\\joey3\\centum\\Centum\\boxfolio\\boxfolio\\src\\main\\resources\\static\\git";
+//    String DEFAULT_PATH = "C:\\Users\\joey3\\centum\\Centum\\boxfolio\\boxfolio\\src\\main\\resources\\static\\git";
     //String DEFAULT_PATH = "E:\\gitHub\\Centum\\boxfolio\\boxfolio\\src\\main\\resources\\static\\static\git";
+    String DEFAULT_PATH = "/Users/seowonho/centum_test/";
     GitHub gitAccess(String personalToken);
     boolean getAllUsersRepo(String personalToken);
     boolean getAllPublicRepo(String path, String personalToken);
-    void getCodeForRepo(String repoName, String personalToken) throws IOException;
+    GHRepository getCodeForRepo(String repoName, String personalToken) throws IOException;
 
     static void downloadDirectory(GHContent content, String path, String parentPath) {
         final Logger LOG = Logger.getGlobal();
@@ -74,7 +76,7 @@ public interface GitApi {
         downloadTo(url, dir, true);
     }
 
-    static void downloadTo(URL url, File targetFile, boolean isDirectory) throws IOException{
+    static String downloadTo(URL url, File targetFile, boolean isDirectory) throws IOException{
         final Logger LOG = Logger.getGlobal();
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
         int responseCode = httpConn.getResponseCode();
@@ -123,6 +125,7 @@ public interface GitApi {
             LOG.info("No file to download. Server replied HTTP code: " + responseCode);
         }
         httpConn.disconnect();
+        return targetFile.getName();
     }
 
 

@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Web Service Programming Homework</title>
+    <title>박스폴리오</title>
     <meta name="description" content="포트폴리오 관리 웹 페이지">
     <meta name="keywords" content="web, service, portfolio, boxfolio, project">
     <meta name="author" content="Centum">
@@ -15,17 +15,9 @@
     <meta property="og:description" content="포트폴리오를 분석하고 관리해줍니다">
 
     <!--CSS-->
-    <link rel="stylesheet" type="text/css" href="../../css/reset.css" th:href="@{/css/reset.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../css/portfolio/folio_other.css" th:href="@{/css/portfolio/folio_other.css}" />
-    <script src="../../js/portfolio/folio_other.js"></script>
-    <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
-    <script th:inline="javascript">
-        function start(){
-            id_set([[${portfolio.id}]]);
-            result();
-        }
-    </script>
+    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" th:href="@{/css/reset.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/common.css" th:href="@{/css/common.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/portfolio/folio_other.css" th:href="@{/css/portfolio/folio_other.css}" />
 </head>
 
 <body onload="start()">
@@ -90,5 +82,13 @@
     <footer th:replace="template/footer :: common_footer">
     </footer>
     <script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
+    <script src="../../js/portfolio/folio_other.js"></script>
+    <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script>
+    <script th:inline="javascript">
+        function start() {
+            id_set([[${ portfolio.id }]]);
+            result();
+        }
+    </script>
 </body>
 </html>

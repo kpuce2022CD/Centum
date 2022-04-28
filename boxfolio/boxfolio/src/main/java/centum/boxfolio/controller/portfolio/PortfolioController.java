@@ -4,8 +4,9 @@ package centum.boxfolio.controller.portfolio;
 import centum.boxfolio.controller.member.SessionConst;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
-import centum.boxfolio.repository.member.MemberRepositoryImpl;
-import centum.boxfolio.service.portfolio.PortfolioServiceImpl;
+import centum.boxfolio.repository.member.MemberRepository;
+import centum.boxfolio.repository.portfolio.PortfolioRepository;
+import centum.boxfolio.service.portfolio.PortfolioService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.parser.ParseException;
@@ -18,104 +19,90 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.sound.sampled.Port;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
-@RequestMapping("/portfolios")
+@RequestMapping("/portfolio")
 @RequiredArgsConstructor
 public class PortfolioController {
 
-    private final PortfolioServiceImpl portfolioService;
-    private final MemberRepositoryImpl memberRepository;
+    private final PortfolioService portfolioService;
+    private final MemberRepository memberRepository;
+    private final PortfolioRepository portfolioRepository;
 
     @GetMapping
     public String portfolioPage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
+        Optional<Portfolio> myPortfolio = portfolioService.searchByMemberId(memberId);
 
-        List<Portfolio> highestPortfolioList = portfolioService.searchHighestStar(5);
-        List<Portfolio> normalPortfolioList = portfolioService.searchLatest();
+        List<Portfolio> highestPortfolioList = portfolioService.searchHighestStarInPublic(5);
+        List<Portfolio> normalPortfolioList = portfolioService.searchLatestInPublic();
 
-        List<PortfolioLoadForm> highestPortfolioLoadFormList = new ArrayList<>();
-        List<PortfolioLoadForm> normalPortfolioLoadFormList = new ArrayList<>();
+        model.addAttribute("highestPortfolioList", highestPortfolioList);
+        model.addAttribute("normalPortfolioList", normalPortfolioList);
+        model.addAttribute("myPortfolio", myPortfolio.orElse(null));
 
-
-        for (Portfolio p : highestPortfolioList){
-            highestPortfolioLoadFormList.add(portfolioToPortfolioLoadForm(p));
-        }
-
-        for (Portfolio p : normalPortfolioList){
-            normalPortfolioLoadFormList.add(portfolioToPortfolioLoadForm(p));
-        }
-        if (highestPortfolioLoadFormList.isEmpty()) {
-            highestPortfolioLoadFormList.add(new PortfolioLoadForm(
-                    "test",
-                    "test",
-                    0L,
-                    0L,
-                    LocalDateTime.now(),
-                    "test",
-                    0L,
-                    "test"
-            ));
-        }
-
-        if (normalPortfolioLoadFormList.isEmpty()) {
-            normalPortfolioLoadFormList.add(new PortfolioLoadForm(
-                    "test",
-                    "test",
-                    0L,
-                    0L,
-                    LocalDateTime.now(),
-                    "test",
-                    0L,
-                    "test"
-            ));
-        }
-
-
-        model.addAttribute("highestPortfolioList", highestPortfolioLoadFormList);
-        model.addAttribute("normalPortfolioList", normalPortfolioLoadFormList);
-
-        return "/portfolio/folio_pub";
+        return "/portfolio/portfolios";
     }
-
-    @PostMapping("/make")
-    public String uploadPortfolio(@Valid PortfolioSaveForm form,
-                                  BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes,
-                                  HttpServletRequest request) {
-            if (bindingResult.hasErrors()){
-                for (ObjectError e : bindingResult.getAllErrors()){
-                    log.info("error" + e.toString());
-                }
-                return "redirect:/";
-        }
-
-            try{
-                HttpSession session = request.getSession();
-                long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
-                log.info(form.getContents());
-
-                Portfolio savedPortfolio = portfolioService.upload(form, memberId);
-            } catch (IllegalStateException e){
-                bindingResult.reject("upload portfolio failed", e.getMessage());
-            } catch (IOException | ParseException e) {
-                e.printStackTrace();
-            }
-        log.info("post success");
-
-            return "/portfolio/folio_pub";
-        }
 
     @GetMapping("/make")
     public String uploadPortfolio(Model model){
         model.addAttribute("portfolioSaveForm", new PortfolioSaveForm());
-        return "/portfolio/folio_make_json";
+        return "/portfolio/portfolio_edit";
+    }
+
+    @PostMapping("/make")
+    public String uploadPortfolio(@Valid PortfolioSaveForm portfolioSaveForm, BindingResult bindingResult, RedirectAttributes redirectAttributes,
+                                  HttpServletRequest request) {
+        if (bindingResult.hasErrors()){
+            for (ObjectError e : bindingResult.getAllErrors()){
+                log.info("error" + e.toString());
+            }
+            return "redirect:/";
+        }
+
+        try{
+            HttpSession session = request.getSession(false);
+            Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
+            log.info(portfolioSaveForm.getContents());
+
+            Portfolio uploadPortfolio = portfolioService.upload(portfolioSaveForm, memberId);
+
+            redirectAttributes.addAttribute("id", uploadPortfolio.getId());
+        } catch (IllegalStateException e){
+            bindingResult.reject("upload portfolio failed", e.getMessage());
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        log.info("post success");
+
+        return "redirect:/portfolio/{id}";
+    }
+
+    @GetMapping("/{id}")
+    public String portfolioPage(@PathVariable Long id, HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
+        Optional<Member> member = memberRepository.findById(memberId);
+        Optional<Portfolio> portfolio = portfolioService.searchById(id);
+
+        if (portfolio.isEmpty() || member.isEmpty()) {
+            return "redirect:/portfolio";
+        }
+
+        if (portfolio.get().getVisibility() == false && portfolio.get().getMember().getId() != memberId) {
+            return "redirect:/portfolio";
+        }
+
+        model.addAttribute("portfolio", portfolio.get());
+        model.addAttribute("member", member.get());
+        return "/portfolio/portfolio";
     }
 
     @GetMapping("/search/title")
@@ -142,34 +129,6 @@ public class PortfolioController {
         return "/portfolio/folio_other";
     }
 
-    @GetMapping("/search/Id")
-    public String searchPortfolioWithId(@RequestParam long id, Model model) {
-        Portfolio portfolio = portfolioService.searchWithId(id);
-        model.addAttribute("portfolio", portfolio);
-        return "/portfolio/folio_other";
-    }
-
-    @GetMapping("/search/mine")
-    public String searchPortfolioMine(Model model, HttpServletRequest request) {
-
-        Portfolio portfolio = getPortfolioBySessionId(request);
-
-
-        model.addAttribute("portfolio", portfolio);
-
-        return "/portfolio/folio_mine";
-    }
-
-    @GetMapping("/search/other")
-    public String searchHighest(Model model){
-
-        List<Portfolio> portfolioList = portfolioService.searchHighestStar(5);
-
-        model.addAttribute("portfolioList", portfolioList);
-
-        return "/portfolio/folio_other";
-    }
-
     @GetMapping("/search/name")
     public String searchPortfolioWithNickname(@RequestParam String nickname, Model model){
 
@@ -185,13 +144,17 @@ public class PortfolioController {
     }
 
 
+    @GetMapping("/delete/{id}")
+    public String deletePortfolio(@PathVariable Long id, HttpServletRequest request, RedirectAttributes redirectAttributes){
+        HttpSession session = request.getSession(false);
+        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
+        Optional<Portfolio> portfolio = portfolioRepository.findById(id);
+        if (portfolio.isEmpty() || portfolio.get().getMember().getId() != memberId) {
+            return "redirect:/portfolio";
+        }
 
-    @GetMapping("/delete")
-    public String deletePortfolio(HttpServletRequest request){
-        Portfolio portfolio = getPortfolioBySessionId(request);
-
-        portfolioService.delete(portfolio);
-        return "/portfolio/folio_pub";
+        portfolioService.delete(portfolio.get());
+        return "redirect:/portfolio";
     }
 
     @GetMapping("/update")
@@ -207,7 +170,7 @@ public class PortfolioController {
 
     @GetMapping("/star")
     public String starChange(HttpServletRequest request, @RequestParam long id){
-        Portfolio portfolio = portfolioService.searchWithId(id);
+        Portfolio portfolio = portfolioService.searchById(id).get();
         Member member = getLoginMember(request);
 
         portfolioService.starChange(portfolio, member);
@@ -217,7 +180,7 @@ public class PortfolioController {
 
     @GetMapping("/scrap")
     public String scrapPortfolio (HttpServletRequest request, @RequestParam long id){
-        Portfolio portfolio = portfolioService.searchWithId(id);
+        Portfolio portfolio = portfolioService.searchById(id).get();
         Member member = getLoginMember(request);
 
         portfolioService.scrapPortfolio(portfolio, member);
@@ -227,35 +190,35 @@ public class PortfolioController {
 
     // 포트폴리오 찾기 함수
     private Portfolio getPortfolioBySessionId(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        HttpSession session = request.getSession(false);
+        Long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         return portfolioService.searchWithMember(memberRepository.findById(memberId).get());
     }
 
 
     private Member getLoginMember(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        HttpSession session = request.getSession(false);
+        Long memberId = (Long) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         return memberRepository.findById(memberId).get();
     }
 
     private Long getLoginMemberId(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        return (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        HttpSession session = request.getSession(false);
+        return (Long) session.getAttribute(SessionConst.LOGIN_MEMBER);
     }
 
     private PortfolioLoadForm portfolioToPortfolioLoadForm(Portfolio p){
         return new PortfolioLoadForm(
-                p.getContents(),
-                p.getMember().getNickname(),
-                p.getStarTally(),
-                p.getScrapTally(),
-                p.getUpdatedDate(),
-                p.getMember().getInterestField(),
-                p.getId(),
-                p.getTitle()
-                );
+            p.getContents(),
+            p.getMember().getNickname(),
+            p.getStarTally(),
+            p.getScrapTally(),
+            p.getUpdatedDate(),
+            p.getMember().getInterestField(),
+            p.getId(),
+            p.getTitle()
+        );
     }
 }

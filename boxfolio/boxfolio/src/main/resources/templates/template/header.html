@@ -9,14 +9,14 @@
             </div>
             <ul class="nav">
                 <li>
-                    <a href="/portfolios" th:href="@{/portfolios}" th:text="#{title.portfolio}">포트폴리오</a>
+                    <a href="/portfolios" th:href="@{/portfolio}" th:text="#{title.portfolio}">포트폴리오</a>
                     <ul class="depth">
                         <li>
-                            <a href="/portfolios" th:href="@{/portfolios}" >목록보기</a>
+                            <a href="/portfolios" th:href="@{/portfolio}" >목록보기</a>
                         </li>
-                        <li>
-                            <a href="">작성하기</a>
-                        </li>
+<!--                        <li>-->
+<!--                            <a href="">내 포트폴리오</a>-->
+<!--                        </li>-->
                     </ul>
                 </li>
                 <li>
@@ -26,7 +26,7 @@
                             <a href="/project/upload" th:href="@{/project/upload}">프로젝트 분석</a>
                         </li>
                         <li>
-                            <a href="/project/view" th:href="@{/project/view}">분석 결과</a>
+                            <a href="/project/view" th:href="@{/project/complete(page=1)}">분석 결과</a>
                         </li>
                     </ul>
                 </li>

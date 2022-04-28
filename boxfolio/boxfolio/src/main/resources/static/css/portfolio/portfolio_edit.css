@@ -1,0 +1,250 @@
+@charset "UTF-8";
+
+header {
+    border-bottom: 1px solid #fff;
+    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-weight: normal;
+}
+
+textarea {
+    outline: none;
+    resize: none;
+    border: 0;
+}
+
+button {
+    all: unset;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.what {
+    display: none;
+}
+
+/* main */
+.main-container {
+    margin: 100px 0 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.make-area {
+    background-color: #f0eeff;
+    box-shadow: 2px 2px 10px 0px rgba(25, 42, 70, 0.2);
+    border-radius: 5px;
+    display: flex;
+    width: 900px;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto 0 0;
+    padding: 20px;
+}
+
+.portfolio-title {
+    margin: 30px 0 50px;
+}
+
+#portfolio-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.portfolio-title input {
+    outline: 0;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.access-area {
+    width: 260px;
+    height: 600px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    position: fixed;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolio-send-form {
+    display: flex;
+    flex-direction: column;
+    margin: auto 0 0;
+}
+
+.public-box {
+    display: flex;
+    justify-content: space-around;
+}
+
+.addition-box {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.addition-box button,  #complete-btn{
+    border-radius: 20px;
+    padding: 10px;
+    margin: 0 0 20px 0;
+    text-align: center;
+    box-shadow: 2px 2px 10px 0px rgba(25, 42, 70, 0.2);
+    transition-duration: 0.5s;
+}
+
+.addition-box button:hover {
+    transform: translateY(-2px);
+    box-shadow: 2px 4px 10px 2px rgba(25, 42, 70, 0.2);
+    background-color: #faa;
+}
+
+#complete-btn {
+    background-color: #fff;
+}
+
+#complete-btn:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    box-shadow: 2px 4px 10px 2px rgba(25, 42, 70, 0.2);
+    background-color: #aaf;
+}
+
+.image-ch, .video-ch, .videoFile {
+    width: 100%;
+    height: 500px;
+    margin-bottom: 30px;
+    display: none;
+}
+
+.video-file-box, .video-box, .image-box {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.image-container {
+    display: flex;
+    flex-grow: 1;
+    height: 100%;
+    position: relative;
+}
+
+.image-upload {
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 150px;
+}
+
+.image-show {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.hz {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.hide {
+    border: 1px solid #888;
+    border-radius: 5px;
+    height: 30px;
+    padding: 10px;
+    outline: none;
+    width: 100%;
+}
+
+.info, .git {
+    width: 100%;
+    margin-bottom: 30px;
+    display: none;
+}
+
+.info-in, .git-in {
+    width: 100%;
+}
+
+.info-in input, .git-in input {
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    outline: none;
+}
+
+.order input {
+    border-radius: 25px;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    text-align: center;
+    outline: none;
+    margin-right: 20px;
+}
+
+.delete-btn {
+    background-color: #fff;
+    color: #000;
+    border-radius: 5px;
+    text-align: center;
+    width: 40px;
+    height: 20px;
+    padding: 5px 10px;
+    margin-left: 20px;
+    box-shadow: 2px 2px 10px 0px rgba(25, 42, 70, 0.2);
+}
+
+.video-upload {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 100px;
+}
+
+.videoFi {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+/* */
+
+@keyframes font-color {
+    100% {
+        color: #FC3526;
+    }
+}
+
+@keyframes btn-color {
+    100% {
+        color: #000;
+        background-color: #F2593D;
+        border-color: #F2593D;
+    }
+}

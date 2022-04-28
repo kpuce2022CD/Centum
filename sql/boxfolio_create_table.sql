@@ -70,6 +70,7 @@ CREATE TABLE IF NOT EXISTS project(
     title VARCHAR(50) NOT NULL,
     project_field VARCHAR(20) NOT NULL,
     updated_date DATETIME NOT NULL,
+    member_tally INT UNSIGNED NOT NULL,
     from_repository TINYINT NOT NULL,
     repository_addr VARCHAR(50) NOT NULL,
     portfolio_id INT UNSIGNED,
@@ -94,6 +95,7 @@ CREATE TABLE IF NOT EXISTS skill(
 
 CREATE TABLE IF NOT EXISTS project_skill(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    quantity INT UNSIGNED NOT NULL,
     project_id INT UNSIGNED NOT NULL,
     skill_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (project_id) REFERENCES project(id),
@@ -102,6 +104,7 @@ CREATE TABLE IF NOT EXISTS project_skill(
 
 CREATE TABLE IF NOT EXISTS member_skill(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    quantity INT UNSIGNED NOT NULL,
     skill_id INT UNSIGNED NOT NULL,
     member_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (skill_id) REFERENCES skill(id),

@@ -13,6 +13,7 @@ import centum.boxfolio.repository.board.BoardScrapRepository;
 import centum.boxfolio.repository.board.CommentRepository;
 import centum.boxfolio.repository.member.MemberRepository;
 import centum.boxfolio.repository.portfolio.PortfolioRepository;
+import centum.boxfolio.service.skill.SkillService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,7 @@ public class ProfileController {
     private final BoardScrapRepository boardScrapRepository;
     private final PortfolioRepository portfolioRepository;
     private final CommentRepository commentRepository;
+//    private final SkillService skillService;
 
     @GetMapping
     public String profilePage(Model model, HttpServletRequest request) {

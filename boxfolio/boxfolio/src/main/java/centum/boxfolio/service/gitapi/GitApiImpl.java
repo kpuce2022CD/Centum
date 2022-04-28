@@ -1,6 +1,7 @@
 package centum.boxfolio.service.gitapi;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHUser;
 import org.kohsuke.github.GitHub;
@@ -11,7 +12,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class GitApiImpl implements GitApi {
@@ -87,13 +92,18 @@ public class GitApiImpl implements GitApi {
     }
 
     @Override
-    public void getCodeForRepo(String repoName, String personalToken) throws IOException {
+    public GHRepository getCodeForRepo(String repoName, String personalToken) throws IOException {
         GitHub github = gitAccess(personalToken);
         GHUser gitUser = github.getMyself();
 
         GHRepository repository = gitUser.getRepository(repoName);
 
         String language = repository.getLanguage();
+        Map<String, Long> stringLongMap = repository.listLanguages();
+        for (String v: stringLongMap.keySet()) {
+            log.info("language key: " + v);
+             log.info("language value: " + stringLongMap.get(v));
+        }
 
         List<GHContent> ghContentList = repository.getDirectoryContent("");
 
@@ -101,5 +111,7 @@ public class GitApiImpl implements GitApi {
             GitApi.downloadDirectory(c, c.getName(), "");
         }
 
+//        return repository.getHttpTransportUrl();
+        return repository;
     }
 }

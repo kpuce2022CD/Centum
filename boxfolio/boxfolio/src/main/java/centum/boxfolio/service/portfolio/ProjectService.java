@@ -1,5 +1,6 @@
 package centum.boxfolio.service.portfolio;
 
+import centum.boxfolio.controller.portfolio.ProjectSaveForm;
 import centum.boxfolio.entity.board.Recruitment;
 import centum.boxfolio.entity.portfolio.Project;
 import centum.boxfolio.entity.portfolio.Portfolio;
@@ -10,8 +11,5 @@ public interface ProjectService {
     List<Project> addProjectByRecruitment(Recruitment recruitment);
     List<Project> readCompleteProjectByPage(Integer page, Long memberId);
     Integer findLastCompleteProjectPage(Long memberId);
+    Project uploadProjectFromPortfolio(ProjectSaveForm projectSaveForm, Portfolio portfolio, String repoURL);
 }
-
-// public interface ProjectService {
-//     Project upload(Project project, Portfolio portfolio);
-// }

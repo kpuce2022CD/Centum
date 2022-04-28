@@ -17,14 +17,16 @@ import java.util.Optional;
 public interface PortfolioRepository {
 
     Optional<Portfolio> save (Portfolio portfolio, List<MultipartFile> files) throws IOException;
-
+    List<Portfolio> findAll();
+    List<Portfolio> findAllPublic();
     List<Portfolio> getHighestPortfolioList(int count);
-    Optional<Portfolio> findById(long id);
+    Optional<Portfolio> findById(Long id);
     List<Portfolio> findByTitle(String title);
     List<Portfolio> findByNickname(String nickname);
     Optional<Portfolio> findByMember(Member member);
-    List<Portfolio> findHighest();
-    List<Portfolio> findLatest();
+    Optional<Portfolio> findByMemberId(Long memberId);
+    List<Portfolio> findHighestInPublic();
+    List<Portfolio> findLatestInPublic();
     void delete (Portfolio portfolio);
     void relationStar (Portfolio portfolio, Member member);
     void relationScrap(Portfolio portfolio, Member member);

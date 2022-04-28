@@ -188,15 +188,14 @@
                         <div class="project-area">
                             <div class="complete-project-list">
                                 <h3><i class="fa-solid fa-caret-right"></i> 완료된 프로젝트 목록</h3>
-                                <ul class="complete-projects">
-                                    <li>일상 기록 애플리케이션</li>
-                                    <li>데이트 코스 추천 애플리케이션</li>
+                                <ul class="complete-projects" th:each="p : ${member.getPortfolio().getProjects()}">
+                                    <li th:text="${p.title}">일상 기록 애플리케이션</li>
                                 </ul>
                             </div>
                             <div class="progress-project-list">
                                 <h3><i class="fa-solid fa-caret-right"></i> 진행중인 프로젝트 목록</h3>
                                 <ul class="progress-projects">
-                                    <li th:each="pp : ${progressProjects}" th:text="${pp.getBoard().projectSubject}"></li>
+                                    <li th:each="pp : ${progressProjects}" th:text="${pp.recruitment.projectSubject}"></li>
                                     <p th:if="${progressProjects.isEmpty()}" th:text="'진행 중인 프로젝트가 없습니다.'"></p>
                                 </ul>
                             </div>

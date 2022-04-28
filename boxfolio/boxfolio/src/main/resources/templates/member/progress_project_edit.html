@@ -106,9 +106,9 @@
                             <div class="project-contents">
                                 <form id="project-form" th:action method="post">
                                     <h4 class="project-field-title">주제</h4>
-                                    <textarea class="project-subject" id="project-subject" rows="1" placeholder="주제를 입력하세요" th:field="${projectSaveForm.projectSubject}"></textarea>
+                                    <textarea class="project-subject" id="project-subject" rows="1" placeholder="주제를 입력하세요" th:field="${progressProjectSaveForm.projectSubject}"></textarea>
                                     <h4 class="project-preview-title">내용</h4>
-                                    <textarea class="project-preview" id="project-preview" th:field="${projectSaveForm.projectPreview}" placeholder="내용을 입력하세요"></textarea>
+                                    <textarea class="project-preview" id="project-preview" th:field="${progressProjectSaveForm.projectPreview}" placeholder="내용을 입력하세요"></textarea>
                                 </form>
                                 <h4 class="project-plan-title">계획</h4>
                                 <ul class="project-plan">
@@ -121,11 +121,11 @@
                                         <button class="plan-delete-btn">삭제</button>
                                     </li>
                                     <form method="post" id="project-plan-form" th:action="@{/project/progress/{id}/plan/save(id=${recruitment.id})}">
-                                        <textarea class="plan-order" rows="1" placeholder="#" th:field="${projectPlanSaveForm.planOrder}"></textarea>
-                                        <textarea class="plan-start-date" rows="1" placeholder="0000-00-00" th:field="${projectPlanSaveForm.startDate}"></textarea>
+                                        <textarea class="plan-order" rows="1" placeholder="#" th:field="${progressProjectSaveForm.planOrder}"></textarea>
+                                        <textarea class="plan-start-date" rows="1" placeholder="0000-00-00" th:field="${progressProjectSaveForm.planStartDate}"></textarea>
                                         <span> ~ </span>
-                                        <textarea class="plan-end-date" rows="1" placeholder="0000-00-00" th:field="${projectPlanSaveForm.endDate}"></textarea>
-                                        <textarea class="plan-contents" rows="1" placeholder="계획을 입력하세요" th:field="${projectPlanSaveForm.contents}"></textarea>
+                                        <textarea class="plan-end-date" rows="1" placeholder="0000-00-00" th:field="${progressProjectSaveForm.planEndDate}"></textarea>
+                                        <textarea class="plan-contents" rows="1" placeholder="계획을 입력하세요" th:field="${progressProjectSaveForm.planContents}"></textarea>
                                         <button id="plan-save-btn" type="submit" form="project-plan-form">저장</button>
                                     </form>
                                 </ul>
@@ -137,8 +137,8 @@
                                         <button class="plan-delete-btn">삭제</button>
                                     </li>
                                     <form method="post" id="project-rule-form" th:action="@{/project/progress/{id}/rule/save(id=${recruitment.id})}">
-                                        <textarea class="rule-order" rows="1" placeholder="#" th:field="${projectRuleSaveForm.ruleOrder}"></textarea>
-                                        <textarea class="rule-contents" rows="1" placeholder="규칙을 입력하세요" th:field="${projectRuleSaveForm.contents}"></textarea>
+                                        <textarea class="rule-order" rows="1" placeholder="#" th:field="${progressProjectSaveForm.ruleOrder}"></textarea>
+                                        <textarea class="rule-contents" rows="1" placeholder="규칙을 입력하세요" th:field="${progressProjectSaveForm.ruleContents}"></textarea>
                                         <button id="rule-save-btn" type="submit" form="project-rule-form">저장</button>
                                     </form>
                                 </ul>

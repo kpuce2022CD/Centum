@@ -6,9 +6,16 @@ header {
 .access-container {
     align-items: flex-end;
     display: flex;
-    height: 200px;
+    height: 150px;
     justify-content: space-between;
     padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+.best {
+    font-size: 20px;
+    font: bold;
+    margin-bottom: 20px;
 }
 
 #portfolio-search-form {
@@ -24,6 +31,7 @@ header {
     font-size: 16px;
     padding: 5px;
     width: 300px;
+    margin-left: 10px;
 }
 
 #portfolio-search-btn {
@@ -38,28 +46,45 @@ header {
     width: 28px;
 }
 
-.to-my-portfolio {
+.to-myportfolio {
     font-size: 18px;
     font-weight: bold;
 }
 
-.to-my-portfolio:hover {
+.to-myportfolio:hover {
     color: #f93;
     cursor: pointer;
     transition: transform 0.5s;
     transform: translateX(2px);
 }
 
-/* portfolio card */
+
 .portfolio-container {
     padding-bottom: 30px;
+}
+
+.portfolio-card-form:hover {
+    cursor: pointer;
+}
+
+.best-portfolio-list {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 50px;
+    border: 1px solid aqua;
+    border-radius: 30px;
+    height: 220px;
+    margin-bottom: 30px;
+    overflow: auto;
 }
 
 .portfolio-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 0;
+    justify-content: flex-start;
+    padding: 10px 50px;
 }
 
 .portfolio-card {
@@ -70,13 +95,14 @@ header {
     border-radius: 8px;
     box-shadow: 10px 10px 10px -5px rgba(25, 42, 70, 0.2);
     height: 180px;
-    margin: 0 10px;
+    margin: 0 15px;
     width: 240px;
 }
 
 .portfolio-card:hover {
     transition: transform 0.5s;
     transform: translateY(-2px);
+    cursor: pointer;
 }
 
 .portfolio-info {
@@ -113,6 +139,7 @@ header {
     align-items: flex-end;
     justify-content: flex-end;
     margin: 10px 0;
+    z-index: -99;
 }
 
 .portfolio-icons li {
@@ -121,9 +148,13 @@ header {
 }
 
 .portfolio-star:hover {
-    color: #fe0;
+    color: #fff555;
 }
 
 .portfolio-scrap:hover {
-    color: #0af;
+    color: #00aeff;
+}
+
+.send_id {
+    display: none;
 }
