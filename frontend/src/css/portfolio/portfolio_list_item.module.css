@@ -1,0 +1,66 @@
+.portfolio-card-form:hover {
+    cursor: pointer;
+}
+
+.portfolio_item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    box-shadow: 10px 10px 10px -5px rgba(25, 42, 70, 0.2);
+    height: 180px;
+    width: 240px;
+}
+
+.portfolio_item:hover {
+    cursor: pointer;
+    transition: transform 0.5s;
+    transform: translateY(-2px);
+}
+
+.portfolio_info {
+    padding: 5px 10px;
+}
+
+.portfolio_item_head {
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    padding: 5px 0;
+}
+
+.portfolio_title_area {
+    color: #777;
+    border-bottom: 1px solid #ddd;
+    padding: 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.member_interested_area {
+    color: #ffc74f;
+    font-size: 12px;
+    padding: 10px 0;
+}
+
+.portfolio_created {
+    font-size: 12px;
+}
+
+.portfolio_icon {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin: 10px 0;
+}
+
+.portfolio_icon li {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.star_count,
+.scrap_count {
+    margin: 0 0 0 5px;
+}

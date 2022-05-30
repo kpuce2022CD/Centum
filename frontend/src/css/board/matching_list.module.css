@@ -1,0 +1,28 @@
+.matching_list_area {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    width: 400px;
+    margin: 0 0 0 20px;
+}
+
+.matching_list_title {
+    background-color: #C8DEFF;
+    padding: 10px;
+    text-align: center;
+}
+
+.matching_list {
+    width: 100%;
+}
+
+.matching_list th {
+    font-weight: normal;
+    height: 30px;
+    border-top: 1px solid #aaa;
+}
+
+.matching_list tbody tr:hover {
+    background-color: #f88;
+    color: #fff;
+    cursor: pointer;
+}

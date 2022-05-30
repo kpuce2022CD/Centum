@@ -1,0 +1,42 @@
+.project_area {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    flex-shrink: 3.5;
+    width: 100%;
+    padding: 8px;
+    margin: 0 0 0 10px;
+}
+
+.project_info {
+    width: 100%;
+}
+
+.project_info tr {
+    border-bottom: 1px solid #fff;
+}
+
+.project_info th {
+    font-weight: normal;
+    background-color: #86A8E7;
+    font-size: 13px;
+}
+
+.project_area td {
+    font-size: 13px;
+}
+
+.project_subject+td {
+    border: 1px solid #eee;
+    padding: 5px 10px;
+}
+
+.project_subject {
+    background-color: transparent;
+    outline: none;
+}
+
+.project_area select {
+    width: 100%;
+    height: 30px;
+    background-color: #fafafa;
+}

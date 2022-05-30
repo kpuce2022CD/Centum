@@ -1,0 +1,49 @@
+.nav {
+    display: flex;
+}
+
+.nav > li {
+    position: relative;
+}
+
+.nav > li > a {
+    color: #fff;
+    margin: 20px 40px;
+    height: 100%;
+    transition-duration: 0.2s;
+}
+
+.nav a:hover {
+    color: #FC3526;
+}
+
+.depth {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 0;
+    height: 0;
+    padding: 24px 0 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in;
+}
+
+.depth li {
+    text-align: center;
+    padding-top: 14px;
+    line-height: 14px;
+}
+
+.depth li:first-child {
+    border-top: 1px solid #eee;
+}
+
+.openmenu .depth {
+    max-height: 999px;
+    height: auto;
+}
+
+.openmenu > li > a {
+    color: #000;
+}

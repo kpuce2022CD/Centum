@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+header {
+    width: 100%;
+    height: 120px;
+    min-width: 1200px;
+    border-bottom: 1px solid #fff;
+    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
+    position: relative;
+}
+
+.openmenu::before {
+    height: 240px;
+}
+
+header::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: #fff;
+    z-index: 0;
+    transition: all 0.2s ease-in;
+    content: '';
+}
+
+.header_container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.logo {
+    color: #fff;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0 20px;
+}
+
+.openmenu .logo {
+    color: #000;
+}

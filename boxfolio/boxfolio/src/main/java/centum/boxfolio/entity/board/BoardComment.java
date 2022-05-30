@@ -1,6 +1,8 @@
 package centum.boxfolio.entity.board;
 
 import centum.boxfolio.entity.member.Member;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +21,7 @@ public class BoardComment {
     private Long id;
 
     private String contents;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdDate;
     private Integer commentClass;
     private Long commentOrder;
@@ -29,6 +32,7 @@ public class BoardComment {
     private BoardComment boardComment;
 
     @OneToMany(mappedBy = "boardComment", cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<BoardComment> boardComments;
 
     @ManyToOne

@@ -40,7 +40,7 @@ public class EmailServiceImpl implements EmailService{
             mailHandler.setTo(email);
             mailHandler.setFrom(EmailConst.FROM_ADDRESS);
             mailHandler.setSubject(EmailConst.EMAIL_TITLE);
-            mailHandler.setText("<a href='http://localhost:8080/signup/result?token=" + tokenId + "'>회원가입 완료하기</a>", true);
+            mailHandler.setText("<a href='http://localhost:3000/signup/result?token=" + tokenId + "'>회원가입 완료하기</a>", true);
             mailHandler.send();
 
             return true;

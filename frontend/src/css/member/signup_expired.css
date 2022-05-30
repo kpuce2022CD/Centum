@@ -1,0 +1,121 @@
+@charset "UTF-8";
+input {
+    width: 100%;
+}
+
+header {
+    border-bottom: 1px solid #fff;
+    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
+}
+
+.signup-progress {
+    height: 240px;
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 180px;
+}
+
+.progress-area {
+    background-color: #eee;
+    width: 900px;
+    height: 100px;
+}
+
+.progress-list {
+    color: #666;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.progress-list li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    height: 100%;
+    border: 1px solid #fff;
+}
+
+.pg-auth {
+    background-color: #78a;
+    color: #fff;
+}
+
+.progress-title-container {
+    height: 60px;
+    border-bottom: 1px solid #000;
+}
+
+.progress-title {
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.main {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 360px);
+    padding: 80px 0;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-view-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#email-icon {
+    width: 100px;
+    margin: 10px 0;
+}
+
+.descript {
+    border: 1px solid #78a;
+    width: 1000px;
+    text-align: center;
+    padding: 20px 100px;
+    margin: 40px 0;
+}
+
+.button-area button {
+    width: 100px;
+    height: 40px;
+    margin: 0 5px;
+}
+
+#next-btn {
+    background-color: #78a;
+}
+
+#next-btn:enabled:hover {
+    animation: btn-color 0.2s linear both;
+    cursor: pointer;
+}
+
+.access-area a:hover {
+    animation: btn-color 0.2s linear both;
+}
+
+@keyframes btn-color {
+    100% {
+        color: #000;
+        background-color: #F2593D;
+        border-color: #F2593D;
+    }
+}

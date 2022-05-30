@@ -1,0 +1,37 @@
+.title_container {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    margin: 10px 0;
+    padding: 10px 15px;
+}
+
+.title_area {
+    display: flex;
+    align-items: baseline;
+    margin: 0 0 5px 0;
+}
+
+.title {
+    margin: 0 5px 0 0;
+}
+
+.writer_area {
+    display: flex;
+    align-items: center;
+}
+
+.writer_img {
+    margin: 0 10px 0 0;
+}
+
+.writer_img img {
+    width: 30px;
+    height: 30px;
+}
+
+.post_info_area>* {
+    margin: 0 5px 0 0;
+    font-size: 12px;
+}

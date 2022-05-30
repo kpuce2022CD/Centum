@@ -1,0 +1,17 @@
+.descript_box {
+    width: 100%;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.descript {
+    width: 100%;
+}
+
+.descript input {
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    outline: none;
+}

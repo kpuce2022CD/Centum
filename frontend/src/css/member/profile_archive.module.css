@@ -1,0 +1,51 @@
+.main {
+    width: 100%;
+    background-color: transparent;
+    padding: 0 0 20px;
+}
+
+.archive_container {
+    margin: 0 0 50px;
+}
+
+.archive_area {
+    display: flex;
+    height: 600px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px 1px rgba(25, 42, 70, 0.2);
+}
+
+.scrap_portfolio_list,
+.scrap_post_list {
+    padding: 20px;
+    flex-grow: 1;
+    width: 50%;
+}
+
+.scrap_portfolios,
+.scrap_posts {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    height: calc(100% - 10px);
+    overflow-y: auto;
+}
+
+.scrap_portfolios li,
+.scrap_posts li {
+    padding: 5px 10px;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    margin: 5px;
+    text-align: center;
+    width: 48%;
+    box-shadow: 5px 5px 10px -5px rgba(25, 42, 70, 0.2);
+}
+
+.scrap_portfolios li:hover,
+.scrap_posts li:hover {
+    cursor: pointer;
+    transition-duration: 0.5s;
+    box-shadow: 5px 5px 10px -2px rgba(25, 42, 70, 0.2);
+    transform: translateY(-2px);
+}

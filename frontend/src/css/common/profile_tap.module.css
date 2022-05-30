@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+.member_area {
+    display: flex;
+    justify-content: center;
+}
+
+.start_btn {
+    background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);
+    background-size: 200% auto;
+    box-shadow: 0 0 20px #eee;
+    color: #fff;
+    transition: 0.5s;
+    border-radius: 5px;
+    padding: 15px 35px;
+}
+
+.start_btn:hover {
+    background-position: right center;
+}
+
+.profile_btn {
+    width: 32px;
+    height: 32px;
+}
+
+.profile_btn:hover {
+    cursor: pointer;
+}
+
+.member_access {
+    top: 85px;
+    right: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    position: absolute;
+    width: 150px;
+    height: auto;
+}
+
+.access_list {
+    margin: 10px;
+}
+
+.access_list li {
+    margin: 5px 0;
+}
+
+.member_nickname {
+    font-weight: bold;
+}
+
+.access_list a:hover {
+    color: #86A8E7;
+}
+
+details summary {
+    list-style: none;
+}
+
+details summary::-webkit-details-marker {
+    display: none;
+}
+
+details[open] summary::before {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: block;
+    cursor: default;
+    content: " ";
+    background: transparent;
+}

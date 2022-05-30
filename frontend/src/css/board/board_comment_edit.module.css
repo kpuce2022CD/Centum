@@ -1,0 +1,43 @@
+.comment_write_area {
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    margin: 10px 0 5px;
+    padding: 10px;
+}
+
+.comment_textarea {
+    background: transparent;
+    border: 0;
+    font-size: 13px;
+    width: 100%;
+    min-height: 17px;
+    max-height: 500px;
+    outline: 0;
+    resize: none;
+}
+
+.comment_write_access_area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0 0 0;
+}
+
+.file_box button {
+    background: transparent;
+    font-size: 16px;
+    margin: 0 5px 0 0;
+}
+
+.comment_post_button {
+    background: transparent;
+    border-radius: 2px;
+    padding: 2px 5px;
+    margin: 0 0 0 auto;
+}
+
+.comment_post_button:hover {
+    background: #89b;
+    color: #fff;
+    cursor: pointer;
+}

@@ -252,11 +252,11 @@
     <script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script th:inline="javascript">
-        const cohesion = [[${member.memberAbility.getCohesion()}]];
-        const coupling = [[${member.memberAbility.getCoupling()}]];
-        const complexity = [[${member.memberAbility.getComplexity()}]];
-        const redundancy = [[${member.memberAbility.getRedundancy()}]];
-        const standard = [[${member.memberAbility.getStandard()}]];
+        const cohesion = 1;
+        const coupling = 1;
+        const complexity = 1;
+        const redundancy = 1;
+        const standard = 1;
         new Chart(document.getElementById("code-chart"), {
             type: 'radar',
             data: {

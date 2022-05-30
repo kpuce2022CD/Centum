@@ -1,0 +1,53 @@
+.main {
+    width: 100%;
+    background-color: transparent;
+    padding: 0 0 20px;
+}
+
+.record_area {
+    display: flex;
+    height: 400px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px 1px rgba(25, 42, 70, 0.2);
+}
+
+.post_list,
+.comment_list {
+    padding: 20px;
+    flex-grow: 1;
+    width: 50%;
+}
+
+.posts,
+.comments {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: calc(100% - 10px);
+    overflow-y: auto;
+    margin: 5px 0;
+}
+
+.posts li,
+.comments li {
+    width: 100%;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
+    border-radius: 3px;
+    margin: 0 5px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.posts li:nth-child(1),
+.comments li:nth-child(1) {
+    border-top: 1px solid #ddd;
+}
+
+.posts li:hover,
+.comments li:hover {
+    background-color: #eee;
+    cursor: pointer;
+}

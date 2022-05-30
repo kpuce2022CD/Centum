@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+.board_container {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.board {
+    border-top: 1px solid #333;
+    width: 100%;
+}
+
+.board th,
+.board td {
+    border-bottom: 1px solid #ddd;
+    height: 35px;
+    padding: 7px 3px;
+}
+
+.access_container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0;
+}
+
+.post_btn {
+    background-color: #C8DEFF;
+    border: 0;
+    border-radius: 5px;
+    padding: 15px 20px;
+    transition-duration: 0.5s;
+}
+
+.post_btn a {
+    font-size: 16px;
+}
+
+.post_btn:hover {
+    background-color: #86A8E7;
+}

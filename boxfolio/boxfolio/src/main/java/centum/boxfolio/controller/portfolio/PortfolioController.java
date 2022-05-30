@@ -6,11 +6,12 @@ import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.repository.member.MemberRepository;
 import centum.boxfolio.repository.portfolio.PortfolioRepository;
+import centum.boxfolio.response.Response;
 import centum.boxfolio.service.portfolio.PortfolioService;
+import centum.boxfolio.service.response.ResponseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.parser.ParseException;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -26,7 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/portfolio")
 @RequiredArgsConstructor
 public class PortfolioController {

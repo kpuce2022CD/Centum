@@ -1,0 +1,83 @@
+.main {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 360px);
+    padding: 80px 0;
+}
+
+.main_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.term_area {
+    border: 1px solid #000;
+    width: 1000px;
+    height: 400px;
+    padding: 12px;
+    overflow-y: scroll;
+}
+
+.term h2 {
+    margin: 20px 0;
+}
+
+.term_title {
+    font-weight: bold;
+    margin: 20px 0 10px !important;
+}
+
+.article li {
+    margin: 5px 0;
+}
+
+.accept_area {
+    width: 1000px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 0 0 0;
+}
+
+.accept_area label {
+    cursor: pointer;
+}
+
+.button_area {
+    margin: 30px 0;
+}
+
+.button_area button {
+    width: 100px;
+    height: 40px;
+    margin: 0 5px;
+    text-align: center;
+}
+
+.prev_btn {
+    background-color: #ccc;
+    transition-duration: 0.5s;
+}
+
+.prev_btn:hover {
+    cursor: pointer;
+    background-color: #eee;
+}
+
+.next_btn {
+    background-color: #78c;
+    transition-duration: 0.5s;
+}
+
+.next_btn:enabled:hover {
+    cursor: pointer;
+    background-color: #45e;
+}
+
+.next_btn:disabled {
+    background-color: #777;
+    cursor: default;
+}

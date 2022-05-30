@@ -18,9 +18,7 @@ import org.json.simple.parser.JSONParser;
 @Setter
 public class PortfolioSaveForm {
 
-
     private String title;
-
     private String contents;
     private Boolean visibility;
     private Member member;

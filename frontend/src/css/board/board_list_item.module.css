@@ -1,0 +1,15 @@
+tr > td {
+    text-align: center;
+}
+
+.td_title {
+    text-align: left !important;
+}
+
+.td_title a:hover {
+    text-decoration: underline;
+}
+
+.td_reply {
+    color: red;
+}

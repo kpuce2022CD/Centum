@@ -158,7 +158,7 @@
                                     </ul>
                                 </div>
                                 <div class="project-access">
-                                    <button class="modify-btn" th:onclick="|location.href='@{/project/progress/{id}/edit(id=*{id})}'|">프로젝트 수정</button>
+                                    <button class="modify-btn" th:if="${#session.getAttribute('loginMember') == recruitment.member.id}" th:onclick="|location.href='@{/project/progress/{id}/edit(id=*{id})}'|">프로젝트 수정</button>
                                     <button class="complete-btn">프로젝트 완료</button>
                                     <button class="destroy-btn">프로젝트 파기</button>
                                 </div>
