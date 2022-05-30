@@ -30,6 +30,7 @@
 ### 시스템 구성도
 ---
 ![image](https://user-images.githubusercontent.com/78414301/148223587-5d2288c4-5634-4058-99bc-871681736b31.png)
+[수정 예정]
 <br>
 <br>
 
