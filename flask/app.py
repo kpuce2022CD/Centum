@@ -13,7 +13,7 @@ def receive_api():
     data = request.get_json()
     print(data)
     # return jsonify({'data': 'success'})
-    return data
+    return redirect('http://localhost:8080/project/upload')
 
 if __name__ == '__main__':
     app.run()

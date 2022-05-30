@@ -1,0 +1,51 @@
+.signup_progress {
+    height: 240px;
+}
+
+.progress_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 180px;
+}
+
+.progress_area {
+    background-color: #eee;
+    width: 900px;
+    height: 100px;
+}
+
+.progress_list {
+    color: #666;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.progress_list li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    height: 100%;
+    border: 1px solid #fff;
+}
+
+.current_page {
+    background-color: #78a;
+    color: #fff;
+}
+
+.progress_title_container {
+    height: 60px;
+    border-bottom: 1px solid #000;
+}
+
+.progress_title {
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}

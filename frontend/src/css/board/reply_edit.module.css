@@ -1,0 +1,45 @@
+.reply_edit {
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    margin: 5px 0 0 40px;
+    padding: 10px;
+}
+
+.tag_nickname,
+.mention_member {
+    color: #86A8E7;
+    font-weight: bold;
+    margin: 0 5px 0 0;
+}
+
+.reply_textarea {
+    background: transparent;
+    border: 0;
+    font-size: 13px;
+    width: 100%;
+    min-height: 17px;
+    max-height: 500px;
+    outline: 0;
+    resize: none;
+}
+
+.reply_write_access_area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0 0 0;
+}
+
+.reply_cancel_btn,
+.reply_post_btn {
+    background: transparent;
+    border-radius: 2px;
+    padding: 2px 5px;
+}
+
+.reply_cancel_btn:hover,
+.reply_post_btn:hover {
+    background: #89b;
+    color: #fff;
+    cursor: pointer;
+}

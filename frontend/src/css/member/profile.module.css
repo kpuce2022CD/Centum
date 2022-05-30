@@ -1,0 +1,143 @@
+@charset "UTF-8";
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+}
+
+.main {
+    width: 100%;
+    background-color: transparent;
+    padding: 0 0 20px;
+}
+
+.profile_container {
+    margin: 100px 0 50px;
+}
+
+.profile_area {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    height: 250px;
+    align-items: center;
+    box-shadow: 5px 5px 10px 1px rgba(25, 42, 70, 0.2);
+}
+
+.member_info_area {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile_img_area {
+    margin: 0 20px 0 0;
+}
+
+.profile_img_area img {
+    width: 200px;
+}
+
+.member_info_area li {
+    line-height: 1;
+    margin: 5px 0;
+}
+
+.member_status {
+    display: flex;
+    align-items: flex-end;
+}
+
+.member_nickname {
+    font-size: 24px;
+    margin: 0 10px 0 0;
+}
+
+.member_level {
+    font-size: 12px;
+    background-color: #98d6e0;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin: 0 0 2px 0;
+}
+
+.member_field {
+    display: flex;
+    align-items: center;
+    margin: 15px 0 0 !important;
+}
+
+.member_field i {
+    font-size: 24px;
+}
+
+.interest_field,
+.progress_field {
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.interest_field {
+    background-color: #fe5;
+    border: 1px solid #fd4;
+    margin: 0 10px 0 0;
+}
+
+.progress_field {
+    background-color: #fb9;
+    border: 1px solid #fa8;
+    margin: 0 0 0 10px;
+}
+
+.interest_field h6,
+.progress_field h6 {
+    font-size: 14px;
+    font-weight: normal;
+    text-align: center;
+    border-right: 1px solid #aaa;
+    padding: 5px 10px;
+}
+
+.interest_field p,
+.progress_field p {
+    padding: 5px 10px;
+}
+
+.profile_access_area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-left: auto;
+    border-radius: 3px;
+    width: 200px;
+    height: 100%;
+}
+
+.modify_profile_btn {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.github_link_btn {
+    height: 30px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.github_icon {
+    margin: 0 5px 0 0;
+    height: 24px;
+}
+
+.github_id {
+    line-height: 1;
+}

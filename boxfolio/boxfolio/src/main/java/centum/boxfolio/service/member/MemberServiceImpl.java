@@ -1,6 +1,7 @@
 package centum.boxfolio.service.member;
 
 import centum.boxfolio.controller.member.MemberSaveForm;
+import centum.boxfolio.dto.member.MemberDto;
 import centum.boxfolio.entity.auth.ConfirmationToken;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.repository.member.MemberRepository;
@@ -18,6 +19,13 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member signup(MemberSaveForm form) {
         Member member = form.toMember();
+        validateDuplicationMember(member);
+        return memberRepository.save(member);
+    }
+
+    @Override
+    public Member signupByDto(MemberDto memberDto) {
+        Member member = memberDto.toMember();
         validateDuplicationMember(member);
         return memberRepository.save(member);
     }

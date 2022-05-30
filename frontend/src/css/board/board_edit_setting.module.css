@@ -1,0 +1,41 @@
+.setting_container {
+    background-color: #f2f7ff;
+    padding: 25px 20px;
+    border-radius: 10px;
+}
+
+.setting_container>div {
+    padding-bottom: 10px;
+}
+
+.setting_container>div h4 {
+    padding-right: 10px;
+}
+
+.visibility_area {
+    display: flex;
+    align-items: center;
+}
+
+.visibility_area label {
+    margin-right: 20px;
+    padding-left: 5px;
+}
+
+.visibility_area input,
+.visibility_area label {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.allow_container {
+    display: flex;
+    align-items: center;
+}
+
+.comment_area,
+.scrap_area {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+}

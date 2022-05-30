@@ -3,6 +3,8 @@ package centum.boxfolio.entity.board;
 import centum.boxfolio.controller.board.RecruitBoardSaveForm;
 import centum.boxfolio.controller.member.ProgressProjectSaveForm;
 import centum.boxfolio.entity.member.Member;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +23,7 @@ public class Recruitment extends Board {
 
     private Boolean autoMatchingStatus;
     private Boolean deadlineStatus;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime deadlineDate;
     private Long memberTally;
     private Long memberTotal;
@@ -32,12 +35,15 @@ public class Recruitment extends Board {
     private String expectedPeriod;
 
     @OneToMany(mappedBy = "recruitment", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ProjectMember> projectMembers = new ArrayList<>();
 
     @OneToMany(mappedBy = "recruitment", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ProjectRule> projectRules = new ArrayList<>();
 
     @OneToMany(mappedBy = "recruitment", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ProjectPlan> projectPlans = new ArrayList<>();
 
     public Recruitment(String title, String contents, LocalDateTime createdDate,

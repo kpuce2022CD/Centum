@@ -1,0 +1,42 @@
+.comment_box {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    margin: 5px 0;
+}
+
+.commenter_img {
+    margin: 0 10px 0 0;
+}
+
+.commenter_img img {
+    width: 30px;
+    height: 30px;
+}
+
+.comment_info_area {
+    display: flex;
+    align-items: flex-start;
+}
+
+.reply_access {
+    display: flex;
+    align-items: center;
+}
+
+.reply_btn {
+    background: transparent;
+    margin: 0 10px;
+}
+
+.reply_btn:hover {
+    color: #89b;
+}
+
+.comment_access {
+    padding: 0 10px 0 0;
+}
+
+.replied {
+    padding: 0 0 0 40px;
+}

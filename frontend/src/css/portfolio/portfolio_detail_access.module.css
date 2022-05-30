@@ -1,0 +1,122 @@
+@charset "UTF-8";
+
+.access_area {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #888;
+    border-radius: 5px;
+    width: 260px;
+    height: 400px;
+    margin: 100px 0 0;
+    padding: 20px;
+}
+
+.member_info {
+    display: flex;
+    align-items: flex-end;
+}
+
+.member_img {
+    width: 35px;
+    margin: 0 10px 0 0;
+}
+
+.member_nickname {
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.portfolio_icons {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    width: 100%;
+    margin: 20px 0 0;
+}
+
+.portfolio_icons li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    color: #000;
+    transition-duration: 0.2s;
+    box-shadow: 2px 2px 10px 1px rgba(25, 42, 70, 0.2);
+}
+
+.portfolio_star:hover {
+    background-color: #fe0;
+    color: #fa0;
+    transform: translateY(-2px);
+}
+
+.portfolio_scrap:hover {
+    background-color: #0af;
+    color: #00f;
+    transform: translateY(-2px);
+}
+
+.send_email:hover {
+    background-color: #caf;
+    color: #749;
+    transform: translateY(-2px);
+}
+
+.send_comment:hover {
+    background-color: #afa;
+    color: #0c0;
+    transform: translateY(-2px);
+}
+
+.public_status div {
+    border-radius: 20px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    margin: 20px 0 0;
+}
+
+.public_mark {
+    background-color: #8e5;
+    color: #fff;
+}
+
+.private_mark {
+    background-color: #f75;
+    color: #fff;
+}
+
+.manage_area {
+    display: flex;
+    margin: auto 0 10px;
+}
+
+.modify_btn,
+.delete_btn {
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 5px;
+    transition-duration: 0.5s;
+    margin: 0 10px 0 0;
+}
+
+.modify_btn {
+    background-color: #88f;
+}
+
+.delete_btn {
+    background-color: #f88;
+}
+
+.modify_btn:hover,
+.delete_btn:hover {
+    color: #ccc;
+    transform: translateY(-1px);
+    box-shadow: 2px 2px 10px 1px rgba(25, 42, 70, 0.2);
+}

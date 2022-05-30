@@ -2,7 +2,7 @@ var mode=[]; //들어가있는 자료의 종류(사진파일, 영상파일, 유�
 var make=[]; //들어가있는 파일의 src나 텍스트
 var make_date='0000_00_00'; //최근 수정 날짜
 var title="제목";
-var file_where='/image/portfolio';
+var file_where='../image/portfolio';
 var id;
 
 function id_set(input){

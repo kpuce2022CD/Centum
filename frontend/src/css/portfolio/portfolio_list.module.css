@@ -1,0 +1,31 @@
+.portfolio_container {
+    padding-bottom: 30px;
+}
+
+.best_title {
+    font-size: 20px;
+    font: bold;
+    margin-bottom: 20px;
+}
+
+.best_portfolio_list {
+    display: grid;
+    padding: 18px;
+    height: 220px;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 10px;
+    row-gap: 60px;
+    justify-items: center;
+    margin-bottom: 30px;
+    overflow: auto;
+    border: 1px solid #ddd;
+}
+
+.portfolio_list {
+    display: grid;
+    padding: 18px;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 10px;
+    row-gap: 60px;
+    justify-items: center;
+}

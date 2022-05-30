@@ -1,0 +1,51 @@
+.access_area {
+    width: 260px;
+    height: 600px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    position: fixed;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.public_box {
+    display: flex;
+    justify-content: space-around;
+}
+
+.addition_box {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.addition_box button,
+.complete_btn {
+    border-radius: 20px;
+    padding: 10px;
+    margin: 0 0 20px 0;
+    text-align: center;
+    box-shadow: 2px 2px 10px 0px rgba(25, 42, 70, 0.2);
+    transition-duration: 0.5s;
+}
+
+.addition_box button:hover {
+    transform: translateY(-2px);
+    box-shadow: 2px 4px 10px 2px rgba(25, 42, 70, 0.2);
+    background-color: #faa;
+}
+
+.complete_button {
+    margin: auto 0 0 !important;
+    justify-content: flex-end;
+    background-color: #fff;
+}
+
+.complete_button:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    box-shadow: 2px 4px 10px 2px rgba(25, 42, 70, 0.2);
+    background-color: #aaf !important;
+}

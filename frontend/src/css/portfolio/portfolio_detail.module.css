@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+}
+
+textarea {
+    outline: none;
+    resize: none;
+    border: 0;
+}
+
+.portfolio_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.portfolio_area {
+    border-radius: 5px;
+    width: 900px;
+    margin: 100px 0 0;
+    padding: 20px;
+    background-color: #eef4ff;
+    box-shadow: 2px 2px 10px 1px rgba(25, 42, 70, 0.2);
+}
+
+.portfolio_title {
+    margin: 0 auto;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.youtube_box,
+.img_box,
+.video_box,
+.describe_box {
+    width: 100%;
+    display: flex;
+    margin: 0 0 25px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.youtube_box,
+.video_box {
+    /* height: 500px; */
+}

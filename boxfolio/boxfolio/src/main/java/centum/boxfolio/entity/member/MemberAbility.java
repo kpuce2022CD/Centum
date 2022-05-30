@@ -1,5 +1,6 @@
 package centum.boxfolio.entity.member;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,7 @@ public class MemberAbility {
     private Integer memberLevel;
 
     @OneToOne(mappedBy = "memberAbility", orphanRemoval = true)
+    @JsonIgnore
     private Member member;
 
     public MemberAbility() {

@@ -1,0 +1,48 @@
+.recruit_info {
+    width: 160px;
+    display: flex;
+    flex-direction: column;
+}
+
+.auto_matching_opened {
+    color: #3d0;
+    margin: 0 0 0 auto;
+}
+
+.auto_matching_closed {
+    color: red;
+    margin: 0 0 0 auto;
+}
+
+.recruit_info > div {
+    width: 100%;
+}
+
+.auto_matching_area {
+    display: flex;
+    justify-content: flex_end;
+    margin: 0 0 20px 0;
+}
+
+.recruit_total_area {
+    display: flex;
+    justify-content: space_between;
+    margin: 0 0 2px 0;
+}
+
+.recruit_total_status {
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+    margin: 0 0 0 16px;
+}
+
+.entered_member {
+    color: #86A8E7;
+}
+
+.recruit_deadline_area > span:first-child {
+    margin: 0 16px 0 0;
+}

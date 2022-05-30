@@ -1,0 +1,85 @@
+.main {
+    width: 100%;
+    background-color: transparent;
+    padding: 0 0 20px;
+}
+
+.ability_container {
+    margin: 0 0 50px;
+}
+
+.ability_area {
+    display: flex;
+    box-shadow: 5px 5px 10px 1px rgba(25, 42, 70, 0.2);
+    border-radius: 5px;
+    height: 450px;
+}
+
+.skill_stack,
+.title_stack,
+.complete_project_list,
+.progress_project_list {
+    padding: 20px;
+    height: 50%;
+}
+
+.ability_area h3 {
+    font-weight: normal;
+}
+
+.code_chart {
+    width: 390px;
+    padding: 20px;
+}
+
+.stack_area {
+    flex-grow: 1;
+}
+
+.skills,
+.titles {
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    height: calc(100% - 10px);
+    overflow-y: auto;
+}
+
+.skills li {
+    background-color: #c8deff88;
+    border: 1px solid #c8deff;
+    border-radius: 30px;
+    padding: 5px 10px;
+    margin: 5px 10px 5px 0;
+}
+
+.titles li {
+    background-color: #c8ffee88;
+    border: 1px solid #c8ffee;
+    border-radius: 30px;
+    padding: 5px 10px;
+    margin: 5px 10px 5px 0;
+}
+
+.project_area {
+    width: 350px;
+}
+
+.complete_projects,
+.progress_projects {
+    height: calc(100% - 10px);
+    overflow-y: auto;
+}
+
+.complete_projects li,
+.progress_projects li {
+    width: 100%;
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #c8deff33;
+    border: 1px solid #c8deff;
+    border-radius: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

@@ -1,0 +1,302 @@
+@charset "UTF-8";
+header {
+    border-bottom: 1px solid #fff;
+    background: linear-gradient(to right, #7F7FD5, #86A8E7, #91EAE4);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+/* section */
+.main {
+    width: 100%;
+    min-height: calc(100vh - 120px);
+    background-color: transparent;
+    padding: 0 0 50px;
+}
+
+.profile-container {
+    margin: 100px 0 50px;
+}
+
+.profile-area {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex; 
+    height: 250px;
+    align-items: center;
+    box-shadow: 5px 5px 10px 1px rgba(25, 42, 70, 0.2);
+}
+
+.member-info-area {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-img-area {
+    margin: 0 20px 0 0;
+}
+
+.profile-img-area img {
+    width: 200px;
+}
+
+.member-info-area li {
+    line-height: 1;
+    margin: 5px 0;
+}
+
+.member-status {
+    display: flex;
+    align-items: flex-end;
+}
+
+.member-nickname {
+    font-size: 24px;
+    margin: 0 10px 0 0;
+}
+
+.member-level{
+    font-size: 12px;
+    background-color: #98d6e0;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin: 0 0 2px 0;
+}
+
+.member-field {
+    display: flex;
+    align-items: center;
+    margin: 15px 0 0 !important;
+}
+
+.member-field i {
+    font-size: 24px;
+}
+
+.interest-field, .progress-field {
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.interest-field {
+    background-color: #fe5;
+    border: 1px solid #fd4;
+    margin: 0 10px 0 0;
+}
+
+.progress-field {
+    background-color: #fb9;
+    border: 1px solid #fa8;
+    margin: 0 0 0 10px;
+}
+
+.interest-field h6, .progress-field h6 {
+    font-size: 14px;
+    font-weight: normal;
+    text-align: center;
+    border-right: 1px solid #aaa;
+    padding: 5px 10px;
+}
+
+.interest-field p, .progress-field p {
+    padding: 5px 10px;
+}
+
+.profile-access-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-left: auto;
+    border-radius: 3px;
+    width: 200px;
+    height: 100%;
+}
+
+.modify-profile-btn {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.github-link-btn {
+    height: 30px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.github-icon {
+    margin: 0 5px 0 0;
+    height: 24px;
+}
+
+.github-id {
+    line-height: 1;
+}
+
+.ability-container {
+    margin: 0 0 50px;
+}
+
+.ability-area {
+    display: flex;
+    box-shadow: 5px 5px 10px 1px rgba(25, 42, 70, 0.2);
+    border-radius: 5px;
+    height: 450px;
+}
+
+.code-chart, .skill-stack, .title-stack, .complete-project-list, .progress-project-list {
+    padding: 20px;
+}
+
+.ability-area h3 {
+    font-weight: normal;
+}
+
+.code-chart {
+    width: 390px;
+}
+
+.stack-area {
+    flex-grow: 1;
+}
+
+.skill-stack, .title-stack, .complete-project-list, .progress-project-list {
+    height: 50%;
+}
+
+.skills, .titles {
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    height: calc(100% - 10px);
+    overflow-y: auto;
+}
+
+.skills li {
+    background-color: #c8deff88;
+    border: 1px solid #c8deff;
+    border-radius: 30px;
+    padding: 5px 10px;
+    margin: 5px 10px 5px 0;
+}
+
+.titles li {
+    background-color: #c8ffee88;
+    border: 1px solid #c8ffee;
+    border-radius: 30px;
+    padding: 5px 10px;
+    margin: 5px 10px 5px 0;
+}
+
+.project-area {
+    width: 350px;
+}
+
+.complete-projects, .progress-projects {
+    height: calc(100% - 10px);
+    overflow-y: auto;
+}
+
+.complete-projects li, .progress-projects li {
+    width: 100%;
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #c8deff33;
+    border: 1px solid #c8deff;
+    border-radius: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.archive-container {
+    margin: 0 0 50px;
+}
+
+.archive-area {
+    display: flex;
+    height: 600px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px 1px rgba(25, 42, 70, 0.2);
+}
+
+.scrap-portfolio-list, .scrap-post-list {
+    padding: 20px;
+    flex-grow: 1;
+    width: 50%;
+}
+
+.scrap-portfolios, .scrap-posts {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    height: calc(100% - 10px);
+    overflow-y: auto;
+}
+
+.scrap-portfolios li, .scrap-posts li {
+    padding: 5px 10px;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    margin: 5px;
+    text-align: center;
+    width: 48%;
+    box-shadow: 5px 5px 10px -5px rgba(25, 42, 70, 0.2);
+}
+
+.scrap-portfolios li:hover, .scrap-posts li:hover {
+    cursor: pointer;
+    transition-duration: 0.5s;
+    box-shadow: 5px 5px 10px -2px rgba(25, 42, 70, 0.2);
+    transform: translateY(-2px);
+}
+
+.record-area {
+    display: flex;
+    height: 400px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px 1px rgba(25, 42, 70, 0.2);
+}
+
+.post-list, .comment-list {
+    padding: 20px;
+    flex-grow: 1;
+    width: 50%;
+}
+
+.posts, .comments {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: calc(100% - 10px);
+    overflow-y: auto;
+    margin: 5px 0;
+}
+
+.posts li, .comments li {
+    width: 100%;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
+    border-radius: 3px;
+    margin: 0 5px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.posts li:nth-child(1), .comments li:nth-child(1) {
+    border-top: 1px solid #ddd;
+}
+
+.posts li:hover, .comments li:hover {
+    background-color: #eee;
+    cursor: pointer;
+}

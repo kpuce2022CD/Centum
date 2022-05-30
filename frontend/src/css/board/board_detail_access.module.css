@@ -1,0 +1,30 @@
+.access_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.comment_count {
+    margin: 0 3px;
+}
+
+.recommend_area a {
+    background: transparent;
+    margin: 0 0 0 8px;
+}
+
+.recommend_area span {
+    margin: 0 3px;
+}
+
+.star_btn:hover {
+    color: #fe0;
+}
+
+.scrap_btn:hover {
+    color: #0af;
+}

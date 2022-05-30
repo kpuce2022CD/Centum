@@ -1,0 +1,30 @@
+.member_total_area {
+    display: flex;
+    align-items: center;
+}
+
+.member_total_area label {
+    margin-right: 20px;
+    padding-left: 5px;
+}
+
+.member_total_area input,
+.member_total_area label {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.deadline_area {
+    display: flex;
+}
+
+.deadline_area select {
+    border: 1px solid #78a;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.auto_matching_area {
+    display: flex;
+}

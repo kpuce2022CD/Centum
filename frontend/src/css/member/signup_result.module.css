@@ -1,0 +1,78 @@
+.main {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 360px);
+    padding: 80px 0;
+}
+
+.main_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.complete_view_area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.complete_img img {
+    width: 300px;
+}
+
+.descript > h1 {
+    color: #000;
+    font-size: 32px;
+    margin: 20px 0;
+}
+
+.descript {
+    border: 1px solid #78a;
+    width: 1000px;
+    text-align: center;
+    padding: 20px 100px;
+    margin: 40px 0;
+}
+
+.detail_descript {
+    border: 1px solid #78a;
+    color: #000;
+    padding: 20px 80px;
+}
+
+.member_id .member_name {
+    color: #55f;
+    font-weight: bold;
+}
+
+.access_area button {
+    background-color: #78a;
+    border-radius: 5px;
+    color: #000;
+    margin: 0 5px;
+    padding: 10px 30px;
+}
+
+.home_button {
+    background-color: #ccc;
+    transition-duration: 0.5s;
+}
+
+.home_button:hover {
+    color: #fff;
+    background-color: #aaa;
+    cursor: pointer;
+}
+
+.login_button {
+    background-color: #78a;
+    transition-duration: 0.5s;
+}
+
+.login_button:hover {
+    color: #fff;
+    background-color: #56c;
+    cursor: pointer;
+}

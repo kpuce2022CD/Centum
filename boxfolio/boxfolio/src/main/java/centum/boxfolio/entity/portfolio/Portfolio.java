@@ -1,6 +1,7 @@
 package centum.boxfolio.entity.portfolio;
 
 import centum.boxfolio.entity.member.Member;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public class Portfolio {
     private String title;
     private String contents;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime updatedDate;
     private Boolean visibility;
 

@@ -1,0 +1,83 @@
+@charset "UTF-8";
+/* 공통 */
+*, :after, :before {
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+}
+
+html, body {
+    height: 100%
+}
+
+body {
+    margin: 0 auto;
+    -webkit-text-size-adjust: none;
+}
+
+body, button, div, dl, dt, fieldset, form,
+h1, h2, h3, h4, h5, h6, input, legend, li, ol, ul,
+p, select, td, th, textarea, table {
+    margin: 0;
+    padding: 0;
+}
+
+body, button, input, select, td, th, textarea {
+    font-size: 14px;
+    line-height: 1.5;
+    font-family: Apple SD Gothic Neo, Malgun Gothic, 맑은 고딕, sans-serif;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+img {
+    vertical-align:top
+}
+
+a {
+    color: inherit;
+}
+
+a, a:active, a:hover  {
+    text-decoration: none;
+}
+
+nav, dl, ol, ul, li, menu {
+    list-style: none;
+}
+
+button, input, select, textarea {
+    vertical-align: middle;
+    font-size: 100%;
+}
+
+button, input {
+    -webkit-border-radius:0;
+    border-radius:0;
+    border:0;
+}
+
+button {
+    cursor: pointer;
+}
+
+html input[type=button], input[type=email], input[type=password], input[type=reset],
+input[type=search], input[type=search], input[type=tel], input[type=text],
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:after, blockquote:before, q:after, q:before {
+    content: "";
+    content: none;
+}
+
+input:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+}

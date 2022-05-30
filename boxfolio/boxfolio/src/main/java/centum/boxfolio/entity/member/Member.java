@@ -6,10 +6,12 @@ import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.entity.portfolio.PortfolioScrap;
 import centum.boxfolio.entity.portfolio.PortfolioStar;
 import centum.boxfolio.entity.portfolio.Project;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.tomcat.jni.Local;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -42,36 +44,47 @@ public class Member {
     private MemberAbility memberAbility;
 
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Portfolio portfolio;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Project> projects = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<PortfolioStar> portfolioStars = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<PortfolioScrap> portfolioScraps = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Board> boards = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<BoardStar> boardStars = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<BoardScrap> boardScraps = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<BoardComment> boardComments = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ProjectMember> projectMembers = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<MemberSkill> memberSkills = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<MemberTitle> memberTitles = new ArrayList<>();
 
     public Member(String loginId, String passwd, String realName, String nickname, String phone,
@@ -91,5 +104,9 @@ public class Member {
         this.emailVerified = 0;
         memberAbility.setMember(this);
         this.memberAbility = memberAbility;
+    }
+
+    public void encryptPassword(PasswordEncoder passwordEncoder) {
+        this.passwd = passwordEncoder.encode(passwd);
     }
 }

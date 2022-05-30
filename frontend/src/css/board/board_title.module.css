@@ -1,0 +1,29 @@
+.board_title_container {
+    background-color: #C8DEFF;
+    border-radius: 8px;
+    margin: 20px 0;
+    padding: 20px 30px 10px;
+}
+
+.board_title {
+    font-size: 25px;
+    padding-left: 5px;
+    padding-top: 3px;
+}
+
+.board_category {
+    display: flex;
+    margin: 30px 0 15px;
+    padding: 0;
+}
+
+.board_category > li > a {
+    font-size: 16px;
+    padding: 10px 15px;
+    margin: 0 3px;
+}
+
+.board_category > li > a:hover {
+    background-color: #86A8E7;
+    border-radius: 10px;
+}
