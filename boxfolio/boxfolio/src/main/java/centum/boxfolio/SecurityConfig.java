@@ -3,6 +3,7 @@ package centum.boxfolio;
 import centum.boxfolio.security.JwtAuthenticationFilter;
 import centum.boxfolio.security.handler.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,12 +30,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui.html",
             "/webjars/**",
             "/file/**",
-            "/image/**",
             "/swagger/**",
             "/swagger-ui/**",
             "/css/**",
             "/js/**",
-            "/image/**"
+            "/image/**",
     };
 
     @Override
@@ -55,11 +55,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/api/login/**", "/api/signup/**", "/api/board/**").permitAll()
+                .antMatchers("/**").permitAll()
                 .antMatchers("/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs/**").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .formLogin().disable().headers().frameOptions().disable();
-
     }
 
     @Bean

@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.tomcat.jni.Local;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -110,7 +110,7 @@ public class Member {
         this.memberAbility = memberAbility;
     }
 
-    public void encryptPassword(PasswordEncoder passwordEncoder) {
-        this.passwd = passwordEncoder.encode(passwd);
-    }
+//    public void encryptPassword(PasswordEncoder passwordEncoder) {
+//        this.passwd = passwordEncoder.encode(passwd);
+//    }
 }

@@ -1,5 +1,6 @@
 package centum.boxfolio;
 
+import centum.boxfolio.interceptor.LoginCheckInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -15,11 +16,11 @@ public class AppConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new LoginCheckInterceptor())
-//                .order(1)
-//                .addPathPatterns("/**")
-//                .excludePathPatterns("/", "/signup/**", "/login", "/logout", "/signup_result", "/signup_terms",
-//                        "/css/**", "/js/**", "/image/**", "/*.ico", "/error");
+        registry.addInterceptor(new LoginCheckInterceptor())
+                .order(1)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/", "/signup/**", "/login", "/logout", "/signup_result", "/signup_terms",
+                        "/css/**", "/js/**", "/image/**", "/*.ico", "/error");
     }
 
     @Bean
