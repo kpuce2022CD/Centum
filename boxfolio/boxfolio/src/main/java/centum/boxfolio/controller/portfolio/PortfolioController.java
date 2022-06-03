@@ -5,10 +5,7 @@ import centum.boxfolio.controller.member.SessionConst;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.repository.member.MemberRepository;
-import centum.boxfolio.repository.portfolio.PortfolioRepository;
-import centum.boxfolio.response.Response;
 import centum.boxfolio.service.portfolio.PortfolioService;
-import centum.boxfolio.service.response.ResponseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.parser.ParseException;
@@ -34,13 +31,12 @@ public class PortfolioController {
 
     private final PortfolioService portfolioService;
     private final MemberRepository memberRepository;
-    private final PortfolioRepository portfolioRepository;
 
     @GetMapping
     public String portfolioPage(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Optional<Portfolio> myPortfolio = portfolioService.searchByMemberId(memberId);
+        Optional<Portfolio> myPortfolio = portfolioService.findByMemberId(memberId);
 
         List<Portfolio> highestPortfolioList = portfolioService.searchHighestStarInPublic(5);
         List<Portfolio> normalPortfolioList = portfolioService.searchLatestInPublic();
@@ -91,7 +87,7 @@ public class PortfolioController {
         HttpSession session = request.getSession(false);
         Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
         Optional<Member> member = memberRepository.findById(memberId);
-        Optional<Portfolio> portfolio = portfolioService.searchById(id);
+        Optional<Portfolio> portfolio = portfolioService.findById(id);
 
         if (portfolio.isEmpty() || member.isEmpty()) {
             return "redirect:/portfolio";
@@ -133,7 +129,7 @@ public class PortfolioController {
     @GetMapping("/search/name")
     public String searchPortfolioWithNickname(@RequestParam String nickname, Model model){
 
-        List<Portfolio> portfolioList = portfolioService.searchWithNickname(nickname);
+        List<Portfolio> portfolioList = portfolioService.findByNickname(nickname);
         List<PortfolioLoadForm> portfolioLoadFormList = new ArrayList<>();
 
         for (Portfolio p : portfolioList){
@@ -149,7 +145,7 @@ public class PortfolioController {
     public String deletePortfolio(@PathVariable Long id, HttpServletRequest request, RedirectAttributes redirectAttributes){
         HttpSession session = request.getSession(false);
         Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Optional<Portfolio> portfolio = portfolioRepository.findById(id);
+        Optional<Portfolio> portfolio = portfolioService.findById(id);
         if (portfolio.isEmpty() || portfolio.get().getMember().getId() != memberId) {
             return "redirect:/portfolio";
         }
@@ -171,7 +167,7 @@ public class PortfolioController {
 
     @GetMapping("/star")
     public String starChange(HttpServletRequest request, @RequestParam long id){
-        Portfolio portfolio = portfolioService.searchById(id).get();
+        Portfolio portfolio = portfolioService.findById(id).get();
         Member member = getLoginMember(request);
 
         portfolioService.starChange(portfolio, member);
@@ -181,7 +177,7 @@ public class PortfolioController {
 
     @GetMapping("/scrap")
     public String scrapPortfolio (HttpServletRequest request, @RequestParam long id){
-        Portfolio portfolio = portfolioService.searchById(id).get();
+        Portfolio portfolio = portfolioService.findById(id).get();
         Member member = getLoginMember(request);
 
         portfolioService.scrapPortfolio(portfolio, member);

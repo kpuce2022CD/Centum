@@ -17,9 +17,9 @@ public interface PortfolioService {
     void starChange(Portfolio portfolio, Member member);
     List<Portfolio> searchWithTitle (String title);
     Portfolio searchWithMember (Member member);
-    Optional<Portfolio> searchByMemberId(Long memberId);
-    Optional<Portfolio> searchById(Long id);
-    List<Portfolio> searchWithNickname(String nickname);
+    Optional<Portfolio> findByMemberId(Long memberId);
+    Optional<Portfolio> findById(Long id);
+    List<Portfolio> findByNickname(String nickname);
     void scrapPortfolio (Portfolio portfolio, Member member);
     List<Portfolio> searchHighestStarInPublic(int count);
 

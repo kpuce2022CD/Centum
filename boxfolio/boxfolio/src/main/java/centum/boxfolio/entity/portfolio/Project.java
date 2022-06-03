@@ -25,20 +25,20 @@ public class Project {
     private Boolean fromRepository;
     private String repositoryAddr;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "portfolio_id")
     private Portfolio portfolio;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "project_analysis_id")
     private ProjectAnalysis projectAnalysis;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProjectSkill> projectSkills = new ArrayList<>();
 
     public Project(String title, String projectField, LocalDateTime updatedDate, Long memberTally, Boolean fromRepository, String repositoryAddr, Member member, ProjectAnalysis projectAnalysis) {

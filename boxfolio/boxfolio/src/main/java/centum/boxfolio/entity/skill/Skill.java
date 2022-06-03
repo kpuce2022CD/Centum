@@ -20,14 +20,14 @@ public class Skill {
 
     private String skillName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "skill_type_id")
     private SkillType skillType;
 
-    @OneToMany(mappedBy = "skill")
+    @OneToMany(mappedBy = "skill", fetch = FetchType.LAZY)
     private List<ProjectSkill> projectSkills = new ArrayList<ProjectSkill>();
 
-    @OneToMany(mappedBy = "skill")
+    @OneToMany(mappedBy = "skill", fetch = FetchType.LAZY)
     private List<MemberSkill> memberSkills = new ArrayList<MemberSkill>();
 
     public Skill(String skillName, SkillType skillType) {

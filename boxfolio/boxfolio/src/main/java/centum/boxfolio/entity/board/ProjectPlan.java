@@ -20,7 +20,7 @@ public class ProjectPlan {
     private LocalDateTime endDate;
     private String contents;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Recruitment recruitment;
 

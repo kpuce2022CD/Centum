@@ -17,7 +17,7 @@ public class SkillType {
 
     private String typeName;
 
-    @OneToMany(mappedBy = "skillType")
+    @OneToMany(mappedBy = "skillType", fetch = FetchType.LAZY)
     private List<Skill> skills = new ArrayList<Skill>();
 
     public SkillType(String typeName) {

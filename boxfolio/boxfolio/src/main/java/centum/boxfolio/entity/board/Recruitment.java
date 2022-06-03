@@ -34,15 +34,15 @@ public class Recruitment extends Board {
     private Integer requiredMemberLevel;
     private String expectedPeriod;
 
-    @OneToMany(mappedBy = "recruitment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recruitment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<ProjectMember> projectMembers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recruitment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recruitment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<ProjectRule> projectRules = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recruitment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recruitment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<ProjectPlan> projectPlans = new ArrayList<>();
 

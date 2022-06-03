@@ -4,9 +4,13 @@ import centum.boxfolio.controller.member.MemberSaveForm;
 import centum.boxfolio.dto.member.MemberDto;
 import centum.boxfolio.entity.auth.ConfirmationToken;
 import centum.boxfolio.entity.member.Member;
+import centum.boxfolio.exception.AccountException;
+import centum.boxfolio.exception.ErrorType;
 import centum.boxfolio.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,7 +37,7 @@ public class MemberServiceImpl implements MemberService {
     private void validateDuplicationMember(Member member) {
         memberRepository.findByLoginId(member.getLoginId())
                 .ifPresent(m -> {
-                    throw new IllegalStateException("이미 존재하는 아이디입니다.");
+                    throw new AccountException(ErrorType.USER_ID_EXISTS);
                 });
     }
 
@@ -42,6 +46,21 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findByLoginId(loginId)
                 .filter(m -> m.getPasswd().equals(passwd))
                 .orElse(null);
+    }
+
+    @Override
+    public Member findById(Long id) {
+        return memberRepository.findById(id).orElseThrow(() -> new AccountException(ErrorType.USER_NOT_EXISTS));
+    }
+
+    @Override
+    public Member findByLoginId(String loginId) {
+        return memberRepository.findByLoginId(loginId).orElseThrow(() -> new AccountException(ErrorType.USER_NOT_EXISTS));
+    }
+
+    @Override
+    public List<Member> findAll() {
+        return memberRepository.findAll();
     }
 
     @Override

@@ -19,7 +19,7 @@ public class ProjectAnalysis {
     private Integer redundancy;
     private Integer standard;
 
-    @OneToOne(mappedBy = "projectAnalysis", orphanRemoval = true)
+    @OneToOne(mappedBy = "projectAnalysis", orphanRemoval = true, fetch = FetchType.LAZY)
     private Project project;
 
     public ProjectAnalysis() {

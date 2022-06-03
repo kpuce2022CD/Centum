@@ -6,6 +6,7 @@ import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.repository.member.MemberRepository;
 import centum.boxfolio.service.board.BoardService;
 import centum.boxfolio.service.board.CommentService;
+import centum.boxfolio.service.member.MemberService;
 import centum.boxfolio.service.portfolio.ProjectService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public class BoardController {
     private final BoardService boardService;
     private final CommentService commentService;
     private final ProjectService projectService;
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
     @GetMapping("/free")
     public String generalBoardPage(Model model) {
@@ -47,7 +48,7 @@ public class BoardController {
     public String recruitBoardPage(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Member member = memberRepository.findById(memberId).get();
+        Member member = memberService.findById(memberId);
 
         model.addAttribute("recommendRecruitBoard", boardService.recommendRecruitBoard(member));
         model.addAttribute("recruitBoard", boardService.readRecruitBoard());

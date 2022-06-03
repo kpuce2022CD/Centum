@@ -72,17 +72,17 @@ public class PortfolioServiceImpl implements PortfolioService{
     }
 
     @Override
-    public Optional<Portfolio> searchByMemberId(Long memberId) {
+    public Optional<Portfolio> findByMemberId(Long memberId) {
         return portfolioRepository.findByMemberId(memberId);
     }
 
     @Override
-    public Optional<Portfolio> searchById(Long id) {
+    public Optional<Portfolio> findById(Long id) {
         return portfolioRepository.findById(id);
     }
 
     @Override
-    public List<Portfolio> searchWithNickname(String nickname) {
+    public List<Portfolio> findByNickname(String nickname) {
         return portfolioRepository.findByNickname(nickname);
     }
 

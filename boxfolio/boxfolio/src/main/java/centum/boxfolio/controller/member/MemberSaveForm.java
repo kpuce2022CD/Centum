@@ -2,6 +2,7 @@ package centum.boxfolio.controller.member;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.member.MemberAbility;
+import centum.boxfolio.entity.member.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,6 +35,6 @@ public class MemberSaveForm {
 
     public Member toMember() {
         LocalDate birth = LocalDate.of(year, month, day);
-        return new Member(loginId, passwd, realName, nickname, phone, email, birth, sex, githubId, interestField, new MemberAbility());
+        return new Member(loginId, passwd, realName, nickname, phone, email, birth, sex, githubId, interestField, Role.USER, new MemberAbility());
     }
 }

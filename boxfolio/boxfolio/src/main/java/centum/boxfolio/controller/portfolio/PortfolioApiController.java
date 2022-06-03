@@ -1,8 +1,6 @@
 package centum.boxfolio.controller.portfolio;
 
 import centum.boxfolio.entity.portfolio.Portfolio;
-import centum.boxfolio.repository.member.MemberRepository;
-import centum.boxfolio.repository.portfolio.PortfolioRepository;
 import centum.boxfolio.response.Response;
 import centum.boxfolio.service.portfolio.PortfolioService;
 import centum.boxfolio.service.response.ResponseService;
@@ -34,7 +32,7 @@ public class PortfolioApiController {
 
     @GetMapping("/portfolio/{id}")
     public Response<Portfolio> getPortfolio(@PathVariable Long id) {
-        Optional<Portfolio> portfolio = portfolioService.searchById(id);
+        Optional<Portfolio> portfolio = portfolioService.findById(id);
         if (portfolio.isEmpty()) {
             return responseService.getFailResult("Not Found");
         }
@@ -43,7 +41,7 @@ public class PortfolioApiController {
 
     @DeleteMapping("/portfolio/{id}")
     public Response deletePortfolio(@PathVariable Long id) {
-        Optional<Portfolio> portfolio = portfolioService.searchById(id);
+        Optional<Portfolio> portfolio = portfolioService.findById(id);
         if (portfolio.isEmpty()) {
             return responseService.getFailResult("Not Found");
         }

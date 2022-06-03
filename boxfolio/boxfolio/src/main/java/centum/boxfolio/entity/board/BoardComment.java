@@ -27,19 +27,19 @@ public class BoardComment {
     private Long commentOrder;
     private Long groupNum;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private BoardComment boardComment;
 
-    @OneToMany(mappedBy = "boardComment", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "boardComment", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<BoardComment> boardComments;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
