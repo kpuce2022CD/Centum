@@ -10,15 +10,16 @@
 
 .best_portfolio_list {
     display: grid;
-    padding: 18px;
-    height: 220px;
+    padding: 20px;
+    height: 240px;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 10px;
     row-gap: 60px;
     justify-items: center;
+    align-items: center;
     margin-bottom: 30px;
     overflow: auto;
-    border: 1px solid #ddd;
+    border: 1px solid #56a;
 }
 
 .portfolio_list {

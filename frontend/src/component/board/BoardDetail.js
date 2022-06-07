@@ -7,6 +7,7 @@ import BoardCommentEdit from './BoardCommentEdit';
 import BoardDetailAccess from './BoardDetailAccess';
 import BoardDetailContents from './BoardDetailContents';
 import BoardDetailTitle from './BoardDetailTitle';
+import instance from '../security/Interceptor';
 
 const BoardDetail = (props) => {
     const { category } = props;
@@ -19,10 +20,11 @@ const BoardDetail = (props) => {
         const fetchBoard = async () => {
             setLoading(true);
             try {
-                await axios.get('/api/board/' + category + '/' + id).then(response => {
-                    if (response.data.resultCode === 0) {
+                await instance.get('/api/board/' + category + '/' + id).then(response => {
+                    if (response.data.success === 0) {
                         setPost(response.data.data.post);
-                        axios.get('/api/board/comment/' + response.data.data.post.id).then(response => {
+                        instance.get('/api/board/comment/' + response.data.data.post.id).then(response => {
+                            console.log(response.data);
                             setCommentList(response.data.data.comments);
                         });
                     }

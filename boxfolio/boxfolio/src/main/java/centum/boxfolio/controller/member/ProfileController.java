@@ -12,8 +12,9 @@ import centum.boxfolio.repository.board.BoardRepository;
 import centum.boxfolio.repository.board.BoardScrapRepository;
 import centum.boxfolio.repository.board.CommentRepository;
 import centum.boxfolio.repository.member.MemberRepository;
+import centum.boxfolio.repository.member.MemberSkillRepository;
+import centum.boxfolio.repository.member.MemberTitleRepository;
 import centum.boxfolio.repository.portfolio.PortfolioRepository;
-import centum.boxfolio.service.skill.SkillService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,8 @@ import java.util.List;
 public class ProfileController {
 
     private final MemberRepository memberRepository;
+    private final MemberSkillRepository memberSkillRepository;
+    private final MemberTitleRepository memberTitleRepository;
     private final BoardRepository boardRepository;
     private final BoardScrapRepository boardScrapRepository;
     private final PortfolioRepository portfolioRepository;
@@ -44,9 +47,9 @@ public class ProfileController {
         Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
         Member member = memberRepository.findById(memberId).get();
 
-        List<MemberSkill> memberSkills = memberRepository.findMemberSkillsByMemberId(memberId);
-        List<MemberTitle> memberTitles = memberRepository.findMemberTitlesByMemberId(memberId);
-        List<BoardScrap> boardScraps = boardScrapRepository.findScrapByMemberId(memberId);
+        List<MemberSkill> memberSkills = memberSkillRepository.findMemberSkillsByMemberId(memberId);
+        List<MemberTitle> memberTitles = memberTitleRepository.findMemberTitlesByMemberId(memberId);
+        List<BoardScrap> boardScraps = boardScrapRepository.findByMemberId(memberId);
         List<PortfolioScrap> portfolioScraps = portfolioRepository.findScrapByMemberId(memberId);
         List<Board> board = boardRepository.findBoardByMemberId(memberId);
         List<ProjectMember> progressProjects = boardRepository.findProjectMemberByMemberId(memberId);

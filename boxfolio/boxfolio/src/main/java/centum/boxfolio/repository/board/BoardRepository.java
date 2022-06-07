@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BoardRepository {
+    Board saveBoard(Board board);
     Optional<Board> findGeneralPostById(Long id);
     List<Board> findGeneralBoard();
     List<Board> findBoardByMemberId(Long memberId);
@@ -39,6 +40,7 @@ public interface BoardRepository {
     List<ProjectMember> findProjectMemberByMemberId(Long memberId);
     List<ProjectMember> findProjectMemberByBoardId(Long boardId);
     Optional<ProjectMember> findProjectMemberByBoardIdAndMemberId(Long boardId, Long memberId);
+    Optional<ProjectMember> findProjectMemberByBoardIdAndMemberLoginId(Long boardId, String loginId);
 
     Recruitment setDeadlineStatusToTrue(Recruitment recruitment);
     Recruitment setDeadlineStatusToFalse(Recruitment recruitment);

@@ -22,7 +22,7 @@ const SignUpForm = (props) => {
         try {
             await axios.post('/api/signup', signupData).then(response => {
                 console.log(response.data.data.member);
-                if (response.data.resultCode === 0) {
+                if (response.data.success === 0) {
                     navigate('/signup/auth', {
                         state: {
                             email: response.data.data.member.email

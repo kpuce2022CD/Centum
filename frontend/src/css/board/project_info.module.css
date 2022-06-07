@@ -16,8 +16,9 @@
 }
 
 .project_info th {
+    color: #fff;
     font-weight: normal;
-    background-color: #86A8E7;
+    background-color: #56a;
     font-size: 13px;
 }
 
@@ -31,6 +32,13 @@
     display: flex;
     justify-content: flex-end;
     padding: 10px 0 0 0;
+}
+
+.recruit_access a {
+    color: #fff;
+    background-color: #56a;
+    border-radius: 2px;
+    padding: 5px 10px;
 }
 
 .project_end_msg {

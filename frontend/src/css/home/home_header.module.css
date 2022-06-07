@@ -1,11 +1,11 @@
 @charset "UTF-8";
 
-header {
+.home_header {
     width: 100%;
     height: 120px;
-    background-color: transparent;
     min-width: 1200px;
     position: fixed;
+    background: transparent;
 }
 
 .openmenu::before {
@@ -18,7 +18,6 @@ header::before {
     left: 0;
     width: 100%;
     height: 0;
-    background: #fff;
     z-index: 0;
     transition: all 0.2s ease-in;
     content: '';
@@ -40,5 +39,42 @@ header::before {
 }
 
 .openmenu .logo {
-    color: #000;
+    color: #fff;
+}
+
+.member_area {
+    display: flex;
+    justify-content: center;
+}
+
+.start_btn {
+    border: 1px solid #fff;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+    border-radius: 2px;
+    padding: 15px 35px;
+    position: relative;
+    overflow: hidden;
+}
+
+.start_btn:hover {
+    background-color: #56a;
+    color: #fff;
+    border: 1px solid #56a;
+}
+
+.start_btn::before {
+    content: "";
+    background-color: #ffffff80;
+    height: 100%;
+    width: 3em;
+    position: absolute;
+    top: 0;
+    left: -5em;
+    transform: skewX(-45deg) translateX(0);
+}
+
+.start_btn:hover::before {
+    transform: skewX(-45deg) translateX(14em);
+    transition: all 0.5s ease-in-out;
 }

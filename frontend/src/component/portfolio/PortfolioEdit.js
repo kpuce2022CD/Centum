@@ -118,6 +118,11 @@ const PortfolioEdit = (props) => {
         ))
     }
 
+
+    if (loading) {
+        return null;
+    }
+
     return (
         <section className={style.main}>
             <div className="wrap">

@@ -7,8 +7,8 @@
     flex-direction: column;
     justify-content: space-between;
     border: 1px solid #eee;
-    border-radius: 5px;
-    box-shadow: 10px 10px 10px -5px rgba(25, 42, 70, 0.2);
+    border-radius: 2px;
+    box-shadow: 5px 5px 10px 0px #56a3;
     height: 180px;
     width: 240px;
 }
@@ -24,14 +24,13 @@
 }
 
 .portfolio_item_head {
-    color: #333;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ccc;
     padding: 5px 0;
 }
 
 .portfolio_title_area {
-    color: #777;
-    border-bottom: 1px solid #ddd;
+    color: #555;
+    border-bottom: 1px solid #ccc;
     padding: 5px 0;
     white-space: nowrap;
     overflow: hidden;
@@ -39,7 +38,7 @@
 }
 
 .member_interested_area {
-    color: #ffc74f;
+    color: #56a;
     font-size: 12px;
     padding: 10px 0;
 }

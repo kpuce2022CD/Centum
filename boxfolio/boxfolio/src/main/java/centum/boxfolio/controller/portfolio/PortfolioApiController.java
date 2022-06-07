@@ -1,6 +1,7 @@
 package centum.boxfolio.controller.portfolio;
 
 import centum.boxfolio.entity.portfolio.Portfolio;
+import centum.boxfolio.exception.ErrorType;
 import centum.boxfolio.response.Response;
 import centum.boxfolio.service.portfolio.PortfolioService;
 import centum.boxfolio.service.response.ResponseService;
@@ -34,7 +35,7 @@ public class PortfolioApiController {
     public Response<Portfolio> getPortfolio(@PathVariable Long id) {
         Optional<Portfolio> portfolio = portfolioService.findById(id);
         if (portfolio.isEmpty()) {
-            return responseService.getFailResult("Not Found");
+            return responseService.getFailResult(ErrorType.PORTFOLIO_NOT_EXISTS);
         }
         return responseService.getResult("portfolio", portfolio.get());
     }
@@ -43,7 +44,7 @@ public class PortfolioApiController {
     public Response deletePortfolio(@PathVariable Long id) {
         Optional<Portfolio> portfolio = portfolioService.findById(id);
         if (portfolio.isEmpty()) {
-            return responseService.getFailResult("Not Found");
+            return responseService.getFailResult(ErrorType.PORTFOLIO_NOT_EXISTS);
         }
 
         portfolioService.delete(portfolio.get());

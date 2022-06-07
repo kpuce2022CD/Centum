@@ -1,16 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MemberImage from '../../image/member.png';
 import style from '../../css/common/profile_tap.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import AuthenticationService from '../security/AuthenticationService';
+import instance from '../security/Interceptor';
 
 const ProfileTap = () => {
+    const navigate = useNavigate();
+    const [member, setMember] = useState({});
+    const [loading, setLoading] = useState(false);
+    const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
+
+    
+    useEffect(() => {
+        const fetchMemberData = () => {
+            setLoading(true);
+            instance.get('/api/member').then(response => {
+                setMember(response.data.data.member);
+            });
+            setLoading(false);
+        };
+        if (isUserLoggedIn) {
+            fetchMemberData();
+        }
+    }, []);
+    
+    const logout = () => {
+        AuthenticationService.logout();
+        navigate('/');
+        window.location.reload();
+    };
+
+    if (loading) {
+        return null;
+    }
+
     return (
         <details className={style.member_area}>
             <summary><img src={MemberImage} alt="member-icon" className={style.profile_btn} /></summary>
             <div className={style.member_access}>
                 <ul className={style.access_list}>
                     <li>
-                        <p className={style.member_nickname}>SeoArc</p>
+                        <p className={style.member_nickname}>{member.nickname}</p>
                     </li>
                     <li>
                         <Link to="/profile">프로필</Link>
@@ -33,7 +64,7 @@ const ProfileTap = () => {
                     </li>
                     <hr/>
                     <li>
-                        <Link to="/logout">로그아웃 <i className="fa-solid fa-arrow-right-from-bracket"></i></Link>
+                        <button onClick={() => logout()} className={style.logout_button}>로그아웃 <i className="fa-solid fa-arrow-right-from-bracket"></i></button>
                     </li>
                 </ul>
             </div>

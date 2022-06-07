@@ -29,12 +29,12 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public List<BoardComment> readComments() {
+    public List<BoardComment> findAll() {
         return commentRepository.findAll();
     }
 
     @Override
-    public List<BoardComment> readCommentsByBoardId(Long boardId) {
+    public List<BoardComment> findByBoardId(Long boardId) {
         return commentRepository.findCommentsByBoardId(boardId);
     }
 

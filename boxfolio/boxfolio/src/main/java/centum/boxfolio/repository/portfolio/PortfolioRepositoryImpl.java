@@ -95,23 +95,6 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     }
 
     @Override
-    public List<Portfolio> findAllPublic() {
-        return em.createQuery("SELECT p FROM Portfolio p WHERE p.visibility = true", Portfolio.class).getResultList();
-    }
-
-    // 탐색 관련
-    @Override
-    public List<Portfolio> getHighestPortfolioList(int count) {
-
-        String jpql = "SELECT p FROM Portfolio AS p ORDER BY p.starTally DESC";
-
-        TypedQuery<Portfolio> query = em.createQuery(jpql, Portfolio.class);
-        query.setMaxResults(count);
-
-        return query.getResultList();
-    }
-
-    @Override
     public Optional<Portfolio> findById(Long id) {
         return Optional.ofNullable(em.find(Portfolio.class, id));
     }
@@ -163,7 +146,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     }
 
     @Override
-    public List<Portfolio> findHighestInPublic() {
+    public List<Portfolio> findInPublicByViewDesc() {
         String jpql = "SELECT p FROM Portfolio AS p WHERE p.visibility = true ORDER BY p.starTally ASC";
         TypedQuery<Portfolio> query = em.createQuery(jpql, Portfolio.class);
 
@@ -171,7 +154,7 @@ public class PortfolioRepositoryImpl implements PortfolioRepository {
     }
 
     @Override
-    public List<Portfolio> findLatestInPublic() {
+    public List<Portfolio> findInPublicByViewAsc() {
         String jpql = "SELECT p FROM Portfolio AS p WHERE p.visibility = true ORDER BY p.updatedDate ASC";
         TypedQuery<Portfolio> query = em.createQuery(jpql, Portfolio.class);
 

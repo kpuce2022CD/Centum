@@ -3,8 +3,6 @@ package centum.boxfolio.service.board;
 import centum.boxfolio.controller.board.FreeBoardSaveForm;
 import centum.boxfolio.controller.board.InfoBoardSaveForm;
 import centum.boxfolio.controller.board.RecruitBoardSaveForm;
-import centum.boxfolio.controller.member.ProjectPlanSaveForm;
-import centum.boxfolio.controller.member.ProjectRuleSaveForm;
 import centum.boxfolio.controller.member.ProgressProjectSaveForm;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.member.Member;
@@ -35,7 +33,7 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public BoardStar countStar(Long boardId, Long memberId) {
-        Optional<BoardStar> boardStar = boardStarRepository.findStarByBoardIdAndMemberId(boardId, memberId);
+        Optional<BoardStar> boardStar = boardStarRepository.findByBoardIdAndMemberId(boardId, memberId);
         Optional<Member> member = memberRepository.findById(memberId);
         Optional<Board> post = boardRepository.findGeneralPostById(boardId);
         if (boardStar.isEmpty()) {
@@ -47,7 +45,7 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public BoardScrap countScrap(Long boardId, Long memberId) {
-        Optional<BoardScrap> boardScrap = scrapRepository.findScrapByBoardIdAndMemberId(boardId, memberId);
+        Optional<BoardScrap> boardScrap = scrapRepository.findByBoardIdAndMemberId(boardId, memberId);
         Optional<Member> member = memberRepository.findById(memberId);
         Optional<Board> post = boardRepository.findGeneralPostById(boardId);
         if (boardScrap.isEmpty()) {
@@ -55,26 +53,6 @@ public class BoardServiceImpl implements BoardService{
         }
         scrapRepository.downScrap(post.get(), member.get());
         return null;
-    }
-
-    @Override
-    public Board readGeneralPost(Long id) {
-        Optional<Board> post = boardRepository.findGeneralPostById(id);
-        if (post.isEmpty()) {
-            return null;
-        }
-        countView(post.get());
-        return post.get();
-    }
-
-    @Override
-    public List<Board> readGeneralBoard() {
-        return boardRepository.findGeneralBoard();
-    }
-
-    @Override
-    public void deleteGeneralBoard(Long id) {
-        boardRepository.removeGeneralBoard(id);
     }
 
     @Override
@@ -108,6 +86,11 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public void deleteFreeBoard(Long id) {
         boardRepository.removeFreeBoard(id);
+    }
+
+    @Override
+    public Board createBoard(Board board) {
+        return boardRepository.saveBoard(board);
     }
 
     @Override
@@ -217,10 +200,15 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<Member> findMembersByBoardId(Long boardId) {
+    public List<Member> findProjectMembersByBoardId(Long boardId) {
         return boardRepository.findProjectMemberByBoardId(boardId).stream()
                 .map(pm -> pm.getMember())
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Boolean checkProjectMemberByBoardIdAndMemberLoginId(Long boardId, String loginId) {
+        return boardRepository.findProjectMemberByBoardIdAndMemberLoginId(boardId, loginId).isPresent();
     }
 
     @Override

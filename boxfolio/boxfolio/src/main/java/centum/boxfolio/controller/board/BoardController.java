@@ -3,7 +3,6 @@ package centum.boxfolio.controller.board;
 import centum.boxfolio.controller.member.SessionConst;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.member.Member;
-import centum.boxfolio.repository.member.MemberRepository;
 import centum.boxfolio.service.board.BoardService;
 import centum.boxfolio.service.board.CommentService;
 import centum.boxfolio.service.member.MemberService;
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -58,7 +56,7 @@ public class BoardController {
     @GetMapping("/free/{boardId}")
     public String freeBoardPage(@PathVariable Long boardId, Model model, HttpServletRequest request) {
         Free post = boardService.readFreePost(boardId);
-        List<BoardComment> boardComments = commentService.readCommentsByBoardId(boardId);
+        List<BoardComment> boardComments = commentService.findByBoardId(boardId);
 
         model.addAttribute("freePost", post);
         model.addAttribute("comments", boardComments);
@@ -69,7 +67,7 @@ public class BoardController {
     @GetMapping("/info/{boardId}")
     public String infoBoardPage(@PathVariable Long boardId, Model model, HttpServletRequest request) {
         Information post = boardService.readInfoPost(boardId);
-        List<BoardComment> boardComments = commentService.readCommentsByBoardId(boardId);
+        List<BoardComment> boardComments = commentService.findByBoardId(boardId);
 
         model.addAttribute("infoPost", post);
         model.addAttribute("comments", boardComments);
@@ -83,7 +81,7 @@ public class BoardController {
         Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
 
         Recruitment post = boardService.readRecruitPost(boardId);
-        List<BoardComment> boardComments = commentService.readCommentsByBoardId(boardId);
+        List<BoardComment> boardComments = commentService.findByBoardId(boardId);
         Boolean applyStatus = boardService.checkApplyStatus(boardId, memberId);
 
         model.addAttribute("recruitPost", post);
@@ -171,7 +169,7 @@ public class BoardController {
         if (memberId != free.getMember().getId()) {
             return "redirect:/board/free";
         }
-        model.addAttribute("freeBoardSaveForm", free.toFreeBoardSaveForm());
+//        model.addAttribute("freeBoardSaveForm", free.toFreeBoardSaveForm());
         return "board/free_modify";
     }
 
@@ -183,7 +181,7 @@ public class BoardController {
         if (memberId != information.getMember().getId()) {
             return "redirect:/board/info";
         }
-        model.addAttribute("infoBoardSaveForm", information.toInfoBoardSaveForm());
+//        model.addAttribute("infoBoardSaveForm", information.toInfoBoardSaveForm());
         return "board/info_modify";
     }
 

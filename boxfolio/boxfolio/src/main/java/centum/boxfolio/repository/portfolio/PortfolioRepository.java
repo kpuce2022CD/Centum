@@ -18,15 +18,13 @@ public interface PortfolioRepository {
 
     Optional<Portfolio> save (Portfolio portfolio, List<MultipartFile> files) throws IOException;
     List<Portfolio> findAll();
-    List<Portfolio> findAllPublic();
-    List<Portfolio> getHighestPortfolioList(int count);
     Optional<Portfolio> findById(Long id);
     List<Portfolio> findByTitle(String title);
     List<Portfolio> findByNickname(String nickname);
     Optional<Portfolio> findByMember(Member member);
     Optional<Portfolio> findByMemberId(Long memberId);
-    List<Portfolio> findHighestInPublic();
-    List<Portfolio> findLatestInPublic();
+    List<Portfolio> findInPublicByViewDesc();
+    List<Portfolio> findInPublicByViewAsc();
     void delete (Portfolio portfolio);
     void relationStar (Portfolio portfolio, Member member);
     void relationScrap(Portfolio portfolio, Member member);

@@ -64,7 +64,7 @@ public class ProjectViewController {
     @GetMapping("/progress/{id}")
     public String progressProjectPage(@PathVariable Long id, Model model) {
         model.addAttribute("recruitment", boardService.readRecruitPost(id));
-        model.addAttribute("members", boardService.findMembersByBoardId(id));
+        model.addAttribute("members", boardService.findProjectMembersByBoardId(id));
         model.addAttribute("projectRules", boardRepository.findProjectRulesByBoardId(id));
         model.addAttribute("projectPlans", boardRepository.findProjectPlansByBoardId(id));
         return "member/progress_project";
@@ -80,7 +80,7 @@ public class ProjectViewController {
         }
         model.addAttribute("progressProjectSaveForm", recruitment.toProgressProjectSaveForm());
         model.addAttribute("recruitment", recruitment);
-        model.addAttribute("members", boardService.findMembersByBoardId(id));
+        model.addAttribute("members", boardService.findProjectMembersByBoardId(id));
         model.addAttribute("projectRules", boardRepository.findProjectRulesByBoardId(id));
         model.addAttribute("projectPlans", boardRepository.findProjectPlansByBoardId(id));
         return "member/progress_project_edit";

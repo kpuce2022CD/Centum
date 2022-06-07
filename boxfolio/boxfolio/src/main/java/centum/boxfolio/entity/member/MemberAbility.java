@@ -21,7 +21,6 @@ public class MemberAbility {
     private Integer memberLevel;
 
     @OneToOne(mappedBy = "memberAbility", orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonIgnore
     private Member member;
 
     public MemberAbility() {

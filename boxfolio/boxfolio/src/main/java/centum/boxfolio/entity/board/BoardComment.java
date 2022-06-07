@@ -3,6 +3,7 @@ package centum.boxfolio.entity.board;
 import centum.boxfolio.entity.member.Member;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,18 +30,20 @@ public class BoardComment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
-    private BoardComment boardComment;
+    private BoardComment parentComment;
 
-    @OneToMany(mappedBy = "boardComment", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "parentComment", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<BoardComment> boardComments;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
+    @JsonIgnore
     private Board board;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
+    @JsonIgnore
     private Member member;
 
     public BoardComment(String contents, LocalDateTime createdDate, Integer commentClass, Long commentOrder, Long groupNum, BoardComment boardComment, Board board, Member member) {
@@ -65,10 +68,10 @@ public class BoardComment {
     }
 
     private void setParent(BoardComment boardComment) {
-        if (this.boardComment != null) {
-            this.boardComment.getBoardComments().remove(this);
+        if (this.parentComment != null) {
+            this.parentComment.getBoardComments().remove(this);
         }
-        this.boardComment = boardComment;
+        this.parentComment = boardComment;
         if (boardComment != null) {
             boardComment.getBoardComments().add(this);
         }

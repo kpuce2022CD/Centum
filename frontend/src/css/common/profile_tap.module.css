@@ -5,20 +5,6 @@
     justify-content: center;
 }
 
-.start_btn {
-    background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);
-    background-size: 200% auto;
-    box-shadow: 0 0 20px #eee;
-    color: #fff;
-    transition: 0.5s;
-    border-radius: 5px;
-    padding: 15px 35px;
-}
-
-.start_btn:hover {
-    background-position: right center;
-}
-
 .profile_btn {
     width: 32px;
     height: 32px;
@@ -29,13 +15,27 @@
 }
 
 .member_access {
-    top: 85px;
-    right: 10px;
+    top: 95px;
+    right: 0px;
     background-color: #fff;
-    border-radius: 5px;
+    border-radius: 2px;
     position: absolute;
     width: 150px;
     height: auto;
+    box-shadow: 0px 5px 10px 0px #3333;
+}
+
+.member_access:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 0 10px 15px;
+    border-color: #fff transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+    top: -15px;
+    left: 125px;
 }
 
 .access_list {
@@ -51,7 +51,11 @@
 }
 
 .access_list a:hover {
-    color: #86A8E7;
+    color: #56a;
+}
+
+.logout_button:hover {
+    color: #f55;
 }
 
 details summary {

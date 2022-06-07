@@ -13,8 +13,10 @@ import java.util.List;
 public interface MemberService {
     Member signup(MemberSaveForm form);
     Member signupByDto(MemberDto memberDto);
+
     Member login(String loginId, String passwd);
     Member confirmToken(String tokenId);
+
     Member findById(Long id);
     Member findByLoginId(String loginId);
     List<Member> findAll();

@@ -62,28 +62,4 @@ public class MemberRepositoryImpl implements MemberRepository {
 
         return query.getResultList();
     }
-
-    @Override
-    public List<MemberSkill> findMemberSkillsByMemberId(Long memberId) {
-        return findAllMemberSkill().stream()
-                .filter(m -> m.getMember().getId() == memberId)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<MemberSkill> findAllMemberSkill() {
-        return em.createQuery("select ms from MemberSkill ms", MemberSkill.class).getResultList();
-    }
-
-    @Override
-    public List<MemberTitle> findMemberTitlesByMemberId(Long memberId) {
-        return findAllMemberTitle().stream()
-                .filter(mt -> mt.getMember().getId() == memberId)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<MemberTitle> findAllMemberTitle() {
-        return em.createQuery("select mt from MemberTitle mt", MemberTitle.class).getResultList();
-    }
 }

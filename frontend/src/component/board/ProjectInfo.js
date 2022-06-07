@@ -1,9 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import style from '../../css/board/project_info.module.css';
+import AuthenticationService from '../security/AuthenticationService';
+import instance from '../security/Interceptor';
 
 const ProjectInfo = (props) => {
     const { post } = props;
+    const loginId = AuthenticationService.getLoggedInLoginId();
+    const [loading, setLoading] = useState(false);
+    const [isProjectMember, setIsProjectMember] = useState(false);
+    
+    useEffect(() => {
+        const fetchProjectMember = async () => {
+            setLoading(true);
+            try {
+                await instance.get('/api/board/isProjectMember/' + post.id).then(response => {
+                    setIsProjectMember(response.data.data.isProjectMember);
+                })
+            } catch (e) {
+                console.log(e);
+            }
+            setLoading(false);
+        }
+        fetchProjectMember();
+    }, []);
+
+    useEffect(() => {
+        console.log(isProjectMember);
+    }, [isProjectMember]);
+
+    if (loading) {
+        return null;
+    }
     
     return (
         <div className={style.project_area}>
@@ -22,19 +50,7 @@ const ProjectInfo = (props) => {
                     <tr className={style.project_field}>
                         <th>분야</th>
                         <td>
-                            <span>
-                                {
-                                    {
-                                        "android": "앱/안드로이드",
-                                        "ios": "앱/IOS",
-                                        "backend": "웹/백엔드",
-                                        "frontend": "웹/프론트엔드",
-                                        "ai": "AI",
-                                        "embedded": "임베디드",
-                                        "iot": "IoT"
-                                    }[post.projectField]
-                                }
-                            </span>
+                            <span>{post.projectField}</span>
                         </td>
                     </tr>
                     <tr className={style.project_level}>
@@ -72,17 +88,7 @@ const ProjectInfo = (props) => {
                     <tr className={style.expected_period}>
                         <th>예상기간</th>
                         <td>
-                            <span>
-                                {
-                                    {
-                                        "two-w": "2주 이하",
-                                        "one-m": "3개월 이하",
-                                        "six-m": "6개월 이하",
-                                        "lower-one-y": "1년 이하",
-                                        "higher-one-y": "1년 이상"
-                                    }[post.expectedPeriod]
-                                }
-                            </span>
+                            <span>{post.expectedPeriod}</span>
                         </td>
                     </tr>
                     </tbody>
@@ -91,15 +97,15 @@ const ProjectInfo = (props) => {
                 {
                     {
                         true: (<div>
-                                    <p className={style.project_end_msg}>마감되었습니다.</p>
-                                    <Link className={style.project_restart_btn} to="">모집하기</Link>
-                                </div>),
+                            {loginId !== post.member.loginId && <p className={style.project_end_msg}>마감되었습니다.</p>}
+                            {loginId === post.member.loginId && <Link className={style.project_restart_btn} to="">모집하기</Link>}
+                        </div>),
                         false: (<div>
-                                    <p>인원이 다 찼습니다.</p>
-                                    <p>신청이 완료되었습니다.</p>
-                                    <Link to="">신청하기</Link>
-                                    <Link to="">마감하기</Link>
-                                </div>)
+                            {(loginId !== post.member.loginId && post.memberTally === post.memberTotal) && <p> 인원이 다 찼습니다.</p> }
+                            {loginId !== post.member.loginId && isProjectMember && <p>신청이 완료되었습니다.</p>}
+                            {(loginId !== post.member.loginId && post.memberTally !== post.memberTotal) && !isProjectMember && <Link to="">신청하기</Link>}
+                            {loginId === post.member.loginId && <Link to="">마감하기</Link>}
+                        </div>)
                     }[post.deadlineStatus]
                 }
             </div>

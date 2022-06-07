@@ -1,5 +1,7 @@
 package centum.boxfolio.service.response;
 
+import centum.boxfolio.exception.ErrorResponse;
+import centum.boxfolio.exception.ErrorType;
 import centum.boxfolio.response.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,9 +24,8 @@ public class ResponseServiceImpl implements ResponseService {
             result.setData((T) map);
         }
 
-        result.setResult(true);
-        result.setResultCode(ReturnResponse.SUCCESS.getReturnCode());
-        result.setMessage(ReturnResponse.SUCCESS.getReturnMessage());
+        result.setResponse(true);
+        result.setSuccess(ReturnResponse.SUCCESS.getReturnSuccess());
 
         return result;
     }
@@ -32,18 +33,43 @@ public class ResponseServiceImpl implements ResponseService {
     @Override
     public Response getSuccessResult() {
         Response result = new Response();
-        result.setResult(true);
-        result.setResultCode(ReturnResponse.SUCCESS.getReturnCode());
-        result.setMessage(ReturnResponse.SUCCESS.getReturnMessage());
+        result.setResponse(true);
+        result.setSuccess(ReturnResponse.SUCCESS.getReturnSuccess());
         return result;
     }
 
     @Override
-    public Response getFailResult(String message) {
+    public Response getFailResult(ErrorResponse errorResponse) {
         Response result = new Response();
-        result.setResult(false);
-        result.setResultCode(ReturnResponse.FAIL.getReturnCode());
-        result.setMessage(ReturnResponse.FAIL.getReturnMessage() + " : " + message);
+        result.setResponse(false);
+        result.setSuccess(ReturnResponse.FAIL.getReturnSuccess());
+        result.setError(errorResponse);
+        return result;
+    }
+
+    @Override
+    public Response getFailResult(ErrorType errorType) {
+        Response result = new Response();
+        result.setResponse(false);
+        result.setSuccess(ReturnResponse.FAIL.getReturnSuccess());
+        result.setError(new ErrorResponse(errorType));
+        return result;
+    }
+
+    @Override
+    public Response getFailResultByMessage(String message) {
+        Response result = new Response();
+        result.setResponse(false);
+        result.setSuccess(ReturnResponse.FAIL.getReturnSuccess());
+        result.setError(message);
+        return result;
+    }
+
+    @Override
+    public Response getInvalidResult() {
+        Response result = new Response();
+        result.setResponse(false);
+        result.setSuccess(ReturnResponse.SUCCESS.getReturnSuccess());
         return result;
     }
 }

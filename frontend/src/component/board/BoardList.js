@@ -5,6 +5,7 @@ import style from '../../css/board/board_list.module.css';
 import BoardTitle from './BoardTitle';
 import MatchingList from './MatchingList';
 import axios from 'axios';
+import instance from '../security/Interceptor';
 
 const BoardList = (props) => {
     const { category } = props;
@@ -16,7 +17,7 @@ const BoardList = (props) => {
         const fetchBoard = async () => {
             setLoading(true);
             try {
-                await axios.get('/api/board/' + category).then(response => {
+                await instance.get('/api/board/' + category).then(response => {
                     setBoard(response.data.data.board);
                 })
             } catch (e) {
@@ -38,7 +39,7 @@ const BoardList = (props) => {
     return (
         <section className={style.main}>
             <div className="wrap">
-                <BoardTitle />
+                <BoardTitle category={category}/>
                 <div className={style.board_container}>
                     <table className={style.board}>
                         <colgroup>
@@ -72,7 +73,7 @@ const BoardList = (props) => {
                     {category === "recruit" ? <MatchingList /> : null}
                 </div>
                 <div className={style.access_container}>
-                    <button className={style.post_btn} type="button" title="글쓰기" onClick={() => navigate('/board/create')}>
+                    <button className={style.post_btn} type="button" title="글쓰기" onClick={() => navigate('/board/create', { state: { category: category } })}>
                         <i className="far fa-edit"></i>
                         <span>글쓰기</span>
                     </button>

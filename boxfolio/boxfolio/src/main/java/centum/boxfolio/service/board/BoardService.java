@@ -6,6 +6,7 @@ import centum.boxfolio.controller.board.RecruitBoardSaveForm;
 import centum.boxfolio.controller.member.ProgressProjectSaveForm;
 import centum.boxfolio.controller.member.ProjectPlanSaveForm;
 import centum.boxfolio.controller.member.ProjectRuleSaveForm;
+import centum.boxfolio.dto.board.FreeDto;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.member.Member;
 
@@ -16,15 +17,13 @@ public interface BoardService {
     BoardStar countStar(Long boardId, Long memberId);
     BoardScrap countScrap(Long boardId, Long memberId);
 
-    Board readGeneralPost(Long id);
-    List<Board> readGeneralBoard();
-    void deleteGeneralBoard(Long id);
-
     Free createFreePost(FreeBoardSaveForm freeBoardSaveForm, Long memberId);
     Free updateFreePost(FreeBoardSaveForm freeBoardSaveForm, Long boardId);
     Free readFreePost(Long id);
     List<Free> readFreeBoard();
     void deleteFreeBoard(Long id);
+
+    Board createBoard(Board board);
 
     Information createInfoPost(InfoBoardSaveForm infoBoardSaveForm, Long memberId);
     Information updateInfoPost(InfoBoardSaveForm infoBoardSaveForm, Long boardId);
@@ -41,7 +40,8 @@ public interface BoardService {
     List<Recruitment> readProgressProjectByPage(Integer page, Long memberId);
     Integer findLastProgressProjectPage(Long memberId);
 
-    List<Member> findMembersByBoardId(Long boardId);
+    List<Member> findProjectMembersByBoardId(Long boardId);
+    Boolean checkProjectMemberByBoardIdAndMemberLoginId(Long boardId, String loginId);
 
     Recruitment endRecruit(Long boardId);
     Recruitment restartRecruit(Long boardId);

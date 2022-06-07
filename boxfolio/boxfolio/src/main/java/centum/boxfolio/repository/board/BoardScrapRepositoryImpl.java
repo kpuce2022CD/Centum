@@ -34,26 +34,26 @@ public class BoardScrapRepositoryImpl implements BoardScrapRepository {
         if (board.getScrapTally() > 0) {
             board.setScrapTally(board.getScrapTally() - 1);
         }
-        Optional<BoardScrap> boardScrap = findScrapByBoardIdAndMemberId(board.getId(), member.getId());
+        Optional<BoardScrap> boardScrap = findByBoardIdAndMemberId(board.getId(), member.getId());
         em.remove(boardScrap.get());
     }
 
     @Override
-    public List<BoardScrap> findScrapAll() {
+    public List<BoardScrap> findAll() {
         return em.createQuery("select b from BoardScrap b", BoardScrap.class).getResultList();
     }
 
     @Override
-    public Optional<BoardScrap> findScrapByBoardIdAndMemberId(Long boardId, Long memberId) {
-        return findScrapAll().stream()
+    public Optional<BoardScrap> findByBoardIdAndMemberId(Long boardId, Long memberId) {
+        return findAll().stream()
                 .filter(b -> b.getBoard().getId() == boardId)
                 .filter(b -> b.getMember().getId() == memberId)
                 .findAny();
     }
 
     @Override
-    public List<BoardScrap> findScrapByMemberId(Long memberId) {
-        return findScrapAll().stream()
+    public List<BoardScrap> findByMemberId(Long memberId) {
+        return findAll().stream()
                 .filter(b -> b.getMember().getId() == memberId)
                 .collect(Collectors.toList());
     }

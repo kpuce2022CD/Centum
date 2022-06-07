@@ -3,16 +3,17 @@ import PortfolioAccess from './PortfolioAccess';
 import PortfolioListItem from './PortfolioListItem';
 import style from '../../css/portfolio/portfolio_list.module.css';
 import axios from 'axios';
+import instance from '../security/Interceptor';
 
 const PortfolioList = () => {
     const [portfolioList, setPortfolioList] = useState([]);
     const [bestPortfolioList, setBestPortfolioList] = useState([]);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
-        const fetchPortfolioList = async () => {
+        const fetchPortfolioList = () => {
             setLoading(true);
             try {
-                await axios.get('/api/portfolios').then(response => {
+                instance.get('/api/portfolios').then(response => {
                     setPortfolioList(portfolioList.concat(response.data.data.portfolios));
                 });
             } catch (e) {
@@ -20,10 +21,10 @@ const PortfolioList = () => {
             }
             setLoading(false);
         }
-        const fetchBestPortfolioList = async () => {
+        const fetchBestPortfolioList = () => {
             setLoading(true);
             try {
-                await axios.get('/api/portfolios/best').then(response => {
+                instance.get('/api/portfolios/best').then(response => {
                     setBestPortfolioList(bestPortfolioList.concat(response.data.data.bestPortfolios))
                 });
             } catch (e) {
@@ -34,10 +35,6 @@ const PortfolioList = () => {
         fetchPortfolioList();
         fetchBestPortfolioList();
     }, [])
-
-    useEffect(() => {
-        console.log(portfolioList);
-    }, [portfolioList])
 
     if (loading) {
         return null;

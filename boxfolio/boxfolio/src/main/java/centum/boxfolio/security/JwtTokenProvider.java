@@ -20,17 +20,16 @@ public class JwtTokenProvider {
                 .setSubject((String) authentication.getPrincipal()) // 사용자
                 .setIssuedAt(new Date()) // 현재 시간 기반으로 생성
                 .setExpiration(expiryDate) // 만료시간
-                .signWith(SignatureAlgorithm.HS512, JWT_SECRET) // 암호화 알고리즘, signature 에 들어갈 secret 값
+                .signWith(SignatureAlgorithm.HS256, JWT_SECRET) // 암호화 알고리즘, signature 에 들어갈 secret 값
                 .compact();
     }
 
     public static String getUserIdFromJWT(String token) {
-        Claims claims = Jwts.parser()
+        return Jwts.parser()
                 .setSigningKey(JWT_SECRET)
                 .parseClaimsJws(token)
-                .getBody();
-
-        return claims.getSubject();
+                .getBody()
+                .getSubject();
     }
 
     public static boolean validateToken(String token) {

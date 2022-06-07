@@ -1,14 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
 import style from '../../css/member/profile_ability.module.css';
 import Chart from 'chart.js/auto';
+import instance from '../security/Interceptor';
+import AuthenticationService from '../security/AuthenticationService';
 
 const ProfileAbility = () => {
     const chartRef = useRef();
-    const [cohesion, setCohesion] = useState(93);
-    const [coupling, setCoupling] = useState(71);
-    const [complexity, setComplexity] = useState(51)
-    const [redundancy, setRedundancy] = useState(37);
-    const [standard, setStandart] = useState(13);
+    const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
+    const [loading, setLoading] = useState(false);
+    const [memberAbility, setMemberAbility] = useState({});
+
+    useEffect(() => {
+        const fetchMemberData = () => {
+            setLoading(true);
+            instance.get('/api/member/ability').then(response => {
+                setMemberAbility(response.data.data.memberAbility);
+            });
+            setLoading(false);
+        };
+
+        if (isUserLoggedIn) {
+            fetchMemberData();
+        }
+
+    }, []);
 
     useEffect(() => {
         let prevChart = Chart.getChart(chartRef.current);
@@ -27,7 +42,7 @@ const ProfileAbility = () => {
                         borderColor: "rgba(200,222,255,1)",
                         pointBorderColor: "#fff",
                         pointBackgroundColor: "rgba(179,181,198,1)",
-                        data: [cohesion, coupling, complexity, redundancy, standard],
+                        data: [memberAbility.cohesion, memberAbility.coupling, memberAbility.complexity, memberAbility.redundancy, memberAbility.standard],
                     },
                     {
                         label: "",
@@ -41,7 +56,15 @@ const ProfileAbility = () => {
                 ]
             }
         });
-    }, []);
+    }, [memberAbility])
+
+    if (loading) {
+        return null;
+    }
+    
+    if (!memberAbility) {
+        return null;
+    }
     
     return (
         <section className={style.main}>

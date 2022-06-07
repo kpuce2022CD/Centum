@@ -14,7 +14,7 @@
 }
 
 .nav a:hover {
-    color: #FC3526;
+    color: #f32;
 }
 
 .depth {
@@ -42,8 +42,5 @@
 .openmenu .depth {
     max-height: 999px;
     height: auto;
-}
-
-.openmenu > li > a {
-    color: #000;
+    color: #fff;
 }

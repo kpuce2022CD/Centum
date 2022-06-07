@@ -93,13 +93,13 @@ public class PortfolioServiceImpl implements PortfolioService{
 
     @Override
     public List<Portfolio> searchHighestStarInPublic(int count) {
-        return portfolioRepository.findHighestInPublic();
+        return portfolioRepository.findInPublicByViewDesc();
     }
 
 
     @Override
     public List<Portfolio> searchLatestInPublic() {
-        return portfolioRepository.findLatestInPublic();
+        return portfolioRepository.findInPublicByViewAsc();
     }
 
 

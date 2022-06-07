@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import CheckImage from '../../image/check.png';
 import style from '../../css/member/signup_result.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import qs from 'qs';
 import axios from 'axios';
 
 const SignUpResult = (props) => {
@@ -16,7 +15,7 @@ const SignUpResult = (props) => {
             setLoading(true);
             try {
                 await axios.get('/api/token' + location.search).then(response => {
-                    if (response.data.resultCode === 0) {
+                    if (response.data.success === 0) {
                         setMember(response.data.data.member);
                     } else {
                         navigate('/expire');

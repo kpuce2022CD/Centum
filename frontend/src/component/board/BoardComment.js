@@ -1,13 +1,14 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import style from '../../css/board/board_comment.module.css';
 import MemberDefaultImage from '../../image/member.png';
+import AuthenticationService from '../security/AuthenticationService';
 import BoardReplyEdit from './BoardReplyEdit';
 
 const BoardComment = (props) => {
     const { comment } = props;
     const [openReply, setOpenReply] = useState(false);
+    const loginId = AuthenticationService.getLoggedInLoginId();
 
     return (
         <li className={comment.id !== comment.groupNum ? [style.comment_area, style.replied].join(' ') : style.comment_area} >
@@ -17,7 +18,7 @@ const BoardComment = (props) => {
                         <img src={MemberDefaultImage} alt="member-img"/>
                     </Link>
                     <div className={style.comment_info}>
-                        <Link to="" className={style.commenter_nickname}>{comment.member.nickname}</Link>
+                        <Link to="" className={style.commenter_nickname}>{comment.memberNickname}</Link>
                         <p className={style.mention_member}></p>
                         <p className={style.comment}>{comment.contents}</p>
                         <div className={style.reply_access}>
@@ -27,12 +28,12 @@ const BoardComment = (props) => {
                     </div>
                 </div>
                 <div className={style.comment_access}>
-                    <Link className={style.modify_comment} to="">
+                    { loginId === comment.memberLoginId && <Link className={style.modify_comment} to="">
                         <span>수정</span>
-                    </Link>
-                    <Link className={style.delete_comment} to="">
+                    </Link>}
+                    { loginId === comment.memberLoginId && <Link className={style.delete_comment} to="">
                         <span>삭제</span>
-                    </Link>
+                    </Link>}
                 </div>
             </div>
             {openReply ? <BoardReplyEdit /> : null}

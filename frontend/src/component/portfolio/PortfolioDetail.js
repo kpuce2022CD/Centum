@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import PortfolioDetailAccess from './PortfolioDetailAccess';
 import style from '../../css/portfolio/portfolio_detail.module.css';
 import axios from 'axios';
+import instance from '../security/Interceptor';
 import { useParams } from 'react-router-dom';
 
-const PortfolioDetail = () => {
-    const { id } = useParams();
+const PortfolioDetail = (props) => {
+    const { id } = props;
     const [portfolio, setPortfolio] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -13,7 +14,7 @@ const PortfolioDetail = () => {
         const fetchPortfolio = async () => {
             setLoading(true);
             try {
-                await axios.get('/api/portfolio/' + id).then(response => {
+                await instance.get('/api/portfolio/' + id).then(response => {
                     setPortfolio(response.data.data.portfolio);
                 })
             } catch (e) {
@@ -23,10 +24,6 @@ const PortfolioDetail = () => {
         }
         fetchPortfolio();
     }, []);
-
-    useEffect(() => {
-        console.log(portfolio);
-    }, [portfolio]);
 
     if (loading) {
         return null;

@@ -17,10 +17,4 @@ public interface MemberRepository {
     void verifyEmail(Member member);
 
     List<Member> findByNickname(String nickname);
-
-    List<MemberSkill> findMemberSkillsByMemberId(Long memberId);
-    List<MemberSkill> findAllMemberSkill();
-
-    List<MemberTitle> findMemberTitlesByMemberId(Long memberId);
-    List<MemberTitle> findAllMemberTitle();
 }

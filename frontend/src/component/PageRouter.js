@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import React from 'react';
 import HomePage from '../route/HomePage';
 import PortfolioListPage from '../route/PortfolioListPage';
@@ -12,6 +12,7 @@ import SignUpPage from '../route/SignUpPage';
 import ProfilePage from '../route/ProfilePage';
 
 const PageRouter = () => {
+
     return (
         <Router>
             <Routes>

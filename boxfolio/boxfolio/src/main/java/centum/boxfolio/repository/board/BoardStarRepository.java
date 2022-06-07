@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface BoardStarRepository {
     BoardStar upStar(Board board, Member member);
     void downStar(Board board, Member member);
-    List<BoardStar> findStarAll();
-    Optional<BoardStar> findStarByBoardIdAndMemberId(Long boardId, Long memberId);
+    List<BoardStar> findAll();
+    Optional<BoardStar> findByBoardIdAndMemberId(Long boardId, Long memberId);
 }
