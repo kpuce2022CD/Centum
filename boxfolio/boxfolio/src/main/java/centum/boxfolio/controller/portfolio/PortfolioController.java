@@ -9,6 +9,7 @@ import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.entity.portfolio.PortfolioRow;
 import centum.boxfolio.entity.portfolio.PortfolioScrap;
 import centum.boxfolio.entity.portfolio.PortfolioStar;
+import centum.boxfolio.exception.ErrorType;
 import centum.boxfolio.response.Response;
 import centum.boxfolio.service.member.MemberService;
 import centum.boxfolio.service.portfolio.PortfolioService;
@@ -66,6 +67,10 @@ public class PortfolioController {
     @PostMapping
     public Response<PortfolioDto> savePortfolio(@RequestBody @Validated PortfolioDto portfolioDto, Principal principal) {
         Member member = memberService.findByLoginId(principal.getName());
+
+        if (portfolioService.findByMemberId(member.getId()) != null) {
+            return responseService.getFailResult(ErrorType.PORTFOLIO_EXISTS);
+        }
 
         Portfolio portfolio = Portfolio.builder()
                 .title(portfolioDto.getTitle())

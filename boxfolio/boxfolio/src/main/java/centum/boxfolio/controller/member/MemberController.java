@@ -5,12 +5,15 @@ import centum.boxfolio.dto.board.PostCommentDto;
 import centum.boxfolio.dto.board.PostScrapDto;
 import centum.boxfolio.dto.board.SimplePostDto;
 import centum.boxfolio.dto.member.*;
+import centum.boxfolio.dto.portfolio.PortfolioDto;
+import centum.boxfolio.dto.portfolio.PortfolioRowDto;
 import centum.boxfolio.dto.portfolio.PortfolioScrapDto;
 import centum.boxfolio.dto.project.ProjectDto;
 import centum.boxfolio.entity.board.Post;
 import centum.boxfolio.entity.board.PostComment;
 import centum.boxfolio.entity.board.PostStar;
 import centum.boxfolio.entity.member.*;
+import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.exception.AccountException;
 import centum.boxfolio.exception.ErrorType;
 import centum.boxfolio.response.Response;
@@ -184,6 +187,13 @@ public class MemberController {
         return responseService.getResult("portfolioScraps", portfolioScrapDtos);
     }
 
+    @GetMapping("/my/portfolio")
+    public Response<PortfolioDto> getPortfolio(Principal principal) {
+        Member member = memberService.findByLoginId(principal.getName());
+
+        return responseService.getResult("portfolio", convertPortfolioToPortfolioDto(portfolioService.findByMemberId(member.getId())));
+    }
+
     @GetMapping("/my/posts")
     public Response<List<Post>> getPosts(Principal principal) {
         Member member = memberService.findByLoginId(principal.getName());
@@ -316,6 +326,29 @@ public class MemberController {
                 .progressField(member.getProgressField())
                 .personalToken(member.getPersonalToken())
                 .build();
+    }
+
+    private PortfolioDto convertPortfolioToPortfolioDto(Portfolio portfolio) {
+        List<PortfolioRowDto> portfolioRowDtos = portfolioService.findPortfolioRowsByPortfolioId(portfolio.getId()).stream()
+                .map(portfolioRow -> PortfolioRowDto.builder()
+                        .id(portfolioRow.getId())
+                        .rowType(portfolioRow.getRowType())
+                        .saveType(portfolioRow.getSaveType())
+                        .contents(portfolioRow.getContents())
+                        .rowOrder(portfolioRow.getRowOrder())
+                        .build())
+                .collect(Collectors.toList());
+        PortfolioDto portfolioDto = PortfolioDto.builder()
+                .id(portfolio.getId())
+                .title(portfolio.getTitle())
+                .updatedDate(portfolio.getUpdatedDate())
+                .visibility(portfolio.getVisibility())
+                .starTally(portfolio.getStarTally())
+                .scrapTally(portfolio.getScrapTally())
+                .member(portfolio.getMember())
+                .portfolioRows(portfolioRowDtos)
+                .build();
+        return portfolioDto;
     }
 
 }

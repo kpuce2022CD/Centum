@@ -1,8 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import style from '../../css/portfolio/portfolio_access.module.css';
+import instance from '../security/Interceptor';
 
 const PortfolioAccess = (props) => {
     const { searchParam, setSearchParam } = props;
+    const [myPortfolio, setMyPortfolio] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    const fetchPortfolioData = () => {
+        setLoading(true);
+        try {
+            instance.get("/api/members/my/portfolio").then(response => {
+                setMyPortfolio(response.data.data.portfolio);
+            })
+        } catch (e) {
+            console.log(e);
+        }
+        setLoading(false);
+    }
+
+    useEffect(() => {
+        fetchPortfolioData();
+    }, []);
+
+    if (loading) {
+        return null;
+    }
+
     return (
         <div className={style.access_container}>
             <div className={style.portfolio_search}>
@@ -21,12 +46,10 @@ const PortfolioAccess = (props) => {
             </div>
             <div className={style.portfolio_access}>
                 <div className={style.portfolio_create_button}>
-                    <a href="/portfolios/create">포트폴리오 제작 </a>
-                    <i className="fas fa-arrow-right"></i>
+                    { !myPortfolio && <Link to="/portfolios/create">포트폴리오 제작 <i className="fas fa-arrow-right"></i></Link>}
                 </div>
                 <div className={style.my_portfolio_button}>
-                    <a href="/portfolios/search/mine">내 포트폴리오 </a>
-                    <i className="fas fa-arrow-right"></i>
+                    {myPortfolio && <Link to={"/portfolios/" + myPortfolio.id}>내 포트폴리오 <i className="fas fa-arrow-right"></i></Link>}
                 </div>
             </div>
         </div>

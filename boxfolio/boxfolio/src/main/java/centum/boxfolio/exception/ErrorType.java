@@ -27,6 +27,7 @@ public enum ErrorType {
     POST_FAILED("BOARD002", "게시글 저장에 실패했습니다.", HttpStatus.BAD_REQUEST),
 
     PORTFOLIO_NOT_EXISTS("PORTFOLIO001", "포트폴리오가 존재하지 않습니다.", HttpStatus.BAD_REQUEST),
+    PORTFOLIO_EXISTS("PORTFOLIO002", "포트폴리오가 이미 존재합니다.", HttpStatus.BAD_REQUEST),
 
     PROJECT_NOT_EXISTS("PROJECT001", "프로젝트가 존재하지 않습니다.", HttpStatus.BAD_REQUEST),
     PROJECT_PLAN_NOT_EXISTS("PROJECT002", "프로젝트 계획이 존재하지 않습니다.", HttpStatus.BAD_REQUEST),
