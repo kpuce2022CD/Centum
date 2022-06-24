@@ -11,10 +11,12 @@ import java.util.Optional;
 
 public interface MemberRepository {
     Member save(Member member);
+    List<Member> findAll();
     Optional<Member> findById(Long id);
     Optional<Member> findByLoginId(String loginId);
-    List<Member> findAll();
-    void verifyEmail(Member member);
-
     List<Member> findByNickname(String nickname);
+    Member update(Member member, Member changedMember);
+    void delete(Member member);
+    void verifyEmail(Member member);
+    Member updatePersonalToken(Member member, String personalToken);
 }

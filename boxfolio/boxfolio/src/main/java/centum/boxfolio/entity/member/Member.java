@@ -1,21 +1,20 @@
 package centum.boxfolio.entity.member;
 
-import centum.boxfolio.controller.member.MemberSaveForm;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.entity.portfolio.PortfolioScrap;
 import centum.boxfolio.entity.portfolio.PortfolioStar;
-import centum.boxfolio.entity.portfolio.Project;
+import centum.boxfolio.entity.project.Project;
+import centum.boxfolio.entity.project.ProjectMember;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.tomcat.jni.Local;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +36,8 @@ public class Member {
     private String githubId;
     private String interestField;
     private String progressField;
-    private Integer emailVerified;
+    private Boolean emailVerified;
+    private String personalToken;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -65,23 +65,23 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Board> boards = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<BoardStar> boardStars = new ArrayList<>();
+    private List<PostStar> postStars = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<BoardScrap> boardScraps = new ArrayList<>();
+    private List<PostScrap> postScraps = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<BoardComment> boardComments = new ArrayList<>();
+    private List<PostComment> postComments = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<ProjectMember> projectMembers = new ArrayList<>();
+    private List<RecruitMember> recruitMembers = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -91,9 +91,14 @@ public class Member {
     @JsonIgnore
     private List<MemberTitle> memberTitles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<ProjectMember> projectMembers = new ArrayList<>();
+
+    @Builder
     public Member(String loginId, String passwd, String realName, String nickname, String phone,
                   String email, LocalDate birth, int sex, String githubId,
-                  String interestField, Role role, MemberAbility memberAbility) {
+                  String interestField, String progressField, Role role, MemberAbility memberAbility, boolean emailVerified, String personalToken) {
         this.loginId = loginId;
         this.passwd = passwd;
         this.realName = realName;
@@ -104,11 +109,25 @@ public class Member {
         this.sex = sex;
         this.githubId = githubId;
         this.interestField = interestField;
-        this.progressField = "";
-        this.emailVerified = 0;
+        this.progressField = progressField;
+        this.emailVerified = emailVerified;
         this.role = role;
         memberAbility.setMember(this);
         this.memberAbility = memberAbility;
+        this.personalToken = personalToken;
+    }
+
+    public void setModifiableMember(String passwd, String realName, String nickname, String phone, LocalDate birth,
+                                      Integer sex, String githubId, String interestField, String personalToken) {
+        this.passwd = passwd;
+        this.realName = realName;
+        this.nickname = nickname;
+        this.phone = phone;
+        this.birth = birth;
+        this.sex = sex;
+        this.githubId = githubId;
+        this.interestField = interestField;
+        this.personalToken = personalToken;
     }
 
 //    public void encryptPassword(PasswordEncoder passwordEncoder) {

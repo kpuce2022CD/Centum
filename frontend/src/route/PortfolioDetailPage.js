@@ -10,7 +10,7 @@ const PortfolioDetailPage = () => {
     
     useEffect(() => {
         if (!AuthenticationService.isUserLoggedIn()) {
-            navigate('/login?redirect=/portfolio/' + id);
+            navigate('/login?redirect=/portfolios/' + id);
         }
     }, []);
     

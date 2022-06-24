@@ -1,10 +1,7 @@
 package centum.boxfolio.repository.board;
 
-import centum.boxfolio.entity.board.Board;
-import centum.boxfolio.entity.board.BoardComment;
-import centum.boxfolio.entity.board.BoardScrap;
-import centum.boxfolio.entity.board.Free;
-import centum.boxfolio.entity.member.Member;
+import centum.boxfolio.entity.board.Post;
+import centum.boxfolio.entity.board.PostComment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -25,9 +22,9 @@ public class CommentRepositoryImpl implements CommentRepository {
     private final EntityManager em;
 
     @Override
-    public BoardComment save(BoardComment comment) {
-        Board board = comment.getBoard();
-        board.setCommentTally(board.getCommentTally() + 1);
+    public PostComment save(PostComment comment) {
+        Post post = comment.getPost();
+        post.setCommentTally(post.getCommentTally() + 1);
         em.persist(comment);
         if (comment.getGroupNum() == null) {
             comment.setGroupNum(comment.getId());
@@ -36,48 +33,55 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public Optional<BoardComment> findById(Long id) {
+    public Optional<PostComment> findById(Long id) {
         return findAll().stream()
                 .filter(c -> c.getId() == id)
                 .findAny();
     }
 
     @Override
-    public List<BoardComment> findCommentsByMemberId(Long memberId) {
+    public List<PostComment> findCommentsByMemberId(Long memberId) {
         return findAll().stream()
                 .filter(c -> c.getMember().getId() == memberId)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<BoardComment> findCommentsByBoardId(Long boardId) {
+    public List<PostComment> findCommentsByPostId(Long PostId) {
         return findAllOrdered().stream()
-                .filter(c -> c.getBoard().getId() == boardId)
+                .filter(c -> c.getPost().getId() == PostId)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<BoardComment> findAll() {
-        return em.createQuery("SELECT c FROM BoardComment c", BoardComment.class).getResultList();
+    public List<PostComment> findAll() {
+        return em.createQuery("SELECT c FROM PostComment c", PostComment.class).getResultList();
     }
 
     @Override
-    public List<BoardComment> findAllOrdered() {
-        return em.createQuery("SELECT c FROM BoardComment c ORDER BY c.groupNum, c.commentClass, c.commentOrder, c.createdDate", BoardComment.class).getResultList();
+    public List<PostComment> findAllOrdered() {
+        return em.createQuery("SELECT c FROM PostComment c ORDER BY c.groupNum, c.commentClass, c.commentOrder, c.createdDate", PostComment.class).getResultList();
+    }
+
+    @Override
+    public Long countCommentsByPostId(Long postId) {
+        return em.createQuery("SELECT COUNT(c) FROM PostComment c WHERE c.post.id = :postId", Long.class)
+                .setParameter("postId", postId)
+                .getSingleResult();
+    }
+
+    @Override
+    public void delete(PostComment comment) {
+        Post post = comment.getPost();
+        em.remove(comment);
+        post.setCommentTally(countCommentsByPostId(post.getId()));
     }
 
     @Override
     public Long findMaxOrderInGroupNum(Long groupNum) {
         return findAll().stream()
                 .filter(c -> c.getGroupNum() == groupNum)
-                .max(Comparator.comparing(c -> c.getGroupNum()))
-                .get().getGroupNum();
-    }
-
-    @Override
-    public void remove(BoardComment comment) {
-        Board board = comment.getBoard();
-        board.setCommentTally(board.getCommentTally() - 1);
-        em.remove(comment);
+                .max(Comparator.comparing(c -> c.getCommentOrder()))
+                .get().getCommentOrder();
     }
 }

@@ -3,25 +3,26 @@ import { Link } from 'react-router-dom';
 import MemberDefaultImage from '../../image/member.png';
 import style from '../../css/member/profile.module.css';
 import instance from '../security/Interceptor';
-import AuthenticationService from '../security/AuthenticationService';
 
-const Profile = () => {
+const Profile = (props) => {
+    const { setEditStatus } = props;
     const [member, setMember] = useState({});
+    const [memberAbility, setMemberAbility] = useState({});
     const [loading, setLoading] = useState(false);
-    const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
 
     
     useEffect(() => {
         const fetchMemberData = () => {
             setLoading(true);
-            instance.get('/api/member').then(response => {
+            instance.get('/api/members/my').then(response => {
                 setMember(response.data.data.member);
+            });
+            instance.get('/api/members/my/ability').then(response => {
+                setMemberAbility(response.data.data.memberAbility);
             });
             setLoading(false);
         };
-        if (isUserLoggedIn) {
-            fetchMemberData();
-        }
+        fetchMemberData();
     }, []);
 
     if (loading) {
@@ -50,12 +51,12 @@ const Profile = () => {
                                 <p className={style.member_nickname}>{member.nickname}</p>
                                 {
                                     {
-                                        "": <p className={style.member_level}>입문개발자</p>,
-                                        "": <p className={style.member_level}>초급개발자</p>,
-                                        "": <p className={style.member_level}>중급개발자</p>,
-                                        "": <p className={style.member_level}>고급개발자</p>,
-                                        "": <p className={style.member_level}>관리자</p>
-                                    }[member]
+                                        0: <p className={style.member_level}>입문개발자</p>,
+                                        1: <p className={style.member_level}>초급개발자</p>,
+                                        2: <p className={style.member_level}>중급개발자</p>,
+                                        3: <p className={style.member_level}>고급개발자</p>,
+                                        4: <p className={style.member_level}>관리자</p>
+                                    }[memberAbility.memberLevel]
                                 }
                             </li>
                             <li className={style.member_name}>{member.realName}</li>
@@ -73,9 +74,10 @@ const Profile = () => {
                             </li>
                         </ul>
                         <div className={style.profile_access_area}>
-                            <Link to="#" className={style.modify_profile_btn}>
+                            <button to="#" className={style.modify_profile_btn} onClick={() => setEditStatus(true)}>
                                 <i className="fa-solid fa-pen"></i>
-                            </Link>
+                            </button>
+                            <div className={member.personalToken === "" ? [style.has_token, style.not].join(' ') : style.has_token}>{member.personalToken === "" ? "토큰 미입력" : "토큰 입력됨"}</div>
                             <a href={"https://www.github.com/" + member.githubId} className={style.github_link_btn}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" className={style.github_icon}>
                                     <path

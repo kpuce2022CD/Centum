@@ -1,9 +1,5 @@
 package centum.boxfolio.repository.board;
 
-import centum.boxfolio.controller.board.FreeBoardSaveForm;
-import centum.boxfolio.controller.board.InfoBoardSaveForm;
-import centum.boxfolio.controller.board.RecruitBoardSaveForm;
-import centum.boxfolio.controller.member.ProgressProjectSaveForm;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.member.Member;
 
@@ -11,48 +7,34 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BoardRepository {
-    Board saveBoard(Board board);
-    Optional<Board> findGeneralPostById(Long id);
-    List<Board> findGeneralBoard();
-    List<Board> findBoardByMemberId(Long memberId);
-    void removeGeneralBoard(Long id);
+    Post savePost(Post post);
+    List<Post> findAllPost();
+    List<Post> findPostsByMemberId(Long memberId);
+    Optional<Post> findPostById(Long id);
+    void deletePost(Post post);
 
-    Free saveFreePost(Free free);
+    List<Free> findAllFreePost();
     Optional<Free> findFreePostById(Long id);
-    List<Free> findFreeBoard();
-    Optional<Free> modifyFreePost(Free free, FreeBoardSaveForm freeBoardSaveForm);
-    void removeFreeBoard(Long id);
+    Free updateFreePost(Free free, Free changedFree);
 
-    Information saveInfoPost(Information information);
+    List<Information> findAllInfoPost();
     Optional<Information> findInfoPostById(Long id);
-    List<Information> findInfoBoard();
-    Optional<Information> modifyInfoPost(Information information, InfoBoardSaveForm infoBoardSaveForm);
-    void removeInfoBoard(Long id);
+    Information updateInfoPost(Information information, Information changedInfo);
 
-    Recruitment saveRecruitPost(Recruitment recruitment);
+    List<Recruitment> findAllRecruitPost();
     Optional<Recruitment> findRecruitPostById(Long id);
-    List<Recruitment> findRecruitBoard();
-    Optional<Recruitment> modifyRecruitPost(Recruitment recruitment, RecruitBoardSaveForm recruitBoardSaveForm);
-    void removeRecruitBoard(Long id);
+    Recruitment updateRecruitPost(Recruitment recruitment, Recruitment changedRecruit);
 
-    ProjectMember saveProjectMember(Recruitment recruitment, Member member);
-    List<ProjectMember> findAllProjectMember();
-    List<ProjectMember> findProjectMemberByMemberId(Long memberId);
-    List<ProjectMember> findProjectMemberByBoardId(Long boardId);
-    Optional<ProjectMember> findProjectMemberByBoardIdAndMemberId(Long boardId, Long memberId);
-    Optional<ProjectMember> findProjectMemberByBoardIdAndMemberLoginId(Long boardId, String loginId);
+    RecruitMember saveRecruitMember(Recruitment recruitment, Member member);
+    List<RecruitMember> findAllRecruitMember();
+    List<RecruitMember> findRecruitMembersByMemberId(Long memberId);
+    List<RecruitMember> findRecruitMembersByPostId(Long PostId);
+    Optional<RecruitMember> findRecruitMemberByPostIdAndMemberId(Long PostId, Long memberId);
+    Optional<RecruitMember> findRecruitMemberByPostIdAndMemberLoginId(Long PostId, String loginId);
+    void deleteRecruitMember(RecruitMember recruitMember);
 
     Recruitment setDeadlineStatusToTrue(Recruitment recruitment);
     Recruitment setDeadlineStatusToFalse(Recruitment recruitment);
 
-    List<ProjectRule> findAllProjectRule();
-    List<ProjectRule> findProjectRulesByBoardId(Long boardId);
-    List<ProjectPlan> findAllProjectPlan();
-    List<ProjectPlan> findProjectPlansByBoardId(Long boardId);
-
-    Recruitment modifySubjectAndPreview(Recruitment recruitment, ProgressProjectSaveForm progressProjectSaveForm);
-    ProjectPlan saveProjectPlan(ProjectPlan projectPlan);
-    ProjectRule saveProjectRule(ProjectRule projectRule);
-
-    Board upView(Board board);
+    Post upView(Post post);
 }

@@ -23,15 +23,18 @@
     padding: 5px 10px;
 }
 
-.portfolio_item_head {
+.portfolio_title_area {
     border-bottom: 1px solid #ccc;
     padding: 5px 0;
 }
 
-.portfolio_title_area {
+.portfolio_nickname_area {
     color: #555;
     border-bottom: 1px solid #ccc;
     padding: 5px 0;
+}
+
+.member_nickname {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -62,4 +65,8 @@
 .star_count,
 .scrap_count {
     margin: 0 0 0 5px;
+}
+
+.search_query {
+    background-color: #ff5;
 }

@@ -1,6 +1,5 @@
 package centum.boxfolio.entity.board;
 
-import centum.boxfolio.controller.board.InfoBoardSaveForm;
 import centum.boxfolio.entity.member.Member;
 import lombok.*;
 
@@ -13,16 +12,16 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @DiscriminatorValue("information")
-@PrimaryKeyJoinColumn(name = "board_id")
-public class Information extends Board{
+@PrimaryKeyJoinColumn(name = "post_id")
+public class Information extends Post {
 
     @Builder
     public Information(String title, String contents, LocalDateTime createdDate,
-                       Boolean commentAllow, Boolean scrapAllow, String visibility, Member member) {
+                       Boolean commentAllow, Boolean scrapAllow, Boolean visibility, Member member) {
         super(title, contents, createdDate, commentAllow, scrapAllow, visibility, member);
     }
 
-    public void setModifiableInfo(String title, String contents, Boolean commentAllow, Boolean scrapAllow, String visibility) {
+    public void setModifiableInfo(String title, String contents, Boolean commentAllow, Boolean scrapAllow, Boolean visibility) {
         setModifiableBoard(title, contents, commentAllow, scrapAllow, visibility);
     }
 }

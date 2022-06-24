@@ -1,7 +1,7 @@
 package centum.boxfolio.entity.member;
 
-import centum.boxfolio.entity.portfolio.Project;
 import centum.boxfolio.entity.skill.Skill;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +25,7 @@ public class MemberSkill {
     @JoinColumn(name = "skill_id")
     private Skill skill;
 
+    @Builder
     public MemberSkill(Long quantity, Member member, Skill skill) {
         this.quantity = quantity;
         setMember(member);

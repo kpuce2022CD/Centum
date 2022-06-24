@@ -1,28 +1,36 @@
 package centum.boxfolio.service.portfolio;
 
 
-import centum.boxfolio.controller.portfolio.PortfolioSaveForm;
+import centum.boxfolio.entity.board.Post;
+import centum.boxfolio.entity.board.PostScrap;
+import centum.boxfolio.entity.board.PostStar;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
-import org.json.simple.parser.ParseException;
+import centum.boxfolio.entity.portfolio.PortfolioRow;
+import centum.boxfolio.entity.portfolio.PortfolioScrap;
+import centum.boxfolio.entity.portfolio.PortfolioStar;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 public interface PortfolioService {
-    Portfolio upload(PortfolioSaveForm form, Long memberId) throws IOException, ParseException;
+    Portfolio save(Portfolio portfolio);
+    List<PortfolioRow> savePortfolioRows(Portfolio portfolio, List<PortfolioRow> portfolioRows);
+
     void delete(Portfolio portfolio);
-    void change(Portfolio portfolio, String title, String context, boolean visibility) throws IOException;
-    void starChange(Portfolio portfolio, Member member);
-    List<Portfolio> searchWithTitle (String title);
-    Portfolio searchWithMember (Member member);
-    Optional<Portfolio> findByMemberId(Long memberId);
-    Optional<Portfolio> findById(Long id);
+
+    Portfolio findByMemberId(Long memberId);
+    Portfolio findById(Long id);
     List<Portfolio> findByNickname(String nickname);
-    void scrapPortfolio (Portfolio portfolio, Member member);
-    List<Portfolio> searchHighestStarInPublic(int count);
 
-    List<Portfolio> searchLatestInPublic();
+    List<PortfolioRow> findPortfolioRowsByPortfolioId(Long portfolioId);
 
+    List<Portfolio> findPortfoliosOrderByStarDesc(int count);
+    List<Portfolio> findPortfoliosOrderByUpdatedDateAsc();
+    List<Portfolio> findPortfoliosByNickname(String nickname);
+    List<Portfolio> findPortfoliosByTitle(String title);
+
+    PortfolioStar countStar(Portfolio portfolio, Member member);
+    PortfolioScrap countScrap(Portfolio portfolio, Member member);
+    List<PortfolioScrap> findScrapsByMemberId(Long memberId);
 }

@@ -3,10 +3,9 @@ package centum.boxfolio.dto.member;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.member.MemberAbility;
 import centum.boxfolio.entity.member.Role;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -14,8 +13,11 @@ import java.time.LocalDate;
 
 @Builder
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class MemberDto {
 
+    private Long id;
     @NotBlank
     private String loginId;
     @NotBlank
@@ -27,16 +29,16 @@ public class MemberDto {
     private String phone;
     @Email
     private String email;
-    private Integer year;
-    private Integer month;
-    private Integer day;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd", timezone = "Asia/Seoul")
+    @DateTimeFormat(pattern = "yyyy.MM.dd")
+    private LocalDate birth;
     private Integer sex;
     private String githubId;
     private String interestField;
     private String progressField;
+    private String personalToken;
 
     public Member toMember() {
-        LocalDate birth = LocalDate.of(year, month, day);
-        return new Member(loginId, passwd, realName, nickname, phone, email, birth, sex, githubId, interestField, Role.USER, new MemberAbility());
+        return new Member(loginId, passwd, realName, nickname, phone, email, birth, sex, "", interestField, "", Role.USER, new MemberAbility(), false, "");
     }
 }

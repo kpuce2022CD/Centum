@@ -30,11 +30,10 @@ public class InformationDto {
     private Long commentTally;
     private Long scrapTally;
     private Long viewTally;
-    @NotEmpty
-    private String visibility;
+    private Boolean visibility;
     private Long memberId;
 
-    public InformationDto(String title, String contents, LocalDateTime createdDate, Boolean commentAllow, Boolean scrapAllow, Long starTally, Long commentTally, Long scrapTally, Long viewTally, String visibility) {
+    public InformationDto(String title, String contents, LocalDateTime createdDate, Boolean commentAllow, Boolean scrapAllow, Long starTally, Long commentTally, Long scrapTally, Long viewTally, Boolean visibility) {
         this.title = title;
         this.contents = contents;
         this.createdDate = createdDate;

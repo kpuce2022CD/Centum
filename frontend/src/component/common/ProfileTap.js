@@ -15,7 +15,7 @@ const ProfileTap = () => {
     useEffect(() => {
         const fetchMemberData = () => {
             setLoading(true);
-            instance.get('/api/member').then(response => {
+            instance.get('/api/members/my').then(response => {
                 setMember(response.data.data.member);
             });
             setLoading(false);

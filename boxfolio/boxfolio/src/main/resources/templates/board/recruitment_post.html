@@ -24,7 +24,7 @@
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="../../static/css/reset.css" th:href="@{/css/reset.css}"/>
     <link rel="stylesheet" type="text/css" href="../../static/css/common.css" th:href="@{/css/common.css}"/>
-    <link rel="stylesheet" type="text/css" href="../../static/css/board/recruitment_post.css" th:href="@{/css/board/recruitment_post.css}"/>
+    <link rel="stylesheet" type="text/css" href="../../static/css/board/recruitment_board.css" th:href="@{/css/board/recruitment_board.css}"/>
     <link rel="stylesheet" type="text/css" href="../../static/css/input_design.css" th:href="@{/css/input_design.css}"/>
     <!--fontawesome-->
     <script src="https://kit.fontawesome.com/05ea6bafb2.js" crossorigin="anonymous"></script></head>
@@ -70,7 +70,7 @@
                     </a>
                     <a href="" id="writer-nickname" th:text="*{member.nickname}">SeoArc</a>
                 </div>
-                <div class="post-info-area">
+                <div class="board-info-area">
                     <span id="created-date" th:text="*{#temporals.format(createdDate, 'yyyy-MM-dd HH:mm:ss')}">2022-01-11 12:02:44</span>
                     <span id="view-cnt" th:text="|조회 *{viewTally}|">조회 1</span>
                     <span id="star-cnt" th:text="|추천 *{starTally}|">추천 3</span>
@@ -206,7 +206,7 @@
                         </div>
                     </div>
                     <div class="reply-edit">
-                        <form id="reply-form" action="" th:action="@{/board/reply/{commentId}(commentId=${comment.id})}" method="post">
+                        <form id="reply-form" action="" th:action="@{/board/reply/{commentId}(commentId=${comment.id})}" method="board">
                             <span id="tag-nickname" th:text="|@${comment.member.nickname}|"></span>
                             <textarea name="reply" id="reply-textarea" rows="1" placeholder="답글을 입력하세요" th:field="${boardCommentSaveForm.contents}"></textarea>
                             <div class="reply-write-access-area">
@@ -217,7 +217,7 @@
                                 </div>
                                 <div class="btn-box">
                                     <button id="reply-cancel-btn">취소</button>
-                                    <input type="submit" id="reply-post-btn" value="등록">
+                                    <input type="submit" id="reply-board-btn" value="등록">
                                 </div>
                             </div>
                         </form>
@@ -225,7 +225,7 @@
                 </li>
             </ul>
             <div class="comment-write-area">
-                <form id="comment-form" action="" th:action="@{/board/comment/{boardId}(boardId=*{id})}" method="post">
+                <form id="comment-form" action="" th:action="@{/board/comment/{boardId}(boardId=*{id})}" method="board">
                     <textarea name="comment" id="comment-textarea" rows="1" placeholder="댓글을 입력하세요" th:field="${boardCommentSaveForm.contents}"></textarea>
                     <div class="comment-write-access-area">
                         <div class="file-box">
@@ -233,7 +233,7 @@
                                 <i class="far fa-image"></i>
                             </button>
                         </div>
-                        <input type="submit" id="comment-post-btn" value="등록">
+                        <input type="submit" id="comment-board-btn" value="등록">
                     </div>
                 </form>
             </div>

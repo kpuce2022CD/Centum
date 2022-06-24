@@ -28,12 +28,16 @@
 
 .project_subject+td {
     border: 1px solid #eee;
-    padding: 5px 10px;
+    padding: 5px 8px;
 }
 
 .project_subject {
     background-color: transparent;
     outline: none;
+}
+
+.project_area input {
+    width: 100%;
 }
 
 .project_area select {

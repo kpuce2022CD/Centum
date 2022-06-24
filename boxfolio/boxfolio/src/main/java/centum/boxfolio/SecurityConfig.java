@@ -5,6 +5,7 @@ import centum.boxfolio.security.handler.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -55,9 +56,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/api/login/**", "/api/signup/**", "/api/token/**").permitAll()
-                .antMatchers("/api/board/free", "/api/board/info", "/api/board/recruit").permitAll()
-                .antMatchers("/api/portfolios", "/api/portfolios/best").permitAll()
+                .antMatchers("/api/members/login/**", "/api/members/signup/**", "/api/members/token/**", "/api/members/loginId/**").permitAll()
+                .antMatchers(HttpMethod.GET ,"/api/board/free", "/api/board/info", "/api/board/recruit").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/portfolios", "/api/portfolios/best").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/projects").permitAll()
+                .antMatchers("/project/**", "/profile/**", "/login/**", "/signup/**").permitAll()
                 .antMatchers("/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

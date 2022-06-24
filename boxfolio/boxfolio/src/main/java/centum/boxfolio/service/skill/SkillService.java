@@ -2,8 +2,8 @@ package centum.boxfolio.service.skill;
 
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.member.MemberSkill;
-import centum.boxfolio.entity.portfolio.Project;
-import centum.boxfolio.entity.portfolio.ProjectSkill;
+import centum.boxfolio.entity.project.Project;
+import centum.boxfolio.entity.project.ProjectSkill;
 
 import java.util.List;
 import java.util.Map;

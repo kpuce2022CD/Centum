@@ -1,7 +1,9 @@
 package centum.boxfolio.entity.portfolio;
 
 import centum.boxfolio.entity.member.Member;
+import centum.boxfolio.entity.project.Project;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +22,6 @@ public class Portfolio {
     private Long id;
 
     private String title;
-    private String contents;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime updatedDate;
@@ -42,21 +43,25 @@ public class Portfolio {
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
     private List<PortfolioScrap> portfolioScraps = new ArrayList<>();
 
+    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
+    private List<PortfolioRow> portfolioRows = new ArrayList<>();
 
-
-    public Portfolio(String title, String contents, boolean visibility, Member member,
-                     List<Project> projects, List<PortfolioStar> portfolioStars,List<PortfolioScrap> portfolioScraps){
+    @Builder
+    public Portfolio(String title, boolean visibility, Member member){
         this.title = title;
-        this.contents = contents;
         this.visibility = visibility;
-        this.member = member;
-        this.projects = projects;
-        this.portfolioStars = portfolioStars;
-        this.portfolioScraps = portfolioScraps;
-
+        setMember(member);
         this.starTally = 0L;
         this.scrapTally = 0L;
         this.updatedDate = LocalDateTime.now();
+    }
+
+    private void setMember(Member member) {
+        if (this.member != null) {
+            this.member.getPortfolios().remove(this);
+        }
+        this.member = member;
+        member.getPortfolios().add(this);
     }
     
 }

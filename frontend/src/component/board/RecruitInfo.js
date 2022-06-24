@@ -11,12 +11,12 @@ const RecruitInfo = (props) => {
             <div className={style.recruit_total_area}>
                 <span>인원</span>
                 <div className={style.recruit_total_status}>
-                    <i className={post.memberTally >= 1 ? ["fas fa-user", style.entered_member].join(' ') : "fas fa-user" }></i>
-                    <i className={post.memberTally >= 2 ? ["fas fa-user", style.entered_member].join(' ') : "fas fa-user" }></i>
-                    <i className={post.memberTally >= 3 ? ["fas fa-user", style.entered_member].join(' ') : "fas fa-user" }></i>
-                    <i className={post.memberTally >= 4 ? ["fas fa-user", style.entered_member].join(' ') : "fas fa-user" }></i>
-                    <i className={post.memberTally >= 5 ? ["fas fa-user", style.entered_member].join(' ') : "fas fa-user" }></i>
-                    <i className={post.memberTally >= 6 ? ["fas fa-user", style.entered_member].join(' ') : "fas fa-user" }></i>
+                    { post.memberTotal >= 1 && <i className={post.memberTally >= 1 ? ["fas fa-user", style.entered_member].join(' ') : "fas fa-user"}></i> }
+                    { post.memberTotal >= 2 && <i className={post.memberTally >= 2 ? ["fas fa-user", style.entered_member].join(' ') : "fas fa-user" }></i>}
+                    { post.memberTotal >= 3 && <i className={post.memberTally >= 3 ? ["fas fa-user", style.entered_member].join(' ') : "fas fa-user" }></i>}
+                    { post.memberTotal >= 4 && <i className={post.memberTally >= 4 ? ["fas fa-user", style.entered_member].join(' ') : "fas fa-user" }></i>}
+                    { post.memberTotal >= 5 && <i className={post.memberTally >= 5 ? ["fas fa-user", style.entered_member].join(' ') : "fas fa-user" }></i>}
+                    { post.memberTotal >= 6 && <i className={post.memberTally >= 6 ? ["fas fa-user", style.entered_member].join(' ') : "fas fa-user" }></i>}
                 </div>
             </div>
             <div className={style.recruit_deadline_area}>

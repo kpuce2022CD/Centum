@@ -1,7 +1,7 @@
 package centum.boxfolio.repository.board;
 
-import centum.boxfolio.entity.board.Board;
-import centum.boxfolio.entity.board.BoardStar;
+import centum.boxfolio.entity.board.Post;
+import centum.boxfolio.entity.board.PostStar;
 import centum.boxfolio.entity.member.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,31 +21,31 @@ public class BoardStarRepositoryImpl implements BoardStarRepository {
     private final EntityManager em;
 
     @Override
-    public BoardStar upStar(Board board, Member member) {
-        board.setStarTally(board.getStarTally() + 1);
-        BoardStar boardStar = new BoardStar(board, member);
-        em.persist(boardStar);
-        return boardStar;
+    public PostStar upStar(Post post, Member member) {
+        post.setStarTally(post.getStarTally() + 1);
+        PostStar postStar = new PostStar(post, member);
+        em.persist(postStar);
+        return postStar;
     }
 
     @Override
-    public void downStar(Board board, Member member) {
-        if (board.getStarTally() > 0) {
-            board.setStarTally(board.getStarTally() - 1);
+    public void downStar(Post post, Member member) {
+        if (post.getStarTally() > 0) {
+            post.setStarTally(post.getStarTally() - 1);
         }
-        Optional<BoardStar> boardStar = findByBoardIdAndMemberId(board.getId(), member.getId());
+        Optional<PostStar> boardStar = findByPostIdAndMemberId(post.getId(), member.getId());
         em.remove(boardStar.get());
     }
 
     @Override
-    public List<BoardStar> findAll() {
-        return em.createQuery("select b from BoardStar b", BoardStar.class).getResultList();
+    public List<PostStar> findAll() {
+        return em.createQuery("select b from PostStar b", PostStar.class).getResultList();
     }
 
     @Override
-    public Optional<BoardStar> findByBoardIdAndMemberId(Long boardId, Long memberId) {
+    public Optional<PostStar> findByPostIdAndMemberId(Long postId, Long memberId) {
         return findAll().stream()
-                .filter(b -> b.getBoard().getId() == boardId)
+                .filter(b -> b.getPost().getId() == postId)
                 .filter(b -> b.getMember().getId() == memberId)
                 .findAny();
     }

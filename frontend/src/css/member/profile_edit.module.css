@@ -1,0 +1,162 @@
+@charset "UTF-8";
+
+.main {
+    width: 100%;
+    background-color: transparent;
+    padding: 0 0 20px;
+}
+
+.profile_container {
+    margin: 100px 0 50px;
+}
+
+.profile_area {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    height: 250px;
+    align-items: center;
+    box-shadow: 5px 5px 10px 1px rgba(25, 42, 70, 0.2);
+}
+
+.profile_img_area {
+    margin: 0 20px 0 0;
+}
+
+.profile_img_area img {
+    width: 200px;
+}
+
+.member_info_area {
+    display: flex;
+    flex-direction: column;
+}
+
+.member_info_area li {
+    line-height: 1;
+    margin: 5px 0;
+}
+
+.member_status {
+    display: flex;
+    align-items: flex-end;
+}
+
+.member_nickname {
+    font-size: 24px;
+    margin: 0 10px 0 0;
+    padding: 4px 12px;
+    border: 1px solid #aaa;
+    border-radius: 2px;
+}
+
+.member_level {
+    font-size: 12px;
+    background-color: #98d6e0;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin: 0 0 2px 0;
+}
+
+.member_name textarea {
+    padding: 4px 12px;
+    border: 1px solid #aaa;
+    border-radius: 2px;
+}
+
+.member_field {
+    display: flex;
+    align-items: center;
+    margin: 15px 0 0 !important;
+}
+
+.member_field i {
+    font-size: 24px;
+}
+
+.interest_field,
+.progress_field {
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.interest_field {
+    background-color: #fe5;
+    border: 1px solid #fd4;
+    margin: 0 10px 0 0;
+}
+
+.progress_field {
+    background-color: #fb9;
+    border: 1px solid #fa8;
+    margin: 0 0 0 10px;
+}
+
+.interest_field h6,
+.progress_field h6 {
+    font-size: 14px;
+    font-weight: normal;
+    text-align: center;
+    border-right: 1px solid #aaa;
+    padding: 5px 10px;
+}
+
+.interest_field p,
+.progress_field p {
+    padding: 5px 10px;
+}
+
+.profile_access_area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-left: auto;
+    border-radius: 3px;
+    width: 200px;
+    height: 100%;
+}
+
+.modify_profile_btn {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 3px;
+    font-size: 18px;
+}
+
+.modify_profile_btn:hover {
+    color: #55f;
+}
+
+.github_link_btn {
+    height: 30px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.github_icon {
+    margin: 0 5px 0 0;
+    height: 24px;
+}
+
+.personal_token_button {
+    margin-top: auto;
+    margin-bottom: 10px;
+    border: 1px solid #78c;
+    background-color: #56a;
+    color: #fff;
+    padding: 4px 12px;
+    transition-duration: 0.2s;
+}
+
+.personal_token_button:hover {
+    background-color: #78c;
+}
+
+.github_id {
+    line-height: 1;
+}

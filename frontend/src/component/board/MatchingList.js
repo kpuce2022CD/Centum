@@ -1,8 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MatchingListItem from './MatchingListItem';
 import style from '../../css/board/matching_list.module.css';
+import instance from '../security/Interceptor';
 
-const MatchingList = () => {
+const MatchingList = (props) => {
+    const { board } = props;
+    const { member } = props;
+    const [memberAbility, setMemberAbility] = useState({});
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const fetchMemberData = () => {
+            setLoading(true);
+            try {
+                instance.get('/api/members/my/ability').then(response => {
+                    setMemberAbility(response.data.data.memberAbility);
+                });
+            } catch (e) {
+                console.log(e);
+            }
+            setLoading(false);
+        };
+        fetchMemberData();
+    }, []);
+
+    useEffect(() => {
+        console.log(memberAbility);
+        console.log(board);
+    }, [memberAbility]);
+
+    if (loading) {
+        return null;
+    }
+
     return (
         <div className={style.matching_list_area}>
             <div className={style.matching_list_title}>
@@ -22,7 +52,13 @@ const MatchingList = () => {
                 </tr>
                 </thead>
                 <tbody>
-                    <MatchingListItem />
+                    {
+                        board.map((post, index) => {
+                            if (memberAbility.memberLevel >= post.requiredMemberLevel && post.visibility && post.member.id !== member.id) {
+                                return (<MatchingListItem key={post.id} post={post} index={index+1} />);
+                            }
+                        })
+                    }
                 </tbody>
             </table>
         </div>

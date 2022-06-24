@@ -1,8 +1,10 @@
 package centum.boxfolio.repository.portfolio;
 
+import centum.boxfolio.dto.portfolio.PortfolioRowDto;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
 
+import centum.boxfolio.entity.portfolio.PortfolioRow;
 import centum.boxfolio.entity.portfolio.PortfolioScrap;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -16,19 +18,20 @@ import java.util.Optional;
 
 public interface PortfolioRepository {
 
-    Optional<Portfolio> save (Portfolio portfolio, List<MultipartFile> files) throws IOException;
+    //    Optional<Portfolio> save (Portfolio portfolio, List<MultipartFile> files) throws IOException;
+    Portfolio save(Portfolio portfolio);
+    PortfolioRow savePortfolioRow(PortfolioRow portfolioRow);
+
     List<Portfolio> findAll();
+    List<Portfolio> findOrderByStarDesc();
+    List<Portfolio> findOrderByUpdatedDateAsc();
     Optional<Portfolio> findById(Long id);
     List<Portfolio> findByTitle(String title);
     List<Portfolio> findByNickname(String nickname);
     Optional<Portfolio> findByMember(Member member);
     Optional<Portfolio> findByMemberId(Long memberId);
-    List<Portfolio> findInPublicByViewDesc();
-    List<Portfolio> findInPublicByViewAsc();
-    void delete (Portfolio portfolio);
-    void relationStar (Portfolio portfolio, Member member);
-    void relationScrap(Portfolio portfolio, Member member);
 
-    List<PortfolioScrap> findAllScrap();
-    List<PortfolioScrap> findScrapByMemberId(Long memberId);
+    void delete (Portfolio portfolio);
+
+    List<PortfolioRow> findPortfolioRowsByPortfolioId(Long portfolioId);
 }

@@ -49,6 +49,15 @@
     box-shadow: 2px 2px 10px 1px rgba(25, 42, 70, 0.2);
 }
 
+.send_email > a {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .portfolio_star:hover {
     background-color: #fe0;
     color: #fa0;

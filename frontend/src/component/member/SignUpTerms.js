@@ -266,7 +266,7 @@ const SignUpTerms = (props) => {
 
                     <div className={style.button_area}>
                         <button className={style.prev_btn}>취소</button>
-                        <button className={style.next_btn} disabled={!termChecked} onClick={() => navigate('/signup/form')}>확인</button>
+                        <button className={style.next_btn} disabled={!termChecked} onClick={() => navigate('/signup/form', {state: {termChecked: termChecked}})}>확인</button>
                     </div>
                 </div>
             </div>

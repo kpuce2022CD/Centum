@@ -1,222 +1,184 @@
 package centum.boxfolio.controller.portfolio;
 
-
-import centum.boxfolio.controller.member.SessionConst;
+import centum.boxfolio.dto.portfolio.PortfolioDto;
+import centum.boxfolio.dto.portfolio.PortfolioRowDto;
+import centum.boxfolio.dto.portfolio.PortfolioScrapDto;
+import centum.boxfolio.dto.portfolio.PortfolioStarDto;
 import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.portfolio.Portfolio;
-import centum.boxfolio.repository.member.MemberRepository;
+import centum.boxfolio.entity.portfolio.PortfolioRow;
+import centum.boxfolio.entity.portfolio.PortfolioScrap;
+import centum.boxfolio.entity.portfolio.PortfolioStar;
+import centum.boxfolio.response.Response;
+import centum.boxfolio.service.member.MemberService;
 import centum.boxfolio.service.portfolio.PortfolioService;
+import centum.boxfolio.service.response.ResponseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.json.simple.parser.ParseException;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
-@Controller
-@RequestMapping("/portfolio")
+@RestController
+@RequestMapping("/api/portfolios")
 @RequiredArgsConstructor
 public class PortfolioController {
 
     private final PortfolioService portfolioService;
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
+    private final ResponseService responseService;
 
     @GetMapping
-    public String portfolioPage(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Optional<Portfolio> myPortfolio = portfolioService.findByMemberId(memberId);
-
-        List<Portfolio> highestPortfolioList = portfolioService.searchHighestStarInPublic(5);
-        List<Portfolio> normalPortfolioList = portfolioService.searchLatestInPublic();
-
-        model.addAttribute("highestPortfolioList", highestPortfolioList);
-        model.addAttribute("normalPortfolioList", normalPortfolioList);
-        model.addAttribute("myPortfolio", myPortfolio.orElse(null));
-
-        return "/portfolio/portfolios";
+    public Response<List<PortfolioDto>> getPortfolios(@RequestParam(defaultValue = "") String type, @RequestParam(defaultValue = "")String query) {
+        List<Portfolio> portfolios = portfolioSearchAdapter(type, query);
+        List<PortfolioDto> portfolioDtos = convertPortfoliosToPortfolioDtos(portfolios);
+        return responseService.getResult("portfolios", portfolioDtos);
     }
 
-    @GetMapping("/make")
-    public String uploadPortfolio(Model model){
-        model.addAttribute("portfolioSaveForm", new PortfolioSaveForm());
-        return "/portfolio/portfolio_edit";
+    private List<Portfolio> portfolioSearchAdapter(String type, String query) {
+        if (type.equals("nickname")) {
+            return portfolioService.findPortfoliosByNickname(query);
+        }
+        if (type.equals("title")) {
+            return portfolioService.findPortfoliosByTitle(query);
+        }
+        return portfolioService.findPortfoliosOrderByUpdatedDateAsc();
     }
 
-    @PostMapping("/make")
-    public String uploadPortfolio(@Valid PortfolioSaveForm portfolioSaveForm, BindingResult bindingResult, RedirectAttributes redirectAttributes,
-                                  HttpServletRequest request) {
-        if (bindingResult.hasErrors()){
-            for (ObjectError e : bindingResult.getAllErrors()){
-                log.info("error" + e.toString());
-            }
-            return "redirect:/";
-        }
-
-        try{
-            HttpSession session = request.getSession(false);
-            Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-            log.info(portfolioSaveForm.getContents());
-
-            Portfolio uploadPortfolio = portfolioService.upload(portfolioSaveForm, memberId);
-
-            redirectAttributes.addAttribute("id", uploadPortfolio.getId());
-        } catch (IllegalStateException e){
-            bindingResult.reject("upload portfolio failed", e.getMessage());
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
-        log.info("post success");
-
-        return "redirect:/portfolio/{id}";
+    @GetMapping("/best")
+    public Response<List<PortfolioDto>> getBestPortfolios() {
+        List<Portfolio> portfolios = portfolioService.findPortfoliosOrderByStarDesc(4);
+        List<PortfolioDto> portfolioDtos = convertPortfoliosToPortfolioDtos(portfolios);
+        return responseService.getResult("bestPortfolios", portfolioDtos);
     }
 
     @GetMapping("/{id}")
-    public String portfolioPage(@PathVariable Long id, HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Optional<Member> member = memberRepository.findById(memberId);
-        Optional<Portfolio> portfolio = portfolioService.findById(id);
+    public Response<PortfolioDto> getPortfolio(@PathVariable Long id) {
+        return responseService.getResult("portfolio", convertPortfolioToPortfolioDto(portfolioService.findById(id)));
+    }
 
-        if (portfolio.isEmpty() || member.isEmpty()) {
-            return "redirect:/portfolio";
+    @PostMapping
+    public Response<PortfolioDto> savePortfolio(@RequestBody @Validated PortfolioDto portfolioDto, Principal principal) {
+        Member member = memberService.findByLoginId(principal.getName());
+
+        Portfolio portfolio = Portfolio.builder()
+                .title(portfolioDto.getTitle())
+                .visibility(portfolioDto.getVisibility())
+                .member(member)
+                .build();
+        List<PortfolioRow> portfolioRows = portfolioDto.getPortfolioRows().stream()
+                .map(portfolioRowDto -> PortfolioRow.builder()
+                        .rowType(portfolioRowDto.getRowType())
+                        .saveType(portfolioRowDto.getSaveType())
+                        .contents(portfolioRowDto.getContents())
+                        .rowOrder(portfolioRowDto.getRowOrder())
+                        .portfolio(portfolio)
+                        .build())
+                .collect(Collectors.toList());
+
+        Portfolio savedPortfolio = portfolioService.save(portfolio);
+        portfolioService.savePortfolioRows(savedPortfolio, portfolioRows);
+
+        PortfolioDto savedPortfolioDto = convertPortfolioToPortfolioDto(savedPortfolio);
+
+        return responseService.getResult("portfolio", savedPortfolioDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public Response deletePortfolio(@PathVariable Long id) {
+        portfolioService.delete(portfolioService.findById(id));
+        return responseService.getSuccessResult();
+    }
+
+    @GetMapping("/{id}/star")
+    public Response countStar(@PathVariable Long id, Principal principal) {
+        Portfolio portfolio = portfolioService.findById(id);
+        Member member = memberService.findByLoginId(principal.getName());
+
+        PortfolioStar portfolioStar = portfolioService.countStar(portfolio, member);
+        PortfolioStarDto portfolioStarDto = null;
+        if (portfolioStar != null) {
+            portfolioStarDto = PortfolioStarDto.builder()
+                    .id(portfolioStar.getId())
+                    .portfolioId(portfolioStar.getPortfolio().getId())
+                    .memberId(portfolioStar.getMember().getId())
+                    .build();
+        }
+        return responseService.getResult("portfolioStar", portfolioStarDto);
+    }
+
+    @GetMapping("/{id}/scrap")
+    public Response countScrap(@PathVariable Long id, Principal principal) {
+        Portfolio portfolio = portfolioService.findById(id);
+        Member member = memberService.findByLoginId(principal.getName());
+
+        PortfolioScrap portfolioScrap = portfolioService.countScrap(portfolio, member);
+        PortfolioScrapDto portfolioScrapDto = null;
+        if (portfolioScrap != null) {
+            portfolioScrapDto = PortfolioScrapDto.builder()
+                    .id(portfolioScrap.getId())
+                    .portfolioId(portfolioScrap.getPortfolio().getId())
+                    .portfolioTitle(portfolioScrap.getPortfolio().getTitle())
+                    .memberId(portfolioScrap.getMember().getId())
+                    .build();
         }
 
-        if (portfolio.get().getVisibility() == false && portfolio.get().getMember().getId() != memberId) {
-            return "redirect:/portfolio";
-        }
-
-        model.addAttribute("portfolio", portfolio.get());
-        model.addAttribute("member", member.get());
-        return "/portfolio/portfolio";
+        return responseService.getResult("portfolioScrap", portfolioScrapDto);
     }
 
-    @GetMapping("/search/title")
-    public String searchPortfolioWithTitle(@RequestParam String title, Model model){
-        List<Portfolio> portfolio = portfolioService.searchWithTitle(title);
-
-        List<PortfolioLoadForm> portfolioLoadFormList = new ArrayList<>();
-
-        for (Portfolio p : portfolio){
-            portfolioLoadFormList.add(portfolioToPortfolioLoadForm(p));
-        }
-
-        model.addAttribute("portfolioList", portfolioLoadFormList);
-        return "/portfolio/folio_pub";
+    private List<PortfolioDto> convertPortfoliosToPortfolioDtos(List<Portfolio> portfolios) {
+        List<PortfolioDto> portfolioDtos = portfolios.stream()
+                .map(portfolio -> {
+                    List<PortfolioRowDto> portfolioRowDtos = portfolioService.findPortfolioRowsByPortfolioId(portfolio.getId()).stream()
+                            .map(portfolioRow -> PortfolioRowDto.builder()
+                                    .id(portfolioRow.getId())
+                                    .rowType(portfolioRow.getRowType())
+                                    .saveType(portfolioRow.getSaveType())
+                                    .contents(portfolioRow.getContents())
+                                    .rowOrder(portfolioRow.getRowOrder())
+                                    .build())
+                            .collect(Collectors.toList());
+                    return PortfolioDto.builder()
+                            .id(portfolio.getId())
+                            .title(portfolio.getTitle())
+                            .updatedDate(portfolio.getUpdatedDate())
+                            .visibility(portfolio.getVisibility())
+                            .starTally(portfolio.getStarTally())
+                            .scrapTally(portfolio.getScrapTally())
+                            .member(portfolio.getMember())
+                            .portfolioRows(portfolioRowDtos)
+                            .build();
+                })
+                .collect(Collectors.toList());
+        return portfolioDtos;
     }
 
-    @GetMapping("/search/member")
-    public String searchPortfolioWithMember(@RequestParam Member member, Model model) {
-        Portfolio portfolio = portfolioService.searchWithMember(member);
-
-
-        model.addAttribute("portfolioList", portfolio);
-
-        return "/portfolio/folio_other";
-    }
-
-    @GetMapping("/search/name")
-    public String searchPortfolioWithNickname(@RequestParam String nickname, Model model){
-
-        List<Portfolio> portfolioList = portfolioService.findByNickname(nickname);
-        List<PortfolioLoadForm> portfolioLoadFormList = new ArrayList<>();
-
-        for (Portfolio p : portfolioList){
-            portfolioLoadFormList.add(portfolioToPortfolioLoadForm(p));
-        }
-
-        model.addAttribute("portfolioList", portfolioLoadFormList);
-        return "/portfolio/folio_pub";
-    }
-
-
-    @GetMapping("/delete/{id}")
-    public String deletePortfolio(@PathVariable Long id, HttpServletRequest request, RedirectAttributes redirectAttributes){
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Optional<Portfolio> portfolio = portfolioService.findById(id);
-        if (portfolio.isEmpty() || portfolio.get().getMember().getId() != memberId) {
-            return "redirect:/portfolio";
-        }
-
-        portfolioService.delete(portfolio.get());
-        return "redirect:/portfolio";
-    }
-
-    @GetMapping("/update")
-    public String updatePortfolio(HttpServletRequest request, Model model){
-
-        Portfolio portfolio = getPortfolioBySessionId(request);
-
-        model.addAttribute(portfolio);
-
-        return "/portfolio/folio_make_json";
-    }
-
-
-    @GetMapping("/star")
-    public String starChange(HttpServletRequest request, @RequestParam long id){
-        Portfolio portfolio = portfolioService.findById(id).get();
-        Member member = getLoginMember(request);
-
-        portfolioService.starChange(portfolio, member);
-
-        return "redirect:/";
-    }
-
-    @GetMapping("/scrap")
-    public String scrapPortfolio (HttpServletRequest request, @RequestParam long id){
-        Portfolio portfolio = portfolioService.findById(id).get();
-        Member member = getLoginMember(request);
-
-        portfolioService.scrapPortfolio(portfolio, member);
-
-        return "redirect:/";
-    }
-
-    // 포트폴리오 찾기 함수
-    private Portfolio getPortfolioBySessionId(HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        Long memberId = (long) session.getAttribute(SessionConst.LOGIN_MEMBER);
-
-        return portfolioService.searchWithMember(memberRepository.findById(memberId).get());
-    }
-
-
-    private Member getLoginMember(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        Long memberId = (Long) session.getAttribute(SessionConst.LOGIN_MEMBER);
-
-        return memberRepository.findById(memberId).get();
-    }
-
-    private Long getLoginMemberId(HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        return (Long) session.getAttribute(SessionConst.LOGIN_MEMBER);
-    }
-
-    private PortfolioLoadForm portfolioToPortfolioLoadForm(Portfolio p){
-        return new PortfolioLoadForm(
-            p.getContents(),
-            p.getMember().getNickname(),
-            p.getStarTally(),
-            p.getScrapTally(),
-            p.getUpdatedDate(),
-            p.getMember().getInterestField(),
-            p.getId(),
-            p.getTitle()
-        );
+    private PortfolioDto convertPortfolioToPortfolioDto(Portfolio portfolio) {
+        List<PortfolioRowDto> portfolioRowDtos = portfolioService.findPortfolioRowsByPortfolioId(portfolio.getId()).stream()
+                .map(portfolioRow -> PortfolioRowDto.builder()
+                        .id(portfolioRow.getId())
+                        .rowType(portfolioRow.getRowType())
+                        .saveType(portfolioRow.getSaveType())
+                        .contents(portfolioRow.getContents())
+                        .rowOrder(portfolioRow.getRowOrder())
+                        .build())
+                .collect(Collectors.toList());
+        PortfolioDto portfolioDto = PortfolioDto.builder()
+                .id(portfolio.getId())
+                .title(portfolio.getTitle())
+                .updatedDate(portfolio.getUpdatedDate())
+                .visibility(portfolio.getVisibility())
+                .starTally(portfolio.getStarTally())
+                .scrapTally(portfolio.getScrapTally())
+                .member(portfolio.getMember())
+                .portfolioRows(portfolioRowDtos)
+                .build();
+        return portfolioDto;
     }
 }

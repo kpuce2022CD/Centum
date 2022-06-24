@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     margin: 10px 0;
+    align-items: flex-start;
 }
 
 .board {
@@ -14,7 +15,7 @@
 .board th,
 .board td {
     border-bottom: 1px solid #ccd;
-    height: 35px;
+    height: 30px;
     padding: 7px 3px;
 }
 

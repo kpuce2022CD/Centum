@@ -1,0 +1,19 @@
+.project_container {
+    padding-bottom: 30px;
+}
+
+.project_title {
+    margin: 100px 0 0;
+    font-size: 20px;
+    font: bold;
+    margin-bottom: 20px;
+}
+
+.project_list {
+    display: grid;
+    padding: 18px;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 10px;
+    row-gap: 60px;
+    justify-items: center;
+}

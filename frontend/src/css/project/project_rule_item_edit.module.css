@@ -1,0 +1,35 @@
+.rule_area {
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    padding: 10px 0;
+    margin: 20px 0 !important;
+}
+
+.rule_area textarea {
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 10px;
+}
+
+.rule_order {
+    width: 44px;
+    margin: 0 10px 0 0;
+    text-align: center;
+}
+
+.rule_contents {
+    flex-grow: 1;
+}
+
+.rule_save_btn {
+    background-color: #aaf;
+    padding: 10px;
+    border-radius: 3px;
+    margin: 0 0 0 10px;
+    transition-duration: 0.5s;
+}
+
+.rule_save_btn:hover {
+    cursor: pointer;
+    background-color: #55f;
+}

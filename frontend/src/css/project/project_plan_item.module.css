@@ -1,0 +1,48 @@
+.plan_area {
+    margin: 10px 0;
+    display: flex;
+}
+
+.plan_area div {
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 10px;
+}
+
+.plan_area > span {
+    display: flex;
+    align-items: center;
+}
+
+.plan_order {
+    width: 44px;
+    margin: 0 10px 0 0;
+    text-align: center;
+}
+
+.plan_start_date,
+.plan_end_date {
+    width: 103px;
+    margin: 0 10px 0 0;
+    text-align: center;
+}
+
+.plan_end_date {
+    margin-left: 10px;
+}
+
+.plan_contents {
+    flex-grow: 1;
+}
+
+.plan_delete_btn {
+    background-color: #faa;
+    padding: 10px;
+    border-radius: 3px;
+    margin: 0 0 0 10px;
+    transition-duration: 0.2s;
+}
+
+.plan_delete_btn:hover {
+    background-color: #f55;
+}

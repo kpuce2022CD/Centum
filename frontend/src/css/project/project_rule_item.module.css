@@ -1,0 +1,27 @@
+.rule_area div {
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 10px;
+}
+
+.rule_order {
+    width: 44px;
+    margin: 0 10px 0 0;
+    text-align: center;
+}
+
+.rule_contents {
+    flex-grow: 1;
+}
+
+.rule_delete_btn {
+    background-color: #faa;
+    padding: 10px;
+    border-radius: 3px;
+    margin: 0 0 0 10px;
+    transition-duration: 0.5s;
+}
+
+.rule_delete_btn:hover {
+    background-color: #f55;
+}

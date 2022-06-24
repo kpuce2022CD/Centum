@@ -1,0 +1,41 @@
+.project_member {
+    background-color: #fff0d0;
+    border-radius: 3px;
+    padding: 10px;
+    height: 300px;
+    margin: 0 0 20px;
+}
+
+.project_member_title {
+    text-align: center;
+    margin: 5px 0 10px;
+}
+
+.member_count {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin: 0 0 10px;
+}
+
+.entered_member {
+    margin: 0 5px 0 0;
+}
+
+.project_member_list li {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f2e4be;
+    margin: 0 0 5px;
+    padding: 5px 8px;
+    border-radius: 3px;
+}
+
+.project_member_list li:hover {
+    cursor: pointer;
+    background-color: #e3d3a7;
+}
+
+.project_member_list p {
+    font-weight: normal;
+}

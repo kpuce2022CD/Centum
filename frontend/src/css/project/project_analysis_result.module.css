@@ -1,0 +1,44 @@
+.ability_container {
+    margin: 0 0 50px;
+}
+
+.ability_area {
+    display: flex;
+    box-shadow: 0px 5px 10px 1px rgba(25, 42, 70, 0.2);
+    border-radius: 2px;
+    height: 450px;
+}
+
+.skill_stack {
+    padding: 20px;
+}
+
+.ability_area h3 {
+    font-weight: normal;
+}
+
+.code_chart,
+.quality_chart {
+    width: 390px;
+    padding: 20px;
+}
+
+.stack_area {
+    flex-grow: 1;
+}
+
+.skills {
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    height: calc(100% - 10px);
+    overflow-y: auto;
+}
+
+.skills li {
+    background-color: #c8deff88;
+    border: 1px solid #c8deff;
+    border-radius: 30px;
+    padding: 5px 10px;
+    margin: 5px 10px 5px 0;
+}

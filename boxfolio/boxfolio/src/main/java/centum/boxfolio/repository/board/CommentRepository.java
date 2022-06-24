@@ -1,20 +1,18 @@
 package centum.boxfolio.repository.board;
 
-import centum.boxfolio.entity.board.Board;
-import centum.boxfolio.entity.board.BoardComment;
-import centum.boxfolio.entity.member.Member;
+import centum.boxfolio.entity.board.PostComment;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface CommentRepository {
-    BoardComment save(BoardComment comment);
-    Optional<BoardComment> findById(Long id);
-    List<BoardComment> findCommentsByMemberId(Long memberId);
-    List<BoardComment> findCommentsByBoardId(Long boardId);
-    List<BoardComment> findAll();
-    List<BoardComment> findAllOrdered();
+    PostComment save(PostComment comment);
+    Optional<PostComment> findById(Long id);
+    List<PostComment> findCommentsByMemberId(Long memberId);
+    List<PostComment> findCommentsByPostId(Long PostId);
+    List<PostComment> findAll();
+    List<PostComment> findAllOrdered();
+    Long countCommentsByPostId(Long postId);
+    void delete(PostComment comment);
     Long findMaxOrderInGroupNum(Long groupNum);
-    void remove(BoardComment comment);
-
 }

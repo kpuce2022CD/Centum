@@ -217,8 +217,8 @@
                         <div class="scrap-post-list">
                             <h3><i class="fa-solid fa-caret-right"></i> 스크랩 한 게시글</h3>
                             <ul class="scrap-posts">
-                                <li th:each="bs : ${boardScraps}" th:text="${bs.getBoard().title}"></li>
-                                <p th:if="${boardScraps.isEmpty()}" th:text="'스크랩 한 게시글이 없습니다.'"></p>
+                                <li th:each="bs : ${postScraps}" th:text="${bs.getPost().title}"></li>
+                                <p th:if="${postScraps.isEmpty()}" th:text="'스크랩 한 게시글이 없습니다.'"></p>
                             </ul>
                         </div>
                     </div>
@@ -231,8 +231,8 @@
                         <div class="post-list">
                             <h3><i class="fa-solid fa-caret-right"></i> 내 게시글</h3>
                             <ul class="posts">
-                                <li th:each="b : ${board}" th:text="${b.title}"></li>
-                                <p th:if="${board.isEmpty()}" th:text="'게시글이 없습니다.'"></p>
+                                <li th:each="b : ${post}" th:text="${b.title}"></li>
+                                <p th:if="${post.isEmpty()}" th:text="'게시글이 없습니다.'"></p>
                             </ul>
                         </div>
                         <div class="comment-list">

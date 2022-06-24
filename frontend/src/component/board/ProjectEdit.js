@@ -2,14 +2,14 @@ import React from 'react';
 import style from '../../css/board/project_edit.module.css';
 
 const ProjectEdit = (props) => {
-    const { board, setBoard } = props;
+    const { post, setPost } = props;
     
     const projectOnChange = (e) => {
-        const nextBoard = {
-            ...board,
+        const nextPost = {
+            ...post,
             [e.target.name]: e.target.value
         };
-        setBoard(nextBoard);
+        setPost(nextPost);
     }
 
     return (
@@ -22,12 +22,12 @@ const ProjectEdit = (props) => {
                 <tbody>
                     <tr>
                         <th className={style.project_subject}>주제</th>
-                        <td><input type="text" className={style.project_subject} placeholder="주제를 입력해 주세요" name="projectSubject" defaultValue={board.projectSubject} onChange={projectOnChange}/></td>
+                        <td><input type="text" className={style.project_subject} placeholder="주제를 입력해 주세요" name="projectSubject" defaultValue={post.projectSubject} onChange={projectOnChange}/></td>
                     </tr>
                     <tr className={style.project_field}>
                         <th>분야</th>
                         <td>
-                            <select name="projectField" className={style.project_field} onChange={projectOnChange} value={board.projectField}>
+                            <select name="projectField" className={style.project_field} onChange={projectOnChange} value={post.projectField}>
                                 <option value="앱/안드로이드">앱/안드로이드</option>
                                 <option value="앱/IOS">앱/IOS</option>
                                 <option value="앱/크로스플랫폼">앱/크로스플랫폼</option>
@@ -41,7 +41,7 @@ const ProjectEdit = (props) => {
                     <tr className={style.project_level}>
                         <th>난이도</th>
                         <td>
-                            <select name="projectLevel" className={style.project_level} onChange={projectOnChange} value={board.projectLevel}>
+                            <select name="projectLevel" className={style.project_level} onChange={projectOnChange} value={post.projectLevel}>
                                 <option value={1}>하</option>
                                 <option value={2}>중</option>
                                 <option value={3}>상</option>
@@ -51,7 +51,7 @@ const ProjectEdit = (props) => {
                     <tr className={style.required_member_level}>
                         <th>최소등급</th>
                         <td>
-                            <select name="requiredMemberLevel" className={style.required_member_level} onChange={projectOnChange} value={board.requiredMemberLevel}>
+                            <select name="requiredMemberLevel" className={style.required_member_level} onChange={projectOnChange} value={post.requiredMemberLevel}>
                                 <option value={0}>입문개발자</option>
                                 <option value={1}>초급개발자</option>
                                 <option value={2}>중급개발자</option>
@@ -63,7 +63,7 @@ const ProjectEdit = (props) => {
                     <tr className={style.expected_period}>
                         <th>예상기간</th>
                         <td>
-                            <select name="expectedPeriod" className={style.expected_period} onChange={projectOnChange} value={board.expectedPeriod}>
+                            <select name="expectedPeriod" className={style.expected_period} onChange={projectOnChange} value={post.expectedPeriod}>
                                 <option value="2주 이하">2주 이하</option>
                                 <option value="1개월 이하">1개월 이하</option>
                                 <option value="3개월 이하">3개월 이하</option>

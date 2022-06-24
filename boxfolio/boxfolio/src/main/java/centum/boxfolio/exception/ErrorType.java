@@ -24,8 +24,13 @@ public enum ErrorType {
     LOGIN_REQUIRED("SECURITY004", "세션이 만료되었습니다. 다시 로그인 해주세요.", HttpStatus.UNAUTHORIZED),
 
     POST_NOT_EXISTS("BOARD001", "게시물이 존재하지 않습니다.", HttpStatus.BAD_REQUEST),
+    POST_FAILED("BOARD002", "게시글 저장에 실패했습니다.", HttpStatus.BAD_REQUEST),
 
     PORTFOLIO_NOT_EXISTS("PORTFOLIO001", "포트폴리오가 존재하지 않습니다.", HttpStatus.BAD_REQUEST),
+
+    PROJECT_NOT_EXISTS("PROJECT001", "프로젝트가 존재하지 않습니다.", HttpStatus.BAD_REQUEST),
+    PROJECT_PLAN_NOT_EXISTS("PROJECT002", "프로젝트 계획이 존재하지 않습니다.", HttpStatus.BAD_REQUEST),
+    PROJECT_RULE_NOT_EXISTS("PROJECT003", "프로젝트 규칙이 존재하지 않습니다.", HttpStatus.BAD_REQUEST),
 
     PARAM_VALID_ERROR("PARAM001", "PARAMETER ERROR", HttpStatus.BAD_REQUEST),
 

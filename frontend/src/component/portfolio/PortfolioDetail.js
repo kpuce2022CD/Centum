@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PortfolioDetailAccess from './PortfolioDetailAccess';
 import style from '../../css/portfolio/portfolio_detail.module.css';
-import axios from 'axios';
 import instance from '../security/Interceptor';
-import { useParams } from 'react-router-dom';
+import PortfolioDescript from './PortfolioDescript';
+import PortfolioImage from './PortfolioImage';
+import PortfolioVideo from './PortfolioVideo';
+import PortfolioYoutube from './PortfolioYoutube';
+import PortfolioGit from './PortfolioGit';
+import { useNavigate } from 'react-router-dom';
 
 const PortfolioDetail = (props) => {
     const { id } = props;
@@ -14,7 +18,7 @@ const PortfolioDetail = (props) => {
         const fetchPortfolio = async () => {
             setLoading(true);
             try {
-                await instance.get('/api/portfolio/' + id).then(response => {
+                await instance.get('/api/portfolios/' + id).then(response => {
                     setPortfolio(response.data.data.portfolio);
                 })
             } catch (e) {
@@ -24,6 +28,10 @@ const PortfolioDetail = (props) => {
         }
         fetchPortfolio();
     }, []);
+
+    useEffect(() => {
+        console.log(portfolio);
+    }, [portfolio]);
 
     if (loading) {
         return null;
@@ -39,6 +47,23 @@ const PortfolioDetail = (props) => {
                 <div className={style.portfolio_container}>
                     <div className={style.portfolio_area}>
                         <div className={style.portfolio_title}>{portfolio.title}</div>
+                        {
+                            portfolio.portfolioRows.map(portfolioRow => {
+                                if (portfolioRow.rowType === "descript") {
+                                    return (<PortfolioDescript key={portfolioRow.id} portfolioRow={portfolioRow} />);
+                                } else if (portfolioRow.rowType === "image") {
+                                    return (<PortfolioImage key={portfolioRow.id} portfolioRow={portfolioRow} />);
+                                } else if (portfolioRow.rowType === "video") {
+                                    return (<PortfolioVideo key={portfolioRow.id} portfolioRow={portfolioRow} />);
+                                } else if (portfolioRow.rowType === "youtube") {
+                                    return (<PortfolioYoutube key={portfolioRow.id} portfolioRow={portfolioRow} />);
+                                } else if (portfolioRow.rowType === "github") {
+                                    return (<PortfolioGit key={portfolioRow.id} portfolioRow={portfolioRow} />);
+                                } else {
+                                    return null;
+                                }
+                            })
+                        }
                     </div>
                     <PortfolioDetailAccess portfolio={portfolio} />
                 </div>

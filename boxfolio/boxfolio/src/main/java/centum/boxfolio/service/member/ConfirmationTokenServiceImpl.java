@@ -2,10 +2,14 @@ package centum.boxfolio.service.member;
 
 import centum.boxfolio.entity.auth.ConfirmationToken;
 import centum.boxfolio.repository.auth.ConfirmationTokenRepository;
+import centum.boxfolio.service.mail.GmailHandler;
 import com.sun.jdi.request.InvalidRequestStateException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -14,18 +18,19 @@ import java.util.Optional;
 public class ConfirmationTokenServiceImpl implements ConfirmationTokenService{
 
     private final ConfirmationTokenRepository confirmationTokenRepository;
-    private final EmailService emailService;
+    private final GmailHandler gmailHandler;
 
     /**
      * 이메일 인증 토큰 생성
      * @return
      */
     @Override
-    public String createEmailConfirmationToken(long memberId, String receiverEmail) {
+    public String createEmailConfirmationToken(long memberId, String receiverEmail) throws MessagingException, GeneralSecurityException, IOException {
         ConfirmationToken emailConfirmationToken = ConfirmationToken.createEmailConfirmationToken(memberId);
-        confirmationTokenRepository.save(emailConfirmationToken);
-        emailService.sendTokenByEmail(receiverEmail, emailConfirmationToken.getId());
-        return emailConfirmationToken.getId();
+        ConfirmationToken confirmationToken = confirmationTokenRepository.save(emailConfirmationToken);
+        String bodyText = "<a href='http://localhost:3000/signup/result?token=" + confirmationToken.getId() + "'>회원가입 완료하기</a>";
+        gmailHandler.sendMessage(EmailConst.FROM_ADDRESS, receiverEmail, EmailConst.EMAIL_TITLE, bodyText);
+        return confirmationToken.getId();
     }
 
     /**

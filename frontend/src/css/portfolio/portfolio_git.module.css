@@ -6,10 +6,7 @@
 }
 
 .git {
-    width: 100%;
-}
-
-.git input {
+    background-color: #fff;
     border-radius: 5px;
     width: 100%;
     padding: 10px;

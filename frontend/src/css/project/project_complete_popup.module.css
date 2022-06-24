@@ -1,0 +1,87 @@
+.complete_popup {
+    background-color: #fff !important;
+    border: 1px solid #000;
+    position: fixed;
+    width: 50vw;
+    height: 50vh;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    top: calc(50% - 25vh);
+    left: calc(50% - 25vw);
+}
+
+.complete_popup::before {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: block;
+    cursor: default;
+    z-index: -10;
+}
+
+.complete_popup_header {
+    height: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.exit_button {
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.repository_input {
+    border: 1px solid #aaa;
+    width: 400px;
+    padding: 8px 14px;
+    border-radius: 2px;
+    margin: 10px 0;
+}
+
+.main_container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.access_container {
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.access_container > button {
+    width: 100px;
+    height: 50px;
+    border-radius: 2px;
+    margin: 0 30px;
+    text-align: center;
+    transition-duration: 0.2s;
+}
+
+.complete_button {
+    background-color: #aaf;
+}
+
+.cancel_button {
+    background-color: #faa;
+}
+
+.complete_button:hover {
+    background-color: #55f;
+}
+
+.cancel_button:hover {
+    background-color: #f55;
+}

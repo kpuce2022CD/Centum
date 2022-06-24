@@ -81,3 +81,8 @@ blockquote:after, blockquote:before, q:after, q:before {
 input:-webkit-autofill{
     -webkit-box-shadow: 0 0 0 1000px white inset;
 }
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container {
+    width: auto !important;
+}

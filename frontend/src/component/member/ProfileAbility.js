@@ -6,23 +6,32 @@ import AuthenticationService from '../security/AuthenticationService';
 
 const ProfileAbility = () => {
     const chartRef = useRef();
-    const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
     const [loading, setLoading] = useState(false);
     const [memberAbility, setMemberAbility] = useState({});
+    const [memberTitles, setMemberTitles] = useState([]);
+    const [memberSkills, setMemberSkills] = useState([]);
+    const [completeProjects, setCompleteProjects] = useState([]);
+    const [progressProjects, setProgressProjects] = useState([]);
 
     useEffect(() => {
-        const fetchMemberData = () => {
+        const fetchMemberAbilityData = () => {
             setLoading(true);
-            instance.get('/api/member/ability').then(response => {
+            instance.get('/api/members/my/ability').then(response => {
                 setMemberAbility(response.data.data.memberAbility);
+            });
+            instance.get('/api/members/my/skills').then(response => {
+                setMemberSkills(response.data.data.memberSkills);
+            });
+            instance.get('/api/members/my/titles').then(response => {
+                setMemberTitles(response.data.data.memberTitles);
+            });
+            instance.get('/api/members/my/projects').then(response => {
+                setCompleteProjects(response.data.data.projects.filter(project => project.fromRepository === true));
+                setProgressProjects(response.data.data.projects.filter(project => project.fromRepository === false));
             });
             setLoading(false);
         };
-
-        if (isUserLoggedIn) {
-            fetchMemberData();
-        }
-
+        fetchMemberAbilityData();
     }, []);
 
     useEffect(() => {
@@ -62,7 +71,7 @@ const ProfileAbility = () => {
         return null;
     }
     
-    if (!memberAbility) {
+    if (!memberAbility || !memberSkills || !memberTitles) {
         return null;
     }
     
@@ -82,15 +91,23 @@ const ProfileAbility = () => {
                             <div className={style.skill_stack}>
                                 <h3><i className="fa-solid fa-caret-right"></i> 기술 스택</h3>
                                 <ul className={style.skills}>
-                                    <li></li>
-                                    <p>아직 기술 스택이 없습니다.</p>
+                                    {
+                                        memberSkills.map(memberSkill => (
+                                            <li key={memberSkill.id}>{memberSkill.skillName}</li>
+                                        ))
+                                    }
+                                    {!memberSkills.length && <p>아직 기술 스택이 없습니다.</p>}
                                 </ul>
                             </div>
                             <div className={style.title_stack}>
                                 <h3><i className="fa-solid fa-caret-right"></i> 칭호</h3>
                                 <ul className={style.titles}>
-                                    <li></li>
-                                    <p>아직 칭호가 없습니다.</p>
+                                    {
+                                        memberTitles.map(memberTitle => (
+                                            <li key={memberTitle.id}>{memberTitle.titleName}</li>
+                                        ))
+                                    }
+                                    {!memberTitles.length && <p>아직 칭호가 없습니다.</p>}
                                 </ul>
                             </div>
                         </div>
@@ -98,14 +115,23 @@ const ProfileAbility = () => {
                             <div className={style.complete_project_list}>
                                 <h3><i className="fa-solid fa-caret-right"></i> 완료된 프로젝트 목록</h3>
                                 <ul className={style.complete_projects}>
-                                    <li>일상 기록 애플리케이션</li>
+                                    {
+                                        completeProjects.map(completeProject => (
+                                            <li key={completeProject.id}>{completeProject.title}</li>
+                                        ))
+                                    }
+                                    {!completeProjects.length && <p>완료된 프로젝트가 없습니다.</p>}
                                 </ul>
                             </div>
                             <div className={style.progress_project_list}>
                                 <h3><i className="fa-solid fa-caret-right"></i> 진행중인 프로젝트 목록</h3>
                                 <ul className={style.progress_projects}>
-                                    <li></li>
-                                    <p>진행 중인 프로젝트가 없습니다.</p>
+                                    {
+                                        progressProjects.map(progressProject => (
+                                            <li key={progressProject.id}>{progressProject.title}</li>
+                                        ))
+                                    }
+                                    {!progressProjects.length && <p>진행 중인 프로젝트가 없습니다.</p>}
                                 </ul>
                             </div>
                         </div>

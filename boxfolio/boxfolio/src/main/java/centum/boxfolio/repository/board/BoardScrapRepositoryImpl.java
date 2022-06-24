@@ -1,7 +1,7 @@
 package centum.boxfolio.repository.board;
 
-import centum.boxfolio.entity.board.Board;
-import centum.boxfolio.entity.board.BoardScrap;
+import centum.boxfolio.entity.board.Post;
+import centum.boxfolio.entity.board.PostScrap;
 import centum.boxfolio.entity.member.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,37 +22,37 @@ public class BoardScrapRepositoryImpl implements BoardScrapRepository {
     private final EntityManager em;
 
     @Override
-    public BoardScrap upScrap(Board board, Member member) {
-        board.setScrapTally(board.getScrapTally() + 1);
-        BoardScrap boardScrap = new BoardScrap(board, member);
-        em.persist(boardScrap);
-        return boardScrap;
+    public PostScrap upScrap(Post post, Member member) {
+        post.setScrapTally(post.getScrapTally() + 1);
+        PostScrap postScrap = new PostScrap(post, member);
+        em.persist(postScrap);
+        return postScrap;
     }
 
     @Override
-    public void downScrap(Board board, Member member) {
-        if (board.getScrapTally() > 0) {
-            board.setScrapTally(board.getScrapTally() - 1);
+    public void downScrap(Post post, Member member) {
+        if (post.getScrapTally() > 0) {
+            post.setScrapTally(post.getScrapTally() - 1);
         }
-        Optional<BoardScrap> boardScrap = findByBoardIdAndMemberId(board.getId(), member.getId());
+        Optional<PostScrap> boardScrap = findByPostIdAndMemberId(post.getId(), member.getId());
         em.remove(boardScrap.get());
     }
 
     @Override
-    public List<BoardScrap> findAll() {
-        return em.createQuery("select b from BoardScrap b", BoardScrap.class).getResultList();
+    public List<PostScrap> findAll() {
+        return em.createQuery("select b from PostScrap b", PostScrap.class).getResultList();
     }
 
     @Override
-    public Optional<BoardScrap> findByBoardIdAndMemberId(Long boardId, Long memberId) {
+    public Optional<PostScrap> findByPostIdAndMemberId(Long postId, Long memberId) {
         return findAll().stream()
-                .filter(b -> b.getBoard().getId() == boardId)
+                .filter(b -> b.getPost().getId() == postId)
                 .filter(b -> b.getMember().getId() == memberId)
                 .findAny();
     }
 
     @Override
-    public List<BoardScrap> findByMemberId(Long memberId) {
+    public List<PostScrap> findByMemberId(Long memberId) {
         return findAll().stream()
                 .filter(b -> b.getMember().getId() == memberId)
                 .collect(Collectors.toList());

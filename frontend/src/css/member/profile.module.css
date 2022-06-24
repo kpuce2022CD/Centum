@@ -127,6 +127,26 @@ h6 {
     border-radius: 3px;
 }
 
+.modify_profile_btn:hover {
+    color: #f55;
+}
+
+.has_token {
+    margin-top: auto;
+    background-color: #afa;
+    padding: 2px 6px;
+    border-radius: 10px;
+    color: #080;
+}
+
+.has_token.not {
+    margin-top: auto;
+    background-color: #faa;
+    padding: 2px 6px;
+    border-radius: 10px;
+    color: #800;
+}
+
 .github_link_btn {
     height: 30px;
     display: flex;

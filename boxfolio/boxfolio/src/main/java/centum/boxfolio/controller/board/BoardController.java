@@ -1,365 +1,416 @@
 package centum.boxfolio.controller.board;
 
-import centum.boxfolio.controller.member.SessionConst;
+import centum.boxfolio.dto.board.PostCommentDto;
+import centum.boxfolio.dto.board.FreeDto;
+import centum.boxfolio.dto.board.InformationDto;
+import centum.boxfolio.dto.board.RecruitmentDto;
+import centum.boxfolio.dto.project.ProjectDto;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.member.Member;
+import centum.boxfolio.entity.project.Project;
+import centum.boxfolio.entity.project.ProjectAnalysis;
+import centum.boxfolio.exception.ErrorType;
+import centum.boxfolio.response.Response;
 import centum.boxfolio.service.board.BoardService;
 import centum.boxfolio.service.board.CommentService;
 import centum.boxfolio.service.member.MemberService;
-import centum.boxfolio.service.portfolio.ProjectService;
+import centum.boxfolio.service.project.ProjectService;
+import centum.boxfolio.service.response.ResponseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.security.core.parameters.P;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
+@RestController
+@RequestMapping("/api/board")
 @RequiredArgsConstructor
-@Controller
-@RequestMapping("/board")
 public class BoardController {
 
+    private final MemberService memberService;
     private final BoardService boardService;
     private final CommentService commentService;
     private final ProjectService projectService;
-    private final MemberService memberService;
+    private final ResponseService responseService;
 
     @GetMapping("/free")
-    public String generalBoardPage(Model model) {
-        model.addAttribute("freeBoard", boardService.readFreeBoard());
-        return "board/free_board";
+    public Response<List<Post>> getFreePosts() {
+        return responseService.getResult("posts", boardService.findAllFree());
     }
 
     @GetMapping("/info")
-    public String infoBoardPage(Model model) {
-        model.addAttribute("infoBoard", boardService.readInfoBoard());
-        return "board/info_board";
+    public Response<List<Post>> getInfoPosts() {
+        return responseService.getResult("posts", boardService.findAllInfo());
     }
 
     @GetMapping("/recruit")
-    public String recruitBoardPage(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Member member = memberService.findById(memberId);
-
-        model.addAttribute("recommendRecruitBoard", boardService.recommendRecruitBoard(member));
-        model.addAttribute("recruitBoard", boardService.readRecruitBoard());
-        return "board/recruitment_board";
+    public Response<List<Post>> getRecruitPosts() {
+        return responseService.getResult("posts", boardService.findAllRecruit());
     }
 
-    @GetMapping("/free/{boardId}")
-    public String freeBoardPage(@PathVariable Long boardId, Model model, HttpServletRequest request) {
-        Free post = boardService.readFreePost(boardId);
-        List<BoardComment> boardComments = commentService.findByBoardId(boardId);
-
-        model.addAttribute("freePost", post);
-        model.addAttribute("comments", boardComments);
-        model.addAttribute("boardCommentSaveForm", new BoardCommentSaveForm());
-        return "board/free_post";
-    }
-
-    @GetMapping("/info/{boardId}")
-    public String infoBoardPage(@PathVariable Long boardId, Model model, HttpServletRequest request) {
-        Information post = boardService.readInfoPost(boardId);
-        List<BoardComment> boardComments = commentService.findByBoardId(boardId);
-
-        model.addAttribute("infoPost", post);
-        model.addAttribute("comments", boardComments);
-        model.addAttribute("boardCommentSaveForm", new BoardCommentSaveForm());
-        return "board/info_post";
-    }
-
-    @GetMapping("/recruit/{boardId}")
-    public String recruitBoardPage(@PathVariable Long boardId, Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-
-        Recruitment post = boardService.readRecruitPost(boardId);
-        List<BoardComment> boardComments = commentService.findByBoardId(boardId);
-        Boolean applyStatus = boardService.checkApplyStatus(boardId, memberId);
-
-        model.addAttribute("recruitPost", post);
-        model.addAttribute("comments", boardComments);
-        model.addAttribute("boardCommentSaveForm", new BoardCommentSaveForm());
-        model.addAttribute("applyStatus", applyStatus);
-        return "board/recruitment_post";
-    }
-
-    @GetMapping("/free/edit")
-    public String freeBoardEditorPage(Model model) {
-        FreeBoardSaveForm freeBoardSaveForm = new FreeBoardSaveForm();
-        freeBoardSaveForm.setVisibility("public");
-        freeBoardSaveForm.setCommentAllow(true);
-        model.addAttribute("freeBoardSaveForm", freeBoardSaveForm);
-        return "board/free_edit";
-    }
-
-    @GetMapping("/info/edit")
-    public String infoBoardEditorPage(Model model) {
-        InfoBoardSaveForm infoBoardSaveForm = new InfoBoardSaveForm();
-        infoBoardSaveForm.setVisibility("public");
-        infoBoardSaveForm.setCommentAllow(true);
-        model.addAttribute("infoBoardSaveForm", infoBoardSaveForm);
-        return "board/info_edit";
-    }
-
-    @GetMapping("/recruit/edit")
-    public String recruitBoardEditorPage(Model model) {
-        RecruitBoardSaveForm recruitBoardSaveForm = new RecruitBoardSaveForm();
-        recruitBoardSaveForm.setVisibility("public");
-        recruitBoardSaveForm.setCommentAllow(true);
-        recruitBoardSaveForm.setMemberTotal(1L);
-        model.addAttribute("recruitBoardSaveForm", recruitBoardSaveForm);
-        return "board/recruitment_edit";
-    }
-
-    @PostMapping("/free/edit")
-    public String freeBoardEdit(@ModelAttribute FreeBoardSaveForm freeBoardSaveForm, BindingResult bindingResult,
-                                HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "/board/free_edit";
+    @GetMapping("/free/{id}")
+    public Response<Post> getFreePost(@PathVariable Long id) {
+        Post post = boardService.findFreeById(id);
+        if (post == null) {
+            return responseService.getFailResult(ErrorType.POST_NOT_EXISTS);
         }
-
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Free freePost = boardService.createFreePost(freeBoardSaveForm, memberId);
-        redirectAttributes.addAttribute("id", freePost.getId());
-        return "redirect:/board/free/{id}";
+        return responseService.getResult("post", post);
     }
 
-    @PostMapping("/info/edit")
-    public String infoBoardEdit(@ModelAttribute InfoBoardSaveForm infoBoardSaveForm, BindingResult bindingResult,
-                                HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "/board/info_edit";
+    @GetMapping("/info/{id}")
+    public Response<Post> getInfoPost(@PathVariable Long id) {
+        Information information = boardService.findInfoById(id);
+        if (information == null) {
+            return responseService.getFailResult(ErrorType.POST_NOT_EXISTS);
         }
-
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Information infoPost = boardService.createInfoPost(infoBoardSaveForm, memberId);
-        redirectAttributes.addAttribute("id", infoPost.getId());
-        return "redirect:/board/info/{id}";
+        return responseService.getResult("post", information);
     }
 
-    @PostMapping("/recruit/edit")
-    public String recruitBoardEdit(@ModelAttribute RecruitBoardSaveForm recruitBoardSaveForm, BindingResult bindingResult,
-                                   HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "/board/recruitment_edit";
+    @GetMapping("/recruit/{id}")
+    public Response<Post> getRecruitPost(@PathVariable Long id) {
+        Recruitment recruitment = boardService.findRecruitById(id);
+        if (recruitment == null) {
+            return responseService.getFailResult(ErrorType.POST_NOT_EXISTS);
         }
-
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Recruitment recruitPost = boardService.createRecruitPost(recruitBoardSaveForm, memberId);
-        redirectAttributes.addAttribute("id", recruitPost.getId());
-        return "redirect:/board/recruit/{id}";
+        return responseService.getResult("post", recruitment);
     }
 
-    @GetMapping("/free/modify/{boardId}")
-    public String modifyFreeBoardPage(@PathVariable Long boardId, Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Free free = boardService.readFreePost(boardId);
-        if (memberId != free.getMember().getId()) {
-            return "redirect:/board/free";
+    @PostMapping("/free")
+    public Response<FreeDto> createFreePost(@RequestBody @Validated FreeDto freeDto, Principal principal) {
+        Member member = memberService.findByLoginId(principal.getName());
+        Free free = Free.builder()
+                .title(freeDto.getTitle())
+                .contents(freeDto.getContents())
+                .commentAllow(freeDto.getCommentAllow())
+                .scrapAllow(freeDto.getScrapAllow())
+                .createdDate(LocalDateTime.now())
+                .visibility(freeDto.getVisibility())
+                .member(member)
+                .build();
+        return responseService.getResult("post",convertFreeToFreeDto((Free) boardService.savePost(free)));
+    }
+
+    @PostMapping("/info")
+    public Response<InformationDto> createInfoPost(@RequestBody @Validated InformationDto informationDto, Principal principal) {
+        Member member = memberService.findByLoginId(principal.getName());
+        Information information = Information.builder()
+                .title(informationDto.getTitle())
+                .contents(informationDto.getContents())
+                .commentAllow(informationDto.getCommentAllow())
+                .scrapAllow(informationDto.getScrapAllow())
+                .createdDate(LocalDateTime.now())
+                .visibility(informationDto.getVisibility())
+                .member(member)
+                .build();
+
+        return responseService.getResult("post", convertInformationToInformationDto((Information) boardService.savePost(information)));
+    }
+
+    @PostMapping("/recruit")
+    public Response<RecruitmentDto> createRecruitPost(@RequestBody @Validated RecruitmentDto recruitmentDto, Principal principal) {
+        Member member = memberService.findByLoginId(principal.getName());
+        Recruitment recruitment = Recruitment.builder()
+                .title(recruitmentDto.getTitle())
+                .contents(recruitmentDto.getContents())
+                .createdDate(LocalDateTime.now())
+                .commentAllow(recruitmentDto.getCommentAllow())
+                .scrapAllow(recruitmentDto.getScrapAllow())
+                .visibility(recruitmentDto.getVisibility())
+                .member(member)
+                .autoMatchingStatus(recruitmentDto.getAutoMatchingStatus())
+                .deadlineDate(recruitmentDto.getDeadlineDate())
+                .memberTally(0L)
+                .memberTotal(recruitmentDto.getMemberTotal())
+                .projectSubject(recruitmentDto.getProjectSubject())
+                .projectField(recruitmentDto.getProjectField())
+                .projectLevel(recruitmentDto.getProjectLevel())
+                .requiredMemberLevel(recruitmentDto.getRequiredMemberLevel())
+                .expectedPeriod(recruitmentDto.getExpectedPeriod())
+                .build();
+
+        Recruitment post = (Recruitment) boardService.savePost(recruitment);
+        boardService.applyRecruit(post.getId(), member.getId());
+
+        return responseService.getResult("post", convertRecruitmentToRecruitmentDto(post));
+    }
+
+
+    @PutMapping("/free/{id}")
+    public Response<FreeDto> modifyFreePost(@PathVariable Long id, @RequestBody @Validated FreeDto freeDto) {
+        Free free = new Free();
+        free.setModifiableFree(freeDto.getTitle(), freeDto.getContents(), freeDto.getCommentAllow(), freeDto.getScrapAllow(), freeDto.getVisibility());
+
+        return responseService.getResult("post", convertFreeToFreeDto(boardService.modifyFreePost(free, id)));
+    }
+
+    @PutMapping("/info/{id}")
+    public Response<RecruitmentDto> modifyInfoPost(@PathVariable Long id, @RequestBody @Validated InformationDto informationDto) {
+        Information information = new Information();
+        information.setModifiableInfo(informationDto.getTitle(), informationDto.getContents(), informationDto.getCommentAllow(), informationDto.getScrapAllow(), informationDto.getVisibility());
+
+        return responseService.getResult("post", convertInformationToInformationDto(boardService.modifyInfoPost(information, id)));
+    }
+
+    @PutMapping("/recruit/{id}")
+    public Response<RecruitmentDto> modifyRecruitPost(@PathVariable Long id, @RequestBody @Validated RecruitmentDto recruitmentDto) {
+        Recruitment recruitment = new Recruitment();
+        recruitment.setModifiableRecruit(recruitmentDto.getTitle(), recruitmentDto.getContents(), recruitmentDto.getCommentAllow(), recruitmentDto.getScrapAllow(), recruitmentDto.getVisibility(),
+                recruitmentDto.getAutoMatchingStatus(), recruitmentDto.getDeadlineDate(), recruitmentDto.getMemberTotal(), recruitmentDto.getProjectSubject(), recruitmentDto.getProjectField(),
+                recruitmentDto.getProjectLevel(), recruitmentDto.getRequiredMemberLevel(), recruitmentDto.getExpectedPeriod());
+
+        return responseService.getResult("post", convertRecruitmentToRecruitmentDto(boardService.modifyRecruitPost(recruitment, id)));
+    }
+
+    @DeleteMapping("/{id}")
+    public Response deletePost(@PathVariable Long id) {
+        boardService.deletePost(id);
+        return responseService.getSuccessResult();
+    }
+
+    @GetMapping("/recruit/recommends")
+    public Response<List<RecruitmentDto>> getRecommendedRecruit(Principal principal) {
+        Member member = memberService.findByLoginId(principal.getName());
+        List<RecruitmentDto> recruitmentDtos = boardService.recommendRecruitPost(member).stream()
+                .map(recruitment -> convertRecruitmentToRecruitmentDto(recruitment))
+                .collect(Collectors.toList());
+
+        return responseService.getResult("recommend", recruitmentDtos);
+    }
+
+    @GetMapping("/{id}/comments")
+    public Response<List<PostCommentDto>> getCommentList(@PathVariable Long id) {
+        List<PostComment> comments = commentService.findByPostId(id);
+        List<PostCommentDto> postCommentDtos = comments.stream()
+                .map(comment -> PostCommentDto.builder()
+                        .id(comment.getId())
+                        .contents(comment.getContents())
+                        .createdDate(comment.getCreatedDate())
+                        .commentClass(comment.getCommentClass())
+                        .commentOrder(comment.getCommentOrder())
+                        .groupNum(comment.getGroupNum())
+                        .parentComment(comment.getParentComment())
+                        .postId(comment.getPost().getId())
+                        .postType(comment.getPost().getPostType())
+                        .memberLoginId(comment.getMember().getLoginId())
+                        .memberNickname(comment.getMember().getNickname())
+                        .build())
+                .collect(Collectors.toList());
+
+        return responseService.getResult("comments", postCommentDtos);
+    }
+
+    @PostMapping("/{id}/comments")
+    public Response<PostCommentDto> createComment(@PathVariable Long id, @RequestBody @Validated PostCommentDto postCommentDto, Principal principal) {
+        Post post = boardService.findPostById(id);
+        Member member = memberService.findByLoginId(principal.getName());
+        PostComment postComment = PostComment.builder()
+                .contents(postCommentDto.getContents())
+                .createdDate(LocalDateTime.now())
+                .commentClass(0)
+                .commentOrder(0L)
+                .groupNum(null)
+                .postComment(null)
+                .post(post)
+                .member(member)
+                .build();
+
+        PostComment savedPostComment = commentService.saveComment(postComment);
+
+        PostCommentDto savedPostCommentDto = PostCommentDto.builder()
+                .id(savedPostComment.getId())
+                .contents(savedPostComment.getContents())
+                .createdDate(savedPostComment.getCreatedDate())
+                .commentClass(savedPostComment.getCommentClass())
+                .commentOrder(savedPostComment.getCommentOrder())
+                .groupNum(savedPostComment.getGroupNum())
+                .postId(savedPostComment.getPost().getId())
+                .postType(savedPostComment.getPost().getPostType())
+                .memberLoginId(savedPostComment.getMember().getLoginId())
+                .memberNickname(savedPostComment.getMember().getNickname())
+                .build();
+
+        return responseService.getResult("postComment", savedPostCommentDto);
+    }
+
+    @PostMapping("/{id}/comments/{commentId}/replies")
+    public Response<PostCommentDto> createReply(@PathVariable Long id, @PathVariable Long commentId, @RequestBody @Validated PostCommentDto postCommentDto, Principal principal) {
+        Post post = boardService.findPostById(id);
+        Member member = memberService.findByLoginId(principal.getName());
+        PostComment parentComment = commentService.findById(commentId);
+        Long maxOrder = commentService.findMaxOrderInParentComment(parentComment);
+        PostComment postComment = PostComment.builder()
+                .contents(postCommentDto.getContents())
+                .createdDate(LocalDateTime.now())
+                .commentClass(1)
+                .commentOrder(maxOrder + 1L)
+                .groupNum(parentComment.getGroupNum())
+                .postComment(parentComment)
+                .post(post)
+                .member(member)
+                .build();
+
+        PostComment savedPostComment = commentService.saveComment(postComment);
+        PostCommentDto savedPostCommentDto = PostCommentDto.builder()
+                .id(savedPostComment.getId())
+                .contents(savedPostComment.getContents())
+                .createdDate(savedPostComment.getCreatedDate())
+                .commentClass(savedPostComment.getCommentClass())
+                .commentOrder(savedPostComment.getCommentOrder())
+                .groupNum(savedPostComment.getGroupNum())
+                .postId(savedPostComment.getPost().getId())
+                .memberLoginId(savedPostComment.getMember().getLoginId())
+                .memberNickname(savedPostComment.getMember().getNickname())
+                .build();
+
+        return responseService.getResult("postComment", savedPostCommentDto);
+    }
+
+    @DeleteMapping("/comments/{id}")
+    public Response deletePostComment(@PathVariable Long id, Principal principal) {
+        PostComment postComment = commentService.findById(id);
+        Member member = memberService.findByLoginId(principal.getName());
+        if (postComment.getMember().getId() != member.getId()) {
+            return responseService.getFailResultByMessage("작성자가 일치하지 않습니다.");
         }
-//        model.addAttribute("freeBoardSaveForm", free.toFreeBoardSaveForm());
-        return "board/free_modify";
+        commentService.deleteComment(postComment);
+        return responseService.getSuccessResult();
     }
 
-    @GetMapping("/info/modify/{boardId}")
-    public String modifyInfoBoardPage(@PathVariable Long boardId, Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Information information = boardService.readInfoPost(boardId);
-        if (memberId != information.getMember().getId()) {
-            return "redirect:/board/info";
-        }
-//        model.addAttribute("infoBoardSaveForm", information.toInfoBoardSaveForm());
-        return "board/info_modify";
+    @GetMapping("/recruit/{id}/recruitMembers")
+    public Response<List<Member>> getRecruitMembers(@PathVariable Long id) {
+        return responseService.getResult("recruitMembers", boardService.findRecruitMembersByPostId(id));
     }
 
-    @GetMapping("/recruit/modify/{boardId}")
-    public String modifyRecruitBoardPage(@PathVariable Long boardId, Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Recruitment recruitment = boardService.readRecruitPost(boardId);
-        if (memberId != recruitment.getMember().getId()) {
-            return "redirect:/board/recruit";
-        }
-        model.addAttribute("recruitBoardSaveForm", recruitment.toRecruitBoardSaveForm());
-        return "board/recruitment_modify";
+    @GetMapping("/recruit/{id}/isRecruitMember")
+    public Response<Boolean> getRecruitMember(@PathVariable Long id, Principal principal) {
+        return responseService.getResult("isRecruitMember", boardService.checkRecruitMemberByPostIdAndMemberLoginId(id, principal.getName()));
     }
 
-    @PostMapping("/free/modify/{boardId}")
-    public String modifyFreeBoard(@PathVariable Long boardId, @ModelAttribute FreeBoardSaveForm freeBoardSaveForm, BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "/board/free_modify";
-        }
+    @GetMapping("/recruit/{id}/end")
+    public Response setRecruitEnd(@PathVariable Long id) {
+        boardService.endRecruit(id);
 
-        Free freePost = boardService.updateFreePost(freeBoardSaveForm, boardId);
-        redirectAttributes.addAttribute("id", freePost.getId());
-        return "redirect:/board/free/{id}";
+        return responseService.getSuccessResult();
     }
 
-    @PostMapping("/info/modify/{boardId}")
-    public String modifyInfoBoard(@PathVariable Long boardId, @ModelAttribute InfoBoardSaveForm infoBoardSaveForm, BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "/board/info_modify";
-        }
+    @GetMapping("/recruit/{id}/restart")
+    public Response setRecruitRestart(@PathVariable Long id) {
+        boardService.restartRecruit(id);
 
-        Information freePost = boardService.updateInfoPost(infoBoardSaveForm, boardId);
-        redirectAttributes.addAttribute("id", freePost.getId());
-        return "redirect:/board/info/{id}";
+        return responseService.getSuccessResult();
     }
 
-    @PostMapping("/recruit/modify/{boardId}")
-    public String modifyRecruitBoard(@PathVariable Long boardId, @ModelAttribute RecruitBoardSaveForm recruitBoardSaveForm, BindingResult bindingResult,
-                                     RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "/board/recruitment_modify";
-        }
+    @GetMapping("/recruit/{id}/apply")
+    public Response addRecruitMember(@PathVariable Long id, Principal principal) {
+        Member member = memberService.findByLoginId(principal.getName());
+        boardService.applyRecruit(id, member.getId());
 
-        Recruitment freePost = boardService.updateRecruitPost(recruitBoardSaveForm, boardId);
-        redirectAttributes.addAttribute("id", freePost.getId());
-        return "redirect:/board/recruit/{id}";
+        return responseService.getSuccessResult();
     }
 
-    @GetMapping("/free/delete/{boardId}")
-    public String deleteFreeBoard(@PathVariable Long boardId, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Free free = boardService.readFreePost(boardId);
-        if (memberId == free.getMember().getId()) {
-            boardService.deleteFreeBoard(boardId);
-        }
-        return "redirect:/board/free";
+    @GetMapping("/recruit/{id}/complete")
+    public Response<ProjectDto> createProject(@PathVariable Long id) {
+        Recruitment post = boardService.findRecruitById(id);
+        Project project = Project.builder()
+                .title(post.getProjectSubject())
+                .projectField(post.getProjectField())
+                .projectPreview("")
+                .updatedDate(post.getCreatedDate())
+                .memberTally(post.getMemberTally())
+                .fromRepository(false)
+                .repositoryName("")
+                .isCompleted(false)
+                .portfolio(null)
+                .member(post.getMember())
+                .projectAnalysis(new ProjectAnalysis())
+                .build();
+        Project savedProject = projectService.save(project);
+        projectService.saveProjectMembersInRecruit(savedProject, post);
+        boardService.deleteRecruitMembersByPostId(post.getId());
+        boardService.deletePost(post.getId());
+        return responseService.getSuccessResult();
     }
 
-    @GetMapping("/info/delete/{boardId}")
-    public String deleteInfoBoard(@PathVariable Long boardId, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Information information = boardService.readInfoPost(boardId);
-        if (memberId == information.getMember().getId()) {
-            boardService.deleteInfoBoard(boardId);
-        }
-        return "redirect:/board/info";
+    @GetMapping("/{id}/star")
+    public Response countStar(@PathVariable Long id, Principal principal) {
+        Post post = boardService.findPostById(id);
+        Member member = memberService.findByLoginId(principal.getName());
+
+        return responseService.getResult("postStar", boardService.countStar(post, member));
     }
 
-    @GetMapping("/recruit/delete/{boardId}")
-    public String deleteRecruitBoard(@PathVariable Long boardId, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Recruitment recruitment = boardService.readRecruitPost(boardId);
-        if (memberId == recruitment.getMember().getId()) {
-            boardService.deleteRecruitBoard(boardId);
-        }
-        return "redirect:/board/recruit";
+    @GetMapping("/{id}/scrap")
+    public Response countScrap(@PathVariable Long id, Principal principal) {
+        Post post = boardService.findPostById(id);
+        Member member = memberService.findByLoginId(principal.getName());
+
+        return responseService.getResult("postScrap", boardService.countScrap(post, member));
     }
 
-    @GetMapping("/recruit/end/{boardId}")
-    public String endRecruit(@PathVariable Long boardId, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Recruitment recruitment = boardService.readRecruitPost(boardId);
-        if (memberId == recruitment.getMember().getId()) {
-            boardService.endRecruit(boardId);
-        }
-        redirectAttributes.addAttribute("id", recruitment.getId());
-        return "redirect:/board/recruit/{id}";
+    private FreeDto convertFreeToFreeDto(Free free) {
+        return FreeDto.builder()
+                .id(free.getId())
+                .title(free.getTitle())
+                .contents(free.getContents())
+                .createdDate(free.getCreatedDate())
+                .commentAllow(free.getCommentAllow())
+                .scrapAllow(free.getScrapAllow())
+                .visibility(free.getVisibility())
+                .commentTally(free.getCommentTally())
+                .starTally(free.getStarTally())
+                .scrapTally(free.getScrapTally())
+                .viewTally(free.getViewTally())
+                .memberId(free.getMember().getId())
+                .build();
     }
 
-    @GetMapping("/recruit/restart/{boardId}")
-    public String restartRecruit(@PathVariable Long boardId, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        Recruitment recruitment = boardService.readRecruitPost(boardId);
-        if (memberId == recruitment.getMember().getId()) {
-            boardService.restartRecruit(boardId);
-        }
-        redirectAttributes.addAttribute("id", recruitment.getId());
-        return "redirect:/board/recruit/{id}";
+    private InformationDto convertInformationToInformationDto(Information information) {
+        return InformationDto.builder()
+                .id(information.getId())
+                .title(information.getTitle())
+                .contents(information.getContents())
+                .createdDate(information.getCreatedDate())
+                .commentAllow(information.getCommentAllow())
+                .scrapAllow(information.getScrapAllow())
+                .commentTally(information.getCommentTally())
+                .starTally(information.getStarTally())
+                .scrapTally(information.getScrapTally())
+                .viewTally(information.getViewTally())
+                .visibility(information.getVisibility())
+                .memberId(information.getMember().getId())
+                .build();
     }
 
-    @GetMapping("recruit/apply/{boardId}")
-    public String applyRecruit(@PathVariable Long boardId, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        boardService.applyRecruit(boardId, memberId);
-        redirectAttributes.addAttribute("id", boardId);
-        return "redirect:/board/recruit/{id}";
-    }
-
-    @GetMapping("/star/{boardId}")
-    public String pushStar(@PathVariable Long boardId, HttpServletRequest request) {
-        String referer = request.getHeader("referer");
-        HttpSession session = request.getSession(false);
-        if (referer != null) {
-            Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-            boardService.countStar(boardId, memberId);
-        }
-        return "redirect:" + referer;
-    }
-
-    @GetMapping("/scrap/{boardId}")
-    public String pushScrap(@PathVariable Long boardId, HttpServletRequest request) {
-        String referer = request.getHeader("referer");
-        HttpSession session = request.getSession(false);
-        if (referer != null) {
-            Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-            boardService.countScrap(boardId, memberId);
-        }
-
-        return "redirect:" + referer;
-    }
-
-    @PostMapping("/comment/{boardId}")
-    public String postComment(@ModelAttribute BoardCommentSaveForm boardCommentSaveForm, BindingResult bindingResult,
-                              @PathVariable Long boardId, HttpServletRequest request) {
-        String referer = request.getHeader("referer");
-        if (bindingResult.hasErrors()) {
-            return referer;
-        }
-        HttpSession session = request.getSession(false);
-        long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        commentService.createComment(boardCommentSaveForm, boardId, memberId);
-
-        return "redirect:" + referer;
-    }
-
-    @GetMapping("/comment/delete/{commentId}")
-    public String deleteComment(@PathVariable Long commentId, HttpServletRequest request) {
-        String referer = request.getHeader("referer");
-        if (referer != null) {
-            commentService.deleteComment(commentId);
-        }
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-
-        return "redirect:" + referer;
-    }
-
-    @PostMapping("/reply/{commentId}")
-    public String postReply(@ModelAttribute BoardCommentSaveForm boardCommentSaveForm, BindingResult bindingResult,
-                            @PathVariable Long commentId, HttpServletRequest request) {
-        String referer = request.getHeader("referer");
-        if (bindingResult.hasErrors()) {
-            return referer;
-        }
-        HttpSession session = request.getSession(false);
-        Long memberId = Long.parseLong(session.getAttribute(SessionConst.LOGIN_MEMBER).toString());
-        BoardComment reply = commentService.createReply(boardCommentSaveForm, commentId, memberId);
-        log.info("{}", reply.getGroupNum());
-
-        return "redirect:" + referer;
+    private RecruitmentDto convertRecruitmentToRecruitmentDto(Recruitment recruitment) {
+        return RecruitmentDto.builder()
+                .id(recruitment.getId())
+                .title(recruitment.getTitle())
+                .contents(recruitment.getContents())
+                .createdDate(recruitment.getCreatedDate())
+                .commentAllow(recruitment.getCommentAllow())
+                .scrapAllow(recruitment.getScrapAllow())
+                .commentTally(recruitment.getCommentTally())
+                .starTally(recruitment.getStarTally())
+                .scrapTally(recruitment.getScrapTally())
+                .viewTally(recruitment.getViewTally())
+                .visibility(recruitment.getVisibility())
+                .memberId(recruitment.getMember().getId())
+                .autoMatchingStatus(recruitment.getAutoMatchingStatus())
+                .deadlineStatus(recruitment.getDeadlineStatus())
+                .deadlineDate(recruitment.getDeadlineDate())
+                .memberTally(recruitment.getMemberTally())
+                .memberTotal(recruitment.getMemberTotal())
+                .projectSubject(recruitment.getProjectSubject())
+                .projectField(recruitment.getProjectField())
+                .projectLevel(recruitment.getProjectLevel())
+                .requiredMemberLevel(recruitment.getRequiredMemberLevel())
+                .expectedPeriod(recruitment.getExpectedPeriod())
+                .build();
     }
 }

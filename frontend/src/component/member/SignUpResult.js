@@ -14,7 +14,9 @@ const SignUpResult = (props) => {
         const fetchPortfolio = async () => {
             setLoading(true);
             try {
-                await axios.get('/api/token' + location.search).then(response => {
+                console.log(location.search);
+                await axios.get('/api/members/token' + location.search).then(response => {
+                    console.log(response.data);
                     if (response.data.success === 0) {
                         setMember(response.data.data.member);
                     } else {

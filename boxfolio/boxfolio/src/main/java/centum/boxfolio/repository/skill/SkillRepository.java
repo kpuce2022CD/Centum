@@ -1,7 +1,7 @@
 package centum.boxfolio.repository.skill;
 
 import centum.boxfolio.entity.member.MemberSkill;
-import centum.boxfolio.entity.portfolio.ProjectSkill;
+import centum.boxfolio.entity.project.ProjectSkill;
 import centum.boxfolio.entity.skill.Skill;
 import centum.boxfolio.entity.skill.SkillType;
 

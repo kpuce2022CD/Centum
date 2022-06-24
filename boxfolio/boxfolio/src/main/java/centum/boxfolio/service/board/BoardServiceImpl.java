@@ -1,11 +1,10 @@
 package centum.boxfolio.service.board;
 
-import centum.boxfolio.controller.board.FreeBoardSaveForm;
-import centum.boxfolio.controller.board.InfoBoardSaveForm;
-import centum.boxfolio.controller.board.RecruitBoardSaveForm;
-import centum.boxfolio.controller.member.ProgressProjectSaveForm;
 import centum.boxfolio.entity.board.*;
 import centum.boxfolio.entity.member.Member;
+import centum.boxfolio.exception.AccountException;
+import centum.boxfolio.exception.ErrorType;
+import centum.boxfolio.exception.PostException;
 import centum.boxfolio.repository.board.BoardRepository;
 import centum.boxfolio.repository.board.BoardScrapRepository;
 import centum.boxfolio.repository.board.BoardStarRepository;
@@ -22,54 +21,50 @@ import java.util.stream.Collectors;
 public class BoardServiceImpl implements BoardService{
 
     private final BoardRepository boardRepository;
-    private final BoardScrapRepository scrapRepository;
-    private final BoardStarRepository boardStarRepository;
+    private final BoardScrapRepository postScrapRepository;
+    private final BoardStarRepository postStarRepository;
     private final MemberRepository memberRepository;
 
     @Override
-    public Board countView(Board board) {
-        return boardRepository.upView(board);
+    public Post savePost(Post post) {
+        return boardRepository.savePost(post);
     }
 
     @Override
-    public BoardStar countStar(Long boardId, Long memberId) {
-        Optional<BoardStar> boardStar = boardStarRepository.findByBoardIdAndMemberId(boardId, memberId);
-        Optional<Member> member = memberRepository.findById(memberId);
-        Optional<Board> post = boardRepository.findGeneralPostById(boardId);
-        if (boardStar.isEmpty()) {
-            return boardStarRepository.upStar(post.get(), member.get());
+    public Post findPostById(Long id) {
+        Optional<Post> post = boardRepository.findPostById(id);
+        if (post.isEmpty()) {
+            throw new PostException(ErrorType.POST_NOT_EXISTS);
         }
-        boardStarRepository.downStar(post.get(), member.get());
-        return null;
+
+        return post.get();
     }
 
     @Override
-    public BoardScrap countScrap(Long boardId, Long memberId) {
-        Optional<BoardScrap> boardScrap = scrapRepository.findByBoardIdAndMemberId(boardId, memberId);
-        Optional<Member> member = memberRepository.findById(memberId);
-        Optional<Board> post = boardRepository.findGeneralPostById(boardId);
-        if (boardScrap.isEmpty()) {
-            return scrapRepository.upScrap(post.get(), member.get());
+    public List<Post> findPostsByMemberId(Long memberId) {
+        return boardRepository.findPostsByMemberId(memberId);
+    }
+
+    @Override
+    public void deletePost(Long id) {
+        Optional<Post> post = boardRepository.findPostById(id);
+        if (post.isEmpty()) {
+            throw new PostException(ErrorType.POST_NOT_EXISTS);
         }
-        scrapRepository.downScrap(post.get(), member.get());
-        return null;
+        boardRepository.deletePost(post.get());
     }
 
     @Override
-    public Free createFreePost(FreeBoardSaveForm freeBoardSaveForm, Long memberId) {
-        Optional<Member> member = memberRepository.findById(memberId);
-        return boardRepository.saveFreePost(freeBoardSaveForm.toFreeBoard(member.get()));
+    public Free modifyFreePost(Free free, Long id) {
+        Optional<Free> post = boardRepository.findFreePostById(id);
+        if (post.isEmpty()) {
+            throw new PostException(ErrorType.POST_NOT_EXISTS);
+        }
+        return boardRepository.updateFreePost(post.get(), free);
     }
 
     @Override
-    public Free updateFreePost(FreeBoardSaveForm freeBoardSaveForm, Long boardId) {
-        Optional<Free> post = boardRepository.findFreePostById(boardId);
-        Optional<Free> free = boardRepository.modifyFreePost(post.get(), freeBoardSaveForm);
-        return free.get();
-    }
-
-    @Override
-    public Free readFreePost(Long id) {
+    public Free findFreeById(Long id) {
         Optional<Free> freePost = boardRepository.findFreePostById(id);
         if (freePost.isEmpty()) {
             return null;
@@ -79,35 +74,21 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<Free> readFreeBoard() {
-        return boardRepository.findFreeBoard();
+    public List<Free> findAllFree() {
+        return boardRepository.findAllFreePost();
     }
 
     @Override
-    public void deleteFreeBoard(Long id) {
-        boardRepository.removeFreeBoard(id);
+    public Information modifyInfoPost(Information information, Long id) {
+        Optional<Information> post = boardRepository.findInfoPostById(id);
+        if (post.isEmpty()) {
+            throw new PostException(ErrorType.POST_NOT_EXISTS);
+        }
+        return boardRepository.updateInfoPost(post.get(), information);
     }
 
     @Override
-    public Board createBoard(Board board) {
-        return boardRepository.saveBoard(board);
-    }
-
-    @Override
-    public Information createInfoPost(InfoBoardSaveForm infoBoardSaveForm, Long memberId) {
-        Optional<Member> member = memberRepository.findById(memberId);
-        return boardRepository.saveInfoPost(infoBoardSaveForm.toInfoBoard(member.get()));
-    }
-
-    @Override
-    public Information updateInfoPost(InfoBoardSaveForm infoBoardSaveForm, Long boardId) {
-        Optional<Information> post = boardRepository.findInfoPostById(boardId);
-        Optional<Information> information = boardRepository.modifyInfoPost(post.get(), infoBoardSaveForm);
-        return information.get();
-    }
-
-    @Override
-    public Information readInfoPost(Long id) {
+    public Information findInfoById(Long id) {
         Optional<Information> infoPost = boardRepository.findInfoPostById(id);
         if (infoPost.isEmpty()) {
             return null;
@@ -117,33 +98,21 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<Information> readInfoBoard() {
-        return boardRepository.findInfoBoard();
+    public List<Information> findAllInfo() {
+        return boardRepository.findAllInfoPost();
     }
 
     @Override
-    public void deleteInfoBoard(Long id) {
-        boardRepository.removeInfoBoard(id);
+    public Recruitment modifyRecruitPost(Recruitment recruitment, Long id) {
+        Optional<Recruitment> post = boardRepository.findRecruitPostById(id);
+        if (post.isEmpty()) {
+            throw new PostException(ErrorType.POST_NOT_EXISTS);
+        }
+        return boardRepository.updateRecruitPost(post.get(), recruitment);
     }
 
     @Override
-    public Recruitment createRecruitPost(RecruitBoardSaveForm recruitBoardSaveForm, Long memberId) {
-        Optional<Member> member = memberRepository.findById(memberId);
-        Recruitment recruitment = boardRepository.saveRecruitPost(recruitBoardSaveForm.toRecruitBoard(member.get()));
-        boardRepository.saveProjectMember(recruitment, member.get());
-        checkClosingRecruit(recruitment);
-        return recruitment;
-    }
-
-    @Override
-    public Recruitment updateRecruitPost(RecruitBoardSaveForm recruitBoardSaveForm, Long boardId) {
-        Optional<Recruitment> post = boardRepository.findRecruitPostById(boardId);
-        Optional<Recruitment> recruitment = boardRepository.modifyRecruitPost(post.get(), recruitBoardSaveForm);
-        return recruitment.get();
-    }
-
-    @Override
-    public Recruitment readRecruitPost(Long id) {
+    public Recruitment findRecruitById(Long id) {
         Optional<Recruitment> recruitPost = boardRepository.findRecruitPostById(id);
         if (recruitPost.isEmpty()) {
             return null;
@@ -153,144 +122,110 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<Recruitment> readRecruitBoard() {
-        return boardRepository.findRecruitBoard();
+    public List<Recruitment> findAllRecruit() {
+        return boardRepository.findAllRecruitPost();
     }
 
     @Override
-    public void deleteRecruitBoard(Long id) {
-        boardRepository.removeRecruitBoard(id);
-    }
-
-    @Override
-    public List<Recruitment> recommendRecruitBoard(Member member) {
-        return boardRepository.findRecruitBoard().stream()
+    public List<Recruitment> recommendRecruitPost(Member member) {
+        return boardRepository.findAllRecruitPost().stream()
                 .filter(r -> r.getDeadlineStatus() == false)
                 .filter(r -> r.getAutoMatchingStatus() == true)
                 .filter(r -> r.getMemberTally() < r.getMemberTotal())
-                .filter(r -> boardRepository.findProjectMemberByBoardIdAndMemberId(r.getId(), member.getId()).isEmpty())
+                .filter(r -> boardRepository.findRecruitMemberByPostIdAndMemberId(r.getId(), member.getId()).isEmpty())
                 .filter(r -> r.getRequiredMemberLevel() <= member.getMemberAbility().getMemberLevel())
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<Recruitment> readProgressProjectByPage(Integer page, Long memberId) {
-        Integer lastProject = page * 10;
-        List<Recruitment> recruitments = boardRepository.findProjectMemberByMemberId(memberId).stream()
-                .map(r -> r.getRecruitment())
-                .collect(Collectors.toList());
-        if (recruitments.size() < lastProject) {
-            lastProject = recruitments.size();
-        }
-        return recruitments.subList(page * 10 - 10, lastProject);
-    }
-
-    @Override
-    public Integer findLastProgressProjectPage(Long memberId) {
-        Long projectCount = boardRepository.findProjectMemberByMemberId(memberId).stream()
-                .count();
-        if (projectCount == 0L) {
-            projectCount = 1L;
-        }
-        Long lastPage = projectCount / 10L;
-        if (projectCount % 10L == 0L) {
-            return lastPage.intValue();
-        }
-        return lastPage.intValue() + 1;
-    }
-
-    @Override
-    public List<Member> findProjectMembersByBoardId(Long boardId) {
-        return boardRepository.findProjectMemberByBoardId(boardId).stream()
+    public List<Member> findRecruitMembersByPostId(Long postId) {
+        return boardRepository.findRecruitMembersByPostId(postId).stream()
                 .map(pm -> pm.getMember())
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Boolean checkProjectMemberByBoardIdAndMemberLoginId(Long boardId, String loginId) {
-        return boardRepository.findProjectMemberByBoardIdAndMemberLoginId(boardId, loginId).isPresent();
+    public Boolean checkRecruitMemberByPostIdAndMemberLoginId(Long postId, String loginId) {
+        return boardRepository.findRecruitMemberByPostIdAndMemberLoginId(postId, loginId).isPresent();
     }
 
     @Override
-    public Recruitment endRecruit(Long boardId) {
-        Optional<Recruitment> post = boardRepository.findRecruitPostById(boardId);
+    public void deleteRecruitMembersByPostId(Long recruitmentId) {
+        boardRepository.findRecruitMembersByPostId(recruitmentId).stream()
+                .forEach(recruitMember -> boardRepository.deleteRecruitMember(recruitMember));
+    }
+
+    @Override
+    public Recruitment endRecruit(Long postId) {
+        Optional<Recruitment> post = boardRepository.findRecruitPostById(postId);
         if (post.isEmpty()) {
-            return null;
+            throw new PostException(ErrorType.POST_NOT_EXISTS);
         }
         return boardRepository.setDeadlineStatusToTrue(post.get());
     }
 
     @Override
-    public Recruitment restartRecruit(Long boardId) {
-        Optional<Recruitment> post = boardRepository.findRecruitPostById(boardId);
+    public Recruitment restartRecruit(Long postId) {
+        Optional<Recruitment> post = boardRepository.findRecruitPostById(postId);
         if (post.isEmpty()) {
-            return null;
+            throw new PostException(ErrorType.POST_NOT_EXISTS);
         }
         return boardRepository.setDeadlineStatusToFalse(post.get());
     }
 
     @Override
-    public ProjectMember applyRecruit(Long boardId, Long memberId) {
-        Optional<Recruitment> post = boardRepository.findRecruitPostById(boardId);
+    public RecruitMember applyRecruit(Long postId, Long memberId) {
+        Optional<Recruitment> post = boardRepository.findRecruitPostById(postId);
         Optional<Member> member = memberRepository.findById(memberId);
-        if (post.isEmpty() || member.isEmpty()) {
-            return null;
+        if (post.isEmpty()) {
+            throw new PostException(ErrorType.POST_NOT_EXISTS);
         }
-
-        Optional<ProjectMember> foundProjectMember = boardRepository.findProjectMemberByBoardIdAndMemberId(boardId, memberId);
-        if (foundProjectMember.isPresent()) {
-            return foundProjectMember.get();
+        if (member.isEmpty()) {
+            throw new AccountException(ErrorType.USER_NOT_EXISTS);
         }
-
-        ProjectMember projectMember = boardRepository.saveProjectMember(post.get(), member.get());
         if (post.get().getMemberTally() == post.get().getMemberTotal()) {
-            endRecruit(boardId);
+            throw new IllegalArgumentException("이미 인원이 다 찼습니다.");
         }
-        return projectMember;
+        Optional<RecruitMember> foundProjectMember = boardRepository.findRecruitMemberByPostIdAndMemberId(postId, memberId);
+        if (foundProjectMember.isPresent()) {
+            throw new IllegalArgumentException("이미 신청했습니다.");
+        }
+
+        RecruitMember recruitMember = boardRepository.saveRecruitMember(post.get(), member.get());
+        if (post.get().getMemberTally() == post.get().getMemberTotal()) {
+            endRecruit(postId);
+        }
+        return recruitMember;
     }
 
     @Override
-    public Boolean checkApplyStatus(Long boardId, Long memberId) {
-        Optional<ProjectMember> projectMember = boardRepository.findProjectMemberByBoardIdAndMemberId(boardId, memberId);
-        if (projectMember.isEmpty()) {
-            return false;
-        }
-        return true;
+    public Post countView(Post post) {
+        return boardRepository.upView(post);
     }
 
     @Override
-    public Boolean checkClosingRecruit(Recruitment recruitment) {
-        if (recruitment.getMemberTally() >= recruitment.getMemberTotal()) {
-            boardRepository.setDeadlineStatusToTrue(recruitment);
-            return true;
+    public PostStar countStar(Post post, Member member) {
+        Optional<PostStar> boardStar = postStarRepository.findByPostIdAndMemberId(post.getId(), member.getId());
+
+        if (boardStar.isEmpty()) {
+            return postStarRepository.upStar(post, member);
         }
-        return false;
+        postStarRepository.downStar(post, member);
+        return null;
     }
 
     @Override
-    public Recruitment updateProjectSubjectAndPreview(ProgressProjectSaveForm progressProjectSaveForm, Long boardId) {
-        Optional<Recruitment> post = boardRepository.findRecruitPostById(boardId);
-        if (post.isEmpty()) {
-            return null;
+    public PostScrap countScrap(Post post, Member member) {
+        Optional<PostScrap> boardScrap = postScrapRepository.findByPostIdAndMemberId(post.getId(), member.getId());
+        if (boardScrap.isEmpty()) {
+            return postScrapRepository.upScrap(post, member);
         }
-        return boardRepository.modifySubjectAndPreview(post.get(), progressProjectSaveForm);
+        postScrapRepository.downScrap(post, member);
+        return null;
     }
 
     @Override
-    public ProjectPlan createProjectPlan(ProgressProjectSaveForm progressProjectSaveForm, Long boardId) {
-        Optional<Recruitment> post = boardRepository.findRecruitPostById(boardId);
-        if (post.isEmpty()) {
-            return null;
-        }
-        return boardRepository.saveProjectPlan(progressProjectSaveForm.toProjectPlan(post.get()));
-    }
-
-    @Override
-    public ProjectRule createProjectRule(ProgressProjectSaveForm progressProjectSaveForm, Long boardId) {
-        Optional<Recruitment> post = boardRepository.findRecruitPostById(boardId);
-        if (post.isEmpty()) {
-            return null;
-        }
-        return boardRepository.saveProjectRule(progressProjectSaveForm.toProjectRule(post.get()));
+    public List<PostScrap> findScrapsByMemberId(Long memberId) {
+        return postScrapRepository.findByMemberId(memberId);
     }
 }

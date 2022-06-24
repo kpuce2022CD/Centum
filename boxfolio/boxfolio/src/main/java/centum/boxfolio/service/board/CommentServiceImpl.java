@@ -1,10 +1,6 @@
 package centum.boxfolio.service.board;
 
-import centum.boxfolio.controller.board.BoardCommentSaveForm;
-import centum.boxfolio.entity.board.Board;
-import centum.boxfolio.entity.board.BoardComment;
-import centum.boxfolio.entity.member.Member;
-import centum.boxfolio.repository.board.BoardRepository;
+import centum.boxfolio.entity.board.PostComment;
 import centum.boxfolio.repository.board.CommentRepository;
 import centum.boxfolio.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,44 +13,44 @@ import java.util.Optional;
 @Service
 public class CommentServiceImpl implements CommentService{
 
-    private final BoardRepository boardRepository;
-    private final MemberRepository memberRepository;
     private final CommentRepository commentRepository;
 
     @Override
-    public BoardComment createComment(BoardCommentSaveForm boardCommentSaveForm, Long boardId, Long memberId) {
-        Optional<Board> board = boardRepository.findGeneralPostById(boardId);
-        Optional<Member> member = memberRepository.findById(memberId);
-        return commentRepository.save(boardCommentSaveForm.toBoardComment(0, 0L, null, board.get(), member.get()));
+    public PostComment saveComment(PostComment postComment) {
+        return commentRepository.save(postComment);
     }
 
     @Override
-    public List<BoardComment> findAll() {
+    public List<PostComment> findAll() {
         return commentRepository.findAll();
     }
 
     @Override
-    public List<BoardComment> findByBoardId(Long boardId) {
-        return commentRepository.findCommentsByBoardId(boardId);
-    }
-
-    @Override
-    public void deleteComment(Long commentId) {
-        commentRepository.remove(commentRepository.findById(commentId).get());
-    }
-
-    @Override
-    public BoardComment createReply(BoardCommentSaveForm boardCommentSaveForm, Long commentId, Long memberId) {
-        Optional<BoardComment> comment = commentRepository.findById(commentId);
-        Optional<Member> member = memberRepository.findById(memberId);
-
-        if (comment.isEmpty() || member.isEmpty()) {
-            return null;
+    public PostComment findById(Long id) {
+        Optional<PostComment> postComment = commentRepository.findById(id);
+        if (postComment.isEmpty()) {
+            throw new IllegalArgumentException("존재하지 않는 댓글입니다.");
         }
+        return postComment.get();
+    }
 
-        Long groupNum = comment.get().getGroupNum();
-        Board board = comment.get().getBoard();
-        Long maxOrderInGroupNum = commentRepository.findMaxOrderInGroupNum(groupNum);
-        return commentRepository.save(boardCommentSaveForm.toBoardComment(1, maxOrderInGroupNum + 1, groupNum, comment.get(), board, member.get()));
+    @Override
+    public List<PostComment> findByPostId(Long PostId) {
+        return commentRepository.findCommentsByPostId(PostId);
+    }
+
+    @Override
+    public List<PostComment> findByMemberId(Long memberId) {
+        return commentRepository.findCommentsByMemberId(memberId);
+    }
+
+    @Override
+    public void deleteComment(PostComment postComment) {
+        commentRepository.delete(postComment);
+    }
+
+    @Override
+    public Long findMaxOrderInParentComment(PostComment postComment) {
+        return commentRepository.findMaxOrderInGroupNum(postComment.getGroupNum());
     }
 }

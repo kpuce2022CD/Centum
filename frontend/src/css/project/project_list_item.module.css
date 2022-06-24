@@ -1,0 +1,48 @@
+.project-card-form:hover {
+    cursor: pointer;
+}
+
+.project_item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    box-shadow: 5px 5px 10px 0px #56a3;
+    height: 180px;
+    width: 240px;
+}
+
+.project_item:hover {
+    cursor: pointer;
+    transition: transform 0.5s;
+    transform: translateY(-2px);
+}
+
+.project_info {
+    padding: 5px 10px;
+}
+
+.project_title {
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0;
+}
+
+.project_repository_area {
+    color: #555;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.project_field_area {
+    color: #56a;
+    font-size: 12px;
+    padding: 10px 0;
+}
+
+.project_updated {
+    font-size: 14px;
+}

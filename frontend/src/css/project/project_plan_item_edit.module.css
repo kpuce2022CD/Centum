@@ -1,0 +1,59 @@
+.plan_area {
+    margin: 10px 0;
+    display: flex;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    padding: 10px 0;
+    margin: 20px 0 !important;
+}
+
+.plan_area > div {
+    flex-grow: 1;
+}
+
+.plan_area > div > div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 0 10px 0;
+}
+
+.plan_area textarea {
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 10px;
+}
+
+.plan_order {
+    width: 44px;
+    margin: 0 30px 0 0;
+    text-align: center;
+}
+
+.plan_start_date,
+.plan_end_date {
+    margin: 0 30px 0 15px;
+    width: 160px;
+    border-radius: 2px;
+    padding: 10px 0;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+}
+
+.plan_contents {
+    width: 100%;
+}
+
+.plan_save_btn {
+    background-color: #aaf;
+    padding: 10px;
+    border-radius: 3px;
+    margin: 0 0 0 10px;
+    transition-duration: 0.2s;
+}
+
+.plan_save_btn:hover {
+    cursor: pointer;
+    background-color: #55f;
+}

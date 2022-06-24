@@ -31,6 +31,11 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
+    public List<Member> findAll() {
+        return em.createQuery("select m from Member m", Member.class).getResultList();
+    }
+
+    @Override
     public Optional<Member> findById(Long id) {
         Member member = em.find(Member.class, id);
         return Optional.ofNullable(member);
@@ -44,16 +49,6 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public List<Member> findAll() {
-        return em.createQuery("select m from Member m", Member.class).getResultList();
-    }
-
-    @Override
-    public void verifyEmail(Member member) {
-        member.setEmailVerified(1);
-    }
-
-    @Override
     public List<Member> findByNickname(String nickname) {
         String jpql = "SELECT m FROM Member AS m WHERE m.nickname LIKE :nickname";
         TypedQuery<Member> query = em.createQuery(jpql, Member.class);
@@ -61,5 +56,28 @@ public class MemberRepositoryImpl implements MemberRepository {
         query.setParameter("nickname", "%" + nickname + "%");
 
         return query.getResultList();
+    }
+
+    @Override
+    public Member update(Member member, Member changedMember) {
+        member.setModifiableMember(changedMember.getPasswd(), changedMember.getRealName(), changedMember.getNickname(), changedMember.getPhone(),
+                changedMember.getBirth(), changedMember.getSex(), changedMember.getGithubId(), changedMember.getInterestField(), changedMember.getPersonalToken());
+        return member;
+    }
+
+    @Override
+    public void delete(Member member) {
+        em.remove(member);
+    }
+
+    @Override
+    public void verifyEmail(Member member) {
+        member.setEmailVerified(true);
+    }
+
+    @Override
+    public Member updatePersonalToken(Member member, String personalToken) {
+        member.setPersonalToken(personalToken);
+        return member;
     }
 }

@@ -12,7 +12,7 @@ const Login = () => {
         passwd: "",
         token: localStorage.getItem("token") || '',
         hasLoginFailed: false,
-        showSuccessMessage: false
+        notAuthenticatedUser: false
     })
 
     const inputOnChange = (e) => {
@@ -27,19 +27,28 @@ const Login = () => {
         setLoading(true);
         AuthenticationService
             .executeJwtAuthentication(loginInfo.loginId, loginInfo.passwd).then(response => {
-                const nextLoginInfo = {
-                    ...loginInfo,
-                    token: response.data.data.token
-                };
-                console.log(response.data.data.token);
-                setLoginInfo(nextLoginInfo);
-                AuthenticationService.registerSuccessfulLoginForJwt(loginInfo.loginId, response.data.data.token);
-                location.search === "" ? navigate('/') : navigate(location.search.split('=')[1])
+                if (response.data.data.loginResult.emailVerified === true) {
+                    const nextLoginInfo = {
+                        ...loginInfo,
+                        token: response.data.data.loginResult.token
+                    };
+                    console.log(response.data.data.loginResult);
+                    setLoginInfo(nextLoginInfo);
+                    AuthenticationService.registerSuccessfulLoginForJwt(loginInfo.loginId, response.data.data.loginResult.token);
+                    location.search === "" ? navigate('/') : navigate(location.search.split('=')[1])
+                } else {
+                    const nextLoginInfo = {
+                        ...loginInfo,
+                        hasLoginFailed: true,
+                        notAuthenticatedUser: true
+                    };
+                    setLoginInfo(nextLoginInfo);
+                }
             }).catch(() => {
                 const nextLoginInfo = {
                     ...loginInfo,
                     hasLoginFailed: true,
-                    showSuccessMessage: false
+                    notAuthenticatedUser: false
                 };
                 setLoginInfo(nextLoginInfo);
             })
@@ -77,8 +86,11 @@ const Login = () => {
                         <div className={style.auto_login_area}>
                             <label><input type="checkbox" /> 로그인 상태 유지</label>
                         </div>
-                        {loginInfo.hasLoginFailed && <div className={style.error_msg_area} >
+                        {loginInfo.hasLoginFailed && !loginInfo.notAuthenticatedUser && <div className={style.error_msg_area} >
                             아이디 또는 비밀번호가 맞지 않습니다.
+                        </div>}
+                        {loginInfo.hasLoginFailed && loginInfo.notAuthenticatedUser && <div className={style.error_msg_area} >
+                            인증 대기 중인 회원입니다.
                         </div>}
                         <div className={style.login_area}>
                             <button className={style.login_btn} onClick={() => login()}>로그인</button>
@@ -91,7 +103,7 @@ const Login = () => {
                                 <Link to="#">비밀번호 찾기</Link>
                             </li>
                             <li>
-                                <Link to="../member/signup.html">회원가입</Link>
+                                <Link to="/signup/terms">회원가입</Link>
                             </li>
                         </ul>
                     </div>

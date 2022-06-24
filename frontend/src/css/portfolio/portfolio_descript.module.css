@@ -6,10 +6,7 @@
 }
 
 .descript {
-    width: 100%;
-}
-
-.descript input {
+    background-color: #fff;
     border-radius: 5px;
     width: 100%;
     padding: 10px;

@@ -1,8 +1,7 @@
 package centum.boxfolio.entity.skill;
 
-import centum.boxfolio.entity.member.Member;
 import centum.boxfolio.entity.member.MemberSkill;
-import centum.boxfolio.entity.portfolio.ProjectSkill;
+import centum.boxfolio.entity.project.ProjectSkill;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

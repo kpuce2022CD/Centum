@@ -1,30 +1,35 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import style from '../../css/portfolio/portfolio_edit.module.css';
-import PortfolioDescript from './PortfolioDescript';
+import instance from '../security/Interceptor';
+import PortfolioDescriptEdit from './PortfolioDescriptEdit';
 import PortfolioEditAccess from './PortfolioEditAccess';
-import PortfolioGit from './PortfolioGit';
-import PortfolioImage from './PortfolioImage';
-import PortfolioVideo from './PortfolioVideo';
-import PortfolioYoutube from './PortfolioYoutube';
+import PortfolioGitEdit from './PortfolioGitEdit';
+import PortfolioImageEdit from './PortfolioImageEdit';
+import PortfolioVideoEdit from './PortfolioVideoEdit';
+import PortfolioYoutubeEdit from './PortfolioYoutubeEdit';
 
 const PortfolioEdit = (props) => {
     const { id } = useParams();
     const { process } = props;
     const [currentOrder, setCurrentOrder] = useState(0);
     const [rows, setRows] = useState([]);
-    const [isPublic, setIsPublic] = useState(true);
-    const [portfolio, setPortfolio] = useState({});
+    const [portfolio, setPortfolio] = useState({
+        title: "",
+        visibility: true
+    });
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchPortfolio = async () => {
             setLoading(true);
             try {
-                await axios.get('/api/portfolio/' + id).then(response => {
+                await instance.get('/api/portfolios/' + id).then(response => {
                     setPortfolio(response.data.data.portfolio);
-                    setIsPublic(response.data.data.portfolio.visibility);
+                    setRows(response.data.data.portfolio.portfolioRows);
+                    setCurrentOrder(response.data.data.portfolio.portfolioRows[response.data.data.portfolio.portfolioRows.length - 1].rowOrder);
                 })
             } catch (e) {
                 console.log(e);
@@ -42,32 +47,55 @@ const PortfolioEdit = (props) => {
 
     useEffect(() => {
         console.log(rows);
+        const nextPortfolio = {
+            ...portfolio,
+            portfolioRows: rows
+        };
+        setPortfolio(nextPortfolio);
     }, [rows]);
 
     useEffect(() => {
-        console.log(currentOrder);
+        console.log('currentOrder: ' + currentOrder);
     }, [currentOrder]);
 
-    useEffect(() => {
+    const postPortfolio = async () => {
+        setLoading(true);
+        try {
+            await instance.post('/api/portfolios', portfolio).then(response => {
+                console.log(response.data.data.portfolio);
+                navigate('/portfolios/' + response.data.data.portfolio.id);
+            });
+        } catch (e) {
+            console.log(e);
+        }
+        setLoading(false);
+    }
 
-    });
-
-    const deleteRow = async (index) => {
-        let nextRows = await rows.filter(row => row.index !== index);
+    const deleteRow = async (rowOrder) => {
+        let nextRows = await rows.filter(row => row.rowOrder !== rowOrder);
         setRows(nextRows.map((row, index) => {
             return {
                 ...row,
-                index: index + 1
+                rowOrder: index + 1
             };
         }))
         setCurrentOrder(currentOrder - 1);
     };
 
+    const setTitle = (e) => {
+        const nextPortfolio = {
+            ...portfolio,
+            title: e.target.value
+        };
+        setPortfolio(nextPortfolio);
+    }
+
     const setDescript = (e, currentRow) => {
         setRows(rows.map(row => 
-            row.index === currentRow.index ? {
+            row.rowOrder === currentRow.rowOrder ? {
                 ...row,
-                descript: e.target.value
+                saveType: "text",
+                contents: e.target.value
             } : {
                 ...row
             }
@@ -76,9 +104,10 @@ const PortfolioEdit = (props) => {
 
     const setImage = (e, currentRow, imageUrl) => {
          setRows(rows.map(row => 
-            row.index === currentRow.index ? {
+            row.rowOrder === currentRow.rowOrder ? {
                 ...row,
-                url: imageUrl
+                saveType: "url",
+                contents: imageUrl
             } : {
                 ...row
             }
@@ -87,9 +116,10 @@ const PortfolioEdit = (props) => {
 
     const setVideo = (e, currentRow, videoUrl) => {
          setRows(rows.map(row => 
-            row.index === currentRow.index ? {
+            row.rowOrder === currentRow.rowOrder ? {
                 ...row,
-                url: videoUrl
+                saveType: "url",
+                contents: videoUrl
             } : {
                 ...row
             }
@@ -98,9 +128,10 @@ const PortfolioEdit = (props) => {
 
     const setYoutube = (e, currentRow, youtubeUrl) => {
          setRows(rows.map(row => 
-            row.index === currentRow.index ? {
+            row.rowOrder === currentRow.rowOrder ? {
                 ...row,
-                url: youtubeUrl
+                saveType: "url",
+                contents: youtubeUrl
             } : {
                 ...row
             }
@@ -109,17 +140,30 @@ const PortfolioEdit = (props) => {
 
     const setGit = (e, currentRow) => {
         setRows(rows.map(row => 
-            row.index === currentRow.index ? {
+            row.rowOrder === currentRow.rowOrder ? {
                 ...row,
-                url: e.target.value
+                saveType: "url",
+                contents: e.target.value
             } : {
                 ...row
             }
         ))
     }
 
+    const setVisibility = (isPublic) => {
+        const nextPortfolio = {
+            ...portfolio,
+            visibility: isPublic
+        };
+        setPortfolio(nextPortfolio);
+    };
+
 
     if (loading) {
+        return null;
+    }
+
+    if (process === "modify" && !portfolio) {
         return null;
     }
 
@@ -129,21 +173,21 @@ const PortfolioEdit = (props) => {
                 <div className={style.main_container}>
                     <div className={style.edit_area}>
                         <label className={style.portfolio_title}>
-                            <input type="text" size="100" placeholder="제목을 입력하세요" />
+                            <input type="text" size="100" placeholder="제목을 입력하세요" onChange={setTitle} defaultValue={portfolio.title} />
                         </label>
                         <div className={style.portfolio_box}>
                             {
                                 rows.map(row => {
-                                    if (row.category === "descript") {
-                                        return (<PortfolioDescript key={row.index} row={row} setDescript={setDescript} deleteRow={deleteRow}/>)
-                                    } else if (row.category === "image") {
-                                        return (<PortfolioImage key={row.index} row={row} setImage={setImage} deleteRow={deleteRow}/>)
-                                    } else if (row.category === "video") {
-                                        return (<PortfolioVideo key={row.index} row={row} setVideo={setVideo} deleteRow={deleteRow}/>)
-                                    } else if (row.category === "youtube") {
-                                        return (<PortfolioYoutube key={row.index} row={row} setYoutube={setYoutube} deleteRow={deleteRow}/>)
-                                    } else if (row.category === "git") {
-                                        return (<PortfolioGit key={row.index} row={row} setGit={setGit} deleteRow={deleteRow}/>)
+                                    if (row.rowType === "descript") {
+                                        return (<PortfolioDescriptEdit key={row.rowOrder} row={row} setDescript={setDescript} deleteRow={deleteRow} process={process} />)
+                                    } else if (row.rowType === "image") {
+                                        return (<PortfolioImageEdit key={row.rowOrder} row={row} setImage={setImage} deleteRow={deleteRow} process={process} />)
+                                    } else if (row.rowType === "video") {
+                                        return (<PortfolioVideoEdit key={row.rowOrder} row={row} setVideo={setVideo} deleteRow={deleteRow} process={process} />)
+                                    } else if (row.rowType === "youtube") {
+                                        return (<PortfolioYoutubeEdit key={row.rowOrder} row={row} setYoutube={setYoutube} deleteRow={deleteRow} process={process} />)
+                                    } else if (row.rowType === "github") {
+                                        return (<PortfolioGitEdit key={row.rowOrder} row={row} setGit={setGit} deleteRow={deleteRow} process={process} />)
                                     } else {
                                         return null
                                     }
@@ -151,7 +195,7 @@ const PortfolioEdit = (props) => {
                             }
                         </div>
                     </div>
-                    <PortfolioEditAccess rows={rows} setRows={setRows} currentOrder={currentOrder} setCurrentOrder={setCurrentOrder} isPublic={isPublic} setIsPublic={setIsPublic} />
+                    <PortfolioEditAccess rows={rows} setRows={setRows} currentOrder={currentOrder} setCurrentOrder={setCurrentOrder} visibility={portfolio.visibility} setVisibility={setVisibility} postPortfolio={postPortfolio} />
                 </div>
             </div>
         </section>

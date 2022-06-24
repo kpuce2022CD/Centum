@@ -29,7 +29,7 @@
 }
 
 .descript {
-    border: 1px solid #78a;
+    border: 1px solid #78c;
     width: 1000px;
     text-align: center;
     padding: 20px 100px;
@@ -48,9 +48,9 @@
 }
 
 .access_area button {
-    background-color: #78a;
-    border-radius: 5px;
-    color: #000;
+    background-color: #78c;
+    border-radius: 2px;
+    color: #fff;
     margin: 0 5px;
     padding: 10px 30px;
 }
@@ -61,18 +61,16 @@
 }
 
 .home_button:hover {
-    color: #fff;
-    background-color: #aaa;
+    background-color: #faa;
     cursor: pointer;
 }
 
 .login_button {
-    background-color: #78a;
+    background-color: #78c;
     transition-duration: 0.5s;
 }
 
 .login_button:hover {
-    color: #fff;
-    background-color: #56c;
+    background-color: #aaf;
     cursor: pointer;
 }

@@ -1,13 +1,23 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const MatchingListItem = () => {
+const MatchingListItem = (props) => {
+    const { post, index } = props;
+    const navigate = useNavigate();
+
     return (
-        <tr>
-            <th>1</th>
-            <th>기록 관리 애플리케이션</th>
-            <th>하</th>
-            {/* <th>중</th>
-            <th>상</th> */}
+        <tr onClick={() => navigate('/board/recruit/' + post.id)}>
+            <th>{index}</th>
+            <th>{post.projectSubject}</th>
+            <th>
+                {
+                    {
+                        1: "하",
+                        2: "중",
+                        3: "상"
+                    }[post.projectLevel]
+                }
+            </th>
         </tr>
     );
 };

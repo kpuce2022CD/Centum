@@ -60,10 +60,6 @@ header::before {
     overflow: hidden;
 }
 
-.start_btn:hover {
-    background-position: right center;
-}
-
 .start_btn::before {
     content: "";
     position: absolute;

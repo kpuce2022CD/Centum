@@ -16,11 +16,21 @@ public class ControllerAdvice {
 
     @ExceptionHandler(AccountException.class)
     public Response accountExceptionHandle(AccountException e) {
+        log.info("accountException: {}", e.getErrorType());
         return responseService.getFailResult(e.getErrorType());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public Response IllegalArgumentExceptionHandle(IllegalArgumentException e) {
+        log.info("IllegalArgumentException: {}", e.getMessage());
+        e.printStackTrace();
+        return responseService.getFailResultByMessage(e.getMessage());
     }
 
     @ExceptionHandler
     public Response generalExceptionHandle(Exception e) {
+        log.info("generalException: {}", e.getMessage());
+        e.printStackTrace();
         return responseService.getFailResultByMessage(e.getMessage());
     }
 }

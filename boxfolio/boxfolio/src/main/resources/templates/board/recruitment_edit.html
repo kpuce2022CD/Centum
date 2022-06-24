@@ -59,7 +59,7 @@
     </header>
     <section class="main">
         <div class="wrap">
-            <form id="board-form" action="" th:action th:object="${recruitBoardSaveForm}" method="post">
+            <form id="board-form" action="" th:action th:object="${recruitBoardSaveForm}" method="board">
                 <div class="notice-title-container">
                     <h2 class="notice-title">게시글 작성</h2>
                     </ul>
@@ -260,5 +260,5 @@
 </body>
 <script src="../../static/js/common.js" th:src="@{/js/common.js}"></script>
 <script src="../../static/js/board/editor.js" th:src="@{/js/board/editor.js}"></script>
-<script src="../../static/js/board/contents_post.js" th:src="@{/js/board/contents_post.js}"></script>
+<script src="../../static/js/board/contents_board.js" th:src="@{/js/board/contents_board.js}"></script>
 </html>

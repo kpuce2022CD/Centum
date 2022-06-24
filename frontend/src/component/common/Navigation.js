@@ -22,15 +22,15 @@ const Navigation = (props) => {
                 <Link to="/portfolios">포트폴리오</Link>
                 <ul className={style.depth}>
                     <li>
-                        <Link to="/portfolios">목록보기</Link>
+                        <Link to="/portfolios">포트폴리오 목록</Link>
                     </li>
                 </ul>
             </li>
             <li>
-                <Link to="/project/upload">분석&관리</Link>
+                <Link to="/projects">분석&관리</Link>
                 <ul className={style.depth}>
                     <li>
-                        <Link to="/project/upload">프로젝트 분석</Link>
+                        <Link to="/projects">프로젝트 목록</Link>
                     </li>
                     <li>
                         <Link to="/project/view">분석 결과</Link>
