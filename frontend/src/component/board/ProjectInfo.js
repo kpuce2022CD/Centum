@@ -1,28 +1,44 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import style from '../../css/board/project_info.module.css';
 import AuthenticationService from '../security/AuthenticationService';
-import instance from '../security/Interceptor';
 
 const ProjectInfo = (props) => {
     const { post } = props;
-    const loginId = AuthenticationService.getLoggedInLoginId();
     const navigate = useNavigate();
+    const [member, setMember] = useState({});
     const [loading, setLoading] = useState(false);
     const [isRecruitMember, setIsRecruitMember] = useState(false);
-    
-    useEffect(() => {
-        const fetchProjectMember = async () => {
-            setLoading(true);
-            try {
-                await instance.get('/api/board/recruit/' + post.id + '/isRecruitMember').then(response => {
-                    setIsRecruitMember(response.data.data.isRecruitMember);
-                })
-            } catch (e) {
-                console.log(e);
-            }
-            setLoading(false);
+
+    const fetchProjectMember = async () => {
+        setLoading(true);
+        try {
+            await axios.get('/api/board/recruit/' + post.id + '/isRecruitMember').then(response => {
+                setIsRecruitMember(response.data.data.isRecruitMember);
+            })
+        } catch (e) {
+            console.log(e);
         }
+        setLoading(false);
+    };
+    
+    const fetchMemberData = () => {
+        setLoading(true);
+        try {
+            axios.get('/api/members/my').then(response => {
+                setMember(response.data.data.member);
+            }).catch(error => {
+                console.log(error.response);
+            })
+        } catch (e) {
+            console.log(e);
+        }
+        setLoading(false);
+    };
+
+    useEffect(() => {
+        fetchMemberData();
         fetchProjectMember();
     }, []);
 
@@ -33,7 +49,7 @@ const ProjectInfo = (props) => {
     const endRecruit = () => {
         setLoading(true);
         try {
-            instance.get('/api/board/recruit/' + post.id + '/end').then(response => {
+            axios.get('/api/board/recruit/' + post.id + '/end').then(response => {
                 console.log(response.data);
                 window.location.reload();
             })
@@ -41,12 +57,12 @@ const ProjectInfo = (props) => {
             console.log(e);
         }
         setLoading(false);
-    }
+    };
 
     const restartRecruit = () => {
         setLoading(true);
         try {
-            instance.get('/api/board/recruit/' + post.id + '/restart').then(response => {
+            axios.get('/api/board/recruit/' + post.id + '/restart').then(response => {
                 console.log(response.data);
                 window.location.reload();
             })
@@ -54,13 +70,13 @@ const ProjectInfo = (props) => {
             console.log(e);
         }
         setLoading(false);
-    }
+    };
 
     const completeRecruit = () => {
         if (window.confirm("프로젝트를 생성하면 게시글이 삭제됩니다. 생성하시겠습니까?")) {
             setLoading(true);
             try {
-                instance.get('/api/board/recruit/' + post.id + '/complete').then(response => {
+                axios.get('/api/board/recruit/' + post.id + '/complete').then(response => {
                     console.log(response.data);
                     navigate('/board/recruit');
                 })
@@ -69,7 +85,7 @@ const ProjectInfo = (props) => {
             }
             setLoading(false);
         }
-    }
+    };
 
     const applyRecruit = () => {
         if (post.memberTally === post.memberTotal) {
@@ -78,7 +94,7 @@ const ProjectInfo = (props) => {
         }
         setLoading(true);
         try {
-            instance.get('/api/board/recruit/' + post.id + '/apply').then(response => {
+            axios.get('/api/board/recruit/' + post.id + '/apply').then(response => {
                 console.log(response.data);
                 window.location.reload();
             })
@@ -86,7 +102,7 @@ const ProjectInfo = (props) => {
             console.log(e);
         }
         setLoading(false);
-    }
+    };
 
     if (loading) {
         return null;
@@ -156,15 +172,15 @@ const ProjectInfo = (props) => {
                 {
                     {
                         true: (<div>
-                            {loginId !== post.member.loginId && <p className={style.project_end_msg}>마감되었습니다.</p>}
-                            {loginId === post.member.loginId && <button className={style.project_restart_btn} onClick={() => restartRecruit()}>모집하기</button>}
-                            {loginId === post.member.loginId && <button className={style.project_complete_btn} onClick={() => completeRecruit()}>프로젝트 수행</button>}
+                            {member.loginId !== post.member.loginId && <p className={style.project_end_msg}>마감되었습니다.</p>}
+                            {member.loginId === post.member.loginId && <button className={style.project_restart_btn} onClick={() => restartRecruit()}>모집하기</button>}
+                            {member.loginId === post.member.loginId && <button className={style.project_complete_btn} onClick={() => completeRecruit()}>프로젝트 수행</button>}
                         </div>),
                         false: (<div>
-                            {(loginId !== post.member.loginId && post.memberTally !== post.memberTotal) && isRecruitMember && <p>신청이 완료되었습니다.</p>}
-                            {(loginId !== post.member.loginId && post.memberTally === post.memberTotal) && isRecruitMember && <p> 인원이 다 찼습니다.</p> }
-                            {(loginId !== post.member.loginId && post.memberTally !== post.memberTotal) && !isRecruitMember && <button onClick={() => applyRecruit()}>신청하기</button>}
-                            {loginId === post.member.loginId && <button onClick={() => endRecruit()}>마감하기</button>}
+                            {(member.loginId !== post.member.loginId && post.memberTally !== post.memberTotal) && isRecruitMember && <p>신청이 완료되었습니다.</p>}
+                            {(member.loginId !== post.member.loginId && post.memberTally === post.memberTotal) && isRecruitMember && <p> 인원이 다 찼습니다.</p> }
+                            {(member.loginId !== post.member.loginId && post.memberTally !== post.memberTotal) && !isRecruitMember && <button onClick={() => applyRecruit()}>신청하기</button>}
+                            {member.loginId === post.member.loginId && <button onClick={() => endRecruit()}>마감하기</button>}
                         </div>)
                     }[post.deadlineStatus]
                 }

@@ -4,7 +4,7 @@ import BoardItem from './BoardItem';
 import style from '../../css/board/board_list.module.css';
 import BoardTitle from './BoardTitle';
 import MatchingList from './MatchingList';
-import instance from '../security/Interceptor';
+import axios from 'axios';
 
 const Board = (props) => {
     const { category } = props;
@@ -17,8 +17,10 @@ const Board = (props) => {
         const fetchBoard = async () => {
             setLoading(true);
             try {
-                await instance.get('/api/board/' + category).then(response => {
-                    setBoard(response.data.data.posts);
+                await axios.get('/api/board/' + category).then(response => {
+                    if (response.data.success === 0) {
+                        setBoard(response.data.data.posts);
+                    }
                 })
             } catch (e) {
                 console.log(e);
@@ -28,8 +30,12 @@ const Board = (props) => {
         const fetchMemberData = () => {
             setLoading(true);
             try {
-                instance.get('/api/members/my').then(response => {
-                    setMember(response.data.data.member);
+                axios.get('/api/members/my').then(response => {
+                    if (response.data.success === 0) {
+                        setMember(response.data.data.member);
+                    }
+                }).catch(error => {
+                    
                 });
             } catch (e) {
                 console.log(e);

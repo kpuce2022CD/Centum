@@ -19,4 +19,5 @@ public interface MemberRepository {
     void delete(Member member);
     void verifyEmail(Member member);
     Member updatePersonalToken(Member member, String personalToken);
+    Member updateRefreshToken(Member member, String refreshToken);
 }

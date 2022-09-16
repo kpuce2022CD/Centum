@@ -80,4 +80,10 @@ public class MemberRepositoryImpl implements MemberRepository {
         member.setPersonalToken(personalToken);
         return member;
     }
+
+    @Override
+    public Member updateRefreshToken(Member member, String refreshToken) {
+        member.setRefreshToken(refreshToken);
+        return member;
+    }
 }

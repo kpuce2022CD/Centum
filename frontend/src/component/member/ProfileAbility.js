@@ -16,19 +16,23 @@ const ProfileAbility = () => {
     useEffect(() => {
         const fetchMemberAbilityData = () => {
             setLoading(true);
-            instance.get('/api/members/my/ability').then(response => {
-                setMemberAbility(response.data.data.memberAbility);
-            });
-            instance.get('/api/members/my/skills').then(response => {
-                setMemberSkills(response.data.data.memberSkills);
-            });
-            instance.get('/api/members/my/titles').then(response => {
-                setMemberTitles(response.data.data.memberTitles);
-            });
-            instance.get('/api/members/my/projects').then(response => {
-                setCompleteProjects(response.data.data.projects.filter(project => project.fromRepository === true));
-                setProgressProjects(response.data.data.projects.filter(project => project.fromRepository === false));
-            });
+            try {
+                instance.get('/api/members/my/ability').then(response => {
+                    setMemberAbility(response.data.data.memberAbility);
+                });
+                instance.get('/api/members/my/skills').then(response => {
+                    setMemberSkills(response.data.data.memberSkills);
+                });
+                instance.get('/api/members/my/titles').then(response => {
+                    setMemberTitles(response.data.data.memberTitles);
+                });
+                instance.get('/api/members/my/projects').then(response => {
+                    setCompleteProjects(response.data.data.projects.filter(project => project.fromRepository === true));
+                    setProgressProjects(response.data.data.projects.filter(project => project.fromRepository === false));
+                });
+            } catch (e) {
+                console.log(e);
+            }
             setLoading(false);
         };
         fetchMemberAbilityData();

@@ -1,5 +1,6 @@
 package centum.boxfolio.exception;
 
+import centum.boxfolio.entity.portfolio.Portfolio;
 import centum.boxfolio.response.Response;
 import centum.boxfolio.service.response.ResponseService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,20 @@ public class ControllerAdvice {
         return responseService.getFailResult(e.getErrorType());
     }
 
+    @ExceptionHandler(PostException.class)
+    public Response postExceptionHandle(PostException e) {
+        log.info("postException: {}", e.getErrorType());
+        return responseService.getFailResult(e.getErrorType());
+    }
+
+    @ExceptionHandler(PortfolioException.class)
+    public Response portfolioExceptionHandle(PortfolioException e) {
+        log.info("portfolioException: {}", e.getErrorType());
+        return responseService.getFailResult(e.getErrorType());
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
-    public Response IllegalArgumentExceptionHandle(IllegalArgumentException e) {
+    public Response illegalArgumentExceptionHandle(IllegalArgumentException e) {
         log.info("IllegalArgumentException: {}", e.getMessage());
         e.printStackTrace();
         return responseService.getFailResultByMessage(e.getMessage());

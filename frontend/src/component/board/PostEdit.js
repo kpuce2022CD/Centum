@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import style from '../../css/board/board_edit.module.css';
 import PostEditSetting from './PostEditSetting';
 import ProjectEdit from './ProjectEdit';
-import instance from '../security/Interceptor';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const PostEdit = (props) => {
     const { process } = props;
@@ -24,19 +24,39 @@ const PostEdit = (props) => {
         commentTally: 0
     });
     const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        setPostStatus(category);
+    
+    const fetchPostData = () => {
         setLoading(true);
-        if (process === "modify") {
-            instance.get('/api/board/' + category + '/' + id).then(response => {
+        axios.get('/api/board/' + category + '/' + id).then(response => {
+            if (response.data.success === 0) {
                 let { member, ...updatedPost } = response.data.data.post;
                 setPost(updatedPost);
                 contentsRef.current.innerHTML = response.data.data.post.contents;
                 setPostStatus(category);
-            });
-        }
+            } else {
+                navigate('/login?redirect=/board/' + category + '/' + id);
+            }
+        });
         setLoading(false);
+    }
+
+    const fetchMemberData = () => {
+        setLoading(true);
+        axios.get('/api/members/my').then(response => {
+            if (response.data.success === 0) {
+            }
+        }).catch(error => {
+            navigate('/login?redirect=/board/create', { state: { category: category } });
+        });
+        setLoading(false);
+    }
+
+    useEffect(() => {
+        setPostStatus(category);
+        if (process === "modify") {
+            fetchPostData();
+        }
+        fetchMemberData();
     }, []);
 
     useEffect(() => {
@@ -86,7 +106,7 @@ const PostEdit = (props) => {
     const postPostData = () => {
         setLoading(true);
         try {
-            instance.post('/api/board/' + category, post).then(response => {
+            axios.post('/api/board/' + category, post).then(response => {
                 console.log(response.data);
                 if (response.data.success === 0) {
                     navigate('/board/' + category + '/' + response.data.data.post.id);
@@ -102,7 +122,7 @@ const PostEdit = (props) => {
     const modifyPostData = () => {
         setLoading(true);
         try {
-            instance.put('/api/board/' + category + '/' + id, post).then(response => {
+            axios.put('/api/board/' + category + '/' + id, post).then(response => {
                 console.log(response.data);
                 if (response.data.success === 0) {
                     navigate('/board/' + category + '/' + response.data.data.post.id);

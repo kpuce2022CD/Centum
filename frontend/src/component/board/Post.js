@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import style from '../../css/board/board_detail.module.css';
 import PostComment from './PostComment';
 import PostCommentEdit from './PostCommentEdit';
@@ -11,6 +11,7 @@ import instance from '../security/Interceptor';
 const Post = (props) => {
     const { category } = props;
     const { id } = useParams();
+    const navigate = useNavigate();
     const [post, setPost] = useState(null);
     const [commentList, setCommentList] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -26,6 +27,8 @@ const Post = (props) => {
                             console.log(response.data);
                             setCommentList(response.data.data.comments);
                         });
+                    } else if (response.data.success === -1) {
+                        navigate('/login?redirect=/board/' + category + '/' + id);
                     }
                 })
             } catch (e) {

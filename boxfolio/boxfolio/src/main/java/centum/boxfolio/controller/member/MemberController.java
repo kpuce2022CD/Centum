@@ -32,16 +32,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.authentication.PasswordEncoderParser;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -58,7 +66,9 @@ public class MemberController {
     private final PortfolioService portfolioService;
     private final ResponseService responseService;
     private final ConfirmationTokenService confirmationTokenService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @GetMapping
     public Response<List<Member>> getMembers() {
@@ -81,6 +91,12 @@ public class MemberController {
         return responseService.getResult("member", convertMemberToMemberDto(memberService.modifyMember(member, changedMember)));
     }
 
+    @DeleteMapping("/my")
+    public Response deleteMember(Principal principal) {
+        memberService.delete(memberService.findByLoginId(principal.getName()));
+        return responseService.getSuccessResult();
+    }
+
     @GetMapping("/my/ability")
     public Response<MemberAbilityDto> getMemberAbility(Principal principal) {
         MemberAbility memberAbility = memberService.findByLoginId(principal.getName()).getMemberAbility();
@@ -101,6 +117,7 @@ public class MemberController {
         List<MemberSkill> memberSkills = memberService.findMemberSkillsByLoginId(principal.getName());
         List<MemberSkillDto> memberSkillDtos = memberSkills.stream()
                 .map(memberSkill -> MemberSkillDto.builder()
+                        .id(memberSkill.getId())
                         .skillName(memberSkill.getSkill().getSkillName())
                         .skillType(memberSkill.getSkill().getSkillType().getTypeName())
                         .quantity(memberSkill.getQuantity())
@@ -115,6 +132,7 @@ public class MemberController {
         List<MemberTitle> memberTitles = memberService.findMemberTitlesByLoginId(principal.getName());
         List<MemberTitleDto> memberTitleDtos = memberTitles.stream()
                 .map(memberTitle -> MemberTitleDto.builder()
+                        .id(memberTitle.getId())
                         .memberId(memberTitle.getMember().getId())
                         .titleName(memberTitle.getTitle().getTitleName())
                         .build())
@@ -180,6 +198,7 @@ public class MemberController {
                         .id(portfolioScrap.getId())
                         .portfolioId(portfolioScrap.getPortfolio().getId())
                         .portfolioTitle(portfolioScrap.getPortfolio().getTitle())
+                        .portfolioWriterNickname(portfolioScrap.getPortfolio().getMember().getNickname())
                         .memberId(portfolioScrap.getMember().getId())
                         .build())
                 .collect(Collectors.toList());
@@ -243,24 +262,40 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public Response<LoginResultDto> login(@RequestBody @Validated LoginDto loginDto) {
+    public Response<LoginResultDto> login(@RequestBody @Validated LoginDto loginDto, HttpServletResponse response) throws UnsupportedEncodingException {
         String loginId = loginDto.getLoginId();
         String passwd = loginDto.getPasswd();
 
         Member member = memberService.findByLoginId(loginId);
-        if (!member.getPasswd().equals(passwd)) {
+        if (!bCryptPasswordEncoder.matches(passwd, member.getPasswd())) {
             return responseService.getFailResult(ErrorType.PASSWORD_ERROR);
         }
 
         UserAuthentication userAuthentication = new UserAuthentication(loginId, passwd);
-        String token = JwtTokenProvider.generateToken(userAuthentication);
+        Map<String, String> tokens = jwtTokenProvider.generateTokenSet(userAuthentication.getName(), new HashMap<>());
+        String accessToken = tokens.get("accessToken");
+        String refreshToken = tokens.get("refreshToken");
 
-        LoginResultDto loginResultDto = LoginResultDto.builder()
-                .token(token)
-                .emailVerified(member.getEmailVerified())
-                .build();
+        Cookie cookie = new Cookie("token", "Bearer+" + accessToken);
+        cookie.setPath("/");
+        cookie.setMaxAge(60 * 60 * 24 * 1);
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
 
-        return responseService.getResult("loginResult", loginResultDto);
+        memberService.setRefreshToken(member, "Bearer+" + refreshToken);
+
+        return responseService.getSuccessResult();
+    }
+
+    @GetMapping("/logout")
+    public Response logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("token", null);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+
+        return responseService.getSuccessResult();
     }
 
     @PostMapping("/signup")
@@ -282,6 +317,7 @@ public class MemberController {
                 .emailVerified(false)
                 .personalToken("")
                 .build();
+        member.encryptPassword(bCryptPasswordEncoder);
         Member savedMember = memberService.signup(member);
         confirmationTokenService.createEmailConfirmationToken(savedMember.getId(), savedMember.getEmail());
         return responseService.getResult("member", savedMember);

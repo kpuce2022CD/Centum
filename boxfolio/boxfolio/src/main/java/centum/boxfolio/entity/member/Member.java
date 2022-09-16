@@ -11,6 +11,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -38,6 +39,7 @@ public class Member {
     private String progressField;
     private Boolean emailVerified;
     private String personalToken;
+    private String refreshToken;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -130,7 +132,7 @@ public class Member {
         this.personalToken = personalToken;
     }
 
-//    public void encryptPassword(PasswordEncoder passwordEncoder) {
-//        this.passwd = passwordEncoder.encode(passwd);
-//    }
+    public void encryptPassword(PasswordEncoder passwordEncoder) {
+        this.passwd = passwordEncoder.encode(passwd);
+    }
 }

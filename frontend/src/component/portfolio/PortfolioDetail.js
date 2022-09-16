@@ -7,10 +7,11 @@ import PortfolioImage from './PortfolioImage';
 import PortfolioVideo from './PortfolioVideo';
 import PortfolioYoutube from './PortfolioYoutube';
 import PortfolioGit from './PortfolioGit';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const PortfolioDetail = (props) => {
-    const { id } = props;
+const PortfolioDetail = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
     const [portfolio, setPortfolio] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -19,7 +20,11 @@ const PortfolioDetail = (props) => {
             setLoading(true);
             try {
                 await instance.get('/api/portfolios/' + id).then(response => {
-                    setPortfolio(response.data.data.portfolio);
+                    if (response.data.success === 0) {
+                        setPortfolio(response.data.data.portfolio);
+                    }
+                }).catch(error => {
+                    navigate('/login?redirect=/portfolios/' + id);
                 })
             } catch (e) {
                 console.log(e);

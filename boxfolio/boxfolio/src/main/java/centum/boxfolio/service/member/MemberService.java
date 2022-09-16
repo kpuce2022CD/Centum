@@ -23,4 +23,5 @@ public interface MemberService {
     List<MemberTitle> findMemberTitlesByLoginId(String loginId);
 
     Member setPersonalToken(Member member, String personalToken);
+    Member setRefreshToken(Member member, String refreshToken);
 }

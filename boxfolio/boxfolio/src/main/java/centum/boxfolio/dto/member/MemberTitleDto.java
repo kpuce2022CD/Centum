@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberTitleDto {
+    private Long id;
     private String titleName;
     private Long memberId;
 }

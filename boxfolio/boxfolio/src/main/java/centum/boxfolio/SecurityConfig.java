@@ -54,7 +54,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/api/members/login/**", "/api/members/signup/**", "/api/members/token/**", "/api/members/loginId/**").permitAll()
                 .antMatchers(HttpMethod.GET ,"/api/board/free", "/api/board/info", "/api/board/recruit").permitAll()
@@ -64,7 +63,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().disable().headers().frameOptions().disable();
+                .formLogin().disable().headers().frameOptions().disable()
+                .and()
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

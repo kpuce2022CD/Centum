@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import MemberDefaultImage from '../../image/member.png';
 import style from '../../css/member/profile.module.css';
 import instance from '../security/Interceptor';
 
 const Profile = (props) => {
     const { setEditStatus } = props;
+    const navigate = useNavigate();
     const [member, setMember] = useState({});
     const [memberAbility, setMemberAbility] = useState({});
     const [loading, setLoading] = useState(false);
@@ -15,10 +16,16 @@ const Profile = (props) => {
         const fetchMemberData = () => {
             setLoading(true);
             instance.get('/api/members/my').then(response => {
-                setMember(response.data.data.member);
+                if (response.data.success === 0) {
+                    setMember(response.data.data.member);
+                } else {
+                    navigate('/login?redirect=/profile');
+                }
             });
             instance.get('/api/members/my/ability').then(response => {
-                setMemberAbility(response.data.data.memberAbility);
+                if (response.data.success === 0) {
+                    setMemberAbility(response.data.data.memberAbility);
+                }
             });
             setLoading(false);
         };

@@ -21,10 +21,14 @@ const ProfileEdit = (props) => {
             setLoading(true);
             try {
                 instance.get('/api/members/my').then(response => {
-                    setMember(response.data.data.member);
+                    if (response.data.success === 0) {
+                        setMember(response.data.data.member);
+                    }
                 });
                 instance.get('/api/members/my/ability').then(response => {
-                    setMemberAbility(response.data.data.memberAbility);
+                    if (response.data.success === 0) {
+                        setMemberAbility(response.data.data.memberAbility);
+                    }
                 });
             } catch (e) {
                 console.log(e);
@@ -98,7 +102,19 @@ const ProfileEdit = (props) => {
                             <li className={style.member_field}>
                                 <div className={style.interest_field}>
                                     <h6>관심</h6>
-                                    <p>{member.interestField}</p>
+                                    <p>
+                                        <select value={member.interestField} name="interestField" onChange={memberOnChange}>
+                                            <option value="">관심 분야</option>
+                                            <option value="웹/프론트엔드">웹/프론트엔드</option>
+                                            <option value="웹/백엔드">웹/백엔드</option>
+                                            <option value="앱/안드로이드">앱/안드로이드</option>
+                                            <option value="앱/IOS">앱/IOS</option>
+                                            <option value="임베디드">임베디드</option>
+                                            <option value="IOT">IOT</option>
+                                            <option value="AI">AI</option>
+                                            <option value="보안">보안</option>
+                                        </select>
+                                    </p>
                                 </div>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <div className={style.progress_field}>

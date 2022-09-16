@@ -1,7 +1,7 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import style from '../../css/portfolio/portfolio_access.module.css';
-import instance from '../security/Interceptor';
 
 const PortfolioAccess = (props) => {
     const { searchParam, setSearchParam } = props;
@@ -11,8 +11,12 @@ const PortfolioAccess = (props) => {
     const fetchPortfolioData = () => {
         setLoading(true);
         try {
-            instance.get("/api/members/my/portfolio").then(response => {
-                setMyPortfolio(response.data.data.portfolio);
+            axios.get("/api/members/my/portfolio").then(response => {
+                console.log(response);
+                if (response.data.success === 0) {
+                    setMyPortfolio(response.data.data.portfolio);
+                }
+            }).catch(error => {
             })
         } catch (e) {
             console.log(e);

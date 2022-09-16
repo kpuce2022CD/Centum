@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MatchingListItem from './MatchingListItem';
 import style from '../../css/board/matching_list.module.css';
-import instance from '../security/Interceptor';
+import axios from 'axios';
 
 const MatchingList = (props) => {
     const { board } = props;
@@ -13,8 +13,10 @@ const MatchingList = (props) => {
         const fetchMemberData = () => {
             setLoading(true);
             try {
-                instance.get('/api/members/my/ability').then(response => {
+                axios.get('/api/members/my/ability').then(response => {
                     setMemberAbility(response.data.data.memberAbility);
+                }).catch(error => {
+
                 });
             } catch (e) {
                 console.log(e);
@@ -25,8 +27,6 @@ const MatchingList = (props) => {
     }, []);
 
     useEffect(() => {
-        console.log(memberAbility);
-        console.log(board);
     }, [memberAbility]);
 
     if (loading) {

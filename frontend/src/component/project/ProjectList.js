@@ -1,6 +1,6 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import style from '../../css/project/project_list.module.css';
-import instance from '../security/Interceptor';
 import ProjectListItem from './ProjectListItem';
 
 const ProjectList = () => {
@@ -11,9 +11,11 @@ const ProjectList = () => {
         const fetchProjectList = () => {
             setLoading(true);
             try {
-                instance.get('/api/projects').then(response => {
-                    setCompleteProjects(response.data.data.projects.filter(project => project.isCompleted === true));
-                    setProgressProjects(response.data.data.projects.filter(project => project.isCompleted === false));
+                axios.get('/api/projects').then(response => {
+                    if (response.data.success === 0) {
+                        setCompleteProjects(response.data.data.projects.filter(project => project.isCompleted === true));
+                        setProgressProjects(response.data.data.projects.filter(project => project.isCompleted === false));
+                    }
                 });
             } catch (e) {
                 console.log(e);

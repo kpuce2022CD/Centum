@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS member_ability(
 CREATE TABLE IF NOT EXISTS member(
 	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     login_id VARCHAR(20) NOT NULL,
-    passwd VARCHAR(30) NOT NULL,
+    passwd VARCHAR(100) NOT NULL,
     real_name VARCHAR(20) NOT NULL,
     nickname VARCHAR(10) NOT NULL,
     phone VARCHAR(20) NOT NULL,
@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS member(
     progress_field VARCHAR(20) NOT NULL DEFAULT "",
     email_verified TINYINT NOT NULL DEFAULT 0,
     personal_token VARCHAR(100) NOT NULL,
+    refresh_token VARCHAR(200) NULL,
     member_ability_id INT UNSIGNED NOT NULL,
     role VARCHAR(10) NOT NULL DEFAULT 'USER',
     FOREIGN KEY (member_ability_id) REFERENCES member_ability(id)

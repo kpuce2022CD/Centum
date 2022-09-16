@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import style from '../../css/project/project_edit.module.css';
 import instance from '../security/Interceptor';
 import ProjectMember from './ProjectMember';
@@ -9,7 +9,8 @@ import ProjectRuleItem from './ProjectRuleItem';
 import ProjectRuleItemEdit from './ProjectRuleItemEdit';
 
 const ProjectEdit = (props) => {
-    const { category, id } = props;
+    const { category } = props;
+    const { id } = useParams();
     const navigate = useNavigate();
     const projectTitleRef = useRef();
     const projectPreviewRef = useRef();
@@ -22,10 +23,14 @@ const ProjectEdit = (props) => {
         setLoading(true);
         try {
             instance.get('/api/projects/' + id).then(response => {
-                console.log(response.data.data.project);
-                setProject(response.data.data.project);
-                projectPreviewRef.current.innerHTML = response.data.data.project.projectPreview;
-                projectTitleRef.current.innerHTML = response.data.data.project.title;
+                if (response.data.success === 0) {
+                    console.log(response.data.data.project);
+                    setProject(response.data.data.project);
+                    projectPreviewRef.current.innerHTML = response.data.data.project.projectPreview;
+                    projectTitleRef.current.innerHTML = response.data.data.project.title;
+                } else {
+                    navigate('/login?redirect=/projects/' + category + '/modify/' + id);
+                }
             });
         } catch (e) {
             console.log(e);

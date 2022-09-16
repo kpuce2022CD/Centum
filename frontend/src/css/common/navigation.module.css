@@ -4,6 +4,7 @@
 
 .nav > li {
     position: relative;
+    font-size: 16px;
 }
 
 .nav > li > a {

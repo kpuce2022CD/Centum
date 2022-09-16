@@ -27,10 +27,14 @@ const PortfolioEdit = (props) => {
             setLoading(true);
             try {
                 await instance.get('/api/portfolios/' + id).then(response => {
-                    setPortfolio(response.data.data.portfolio);
-                    setRows(response.data.data.portfolio.portfolioRows);
-                    setCurrentOrder(response.data.data.portfolio.portfolioRows[response.data.data.portfolio.portfolioRows.length - 1].rowOrder);
-                })
+                    if (response.data.success === 0) {
+                        setPortfolio(response.data.data.portfolio);
+                        setRows(response.data.data.portfolio.portfolioRows);
+                        setCurrentOrder(response.data.data.portfolio.portfolioRows[response.data.data.portfolio.portfolioRows.length - 1].rowOrder);
+                    }
+                }).catch(error => {
+                    console.log(error.response);
+                });
             } catch (e) {
                 console.log(e);
             }

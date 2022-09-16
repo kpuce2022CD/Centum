@@ -32,9 +32,6 @@ const Navigation = (props) => {
                     <li>
                         <Link to="/projects">프로젝트 목록</Link>
                     </li>
-                    <li>
-                        <Link to="/project/view">분석 결과</Link>
-                    </li>
                 </ul>
             </li>
             <li>

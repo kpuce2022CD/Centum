@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import style from '../../css/member/login.module.css';
@@ -25,16 +26,12 @@ const Login = () => {
 
     const login = () => {
         setLoading(true);
-        AuthenticationService
-            .executeJwtAuthentication(loginInfo.loginId, loginInfo.passwd).then(response => {
-                if (response.data.data.loginResult.emailVerified === true) {
-                    const nextLoginInfo = {
-                        ...loginInfo,
-                        token: response.data.data.loginResult.token
-                    };
-                    console.log(response.data.data.loginResult);
-                    setLoginInfo(nextLoginInfo);
-                    AuthenticationService.registerSuccessfulLoginForJwt(loginInfo.loginId, response.data.data.loginResult.token);
+        axios.post("/api/members/login", {
+            loginId: loginInfo.loginId,
+            passwd: loginInfo.passwd
+        }).then(response => {
+                if (response.data.success === 0) {
+                    console.log(response.data);
                     location.search === "" ? navigate('/') : navigate(location.search.split('=')[1])
                 } else {
                     const nextLoginInfo = {

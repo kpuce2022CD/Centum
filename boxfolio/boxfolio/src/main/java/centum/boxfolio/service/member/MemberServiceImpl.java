@@ -107,6 +107,11 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.updatePersonalToken(member, personalToken);
     }
 
+    @Override
+    public Member setRefreshToken(Member member, String refreshToken) {
+        return memberRepository.updateRefreshToken(member, refreshToken);
+    }
+
     private void validateDuplicationMember(Member member) {
         memberRepository.findByLoginId(member.getLoginId())
                 .ifPresent(m -> {

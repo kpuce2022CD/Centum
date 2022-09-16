@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PortfolioAccess from './PortfolioAccess';
 import PortfolioListItem from './PortfolioListItem';
 import style from '../../css/portfolio/portfolio_list.module.css';
-import instance from '../security/Interceptor';
+import axios from 'axios';
 
 const PortfolioList = () => {
     const [member, setMember] = useState({});
@@ -17,8 +17,10 @@ const PortfolioList = () => {
     const fetchPortfolioList = () => {
         setLoading(true);
         try {
-            instance.get('/api/portfolios', { params: {type: searchParam.type, query: searchParam.query}}).then(response => {
-                setPortfolioList(response.data.data.portfolios);
+            axios.get('/api/portfolios', { params: {type: searchParam.type, query: searchParam.query}}).then(response => {
+                if (response.data.success === 0) {
+                    setPortfolioList(response.data.data.portfolios);
+                }
             });
         } catch (e) {
             console.log(e);
@@ -28,8 +30,10 @@ const PortfolioList = () => {
     const fetchBestPortfolioList = () => {
         setLoading(true);
         try {
-            instance.get('/api/portfolios/best').then(response => {
-                setBestPortfolioList(response.data.data.bestPortfolios);
+            axios.get('/api/portfolios/best').then(response => {
+                if (response.data.success === 0) {
+                    setBestPortfolioList(response.data.data.bestPortfolios);
+                }
             });
         } catch (e) {
             console.log(e);
@@ -39,9 +43,12 @@ const PortfolioList = () => {
     const fetchMemberData = () => {
         setLoading(true);
         try {
-            instance.get('/api/members/my').then(response => {
-                setMember(response.data.data.member);
-            });
+            axios.get('/api/members/my').then(response => {
+                if (response.data.success === 0) {
+                    setMember(response.data.data.member);
+                }
+            }).catch(error => {
+            })
         } catch (e) {
             console.log(e);
         }
@@ -54,7 +61,6 @@ const PortfolioList = () => {
     }, []);
 
     useEffect(() => {
-        console.log(searchParam);
         fetchPortfolioList();
     }, [searchParam]);
 
